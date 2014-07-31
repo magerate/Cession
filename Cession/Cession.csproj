@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D66E81CD-2D58-48CB-BC2B-9F6C3C3E59F6}</ProjectGuid>
+    <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Cession</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>Cession</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG;__MOBILE__;__IOS__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <MtouchLink>None</MtouchLink>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchDebug>true</MtouchDebug>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <DefineConstants>__MOBILE__;__IOS__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchLink>None</MtouchLink>
+    <ConsolePause>false</ConsolePause>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG;__MOBILE__;__IOS__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchDebug>true</MtouchDebug>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <DefineConstants>__MOBILE__;__IOS__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Ad-Hoc</OutputPath>
+    <DefineConstants>__MOBILE__;__IOS__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <BuildIpa>true</BuildIpa>
+    <CodesignProvision>Automatic:AdHoc</CodesignProvision>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\AppStore</OutputPath>
+    <DefineConstants>__MOBILE__;__IOS__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <CodesignProvision>Automatic:AppStore</CodesignProvision>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="monotouch" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Default-568h%402x.png" />
+    <BundleResource Include="Images\assignment-25.png" />
+    <BundleResource Include="Images\assignment-25%402x.png" />
+    <BundleResource Include="Images\bseam-25.png" />
+    <BundleResource Include="Images\bseam-25%402x.png" />
+    <BundleResource Include="Images\calculator-25.png" />
+    <BundleResource Include="Images\calculator-25%402x.png" />
+    <BundleResource Include="Images\checked-16.png" />
+    <BundleResource Include="Images\comment-25.png" />
+    <BundleResource Include="Images\comment-25%402x.png" />
+    <BundleResource Include="Images\context16.png" />
+    <BundleResource Include="Images\context16%402x.png" />
+    <BundleResource Include="Images\corner-50.png" />
+    <BundleResource Include="Images\cornerSelect-50.png" />
+    <BundleResource Include="Images\cube-25.png" />
+    <BundleResource Include="Images\cube-25%402x.png" />
+    <BundleResource Include="Images\customer-25.png" />
+    <BundleResource Include="Images\customer-25%402x.png" />
+    <BundleResource Include="Images\delete-25.png" />
+    <BundleResource Include="Images\delete-25%402x.png" />
+    <BundleResource Include="Images\delete.png" />
+    <BundleResource Include="Images\delete%402x.png" />
+    <BundleResource Include="Images\deletePressed.png" />
+    <BundleResource Include="Images\deletePressed%402x.png" />
+    <BundleResource Include="Images\diagram-25.png" />
+    <BundleResource Include="Images\diagram-25%402x.png" />
+    <BundleResource Include="Images\disto-50.png" />
+    <BundleResource Include="Images\distoSelect-50.png" />
+    <BundleResource Include="Images\door-50.png" />
+    <BundleResource Include="Images\down-25.png" />
+    <BundleResource Include="Images\down-25%402x.png" />
+    <BundleResource Include="Images\down4-25.png" />
+    <BundleResource Include="Images\down4-50.png" />
+    <BundleResource Include="Images\dragleft16.png" />
+    <BundleResource Include="Images\dragright16.png" />
+    <BundleResource Include="Images\dragup16.png" />
+    <BundleResource Include="Images\edit-25.png" />
+    <BundleResource Include="Images\edit-25%402x.png" />
+    <BundleResource Include="Images\elevation-25.png" />
+    <BundleResource Include="Images\elevation-25%402x.png" />
+    <BundleResource Include="Images\enter-50.png" />
+    <BundleResource Include="Images\eye-50.png" />
+    <BundleResource Include="Images\eyeSelect-50.png" />
+    <BundleResource Include="Images\filter.png" />
+    <BundleResource Include="Images\filter%402x.png" />
+    <BundleResource Include="Images\forward-50.png" />
+    <BundleResource Include="Images\gear-25.png" />
+    <BundleResource Include="Images\gear-25%402x.png" />
+    <BundleResource Include="Images\handwriting-25.png" />
+    <BundleResource Include="Images\handwriting-25%402x.png" />
+    <BundleResource Include="Images\help-25.png" />
+    <BundleResource Include="Images\help-25%402x.png" />
+    <BundleResource Include="Images\home-25.png" />
+    <BundleResource Include="Images\home-25%402x.png" />
+    <BundleResource Include="Images\info-25.png" />
+    <BundleResource Include="Images\info-25%402x.png" />
+    <BundleResource Include="Images\infoEmpty-32.png" />
+    <BundleResource Include="Images\infoEmpty-32%402x.png" />
+    <BundleResource Include="Images\job-25.png" />
+    <BundleResource Include="Images\job-25%402x.png" />
+    <BundleResource Include="Images\keepAngle-50.png" />
+    <BundleResource Include="Images\keepAngleSelect-50.png" />
+    <BundleResource Include="Images\laser180.png" />
+    <BundleResource Include="Images\layers-25.png" />
+    <BundleResource Include="Images\layers-25%402x.png" />
+    <BundleResource Include="Images\layoutDirection-25.png" />
+    <BundleResource Include="Images\layoutDirection-25%402x.png" />
+    <BundleResource Include="Images\logout24.png" />
+    <BundleResource Include="Images\measureruler-50.png" />
+    <BundleResource Include="Images\measurerulerSelect-50.png" />
+    <BundleResource Include="Images\missingWall-50.png" />
+    <BundleResource Include="Images\missingWallSelect-50.png" />
+    <BundleResource Include="Images\moveNext-50.png" />
+    <BundleResource Include="Images\moveTrianglePoint-50.png" />
+    <BundleResource Include="Images\moveTrianglePointSelect-50.png" />
+    <BundleResource Include="Images\option-25.png" />
+    <BundleResource Include="Images\option-25%402x.png" />
+    <BundleResource Include="Images\overlay-25.png" />
+    <BundleResource Include="Images\overlay-25%402x.png" />
+    <BundleResource Include="Images\photo-25.png" />
+    <BundleResource Include="Images\photo-25%402x.png" />
+    <BundleResource Include="Images\picture-25.png" />
+    <BundleResource Include="Images\picture-25%402x.png" />
+    <BundleResource Include="Images\polygon-25%402x.png" />
+    <BundleResource Include="Images\products-25.png" />
+    <BundleResource Include="Images\products-25%402x.png" />
+    <BundleResource Include="Images\rectangle-25.png" />
+    <BundleResource Include="Images\rectangle-25%402x.png" />
+    <BundleResource Include="Images\redo-25.png" />
+    <BundleResource Include="Images\redo-25%402x.png" />
+    <BundleResource Include="Images\reopen-25.png" />
+    <BundleResource Include="Images\reopen-25%402x.png" />
+    <BundleResource Include="Images\reset-25.png" />
+    <BundleResource Include="Images\reset-25%402x.png" />
+    <BundleResource Include="Images\resize-25.png" />
+    <BundleResource Include="Images\resize-25%402x .png" />
+    <BundleResource Include="Images\resizeDrag-25.png" />
+    <BundleResource Include="Images\resizeDrag-25%402x.png" />
+    <BundleResource Include="Images\reverse-50.png" />
+    <BundleResource Include="Images\reverseSelect-50.png" />
+    <BundleResource Include="Images\ruler-25.png" />
+    <BundleResource Include="Images\ruler-25%402x.png" />
+    <BundleResource Include="Images\savetemp-25.png" />
+    <BundleResource Include="Images\savetemp-25%402x.png" />
+    <BundleResource Include="Images\select-25.png" />
+    <BundleResource Include="Images\select-25%402x.png" />
+    <BundleResource Include="Images\setscale-25.png" />
+    <BundleResource Include="Images\setscale-25%402x.png" />
+    <BundleResource Include="Images\shapeTools-25.png" />
+    <BundleResource Include="Images\shapeTools-25%402x.png" />
+    <BundleResource Include="Images\signin-25.png" />
+    <BundleResource Include="Images\signin-25%402x.png" />
+    <BundleResource Include="Images\split-25.png" />
+    <BundleResource Include="Images\split-25%402x.png" />
+    <BundleResource Include="Images\startPoint-25.png" />
+    <BundleResource Include="Images\startPoint-25%402x.png" />
+    <BundleResource Include="Images\sync24.png" />
+    <BundleResource Include="Images\texturePlaceholder.png" />
+    <BundleResource Include="Images\thumbnail-placeholder.png" />
+    <BundleResource Include="Images\triangle-50.png" />
+    <BundleResource Include="Images\triangleSelect-50.png" />
+    <BundleResource Include="Images\tseam-25.png" />
+    <BundleResource Include="Images\tseam-25%402x.png" />
+    <BundleResource Include="Images\unchecked24.png" />
+    <BundleResource Include="Images\unchked24.png" />
+    <BundleResource Include="Images\undo-25.png" />
+    <BundleResource Include="Images\undo-25%402x.png" />
+    <BundleResource Include="Images\warning-16.png" />
+    <BundleResource Include="Images\widgets-25.png" />
+    <BundleResource Include="Images\widgets-25%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Info.plist" />
+    <None Include="Entitlements.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="DiagramView.cs" />
+    <Compile Include="DiagramListController.cs" />
+    <Compile Include="DiagramController.cs" />
+    <Compile Include="ToolView.cs" />
+    <Compile Include="DiagramController.NavigationBar.cs" />
+    <Compile Include="Res\ImageFiles.cs" />
+    <Compile Include="ToolsController.cs" />
+    <Compile Include="Res\StringExtension.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{F25F6954-2A81-4E4F-A2C0-EDF47B0A3F52}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Res\" />
+    <Folder Include="Images\" />
+  </ItemGroup>
+</Project>
