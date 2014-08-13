@@ -50,7 +50,6 @@
     <Folder Include="Clippers\" />
     <Folder Include="UIKit\DetailViewControllers\" />
     <Folder Include="Products\" />
-    <Folder Include="Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
@@ -175,7 +174,6 @@
     <Compile Include="Modeling\RectangleDiagram.cs" />
     <Compile Include="Modeling\CompositeDiagram.cs" />
     <Compile Include="Modeling\RegionDiagram.cs" />
-    <Compile Include="Views\LayerExtension.cs" />
     <Compile Include="Tools\PanTool.cs" />
     <Compile Include="Tools\ZoomTool.cs" />
   </ItemGroup>
