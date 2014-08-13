@@ -5,6 +5,7 @@ using MonoTouch.UIKit;
 using MonoTouch.Foundation;
 
 using Cession.Modeling;
+using Cession.Drawing;
 
 namespace Cession
 {
@@ -20,6 +21,7 @@ namespace Cession
 		{
 			this.Title = "Diagrams";
 		}
+
 
 		public override int RowsInSection (UITableView tableview, int section)
 		{
@@ -63,7 +65,8 @@ namespace Cession
 			projectInfo.Name = "Untitled diagram";
 			projects.Insert (0, projectInfo);
 
-			var project = Project.Create ();
+			var project = Project.Create ("Layer",LayerDrawing.GetLayerDefaultTransform());
+
 			projectDictionary.Add (projectInfo, project);
 
 			TableView.InsertRows (new NSIndexPath[]{ NSIndexPath.FromRowSection (0, 0) }, UITableViewRowAnimation.Automatic);

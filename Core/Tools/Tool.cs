@@ -67,8 +67,8 @@ namespace Cession.Tools
 		
 		public virtual void Pinch (UIPinchGestureRecognizer gestureRecognizer)
 		{
-//			toolManager.PushTool (ToolType.Zoom);
-//			toolManager.CurrentTool.Pinch (gestureRecognizer);
+			toolManager.PushTool (ToolType.Zoom);
+			toolManager.CurrentTool.Pinch (gestureRecognizer);
 		}
 		
 		public virtual void Rotate (UIRotationGestureRecognizer gestureRecognizer)
@@ -114,9 +114,14 @@ namespace Cession.Tools
 			get{return string.Empty;}
 		}
 
-		protected void Refresh()
+		protected void RefreshToolView()
 		{
 			Host.ToolView.SetNeedsDisplay ();
+		}
+
+		protected void RefreshDiagramView()
+		{
+			Host.DiagramView.SetNeedsDisplay ();
 		}
 
 		protected IToolHost Host
@@ -152,12 +157,12 @@ namespace Cession.Tools
 
 		protected Point2 ConvertToLogicalPoint(PointF point)
 		{
-			return CurrentLayer.ConvertToLogicalPoint (point);
+			return CurrentLayer.ConvertToLogicalPoint (point.ToPoint2());
 		}
 
 		protected PointF ConvertToViewPoint(Point2 point)
 		{
-			return CurrentLayer.ConvertToViewPoint (point);
+			return CurrentLayer.ConvertToViewPoint (point).ToPointF();
 		}
 
 	}

@@ -126,7 +126,7 @@
 
 
 			using (var context = UIGraphics.GetCurrentContext ()) {
-				DrawHelper.Transform = ToolManager.Host.Project.Layers.SelectedLayer.GetTransform();
+				DrawHelper.Transform = ToolManager.Host.Project.Layers.SelectedLayer.Transform;
 				foreach (var item in ToolManager.Host.Project.Layers.SelectedLayer.SelectedDiagrams) {
 					item.DrawSelected (context);
 				};

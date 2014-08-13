@@ -22,8 +22,7 @@
 			if(gestureRecognizer.IsBegan())
 			{
 				if (!TryOperateDiagram ()) {
-					return;
-//					_toolManager.PushTool (ToolType.Pan);
+					toolManager.PushTool (ToolType.Pan);
 				}
 				toolManager.CurrentTool.TouchBegin (touchPoint);
 				toolManager.CurrentTool.Pan (gestureRecognizer);
@@ -66,7 +65,7 @@
 		{
 			var point = GetLogicPoint (gestureRecognizer);
 			HitTest (point);
-			Refresh ();
+			RefreshToolView ();
 		}
 
 		private void HitTest(Point2 point)

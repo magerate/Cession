@@ -27,7 +27,7 @@
 
 		public AddPolygonalRoomTool (ToolManager toolManager):base(toolManager)
 		{
-			p2pRule.Scale = (float)(1 / CurrentLayer.GetTransform ().M11);
+			p2pRule.Scale = (float)(1 / CurrentLayer.Scale);
 		}
 
 		public override void TouchBegin (PointF point)
@@ -45,7 +45,7 @@
 				if (p2pRule.IsAligned) {
 					AddRoom ();
 					Clear ();
-					Refresh ();
+					RefreshToolView ();
 				} else {
 					points.Add (currentPoint.Value);
 					currentPoint = null;
@@ -57,7 +57,7 @@
 			if (points.Count > 2)
 				currentPoint = p2pRule.Align (currentPoint.Value);
 
-			Refresh ();
+			RefreshToolView ();
 		}
 
 		private void Clear()
@@ -86,7 +86,7 @@
 				context.StrokeLine (points.Last (), currentPoint.Value);
 			}
 
-			p2pRule.Draw (context,CurrentLayer.GetTransform());
+			p2pRule.Draw (context,CurrentLayer.Transform);
 		}
 	}
 }

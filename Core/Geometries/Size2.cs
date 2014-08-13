@@ -13,22 +13,22 @@ namespace Cession.Geometries
     /// </summary>
     public struct Size2:IEquatable<Size2>
     {
-        private double width;
-        private double height;
+        private int width;
+        private int height;
 
-        public Size2(double width,double height)
+        public Size2(int width,int height)
         {
             this.width = width;
             this.height = height;
         }
 
-        public double Width
+        public int Width
         {
             get { return width; }
             set { width = value; }
         }
 
-        public double Height
+        public int Height
         {
             get { return height; }
             set { height = value; }

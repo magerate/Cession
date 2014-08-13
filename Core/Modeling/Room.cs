@@ -23,9 +23,9 @@ namespace Cession.Modeling
 			Floor = new Floor (this);
 
 			if (contour is PathDiagram)
-				OuterContour = (contour as PathDiagram).OffsetPolygon (10 * 250);
+				OuterContour = (contour as PathDiagram).OffsetPolygon (10 * 25);
 			else if (contour is RectangleDiagram) {
-				OuterContour = RectangleDiagram.Inflate (contour as RectangleDiagram, -10 * 250, -10 * 250);
+				OuterContour = RectangleDiagram.Inflate (contour as RectangleDiagram, -10 * 25, -10 * 25);
 			}
 			OuterContour.Parent = this;
 		}

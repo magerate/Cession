@@ -17,6 +17,12 @@ namespace Cession.Tools
 		[Tool(typeof(SelectTool))]
 		Select,
 
+		[Tool(typeof(PanTool))]
+		Pan,
+
+		[Tool(typeof(ZoomTool))]
+		Zoom,
+
 		[Tool(typeof(MoveTool))]
 		Move,
 

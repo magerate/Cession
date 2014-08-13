@@ -15,9 +15,10 @@ namespace Cession.Modeling
 		}
 	}
 
-
 	public class Layer
 	{
+		public static readonly Size2 DefaultSize = new Size2 (2000000, 2000000);
+
 		public string Name{ get; set; }
 		public DiagramCollection Diagrams{ get; private set; }
 
@@ -25,6 +26,13 @@ namespace Cession.Modeling
 		private ReadOnlyCollection<Diagram> readOnlySelectedDiagrams;
 
 		public Matrix Transform{ get; set; }
+		public double Scale{
+			get{
+				return Transform.M11;
+			}
+		}
+
+		public Size2 Size{get;set;}
 
 		public ReadOnlyCollection<Diagram> SelectedDiagrams
 		{
@@ -38,6 +46,9 @@ namespace Cession.Modeling
 		public Layer (string name)
 		{
 			this.Transform = Matrix.Identity;
+
+			//default layer size 200 meter
+			Size = DefaultSize;
 
 			this.Name = name;
 			Diagrams = new DiagramCollection ();
@@ -81,6 +92,31 @@ namespace Cession.Modeling
 		{
 			if (null != ShapeSelected)
 				ShapeSelected (this, e);
+		}
+
+		public Point2 ConvertToLogicalPoint(Point2 point)
+		{
+			var matrix = Transform;
+			matrix.Invert ();
+
+			return matrix.Transform (point);
+		}
+
+		public Point2 ConvertToViewPoint(Point2 point)
+		{
+			return Transform.Transform (point);
+		}
+
+		public static Matrix GetDefaultTransform(Size2 layerSize,int width,int height,int logicalUnitPerDp){
+			var matrix = Matrix.Identity;
+			matrix.Scale ((double)1 / logicalUnitPerDp, (double)1 / logicalUnitPerDp);
+			matrix.Translate ((width   - layerSize.Width / logicalUnitPerDp) / 2,
+				(height  - layerSize.Height / logicalUnitPerDp) / 2);
+			return matrix;
+		}
+
+		public static Matrix GetDefaultTransform(int width,int height,int logicalUnitPerDp){
+			return GetDefaultTransform (Layer.DefaultSize, width, height,logicalUnitPerDp);
 		}
 	}
 }

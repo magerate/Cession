@@ -30,14 +30,14 @@
 			if (gestureRecognizer.IsDone ()) {
 				Commit ();
 				Clear ();
-				Refresh ();
+				RefreshToolView ();
 				TryRestoreState ();
 				return;
 			}
 
 
 			endPoint = GetLogicPoint (gestureRecognizer);
-			Refresh ();
+			RefreshToolView ();
 		}
 
 		protected abstract void Commit ();

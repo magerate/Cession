@@ -745,8 +745,8 @@ namespace Cession.Geometries
 				y = (int)(y * _m22);
 				return;
 			case MatrixTypes.TRANSFORM_IS_SCALING | MatrixTypes.TRANSFORM_IS_TRANSLATION:
-				x *= (int)(x * _m11 + _offsetX);
-				y += (int)(y * _m22 + _offsetY);
+				x = (int)(x * _m11 + _offsetX);
+				y = (int)(y * _m22 + _offsetY);
 				break;
 			default:
 				double xadd = y * _m21 + _offsetX;
