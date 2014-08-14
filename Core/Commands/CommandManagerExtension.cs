@@ -140,7 +140,7 @@
 			T1 target,
 			T2 value,
 			string propertyName,
-			bool isPush)
+			bool isPush = true)
 		{
 			var command = Command.CreateSetProperty (target, value, propertyName);
 			Execute (commandManager, command, isPush);

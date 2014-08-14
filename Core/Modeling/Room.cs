@@ -25,7 +25,7 @@ namespace Cession.Modeling
 			if (contour is PathDiagram)
 				OuterContour = (contour as PathDiagram).OffsetPolygon (10 * 25);
 			else if (contour is RectangleDiagram) {
-				OuterContour = RectangleDiagram.Inflate (contour as RectangleDiagram, -10 * 25, -10 * 25);
+				OuterContour = RectangleDiagram.Inflate (contour as RectangleDiagram, 10 * 25, 10 * 25);
 			}
 			OuterContour.Parent = this;
 		}

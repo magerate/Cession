@@ -26,6 +26,16 @@
 			get{ return points; }
 		}
 
+		public override Segment this[int index] {
+			get {
+				if (index < 0 || index >= points.Count)
+					throw new ArgumentOutOfRangeException ();
+
+				var p2 = (index + 1 == points.Count) ? points [0] : points [index + 1];
+				return new Segment (points [index], p2);
+			}
+		}
+
 		public override double GetArea ()
 		{
 			return 0;

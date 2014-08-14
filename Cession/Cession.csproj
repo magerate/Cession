@@ -240,10 +240,15 @@
     <Compile Include="Res\StringExtension.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{F25F6954-2A81-4E4F-A2C0-EDF47B0A3F52}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cession.MonoTouch\Cession.MonoTouch.csproj">
+      <Project>{2ED77A31-EB48-48A7-AA40-0E87C608946A}</Project>
+      <Name>Cession.MonoTouch</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -29,7 +29,7 @@
 
 		public int Bottom
 		{
-			get { return y; }
+			get { return y + height; }
 		}
 
 		public int Width
@@ -51,7 +51,7 @@
 
 		public int Top
 		{
-			get { return y + height; }
+			get { return y; }
 		}
 
 		public Point2 LeftBottom

@@ -14,6 +14,12 @@
 			set{ center = value; }
 		}
 
+		public override Segment this[int index] {
+			get {
+				throw new NotSupportedException ();
+			}
+		}
+
 		public int Radius
 		{ 
 			get{ return radius; }

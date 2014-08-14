@@ -1,14 +1,31 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad.7.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Core/Modeling/Room.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Cession.MonoTouch/Tools/MoveSideTool.cs">
     <Files>
-      <File FileName="Core/Modeling/Room.cs" Line="35" Column="35" />
-      <File FileName="Core/Modeling/CompositeDiagram.cs" Line="1" Column="1" />
-      <File FileName="Core/Tools/MoveTool.cs" Line="1" Column="1" />
-      <File FileName="Core/Commands/Command.cs" Line="1" Column="1" />
-      <File FileName="Core/Modeling/Floor.cs" Line="1" Column="1" />
-      <File FileName="Core/Modeling/RegionDiagram.cs" Line="1" Column="1" />
+      <File FileName="Core/Handles/SideHandle.cs" Line="31" Column="31" />
+      <File FileName="Core/Handles/HandleHelper.cs" Line="29" Column="29" />
+      <File FileName="Core/Modeling/RectangleDiagram.cs" Line="1" Column="1" />
+      <File FileName="Core/Geometries/Vector.cs" Line="1" Column="1" />
+      <File FileName="Cession.MonoTouch/Tools/MoveSideTool.cs" Line="5" Column="5" />
+      <File FileName="Core/Commands/CommandManager.cs" Line="4" Column="4" />
+      <File FileName="Core/Commands/CommandManagerExtension.cs" Line="3" Column="3" />
+      <File FileName="Cession.MonoTouch/Tools/Tool.cs" Line="3" Column="3" />
+      <File FileName="Cession.MonoTouch/Tools/AddRectRoomTool.cs" Line="1" Column="1" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Cession.MonoTouch" expanded="True">
+            <Node name="Tools" expanded="True">
+              <Node name="MoveSideTool.cs" selected="True" />
+            </Node>
+          </Node>
+          <Node name="Core" expanded="True">
+            <Node name="Commands" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

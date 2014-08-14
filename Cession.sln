@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cession", "Cession\Cession.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{F25F6954-2A81-4E4F-A2C0-EDF47B0A3F52}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cession.MonoTouch", "Cession.MonoTouch\Cession.MonoTouch.csproj", "{2ED77A31-EB48-48A7-AA40-0E87C608946A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -15,6 +17,18 @@ Global
 		AppStore|iPhone = AppStore|iPhone
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2ED77A31-EB48-48A7-AA40-0E87C608946A}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{2ED77A31-EB48-48A7-AA40-0E87C608946A}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{2ED77A31-EB48-48A7-AA40-0E87C608946A}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{2ED77A31-EB48-48A7-AA40-0E87C608946A}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{2ED77A31-EB48-48A7-AA40-0E87C608946A}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{2ED77A31-EB48-48A7-AA40-0E87C608946A}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{2ED77A31-EB48-48A7-AA40-0E87C608946A}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{2ED77A31-EB48-48A7-AA40-0E87C608946A}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{2ED77A31-EB48-48A7-AA40-0E87C608946A}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{2ED77A31-EB48-48A7-AA40-0E87C608946A}.Release|iPhone.Build.0 = Release|Any CPU
+		{2ED77A31-EB48-48A7-AA40-0E87C608946A}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{2ED77A31-EB48-48A7-AA40-0E87C608946A}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{D66E81CD-2D58-48CB-BC2B-9F6C3C3E59F6}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
 		{D66E81CD-2D58-48CB-BC2B-9F6C3C3E59F6}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
 		{D66E81CD-2D58-48CB-BC2B-9F6C3C3E59F6}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
