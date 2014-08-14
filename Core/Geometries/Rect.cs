@@ -138,6 +138,7 @@
 			this.y -= height;
 			this.width += 2 * width;
 			this.height += 2 * height;
+
 		}
 
 		public void Scale(int scaleX, int scaleY)
