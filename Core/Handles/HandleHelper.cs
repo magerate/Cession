@@ -10,17 +10,15 @@
 	{
 		public static Handle[] GetHandles (this ClosedShapeDiagram diagram,Matrix matrix)
 		{
-			int count;
-			if (diagram is RectangleDiagram)
-				count = 4;
-			else
-				count = (diagram as PathDiagram).Points.Count;
-
-			Handle[] handles = new Handle[count];
-			for (int i = 0; i < handles.Length; i++) {
-				handles [i] = new SideHandle (matrix.Transform (diagram [i].Center),i,diagram);
+			var polygon = diagram as IPolygonal;
+			if (null != polygon) {
+				Handle[] handles = new Handle[polygon.SideCount];
+				for (int i = 0; i < handles.Length; i++) {
+					handles [i] = new SideHandle (matrix.Transform (polygon [i].Center), i, diagram);
+				}
+				return handles;
 			}
-			return handles;
+			return null;
 		}
 
 	}

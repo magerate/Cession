@@ -4,7 +4,6 @@ namespace Cession.Modeling
 	using System.Collections.Generic;
 
 	using Cession.Geometries;
-	using Cession.Geometries.Shapes;
 
 	public class Floor:CompositeDiagram
 	{

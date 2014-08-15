@@ -7,7 +7,6 @@
 
 	using Cession.Modeling;
 	using Cession.Geometries;
-	using Cession.Geometries.Shapes;
 
 	public class RoomDrawer:DiagramDrawer
 	{

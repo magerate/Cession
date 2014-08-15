@@ -5,7 +5,6 @@ namespace Cession.Modeling
 	using System.Collections.ObjectModel;
 
 	using Cession.Geometries;
-	using Cession.Geometries.Shapes;
 
 	public class Room:CompositeDiagram
 	{

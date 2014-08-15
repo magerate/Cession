@@ -4,7 +4,6 @@
 	using System.Drawing;
 
 	using Cession.Geometries;
-	using Cession.Geometries.Shapes;
 	using Cession.Modeling;
 
 	public static class RectangleExtension

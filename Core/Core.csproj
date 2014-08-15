@@ -40,7 +40,6 @@
     <Folder Include="Geometries\" />
     <Folder Include="Modeling\" />
     <Folder Include="Assignments\" />
-    <Folder Include="Geometries\Shapes\" />
     <Folder Include="Utilities\" />
     <Folder Include="Commands\" />
     <Folder Include="Alignments\" />
@@ -68,8 +67,6 @@
     <Compile Include="Geometries\Segment.cs" />
     <Compile Include="Geometries\Size2.cs" />
     <Compile Include="Geometries\Vector.cs" />
-    <Compile Include="Geometries\Shapes\Ellipse.cs" />
-    <Compile Include="Geometries\Shapes\Polygon.cs" />
     <Compile Include="Modeling\ProjectInfo.cs" />
     <Compile Include="Utilities\EnumExtension.cs" />
     <Compile Include="Commands\Command.cs" />
@@ -92,8 +89,6 @@
     <Compile Include="Modeling\Diagram.cs" />
     <Compile Include="Products\ProductCategory.cs" />
     <Compile Include="Products\Enums.cs" />
-    <Compile Include="Geometries\Shapes\Figure.cs" />
-    <Compile Include="Geometries\Shapes\RectFigure.cs" />
     <Compile Include="Assignments\AreaAssignment.cs" />
     <Compile Include="Geometries\Rect.cs" />
     <Compile Include="Geometries\Point2d.cs" />
@@ -110,5 +105,6 @@
     <Compile Include="Handles\Handle.cs" />
     <Compile Include="Handles\SideHandle.cs" />
     <Compile Include="Handles\HandleHelper.cs" />
+    <Compile Include="Geometries\Polygon.cs" />
   </ItemGroup>
 </Project>

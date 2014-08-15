@@ -6,7 +6,7 @@
 
 	using Cession.Geometries;
 
-	public class PathDiagram:ClosedShapeDiagram
+	public class PathDiagram:ClosedShapeDiagram,IPolygonal
 	{
 		private List<Point2> points;
 
@@ -26,15 +26,59 @@
 			get{ return points; }
 		}
 
-		public override Segment this[int index] {
+		#region IPolygonal implementation
+
+		public int SideCount{
+			get{ return points.Count; }
+		}
+
+		public Segment this[int index] {
 			get {
-				if (index < 0 || index >= points.Count)
+				if (index < 0 || index >= SideCount)
 					throw new ArgumentOutOfRangeException ();
 
-				var p2 = (index + 1 == points.Count) ? points [0] : points [index + 1];
+				var p2 = points [(index + 1) % SideCount];
 				return new Segment (points [index], p2);
 			}
 		}
+
+		public Segment? GetPreviousSide(int index){
+			if (index < 0 || index >= SideCount)
+				throw new ArgumentOutOfRangeException ();
+
+			return this [(index - 1 + SideCount) % SideCount];
+		}
+
+		public Segment? GetNextSide(int index){
+			if (index < 0 || index >= SideCount)
+				throw new ArgumentOutOfRangeException ();
+
+			return this [(index + 1)  % SideCount];
+		}
+
+		public Segment MoveSide(int index,Point2 point){
+			if (index < 0 || index >= SideCount)
+				throw new ArgumentOutOfRangeException ();
+
+			var side = this [index];
+
+			var distance = Line.DistanceBetween (side.P1, side.P2, point);
+			var vector = side.P2 - side.P1;
+			vector.Normalize ();
+			vector *= distance;
+			vector.Rotate (-Math.PI / 2);
+
+			var prevSide = GetPreviousSide (index).Value;
+			var nextSide = GetNextSide (index).Value;
+
+			var op1 = side.P1 + vector;
+			var op2 = side.P2 + vector;
+			var ip1 = Line.Intersect (prevSide.P1, prevSide.P2, op1, op2);
+			var ip2 = Line.Intersect (nextSide.P1, nextSide.P2, op1, op2);
+			return new Segment (ip1.Value, ip2.Value);
+		}
+
+		#endregion
 
 		public override double GetArea ()
 		{
@@ -55,54 +99,13 @@
 
 		public override Diagram HitTest (Point2 point)
 		{
-			if (PathDiagram.Contains (point, points) != 0)
+			if (Polygon.Contains (point, Points))
 				return this;
+
 			return null;
 		}
 
-		public static int Contains(Point2 point, IList<Point2> polygon)
-		{
-			//returns 0 if false, +1 if true, -1 if pt ON polygon boundary
-			//http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.88.5498&rep=rep1&type=pdf
-			int result = 0, cnt = polygon.Count;
-			if (cnt < 3) return 0;
-			var ip = polygon[0];
-			for (int i = 1; i <= cnt; ++i)
-			{
-				var ipNext = (i == cnt ? polygon[0] : polygon[i]);
-				if (ipNext.Y == point.Y)
-				{
-					if ((ipNext.X == point.X) || (ip.Y == point.Y &&
-						((ipNext.X > point.X) == (ip.X < point.X)))) return -1;
-				}
-				if ((ip.Y < point.Y) != (ipNext.Y < point.Y))
-				{
-					if (ip.X >= point.X)
-					{
-						if (ipNext.X > point.X) result = 1 - result;
-						else
-						{
-							double d = (double)(ip.X - point.X) * (ipNext.Y - point.Y) -
-								(double)(ipNext.X - point.X) * (ip.Y - point.Y);
-							if (d == 0) return -1;
-							else if ((d > 0) == (ipNext.Y > ip.Y)) result = 1 - result;
-						}
-					}
-					else
-					{
-						if (ipNext.X > point.X)
-						{
-							double d = (double)(ip.X - point.X) * (ipNext.Y - point.Y) -
-								(double)(ipNext.X - point.X) * (ip.Y - point.Y);
-							if (d == 0) return -1;
-							else if ((d > 0) == (ipNext.Y > ip.Y)) result = 1 - result;
-						}
-					}
-				}
-				ip = ipNext;
-			}
-			return result;
-		}
+
 	}
 }
 

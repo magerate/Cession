@@ -9,7 +9,6 @@
 
 	using Cession.UIKit;
 	using Cession.Geometries;
-	using Cession.Geometries.Shapes;
 	using Cession.Drawing;
 	using Cession.Modeling;
 	using Cession.Commands;

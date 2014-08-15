@@ -10,10 +10,6 @@
 
 		public abstract double GetArea ();
 		public abstract double GetPerimeter ();
-
-		public abstract Segment this[int index]{
-			get;
-		}
 	}
 }
 

@@ -43,10 +43,10 @@ namespace Cession.Alignments
 			if(!AlignAxis.IsValid(axis2))
 				return rule1.Align(point);
 
-			var cross = Line.Intersect (axis1.Value.P1.ToPoint2d(), 
-										axis1.Value.P2.ToPoint2d(), 
-										axis2.Value.P1.ToPoint2d(), 
-										axis2.Value.P2.ToPoint2d());
+			var cross = Line.Intersect (axis1.Value.P1, 
+										axis1.Value.P2, 
+										axis2.Value.P1, 
+										axis2.Value.P2);
 			if (cross.HasValue)
 				return new Point2((int)cross.Value.X,(int)cross.Value.Y);
 

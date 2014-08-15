@@ -3,7 +3,18 @@
 	using System;
 	using Cession.Geometries;
 
-	public class RectangleDiagram:ClosedShapeDiagram
+	public interface IPolygonal
+	{
+		int SideCount{ get; }
+		Segment this [int index]{ get; }
+
+		Segment? GetPreviousSide (int index);
+		Segment? GetNextSide (int index);
+
+		Segment MoveSide (int index, Point2 point);
+	}
+
+	public class RectangleDiagram:ClosedShapeDiagram,IPolygonal
 	{
 		private Rect rect;
 
@@ -13,9 +24,15 @@
 			set{ rect = value; }
 		}
 
-		public override Segment this[int index] {
+		#region polygonal implementation
+
+		public int SideCount{
+			get{ return 4; }
+		}
+
+		public Segment this[int index] {
 			get {
-				if (index < 0 || index > 3)
+				if (index < 0 || index >= SideCount)
 					throw new ArgumentOutOfRangeException ();
 
 				if (index == 0)
@@ -28,6 +45,35 @@
 				return new Segment (rect.LeftBottom, rect.LeftTop);
 			}
 		}
+
+		public Segment? GetPreviousSide(int index){
+			if (index < 0 || index >= SideCount)
+				throw new ArgumentOutOfRangeException ();
+
+			return this [(index - 1 + SideCount) % SideCount];
+		}
+
+		public Segment? GetNextSide(int index){
+			if (index < 0 || index >= SideCount)
+				throw new ArgumentOutOfRangeException ();
+
+			return this [(index + 1)  % SideCount];
+		}
+
+		public Segment MoveSide(int index,Point2 point){
+			if (index < 0 || index >= SideCount)
+				throw new ArgumentOutOfRangeException ();
+
+			var side = this [index];
+			if (side.P1.X == side.P2.X) {
+				return new Segment (new Point2 (point.X, side.P1.Y),
+					new Point2 (point.X, side.P2.Y));
+			}
+			return new Segment (new Point2 (side.P1.X, point.Y),
+				new Point2 (side.P2.X, point.Y));
+		}
+
+		#endregion
 
 		public RectangleDiagram (Rect rect):this(rect,null)
 		{

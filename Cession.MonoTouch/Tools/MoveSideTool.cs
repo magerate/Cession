@@ -36,23 +36,34 @@
 
 		protected override void DoDraw (CGContext context)
 		{
-			var segment = handle.Move (endPoint.Value);
+			var segment = handle.MoveSide (endPoint.Value);
 			var prevSegment = handle.PreviousSide;
 			var nextSegment = handle.NextSide;
 
-			context.StrokeLine (prevSegment.P1, segment.P1);
+			if(prevSegment.HasValue)
+				context.StrokeLine (prevSegment.Value.P1, segment.P1);
 			context.StrokeLine (segment.P1, segment.P2);
-			context.StrokeLine (segment.P2, nextSegment.P2);
+			if(nextSegment.HasValue)
+				context.StrokeLine (segment.P2, nextSegment.Value.P2);
 		}
 
 		protected override void Commit ()
 		{
-			var diagram = handle.Parent as RectangleDiagram;
-			var rect = diagram.MoveSide(handle.Index,
-				endPoint.Value.X - startPoint.Value.X,
-				endPoint.Value.Y - startPoint.Value.Y);
+			if (handle.Parent is RectangleDiagram) {
+				var rectDiagram = handle.Parent as RectangleDiagram;
+				var rect = rectDiagram.MoveSide (handle.Index,
+					           endPoint.Value.X - startPoint.Value.X,
+					           endPoint.Value.Y - startPoint.Value.Y);
 
-			CommandManager.ExecuteSetProperty (diagram, rect, "Rect");
+				CommandManager.ExecuteSetProperty (rectDiagram, rect, "Rect");
+			} else if (handle.Parent is PathDiagram) {
+				var segment = handle.MoveSide (endPoint.Value);
+				var pathDiagram = handle.Parent as PathDiagram;
+
+				var nextIndex = (handle.Index + 1 + pathDiagram.SideCount) % pathDiagram.SideCount;
+				CommandManager.ExecuteListReplace (pathDiagram.Points, handle.Index, segment.P1,false);
+				CommandManager.ExecuteListReplace (pathDiagram.Points, nextIndex, segment.P2);
+			}
 		}
 	}
 }

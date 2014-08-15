@@ -4,7 +4,6 @@
 	using System.Collections.Generic;
 
 	using Cession.Geometries;
-	using Cession.Geometries.Shapes;
 
 	public class RegionDiagram:CompositeDiagram
 	{

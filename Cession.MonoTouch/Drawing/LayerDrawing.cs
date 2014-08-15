@@ -9,7 +9,6 @@
 
 	using Cession.Modeling;
 	using Cession.Geometries;
-	using Cession.Geometries.Shapes;
 
 	public static class LayerDrawing
 	{

@@ -12,7 +12,6 @@
 
 	using Cession.UIKit;
 	using Cession.Geometries;
-	using Cession.Geometries.Shapes;
 	using Cession.Modeling;
 	using Cession.Drawing;
 	using Cession.Alignments;

@@ -5,7 +5,6 @@
 
 	using ClipperLib;
 
-	using Cession.Geometries.Shapes;
 	using Cession.Geometries;
 
 	public static class PolygonHelper
