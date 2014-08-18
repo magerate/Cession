@@ -8,6 +8,8 @@ namespace Cession.Modeling
 
 	public class Room:CompositeDiagram
 	{
+		public static int DefaultWallThickness{ get; set; }
+
 		public Floor Floor{ get; private set; }
 		public Ceiling Ceiling{ get; private set; }
 		public WallCollection Walls{ get; private set; }
@@ -17,16 +19,28 @@ namespace Cession.Modeling
 
 		public Room (ClosedShapeDiagram contour)
 		{
+			DefaultWallThickness = 200;
+
 			this.Contour = contour;
 			contour.Parent = this;
 			Floor = new Floor (this);
 
-			if (contour is PathDiagram)
-				OuterContour = (contour as PathDiagram).OffsetPolygon (10 * 25);
-			else if (contour is RectangleDiagram) {
-				OuterContour = RectangleDiagram.Inflate (contour as RectangleDiagram, 10 * 25, 10 * 25);
-			}
+			RefreshOuterContour ();
 			OuterContour.Parent = this;
+
+			this.AddHandler (Diagram.ShapeChangeEvent, new RoutedEventHandler(ContourShapeChanged));
+		}
+
+		private void ContourShapeChanged(object sender,RoutedEventArgs e){
+			RefreshOuterContour ();
+		}
+
+		private void RefreshOuterContour(){
+			if (Contour is PathDiagram)
+				OuterContour = (Contour as PathDiagram).OffsetPolygon (DefaultWallThickness);
+			else if (Contour is RectangleDiagram) {
+				OuterContour = RectangleDiagram.Inflate (Contour as RectangleDiagram, DefaultWallThickness, DefaultWallThickness);
+			}
 		}
 
 

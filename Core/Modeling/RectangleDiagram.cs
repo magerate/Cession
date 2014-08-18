@@ -21,7 +21,13 @@
 		public Rect Rect
 		{ 
 			get{ return rect; }
-			set{ rect = value; }
+			set
+			{ 
+				if(value != rect){
+					rect = value; 
+					RaiseEvent (new RoutedEventArgs (Diagram.ShapeChangeEvent, this));
+				}
+			}
 		}
 
 		#region polygonal implementation
@@ -115,15 +121,19 @@
 			var side = this [index];
 			var nextSide = this [(index + 2 + sideCount) % sideCount];
 			if (side.P1.X == side.P2.X) {
-				newRect.Width += offsetX;
-
-				if (side.P1.X < nextSide.P1.X)
+				if (side.P1.X < nextSide.P1.X) {
 					newRect.X += offsetX;
-
+					newRect.Width -= offsetX;
+				} else {
+					newRect.Width += offsetX;
+				}
 			}else {
-				newRect.Height += offsetY;
-				if (side.P1.Y < nextSide.P1.Y)
+				if (side.P1.Y < nextSide.P1.Y) {
 					newRect.Y += offsetY;
+					newRect.Height -= offsetY;
+				} else {
+					newRect.Height += offsetY;
+				}
 			}
 
 			return newRect;

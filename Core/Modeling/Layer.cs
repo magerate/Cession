@@ -17,7 +17,7 @@ namespace Cession.Modeling
 
 	public class Layer
 	{
-		public static readonly Size2 DefaultSize = new Size2 (2000000, 2000000);
+		public static readonly Size2 DefaultSize = new Size2 (200000, 200000);
 
 		public string Name{ get; set; }
 		public DiagramCollection Diagrams{ get; private set; }

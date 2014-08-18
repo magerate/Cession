@@ -45,6 +45,7 @@
     <Folder Include="Alignments\" />
     <Folder Include="Clippers\" />
     <Folder Include="Products\" />
+    <Folder Include="Modeling\RoutedEvents\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
@@ -106,5 +107,9 @@
     <Compile Include="Handles\SideHandle.cs" />
     <Compile Include="Handles\HandleHelper.cs" />
     <Compile Include="Geometries\Polygon.cs" />
+    <Compile Include="Modeling\RoutedEvents\RoutedEvent.cs" />
+    <Compile Include="Modeling\RoutedEvents\RoutedEventArgs.cs" />
+    <Compile Include="Modeling\RoutedEvents\EventHandlerStore.cs" />
+    <Compile Include="Modeling\RoutedEvents\EventChain.cs" />
   </ItemGroup>
 </Project>
