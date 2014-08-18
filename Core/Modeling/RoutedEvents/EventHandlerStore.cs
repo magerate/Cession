@@ -18,6 +18,15 @@
 			eventChain.Add (handler);
 		}
 
+		internal static void RemoveHandler(RoutedEvent routedEvent,
+											Delegate handler){
+
+			EventChain eventChain;
+			if (eventStore.TryGetValue (routedEvent, out eventChain)) {
+				eventChain.Remove (handler);
+			}
+		}
+
 		internal static EventChain GetEventChain(RoutedEvent routedEvent){
 			EventChain eventChain;
 			eventStore.TryGetValue (routedEvent, out eventChain);
