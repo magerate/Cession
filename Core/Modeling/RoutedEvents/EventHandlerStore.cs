@@ -7,7 +7,7 @@
 	{
 		private static Dictionary<RoutedEvent,EventChain> eventStore = new Dictionary<RoutedEvent, EventChain>();
 
-		internal static void AddHandler(RoutedEvent routedEvent,
+		internal static void AddHandler(object target,RoutedEvent routedEvent,
 											Delegate handler){
 			EventChain eventChain;
 			if (!eventStore.TryGetValue (routedEvent, out eventChain)) {
@@ -15,15 +15,15 @@
 				eventStore.Add (routedEvent, eventChain);
 			}
 
-			eventChain.Add (handler);
+			eventChain.Add (target,handler);
 		}
 
-		internal static void RemoveHandler(RoutedEvent routedEvent,
+		internal static void RemoveHandler(object target,RoutedEvent routedEvent,
 											Delegate handler){
 
 			EventChain eventChain;
 			if (eventStore.TryGetValue (routedEvent, out eventChain)) {
-				eventChain.Remove (handler);
+				eventChain.Remove (target,handler);
 			}
 		}
 

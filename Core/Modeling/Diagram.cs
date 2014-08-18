@@ -17,7 +17,11 @@
 			typeof(Diagram));
 
 		public void AddHandler(RoutedEvent routedEvent,Delegate handler){
-			EventHandlerStore.AddHandler (routedEvent, handler);
+			EventHandlerStore.AddHandler (this,routedEvent, handler);
+		}
+
+		public void RemoveHandler(RoutedEvent routedEvent,Delegate handler){
+			EventHandlerStore.RemoveHandler (this,routedEvent, handler);
 		}
 
 		public void RaiseEvent(RoutedEventArgs e){
@@ -25,7 +29,6 @@
 			if (null != chain)
 				chain.InvokeHandlers (this, e);
 		}
-//		public void AddHandler(
 		#endregion
 
 		public Diagram Parent{ get; internal set; }
@@ -38,6 +41,21 @@
 					parent = parent.Parent;
 				return parent;
 			}
+		}
+
+		public bool IsAncestorOf(Diagram diagram){
+			var parent = diagram.Parent;
+
+			while (true) {
+				if (parent == this)
+					return true;
+
+				if (parent == null)
+					break;
+
+				parent = parent.Parent;
+			}
+			return false;
 		}
 
 		public virtual bool CanSelect{
@@ -55,12 +73,22 @@
 
 		public abstract Diagram HitTest (Point2 point);
 
-		public void Offset(Vector vector)
+		internal void InternalOffset(Vector vector)
 		{
-			this.Offset ((int)vector.X, (int)vector.Y);
+			this.InternalOffset ((int)vector.X, (int)vector.Y);
 		}
 
-		public abstract void Offset (int x, int y);
+		internal abstract void InternalOffset (int x, int y);
+
+
+		public virtual void Move(int x,int y){
+			InternalOffset (x, y);
+			RaiseEvent (new RoutedEventArgs (Diagram.MoveEvent, this));
+		}
+
+		public void Move(Vector offset){
+			this.Move ((int)offset.X, (int)offset.Y);
+		}
 	}
 }
 

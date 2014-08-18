@@ -1,8 +1,9 @@
-﻿namespace Cession.Modeling
+﻿namespace Cession.Handles
 {
 	using System;
 
 	using Cession.Geometries;
+	using Cession.Modeling;
 
 	public class SideHandle:Handle
 	{
@@ -10,8 +11,13 @@
 		public int Index{ get; private set; }
 
 		public IPolygonal Polygon{
-			get{ return Parent as IPolygonal; }
+			get{ return Diagram as IPolygonal; }
 		}
+
+		public Segment Side{
+			get{ return Polygon [Index]; }
+		}
+
 		public SideHandle (Point2 location,int index,ClosedShapeDiagram diagram):base(location,diagram)
 		{
 			if (!(diagram is IPolygonal))
@@ -20,15 +26,18 @@
 			this.Index = index;
 		}
 
-		public override Diagram HitTest (Point2 point)
+		public override Rect Bounds {
+			get {
+				return new Rect(Location.X - Size / 2,
+					Location.Y - Size / 2,
+					Size,
+					Size);
+			}
+		}
+
+		public override bool Contains (Point2 point)
 		{
-			if (
-				point.X >= Location.X - Size / 2  &&
-				point.X <= Location.X + Size / 2  &&
-				point.Y >= Location.Y - Size / 2  &&
-				point.Y <= Location.Y + Size / 2)
-				return this;
-			return null;
+			return Bounds.Contains (point);
 		}
 
 		public Segment MoveSide(Point2 point){

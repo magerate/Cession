@@ -57,7 +57,7 @@
 
 			var handles = room.Contour.GetHandles (CurrentLayer.Transform);
 			for (int i = 0; i < handles.Length; i++) {
-				if (handles[i].HitTest (touchPoint.ToPoint2()) != null) {
+				if (handles[i].Contains (touchPoint.ToPoint2())) {
 					toolManager.PushTool (ToolType.MoveSide,handles[i]);
 					return true;
 				}

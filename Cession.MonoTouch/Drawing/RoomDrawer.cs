@@ -23,7 +23,6 @@
 
 		protected override void DoDrawSelected (CGContext context, Diagram diagram)
 		{
-
 			var room = diagram as Room;
 
 			context.SaveState ();
@@ -34,7 +33,7 @@
 
 			var handles = room.Contour.GetHandles (DrawHelper.Transform);
 			foreach (var handle in handles) {
-				(handle as SideHandle).Draw (context);
+				handle.Draw (context);
 			}
 
 			context.RestoreState ();

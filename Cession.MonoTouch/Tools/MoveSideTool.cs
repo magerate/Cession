@@ -8,6 +8,7 @@
 	using Cession.Modeling;
 	using Cession.Drawing;
 	using Cession.Geometries;
+	using Cession.Handles;
 	using Cession.Commands;
 
 	public class MoveSideTool:DragDropTool
@@ -49,20 +50,21 @@
 
 		protected override void Commit ()
 		{
-			if (handle.Parent is RectangleDiagram) {
-				var rectDiagram = handle.Parent as RectangleDiagram;
+			var diagram = handle.Diagram;
+			if (diagram is RectangleDiagram) {
+				var rectDiagram = diagram as RectangleDiagram;
 				var rect = rectDiagram.MoveSide (handle.Index,
 					           endPoint.Value.X - startPoint.Value.X,
 					           endPoint.Value.Y - startPoint.Value.Y);
 
 				CommandManager.ExecuteSetProperty (rectDiagram, rect, "Rect");
-			} else if (handle.Parent is PathDiagram) {
-				var segment = handle.MoveSide (endPoint.Value);
-				var pathDiagram = handle.Parent as PathDiagram;
+			} else if (diagram is PathDiagram) {
+				var targetSegment = handle.MoveSide (endPoint.Value);
+				var currentSegment = handle.Side;
+				var pathDiagram = diagram as PathDiagram;
 
-				var nextIndex = (handle.Index + 1 + pathDiagram.SideCount) % pathDiagram.SideCount;
-				CommandManager.ExecuteListReplace (pathDiagram.Points, handle.Index, segment.P1,false);
-				CommandManager.ExecuteListReplace (pathDiagram.Points, nextIndex, segment.P2);
+				var command = Command.Create (handle.Index, targetSegment, currentSegment, pathDiagram.MoveSide);
+				CommandManager.Execute (command);
 			}
 		}
 	}

@@ -28,7 +28,18 @@ namespace Cession.Modeling
 			RefreshOuterContour ();
 			OuterContour.Parent = this;
 
-			this.AddHandler (Diagram.ShapeChangeEvent, new RoutedEventHandler(ContourShapeChanged));
+			AddHandler (Diagram.ShapeChangeEvent, new RoutedEventHandler(ContourShapeChanged));
+			AddHandler (Diagram.MoveEvent, new RoutedEventHandler (OnChildMoved));
+		}
+
+		private void OnChildMoved(object sender,RoutedEventArgs e){
+			if (e.Source == Contour ||
+			   e.Source == OuterContour ||
+			   e.Source == Ceiling ||
+			   e.Source == Floor) {
+				var message = string.Format ("Can't move {0} individualy, use Move method of Room instead", e.Source);
+				throw new InvalidOperationException (message);
+			}
 		}
 
 		private void ContourShapeChanged(object sender,RoutedEventArgs e){
@@ -50,7 +61,7 @@ namespace Cession.Modeling
 			}
 		}
 
-		public override IEnumerable<Diagram> Traverse ()
+		public override IEnumerator<Diagram> GetEnumerator ()
 		{
 			yield return Floor;
 

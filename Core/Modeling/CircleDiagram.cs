@@ -40,7 +40,7 @@
 			return null;
 		}
 
-		public override void Offset (int x, int y)
+		internal override void InternalOffset (int x, int y)
 		{
 			center.Offset (x, y);
 		}

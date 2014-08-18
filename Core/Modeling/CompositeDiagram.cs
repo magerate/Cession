@@ -1,10 +1,11 @@
 ﻿namespace Cession.Modeling
 {
+	using System.Collections;
 	using System.Collections.Generic;
 
 	using Cession.Geometries;
 
-	public abstract class CompositeDiagram:Diagram
+	public abstract class CompositeDiagram:Diagram,IEnumerable<Diagram>
 	{
 		protected CompositeDiagram ()
 		{
@@ -14,12 +15,15 @@
 		{
 		}
 
-		public abstract IEnumerable<Diagram> Traverse ();
+		public abstract IEnumerator<Diagram> GetEnumerator ();
 
+		IEnumerator IEnumerable.GetEnumerator(){
+			return this.GetEnumerator ();
+		}
 
 		public override Diagram HitTest (Point2 point)
 		{
-			foreach (var diagram in Traverse ()) {
+			foreach (var diagram in this) {
 				var hr = diagram.HitTest (point);
 				if (null != hr)
 					return hr;
@@ -27,10 +31,10 @@
 			return null;
 		}
 
-		public override void Offset (int x, int y)
+		internal override void InternalOffset (int x, int y)
 		{
-			foreach (var diagram in Traverse ()) {
-				diagram.Offset (x, y);
+			foreach (var diagram in this) {
+				diagram.InternalOffset (x, y);
 			}
 		}
 	}

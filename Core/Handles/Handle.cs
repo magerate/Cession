@@ -1,30 +1,35 @@
-﻿namespace Cession.Modeling
+﻿namespace Cession.Handles
 {
 	using System;
 
 	using Cession.Geometries;
+	using Cession.Modeling;
 
-	public abstract class Handle:Diagram
+	public abstract class Handle
 	{
 		private Point2 location;
+		private Diagram diagram;
 
 		public Point2 Location{
 			get{ return location; }
 		}
 
-		protected Handle (Point2 location,Diagram parent):base(parent)
+		public Diagram Diagram{
+			get{ return diagram; }
+		}
+
+		protected Handle (Point2 location,Diagram diagram)
 		{
 			this.location = location;
+			this.diagram = diagram;
 		}
 
 		protected Handle(Point2 location):this(location,null)
 		{
 		}
 
-		public override void Offset (int x, int y)
-		{
-			throw new NotImplementedException ();
-		}
+		public abstract bool Contains(Point2 point);
+		public abstract Rect Bounds{ get; }
 	}
 }
 

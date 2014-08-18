@@ -15,6 +15,10 @@
 
 			return RectangleF.FromLTRB (p1.X, p1.Y, p2.X, p2.Y);
 		}
+
+		public static RectangleF ToRectangleF(this Rect rect){
+			return new RectangleF((float)rect.X,(float)rect.Y,(float)rect.Width,(float)rect.Height);
+		}
 	}
 }
 

@@ -78,6 +78,14 @@
 			return new Segment (ip1.Value, ip2.Value);
 		}
 
+		public void MoveSide(int index,Segment segment){
+			var nextIndex = (index + 1 + SideCount) % SideCount;
+			points [index] = segment.P1;
+			points [nextIndex] = segment.P2;
+
+			RaiseEvent(new RoutedEventArgs(Diagram.ShapeChangeEvent,this));
+		}
+
 		#endregion
 
 		public override double GetArea ()
@@ -90,7 +98,7 @@
 			return 0;
 		}
 
-		public override void Offset (int x, int y)
+		internal override void InternalOffset (int x, int y)
 		{
 			for (int i = 0; i < points.Count; i++) {
 				points [i] = new Point2 (points [i].X + x, points [i].Y + y);
