@@ -32,7 +32,7 @@
 		{
 			var rect = Rect.FromPoints (startPoint.Value, endPoint.Value);
 			var rectDiagram = new RectangleDiagram (rect);
-			var room = new Room (rectDiagram);
+			var room = new Room (rectDiagram,CurrentLayer);
 			CommandManager.ExecuteListAdd (CurrentLayer.Diagrams, room);
 		}
 

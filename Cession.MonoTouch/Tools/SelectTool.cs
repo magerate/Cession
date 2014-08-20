@@ -62,7 +62,6 @@
 					return true;
 				}
 			}
-
 			return false;
 		}
 
@@ -89,10 +88,9 @@
 
 			CurrentLayer.ClearSelection ();
 			if (null != shape) {
-				if (shape.CanSelect)
+				shape = shape.GetSelectableAncestor ();
+				if(null != shape)
 					CurrentLayer.Select (shape);
-				else
-					CurrentLayer.Select (shape.Owner);
 			}
 		}
 	}

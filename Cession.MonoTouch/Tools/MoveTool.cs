@@ -39,7 +39,7 @@
 		private void OffsetShapes(IEnumerable<Diagram> shapes,Vector offset)
 		{
 			foreach (var shape in shapes) {
-				shape.Move (offset);
+				shape.Offset (offset);
 			}
 		}
 

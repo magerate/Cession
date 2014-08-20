@@ -10,12 +10,16 @@
 	using Cession.Modeling;
 	using Cession.Geometries;
 
-	public static class LayerDrawing
+	public class LayerDrawer:DiagramDrawer
 	{
 		public static readonly int LogicalUnitPerDp = 25;
 
-		public static void Draw(this Layer layer, CGContext context)
+		protected override void DoDraw (CGContext context, Diagram diagram)
 		{
+			var layer = diagram as Layer;
+			if (null == layer)
+				throw new ArgumentException ("diagram");
+
 			DrawHelper.Transform = layer.Transform;
 
 			context.SaveState ();
@@ -24,7 +28,7 @@
 			}
 
 			context.RestoreState ();
-		}
+		} 
 
 		public static Matrix GetLayerDefaultTransform(){
 			return Layer.GetDefaultTransform(Layer.DefaultSize, 

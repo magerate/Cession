@@ -24,7 +24,7 @@ namespace Cession.Modeling
 		public static Project Create(string name,Matrix transform)
 		{
 			var project = new Project ();
-			var layer = new Layer (name);
+			var layer = new Layer (project,name);
 			layer.Transform = transform;
 			project.Layers.Add (layer);
 			project.Layers.SelectedIndex = 0;

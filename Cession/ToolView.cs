@@ -132,7 +132,6 @@
 				};
 
 				ToolManager.CurrentTool.Draw (context);
-
 			}
 		}
 	}

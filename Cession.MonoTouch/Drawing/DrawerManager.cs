@@ -14,6 +14,7 @@
 		static DrawerManager ()
 		{
 			RegisterDrawer(typeof(Room),new RoomDrawer());
+			RegisterDrawer(typeof(Layer),new LayerDrawer());
 		}
 
 		public static void RegisterDrawer(Type type,DiagramDrawer drawer)

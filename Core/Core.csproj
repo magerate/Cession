@@ -109,8 +109,6 @@
     <Compile Include="Geometries\Polygon.cs" />
     <Compile Include="Modeling\RoutedEvents\RoutedEvent.cs" />
     <Compile Include="Modeling\RoutedEvents\RoutedEventArgs.cs" />
-    <Compile Include="Modeling\RoutedEvents\EventHandlerStore.cs" />
-    <Compile Include="Modeling\RoutedEvents\EventChain.cs" />
     <Compile Include="Modeling\PolyLine.cs" />
   </ItemGroup>
 </Project>

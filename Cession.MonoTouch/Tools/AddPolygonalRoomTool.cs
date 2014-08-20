@@ -69,7 +69,7 @@
 		private void AddRoom()
 		{
 			var polygon = new PathDiagram (points);
-			var room = new Room (polygon);
+			var room = new Room (polygon,CurrentLayer);
 			CommandManager.ExecuteListAdd (CurrentLayer.Diagrams, room);
 		}
 

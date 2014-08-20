@@ -90,7 +90,6 @@
     <Compile Include="Drawing\DiagramDrawer.cs" />
     <Compile Include="Drawing\DrawerManager.cs" />
     <Compile Include="Drawing\DrawHelper.cs" />
-    <Compile Include="Drawing\LayerDrawing.cs" />
     <Compile Include="Drawing\MatrixExtension.cs" />
     <Compile Include="Drawing\PointExtension.cs" />
     <Compile Include="Drawing\RectangleExtension.cs" />
@@ -108,6 +107,7 @@
     <Compile Include="Tools\ZoomTool.cs" />
     <Compile Include="Tools\MoveSideTool.cs" />
     <Compile Include="Drawing\HandleDrawing.cs" />
+    <Compile Include="Drawing\LayerDrawer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>

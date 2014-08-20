@@ -17,10 +17,15 @@ namespace Cession.Modeling
 		public ClosedShapeDiagram Contour{ get; set; }
 		public ClosedShapeDiagram OuterContour{ get; private set; }
 
-		public Room (ClosedShapeDiagram contour)
-		{
+		static Room(){
 			DefaultWallThickness = 200;
+		}
 
+		public Room (ClosedShapeDiagram contour):this(contour,null)
+		{
+		}
+
+		public Room(ClosedShapeDiagram contour,Diagram parent):base(parent){
 			this.Contour = contour;
 			contour.Parent = this;
 			Floor = new Floor (this);

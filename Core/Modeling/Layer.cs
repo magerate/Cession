@@ -15,12 +15,13 @@ namespace Cession.Modeling
 		}
 	}
 
-	public class Layer
+	public class Layer:Diagram
 	{
 		public static readonly Size2 DefaultSize = new Size2 (200000, 200000);
 
 		public string Name{ get; set; }
 		public DiagramCollection Diagrams{ get; private set; }
+		public Project Project{ get; private set; }
 
 		private List<Diagram> selectedDiagrams = new List<Diagram> ();
 		private ReadOnlyCollection<Diagram> readOnlySelectedDiagrams;
@@ -43,8 +44,9 @@ namespace Cession.Modeling
 		public event EventHandler<EventArgs> SelectionClear;
 
 
-		public Layer (string name)
-		{
+		public Layer(Project project,string name){
+			this.Project = project;
+
 			this.Transform = Matrix.Identity;
 
 			//default layer size 200 meter
@@ -56,10 +58,10 @@ namespace Cession.Modeling
 			readOnlySelectedDiagrams = new ReadOnlyCollection<Diagram> (selectedDiagrams);
 		}
 
-		public Diagram HitTest(Point2 point)
+		public override Diagram HitTest(Point2 point)
 		{
-			foreach (var item in Diagrams) {
-				var de = item.HitTest (point);
+			foreach (var diagram in Diagrams) {
+				var de = diagram.HitTest (point);
 				if (null != de)
 					return de;
 			}
@@ -118,6 +120,12 @@ namespace Cession.Modeling
 		public static Matrix GetDefaultTransform(int width,int height,int logicalUnitPerDp){
 			return GetDefaultTransform (Layer.DefaultSize, width, height,logicalUnitPerDp);
 		}
+
+		internal override void InternalOffset (int x, int y)
+		{
+			Transform.Translate ((double)x, (double)y);
+		}
+
 	}
 }
 

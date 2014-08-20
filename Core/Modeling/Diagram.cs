@@ -8,6 +8,8 @@
 	public abstract class Diagram
 	{
 		#region "routed events"
+		private Dictionary<RoutedEvent,Delegate> eventStore ;
+
 		public static readonly RoutedEvent MoveEvent = new RoutedEvent ("Move", 
 			typeof(RoutedEventHandler), 
 			typeof(Diagram));
@@ -16,18 +18,70 @@
 			typeof(RoutedEventHandler), 
 			typeof(Diagram));
 
+
 		public void AddHandler(RoutedEvent routedEvent,Delegate handler){
-			EventHandlerStore.AddHandler (this,routedEvent, handler);
+			if (null == handler)
+				throw new ArgumentNullException ();
+
+			if(!routedEvent.IsLegalHandler(handler))
+				throw new ArgumentException("handler");
+
+			if (null == eventStore)
+				eventStore = new Dictionary<RoutedEvent, Delegate>();
+
+			Delegate currentHandler = GetHandler(routedEvent);
+			if (null == currentHandler)
+				eventStore.Add (routedEvent, handler);
+			else
+				eventStore [routedEvent] = Delegate.Combine (currentHandler, handler);
 		}
 
 		public void RemoveHandler(RoutedEvent routedEvent,Delegate handler){
-			EventHandlerStore.RemoveHandler (this,routedEvent, handler);
+			if (null == handler)
+				throw new ArgumentNullException ();
+
+			if(!routedEvent.IsLegalHandler(handler))
+				throw new ArgumentException("handler");
+
+			if (null == eventStore)
+				return;
+
+			Delegate currentHandler = GetHandler(routedEvent);
+			if (null == currentHandler)
+				return;
+			currentHandler = Delegate.Remove (currentHandler, handler);
+			if (null == currentHandler)
+				eventStore.Remove (routedEvent);
+			else
+				eventStore [routedEvent] = currentHandler;
 		}
 
-		public void RaiseEvent(RoutedEventArgs e){
-			var chain = EventHandlerStore.GetEventChain (e.RoutedEvent);
-			if (null != chain)
-				chain.InvokeHandlers (this, e);
+		private Delegate GetHandler(RoutedEvent routedEvent){
+			Delegate handler;
+			eventStore.TryGetValue (routedEvent, out handler);
+			return handler;
+		}
+
+		protected void RaiseEvent(RoutedEventArgs e){
+			Diagram diagram = this;
+			while (diagram != null) {
+				diagram.InvokeHandler (e);
+				diagram = diagram.Parent;
+			}
+		}
+
+		protected void InvokeHandler(RoutedEventArgs args){
+			if (null == eventStore)
+				return;
+
+			args.Source = this;
+			var handler = GetHandler (args.RoutedEvent);
+			if (null != handler) {
+				if (handler is RoutedEventHandler)
+					((RoutedEventHandler)handler).Invoke (this, args);
+				else
+					handler.DynamicInvoke (new object[]{ this, args });
+			}
 		}
 		#endregion
 
@@ -43,19 +97,14 @@
 			}
 		}
 
-		public bool IsAncestorOf(Diagram diagram){
-			var parent = diagram.Parent;
-
-			while (true) {
-				if (parent == this)
-					return true;
-
-				if (parent == null)
-					break;
-
-				parent = parent.Parent;
+		public Diagram GetSelectableAncestor(){
+			var diagram = this;
+			while (diagram != null) {
+				if (diagram.CanSelect)
+					return diagram;
+				diagram = diagram.Parent;
 			}
-			return false;
+			return diagram;
 		}
 
 		public virtual bool CanSelect{
@@ -81,13 +130,13 @@
 		internal abstract void InternalOffset (int x, int y);
 
 
-		public virtual void Move(int x,int y){
+		public virtual void Offset(int x,int y){
 			InternalOffset (x, y);
 			RaiseEvent (new RoutedEventArgs (Diagram.MoveEvent, this));
 		}
 
-		public void Move(Vector offset){
-			this.Move ((int)offset.X, (int)offset.Y);
+		public void Offset(Vector offset){
+			this.Offset ((int)offset.X, (int)offset.Y);
 		}
 	}
 }

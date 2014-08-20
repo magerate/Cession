@@ -32,6 +32,10 @@
 			this.projectInfo = projectInfo;
 			commandManager = new CommandManager ();
 
+//			project.Layers [0].AddHandler (Diagram.MoveEvent, new RoutedEventHandler ((o, e) => {
+//				Console.WriteLine();
+//			}));
+
 			commandManager.Committed += CommandCommited;
 			commandManager.CanUndoChanged += CanUndoChanged;
 			commandManager.CanRedoChanged += CanRedoChanged;
@@ -103,9 +107,9 @@
 			}
 		}
 
-		public override void ViewDidLayoutSubviews ()
+		public override void DidRotate (UIInterfaceOrientation fromInterfaceOrientation)
 		{
-			base.ViewDidLayoutSubviews ();
+			base.DidRotate (fromInterfaceOrientation);
 			toolView.SetNeedsDisplay ();
 			diagramView.SetNeedsDisplay ();
 		}
