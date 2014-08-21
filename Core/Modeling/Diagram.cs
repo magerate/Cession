@@ -18,7 +18,6 @@
 			typeof(RoutedEventHandler), 
 			typeof(Diagram));
 
-
 		public void AddHandler(RoutedEvent routedEvent,Delegate handler){
 			if (null == handler)
 				throw new ArgumentNullException ();
@@ -62,10 +61,10 @@
 			return handler;
 		}
 
-		protected void RaiseEvent(RoutedEventArgs e){
+		protected void RaiseEvent(RoutedEventArgs args){
 			Diagram diagram = this;
 			while (diagram != null) {
-				diagram.InvokeHandler (e);
+				diagram.InvokeHandler (args);
 				diagram = diagram.Parent;
 			}
 		}

@@ -32,13 +32,20 @@
 			this.projectInfo = projectInfo;
 			commandManager = new CommandManager ();
 
-//			project.Layers [0].AddHandler (Diagram.MoveEvent, new RoutedEventHandler ((o, e) => {
-//				Console.WriteLine();
-//			}));
+			project.Layers [0].AddHandler (Room.DoorRemovedEvent, 
+				new EventHandler<DoorRemovedEventArgs> (OnDoorRemoved));
 
 			commandManager.Committed += CommandCommited;
 			commandManager.CanUndoChanged += CanUndoChanged;
 			commandManager.CanRedoChanged += CanRedoChanged;
+		}
+
+		private void OnDoorRemoved(object sender,DoorRemovedEventArgs e){
+			if (e.IsSideEffect) {
+				var room = e.OriginalSource as Room;
+				var command = new OneArgumentCommand<Door> (e.Door, room.RemoveDoor, room.AddDoor);
+				commandManager.Queue (command);
+			}
 		}
 
 		private void CommandCommited(object sender,EventArgs e)

@@ -108,6 +108,7 @@
     <Compile Include="Tools\MoveSideTool.cs" />
     <Compile Include="Drawing\HandleDrawing.cs" />
     <Compile Include="Drawing\LayerDrawer.cs" />
+    <Compile Include="Drawing\DoorDrawer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>

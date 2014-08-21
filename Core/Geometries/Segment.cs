@@ -53,6 +53,10 @@
 			return string.Format ("[Segment: P1={0}, P2={1}, Center={2}]", P1, P2, Center);
 		}
 
+		public double Length{
+			get{ return (p1 - p2).Length; }
+		}
+
 //        public static Point2? Intersect(Point2 p1, Point2 p2, Point2 p3, Point2 p4)
 //        {
 //            var cross = Line.Intersect(p1, p2, p3, p4);

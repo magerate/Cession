@@ -33,7 +33,24 @@
 			var rect = Rect.FromPoints (startPoint.Value, endPoint.Value);
 			var rectDiagram = new RectangleDiagram (rect);
 			var room = new Room (rectDiagram,CurrentLayer);
+
+			DoorTest (room, rectDiagram);
+
 			CommandManager.ExecuteListAdd (CurrentLayer.Diagrams, room);
+		}
+
+		private void DoorTest(Room room,RectangleDiagram rectDiagram){
+			var door = new Door (room, 0, rectDiagram [0].Length/2);
+			room.Doors.Add (door);
+
+			door = new Door (room, 1, rectDiagram [1].Length/2);
+			room.Doors.Add (door);
+
+			door = new Door (room, 2, rectDiagram [2].Length/2);
+			room.Doors.Add (door);
+
+			door = new Door (room, 3, rectDiagram [3].Length/2);
+			room.Doors.Add (door);
 		}
 
 		private RectangleF GetRect(PointF p1,PointF p2)

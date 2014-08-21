@@ -89,6 +89,20 @@
 			}
 		}
 
+		public static void BuildDoorPath(this CGContext context,Door door){
+			var matrix = door.Transform * Transform;
+			var p1 = matrix.Transform (door.OriginalBounds.LeftTop);
+			var p2 = matrix.Transform (door.OriginalBounds.RightTop);
+			var p3 = matrix.Transform (door.OriginalBounds.RightBottom);
+			var p4 = matrix.Transform (door.OriginalBounds.LeftBottom);
+
+			context.MoveTo ((float)p1.X, (float)p1.Y);
+			context.AddLineToPoint((float) p2.X, (float) p2.Y);
+			context.AddLineToPoint((float) p3.X, (float) p3.Y);
+			context.AddLineToPoint((float) p4.X, (float) p4.Y);
+			context.ClosePath ();
+		}
+
 		public static void DrawString(string str,UIFont font,PointF point)
 		{
 			if(null == str)

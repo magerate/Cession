@@ -1,19 +1,26 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad.7.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Core/Modeling/Diagram.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Core/Commands/CommandManager.cs">
     <Files>
-      <File FileName="Core/Modeling/Room.cs" Line="4" Column="4" />
-      <File FileName="Core/Modeling/PolyLine.cs" Line="1" Column="1" />
-      <File FileName="Core/Modeling/Diagram.cs" Line="26" Column="26" />
+      <File FileName="Cession/DiagramController.cs" Line="1" Column="1" />
+      <File FileName="Core/Commands/CommandManager.cs" Line="31" Column="31" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True" />
       </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/Andrew/GitHub/Cession/Core/Modeling/Door.cs" line="73" column="5" />
+      <Breakpoint file="/Users/Andrew/GitHub/Cession/Core/Commands/CommandManager.cs" line="35" column="4" />
+      <Breakpoint file="/Users/Andrew/GitHub/Cession/Cession/DiagramController.cs" line="47" column="5" />
+      <Breakpoint file="/Users/Andrew/GitHub/Cession/Cession/DiagramController.cs" line="44" column="4" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

@@ -110,5 +110,7 @@
     <Compile Include="Modeling\RoutedEvents\RoutedEvent.cs" />
     <Compile Include="Modeling\RoutedEvents\RoutedEventArgs.cs" />
     <Compile Include="Modeling\PolyLine.cs" />
+    <Compile Include="Modeling\Door.cs" />
+    <Compile Include="Modeling\Events.cs" />
   </ItemGroup>
 </Project>

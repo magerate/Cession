@@ -43,6 +43,9 @@
 		{
 			context.BuildFigurePath (room.OuterContour);
 			context.BuildFigurePath (room.Contour);
+			foreach (var door in room.Doors) {
+				context.BuildDoorPath (door);
+			}
 			context.DrawPath (CGPathDrawingMode.EOFillStroke);
 		}
 	}
