@@ -10,6 +10,7 @@
 	using Cession.Tools;
 	using Cession.UIKit;
 	using Cession.Commands;
+	using Cession.Mediators;
 
 	public partial class DiagramController:UIViewController,IToolHost
 	{
@@ -19,7 +20,7 @@
 		private Project project;
 		private ProjectInfo projectInfo;
 		private CommandManager commandManager;
-
+		private DiagramCommandMediator diagramCommandMediator;
 		private ToolManager toolManager;
 
 		public DiagramController ()
@@ -30,22 +31,18 @@
 		{
 			this.project = project;
 			this.projectInfo = projectInfo;
-			commandManager = new CommandManager ();
+			if (null == commandManager) {
+				commandManager = new CommandManager ();
+				diagramCommandMediator = new DiagramCommandMediator (commandManager);
+			}
+			else
+				commandManager.Clear ();
 
-			project.Layers [0].AddHandler (Room.DoorRemovedEvent, 
-				new EventHandler<DoorRemovedEventArgs> (OnDoorRemoved));
+			diagramCommandMediator.RegisterProjectEvents (project);
 
 			commandManager.Committed += CommandCommited;
 			commandManager.CanUndoChanged += CanUndoChanged;
 			commandManager.CanRedoChanged += CanRedoChanged;
-		}
-
-		private void OnDoorRemoved(object sender,DoorRemovedEventArgs e){
-			if (e.IsSideEffect) {
-				var room = e.OriginalSource as Room;
-				var command = new OneArgumentCommand<Door> (e.Door, room.RemoveDoor, room.AddDoor);
-				commandManager.Queue (command);
-			}
 		}
 
 		private void CommandCommited(object sender,EventArgs e)
