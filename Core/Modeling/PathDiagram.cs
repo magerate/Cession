@@ -18,6 +18,9 @@
 		public PathDiagram (IEnumerable<Point2> points,Diagram parent)
 		{
 			this.points = points.ToList ();
+			if (!Polygon.IsClockwise (this.points))
+				this.points.Reverse ();
+
 			this.Parent = parent;
 		}
 

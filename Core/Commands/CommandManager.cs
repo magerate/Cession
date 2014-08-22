@@ -30,10 +30,6 @@ namespace Cession.Commands
 			Push (command);
 		}
 
-		public void Start(Command command){
-			ExecuteQueue (command);
-			Push ();
-		}
 
 		private void OnCommit()
 		{

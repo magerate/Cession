@@ -11,7 +11,6 @@
 		{
 			if (product.Category.AssignType != AssignType.Area)
 				throw new ArgumentException ();
-
 		}
 	}
 }

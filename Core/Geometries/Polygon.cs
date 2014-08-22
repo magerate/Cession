@@ -5,6 +5,12 @@
 
 	public static class Polygon
 	{
+		public static bool IsClockwise(IList<Point2> polygon){
+			var v1 = polygon [1] - polygon [0];
+			var v2 = polygon [2] - polygon [1];
+			return v1.CrossProduct (v2) > 0;
+		}
+
 		public static bool Contains(Point2 point, IList<Point2> polygon)
 		{
 			return ContainsPoint (point, polygon) != 0;

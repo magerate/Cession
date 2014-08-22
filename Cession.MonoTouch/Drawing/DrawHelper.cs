@@ -10,6 +10,7 @@
 
 	using Cession.Modeling;
 	using Cession.Geometries;
+	using Cession.Dimensions;
 
 	public static class DrawHelper
 	{
@@ -37,13 +38,6 @@
 			context.StrokeRect (rect.ToRect (Transform));
 		}
 
-		public static void StrokeLine(this CGContext context,PointF p1,PointF p2)
-		{
-			context.MoveTo (p1.X, p1.Y);
-			context.AddLineToPoint (p2.X, p2.Y);
-			context.StrokePath ();
-		}
-
 		public static void StrokeLine(this CGContext context,Point2 p1,Point2 p2)
 		{
 			p1 = Transform.Transform (p1);
@@ -52,12 +46,6 @@
 			context.MoveTo ((float)p1.X, (float)p1.Y);
 			context.AddLineToPoint ((float)p2.X, (float)p2.Y);
 			context.StrokePath ();
-		}
-
-		public static void FillCircle(this CGContext context,PointF point,float radius)
-		{
-			var rect = new RectangleF (point.X - radius, point.Y - radius, 2 * radius, 2 * radius);
-			context.FillEllipseInRect (rect);
 		}
 
 		public static void StrokePolygon(this CGContext context,PathDiagram polygon)
@@ -103,40 +91,54 @@
 			context.ClosePath ();
 		}
 
-		public static void DrawString(string str,UIFont font,PointF point)
+		private static bool NeedReverse(double angle)
 		{
-			if(null == str)
-				throw new ArgumentNullException();
-			if(null == font)
-				throw new ArgumentNullException();
+			return angle >= Math.PI / 2 && angle <= Math.PI * 3 / 2;
+		}
 
-			str = str.Replace("\n","~");
-			string[] strs = str.Split(new char[] {'~'});			
-			int i = 0;
-			SizeF size;
-			if(strs.Length>0)
-			{
-				size = MeasureString(strs[0],font);			
-				foreach(string s in strs)
-				{
-					float x = point.X;
-					float y = point.Y + i*size.Height;
-					using(NSString nsString = new NSString(s))
-					{					   
-						nsString.DrawString(new PointF(x,y),font);
-					}
-					i++;
-				}	
+		public static void DrawDimension(this CGContext context,Point2 p1,Point2 p2){
+			var logicalLength = p1.DistanceBetween (p2);
+			var length = new Length(logicalLength);
+
+			using(var nsStr = new NSString (length.ToString ())){
+				var vector = p2 - p1;
+				var angle = vector.Angle;
+
+				var stringAttribute = new UIStringAttributes (){ };
+				var size = nsStr.GetSizeUsingAttributes (stringAttribute);
+				var logicalWidth = size.Width / Transform.M11;
+				var logicalHeight = size.Height / Transform.M11;
+
+				double position;
+				if (NeedReverse(angle))
+					position = (logicalLength + logicalWidth) / 2;
+				else
+					position = (logicalLength - logicalWidth) / 2;
+
+				var offsetVector = vector * position / vector.Length;
+				var rotateVector = vector * logicalHeight /vector.Length;
+				rotateVector.Rotate (Math.PI / 2);
+
+				Point2 dimensionPoint;
+				if (NeedReverse(angle))
+					dimensionPoint = p1 + offsetVector + rotateVector;
+				else
+					dimensionPoint = p1 + offsetVector;
+
+				var ddPoint = Transform.Transform (dimensionPoint);
+				context.SaveState ();
+				context.TranslateCTM (ddPoint.X, ddPoint.Y);
+				if (NeedReverse(angle))
+					context.RotateCTM ((float)(Math.PI+angle));
+				else
+					context.RotateCTM ((float)angle);
+			
+				nsStr.DrawString (PointF.Empty, stringAttribute);
+				context.RestoreState ();
 			}
 		}
 
-		public static SizeF MeasureString(this string str, UIFont font)
-		{			
-			using(NSString nsStr = new NSString(str))
-			{
-				return nsStr.StringSize(font);				
-			}
-		}
+
 	}
 }
 

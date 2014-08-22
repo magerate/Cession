@@ -57,15 +57,14 @@
 					           endPoint.Value.X - startPoint.Value.X,
 					           endPoint.Value.Y - startPoint.Value.Y);
 
-				var command = Command.CreateSetProperty (rectDiagram, rect, "Rect");
-				CommandManager.Start (command);
+				CommandManager.Execute (rect, rectDiagram.Rect, r => rectDiagram.Rect = r);
 			} else if (diagram is PathDiagram) {
 				var targetSegment = handle.MoveSide (endPoint.Value);
 				var currentSegment = handle.Side;
 				var pathDiagram = diagram as PathDiagram;
 
 				var command = Command.Create (handle.Index, targetSegment, currentSegment, pathDiagram.MoveSide);
-				CommandManager.Start (command);
+				CommandManager.Execute (command);
 			}
 		}
 	}

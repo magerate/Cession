@@ -18,6 +18,7 @@
 			UIColor.Gray.SetFill ();
 
 			DrawWallSection (context, room);
+			DrawDimension (context, room);
 			context.RestoreState ();
 		}
 
@@ -47,6 +48,14 @@
 				context.BuildDoorPath (door);
 			}
 			context.DrawPath (CGPathDrawingMode.EOFillStroke);
+		}
+
+		private void DrawDimension(CGContext context,Room room){
+			var polygon = room.Contour as IPolygonal;
+			for (int i = 0; i < polygon.SideCount; i++) {
+				var segment = polygon [i];
+				context.DrawDimension (segment.P1, segment.P2);
+			}
 		}
 	}
 }

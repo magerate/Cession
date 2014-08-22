@@ -47,6 +47,7 @@
     <Folder Include="Products\" />
     <Folder Include="Modeling\RoutedEvents\" />
     <Folder Include="Mediators\" />
+    <Folder Include="Dimensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
@@ -114,5 +115,7 @@
     <Compile Include="Modeling\Door.cs" />
     <Compile Include="Modeling\Events.cs" />
     <Compile Include="Mediators\DiagramCommandMediator.cs" />
+    <Compile Include="Dimensions\Length.cs" />
+    <Compile Include="Dimensions\Units.cs" />
   </ItemGroup>
 </Project>

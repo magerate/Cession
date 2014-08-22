@@ -109,6 +109,7 @@
     <Compile Include="Drawing\HandleDrawing.cs" />
     <Compile Include="Drawing\LayerDrawer.cs" />
     <Compile Include="Drawing\DoorDrawer.cs" />
+    <Compile Include="Drawing\DrawUtil.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
