@@ -245,18 +245,19 @@ namespace Cession.Dimensions
 		private string ToStringImperial ()
 		{
 			int feet = (int)Feet;
-			double inches = (Inches % InchesPerFoot);
-			if (precision == LogicUnitPerInch)
-				inches = Math.Round (inches);
 
+			double n = Math.Ceiling(Math.Log10 (LogicUnitPerInch / precision));
+			string formatSymbol = "F" + n.ToString ();
+			double inches = (Inches % InchesPerFoot);
+				
 			if(feet == 0)
-				return string.Format("{0}\"",inches.ToString());
-			return string.Format("{0}'{1}\"",feet.ToString(),inches.ToString());
+				return string.Format("{0}\"",inches.ToString(formatSymbol));
+			return string.Format("{0}'{1}\"",feet.ToString(),inches.ToString(formatSymbol));
 		}
 
 		private string ToStringImperialFraction(){
 			int feet = (int)Feet;
-			int inches = (int)Inches % InchesPerFoot;
+			int inches = (int)(Inches % InchesPerFoot);
 			int denominator = (int)(Length.LogicUnitPerInch / precision);
 			int remainder = (int)(RoundedValue / precision) % denominator;
 

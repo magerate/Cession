@@ -137,6 +137,8 @@
 //			var singleLine = new NSString ("afdas");
 //			var size2 = singleLine.GetSizeUsingAttributes (sa);
 
+
+
 			using (var context = UIGraphics.GetCurrentContext ()) {
 				DrawHelper.Transform = ToolManager.Host.Project.Layers.SelectedLayer.Transform;
 				foreach (var item in ToolManager.Host.Project.Layers.SelectedLayer.SelectedDiagrams) {
