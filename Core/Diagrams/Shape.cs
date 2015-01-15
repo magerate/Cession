@@ -7,26 +7,26 @@ namespace Cession.Diagrams
 {
 	public abstract partial class Shape
 	{
-		internal ShapeConstraints Constraints{ get; set; }
+		internal ShapeAbility Ability{ get; set; }
 
 		public bool CanSelect{
-			get{ return (Constraints & ShapeConstraints.CanSelect) != 0; }
+			get{ return (Ability & ShapeAbility.CanSelect) != 0; }
 		}
 
 		public bool CanHitTest{
-			get{ return (Constraints & ShapeConstraints.CanHitTest) != 0; }
+			get{ return (Ability & ShapeAbility.CanHitTest) != 0; }
 		}
 
 		public bool CanOffset{
-			get{ return (Constraints & ShapeConstraints.CanOffset) != 0; }
+			get{ return (Ability & ShapeAbility.CanOffset) != 0; }
 		}
 
 		public bool CanRotate{
-			get{ return (Constraints & ShapeConstraints.CanRotate) != 0; }
+			get{ return (Ability & ShapeAbility.CanRotate) != 0; }
 		}
 
 		public bool CanAssign{
-			get{ return (Constraints & ShapeConstraints.CanAssign) != 0; }
+			get{ return (Ability & ShapeAbility.CanAssign) != 0; }
 		}
 
 
@@ -51,7 +51,7 @@ namespace Cession.Diagrams
 		protected Shape (Shape parent)
 		{
 			this.Parent = parent;
-			this.Constraints = ShapeConstraints.All;
+			this.Ability = ShapeAbility.All;
 		}
 
 		public void Offset (int x, int y){

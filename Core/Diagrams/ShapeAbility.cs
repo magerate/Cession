@@ -2,9 +2,8 @@
 
 namespace Cession.Diagrams
 {
-
 	[Flags]
-	internal enum ShapeConstraints
+	internal enum ShapeAbility
 	{
 		None = 0,
 		CanSelect = 0x1,

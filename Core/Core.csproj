@@ -105,7 +105,6 @@
     <Compile Include="Handles\SideHandle.cs" />
     <Compile Include="Handles\HandleHelper.cs" />
     <Compile Include="Diagrams\Shape.cs" />
-    <Compile Include="Diagrams\ShapeConstraits.cs" />
     <Compile Include="Diagrams\HitTestProvider.cs" />
     <Compile Include="Geometries\Polygon.cs" />
     <Compile Include="Modeling\RoutedEvents\RoutedEvent.cs" />
@@ -125,5 +124,10 @@
     <Compile Include="Diagrams\Shape+Events.cs" />
     <Compile Include="Diagrams\Shape+HitTest.cs" />
     <Compile Include="Diagrams\Circle.cs" />
+    <Compile Include="Diagrams\Segment.cs" />
+    <Compile Include="Diagrams\ShapeAbility.cs" />
+    <Compile Include="Diagrams\LineSegment.cs" />
+    <Compile Include="Diagrams\Path.cs" />
+    <Compile Include="Diagrams\CompositeShape.cs" />
   </ItemGroup>
 </Project>
