@@ -4,7 +4,6 @@
 	using System.Collections.Generic;
 
 	using Cession.Geometries;
-	using Cession.Geometries.Shapes;
 
 	public class RegionDiagram:CompositeDiagram
 	{
@@ -17,7 +16,7 @@
 			Holes = new List<ClosedShapeDiagram> ();
 		}
 
-		public override IEnumerable<Diagram> Traverse ()
+		public override IEnumerator<Diagram> GetEnumerator()
 		{
 			foreach (var hole in Holes) {
 				yield return hole;

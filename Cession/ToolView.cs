@@ -124,6 +124,20 @@
 			if (null == ToolManager)
 				return;
 
+//			string multipleLine = "abc" + Environment.NewLine + "toma" + Environment.NewLine + "fda";
+//
+//			var nsstring = new NSString (multipleLine);
+//			var point = this.Center;
+//
+////			nsstring.DrawString (point, UIFont.SystemFontOfSize (UIFont.SystemFontSize));
+//			var sa = new UIStringAttributes ();
+//			nsstring.DrawString (point, sa);
+//			var size = nsstring.GetSizeUsingAttributes (sa);
+//
+//			var singleLine = new NSString ("afdas");
+//			var size2 = singleLine.GetSizeUsingAttributes (sa);
+
+
 
 			using (var context = UIGraphics.GetCurrentContext ()) {
 				DrawHelper.Transform = ToolManager.Host.Project.Layers.SelectedLayer.Transform;
@@ -132,7 +146,6 @@
 				};
 
 				ToolManager.CurrentTool.Draw (context);
-
 			}
 		}
 	}

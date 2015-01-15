@@ -4,7 +4,6 @@ namespace Cession.Modeling
 	using System.Collections.Generic;
 
 	using Cession.Geometries;
-	using Cession.Geometries.Shapes;
 
 	public class Floor:CompositeDiagram
 	{
@@ -16,9 +15,9 @@ namespace Cession.Modeling
 			Regions.Add (new RegionDiagram (this, parent.Contour));
 		}
 
-		public override IEnumerable<Diagram> Traverse ()
+		public override IEnumerator<Diagram> GetEnumerator ()
 		{
-			return Regions;
+			return Regions.GetEnumerator();
 		}
 
 		public override bool CanSelect {

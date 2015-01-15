@@ -36,10 +36,10 @@
 			CommandManager.Execute (command);
 		}
 
-		private void OffsetShapes(IEnumerable<Diagram> shapes,Vector vector)
+		private void OffsetShapes(IEnumerable<Diagram> shapes,Vector offset)
 		{
-			foreach (var item in shapes) {
-				item.Offset (vector);
+			foreach (var shape in shapes) {
+				shape.Offset (offset);
 			}
 		}
 

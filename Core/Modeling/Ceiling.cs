@@ -19,9 +19,14 @@ namespace Cession.Modeling
 			return null;
 		}
 
-		public override void Offset (int x, int y)
-		{
+		public override Rect Bounds {
+			get {
+				throw new System.NotImplementedException ();
+			}
+		}
 
+		internal override void InternalOffset (int x, int y)
+		{
 		}
 	}
 }

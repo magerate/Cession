@@ -32,7 +32,7 @@
 				using (var context = UIGraphics.GetCurrentContext ()) {
 					context.SaveState ();
 					UIColor.LightGray.SetFill ();
-					DrawHelper.DrawString (placeholder, UIFont.SystemFontOfSize(18), new PointF (5, 5));
+//					DrawUtil.DrawString (placeholder, UIFont.SystemFontOfSize(18), new PointF (5, 5));
 					context.RestoreState ();
 				}	
 		}

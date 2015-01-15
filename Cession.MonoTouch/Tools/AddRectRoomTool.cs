@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Drawing;
+	using System.Linq;
 
 	using MonoTouch.UIKit;
 	using MonoTouch.CoreGraphics;
@@ -9,17 +10,16 @@
 
 	using Cession.UIKit;
 	using Cession.Geometries;
-	using Cession.Geometries.Shapes;
 	using Cession.Drawing;
 	using Cession.Modeling;
 	using Cession.Commands;
+	using Cession.Utilities;
 
 	public class AddRectRoomTool:DragDropTool
 	{
 		public AddRectRoomTool (ToolManager toolManager):base(toolManager)
 		{
 		}
-
 
 		protected override void DoDraw (CGContext context)
 		{
@@ -33,7 +33,9 @@
 		{
 			var rect = Rect.FromPoints (startPoint.Value, endPoint.Value);
 			var rectDiagram = new RectangleDiagram (rect);
-			var room = new Room (rectDiagram);
+			var room = new Room (rectDiagram,CurrentLayer);
+			room.Name = CurrentLayer.CreateRoomName ();
+
 			CommandManager.ExecuteListAdd (CurrentLayer.Diagrams, room);
 		}
 

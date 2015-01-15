@@ -4,6 +4,8 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 
+using Cession.Dimensions;
+
 namespace Cession
 {
 	public class Application

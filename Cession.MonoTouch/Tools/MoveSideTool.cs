@@ -8,6 +8,7 @@
 	using Cession.Modeling;
 	using Cession.Drawing;
 	using Cession.Geometries;
+	using Cession.Handles;
 	using Cession.Commands;
 
 	public class MoveSideTool:DragDropTool
@@ -36,23 +37,35 @@
 
 		protected override void DoDraw (CGContext context)
 		{
-			var segment = handle.Move (endPoint.Value);
+			var segment = handle.MoveSide (endPoint.Value);
 			var prevSegment = handle.PreviousSide;
 			var nextSegment = handle.NextSide;
 
-			context.StrokeLine (prevSegment.P1, segment.P1);
+			if(prevSegment.HasValue)
+				context.StrokeLine (prevSegment.Value.P1, segment.P1);
 			context.StrokeLine (segment.P1, segment.P2);
-			context.StrokeLine (segment.P2, nextSegment.P2);
+			if(nextSegment.HasValue)
+				context.StrokeLine (segment.P2, nextSegment.Value.P2);
 		}
 
 		protected override void Commit ()
 		{
-			var diagram = handle.Parent as RectangleDiagram;
-			var rect = diagram.MoveSide(handle.Index,
-				endPoint.Value.X - startPoint.Value.X,
-				endPoint.Value.Y - startPoint.Value.Y);
+			var diagram = handle.Diagram;
+			if (diagram is RectangleDiagram) {
+				var rectDiagram = diagram as RectangleDiagram;
+				var rect = rectDiagram.MoveSide (handle.Index,
+					           endPoint.Value.X - startPoint.Value.X,
+					           endPoint.Value.Y - startPoint.Value.Y);
 
-			CommandManager.ExecuteSetProperty (diagram, rect, "Rect");
+				CommandManager.Execute (rect, rectDiagram.Rect, r => rectDiagram.Rect = r);
+			} else if (diagram is PathDiagram) {
+				var targetSegment = handle.MoveSide (endPoint.Value);
+				var currentSegment = handle.Side;
+				var pathDiagram = diagram as PathDiagram;
+
+				var command = Command.Create (handle.Index, targetSegment, currentSegment, pathDiagram.MoveSide);
+				CommandManager.Execute (command);
+			}
 		}
 	}
 }

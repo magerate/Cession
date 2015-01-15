@@ -65,7 +65,7 @@ namespace Cession
 			projectInfo.Name = "Untitled diagram";
 			projects.Insert (0, projectInfo);
 
-			var project = Project.Create ("Layer",LayerDrawing.GetLayerDefaultTransform());
+			var project = Project.Create ("Layer",LayerDrawer.GetLayerDefaultTransform());
 
 			projectDictionary.Add (projectInfo, project);
 

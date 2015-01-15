@@ -5,6 +5,7 @@
 
 	public struct Rect : IEquatable<Rect>
 	{
+		public static readonly Rect Empty = new Rect (0, 0, 0, 0);
 		private int x;
 		private int y;
 		private int width;
@@ -82,6 +83,10 @@
 			this.height = height;
 		}
 
+		public Rect(Point2 location,Size2 size):this(location.X,location.Y,size.Width,size.Height)
+		{
+		}
+
 		public bool Contains(Point2 point)
 		{
 			return point.X >= x && point.X <= x + width &&
@@ -151,13 +156,18 @@
 
 		public Rect Union(Rect rect)
 		{
+			if (this == Empty)
+				return rect;
+			if (rect == Empty)
+				return this;
+
 			var left = Math.Min(this.Left, rect.Left);
-			var bottom = Math.Min(this.Bottom, rect.Bottom);
+			var top = Math.Min(this.Top, rect.Top);
 
 			var right = Math.Max(this.Right, rect.Right);
-			var top = Math.Max(this.Top, rect.Top);
+			var bottom = Math.Max(this.Bottom, rect.Bottom);
 
-			return new Rect(left, bottom, right - left, top - bottom);
+			return Rect.FromLTRB (left, top, right, bottom);
 		}
 
 		public Rect? Intersect(Rect rect)
@@ -167,10 +177,10 @@
 			{
 				var left = Math.Max(this.Left, rect.Left);
 				var right = Math.Min(this.Right, rect.Right);
-				var top = Math.Min(this.Top, rect.Top);
-				var bottom = Math.Max(this.Bottom, rect.Bottom);
+				var top = Math.Max(this.Top, rect.Top);
+				var bottom = Math.Min(this.Bottom, rect.Bottom);
 
-				return new Rect(left, bottom, right - left, top - bottom);
+				return Rect.FromLTRB (left, top, right, bottom);
 			}
 			return null;
 		}

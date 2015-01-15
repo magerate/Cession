@@ -30,6 +30,7 @@ namespace Cession.Commands
 			Push (command);
 		}
 
+
 		private void OnCommit()
 		{
 			if(null != Committed)
@@ -96,6 +97,10 @@ namespace Cession.Commands
 			ClearRedoStack ();
 			command.Execute();
 			commandQueue.Enqueue(command);
+		}
+
+		public void Queue(Command command){
+			commandQueue.Enqueue (command);
 		}
 
 		public void Undo()

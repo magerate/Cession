@@ -7,7 +7,6 @@
         private int min;
         private int max;
 
-
         public Range(int x, int y)
         {
             if (x > y)

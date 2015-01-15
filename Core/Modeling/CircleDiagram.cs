@@ -14,11 +14,6 @@
 			set{ center = value; }
 		}
 
-		public override Segment this[int index] {
-			get {
-				throw new NotSupportedException ();
-			}
-		}
 
 		public int Radius
 		{ 
@@ -45,7 +40,13 @@
 			return null;
 		}
 
-		public override void Offset (int x, int y)
+		public override Rect Bounds {
+			get {
+				return new Rect (center.X - radius, center.Y - radius, 2 * radius, 2 * radius);
+			}
+		}
+
+		internal override void InternalOffset (int x, int y)
 		{
 			center.Offset (x, y);
 		}

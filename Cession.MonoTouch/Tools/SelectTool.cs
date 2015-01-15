@@ -57,12 +57,11 @@
 
 			var handles = room.Contour.GetHandles (CurrentLayer.Transform);
 			for (int i = 0; i < handles.Length; i++) {
-				if (handles[i].HitTest (touchPoint.ToPoint2()) != null) {
+				if (handles[i].Contains (touchPoint.ToPoint2())) {
 					toolManager.PushTool (ToolType.MoveSide,handles[i]);
 					return true;
 				}
 			}
-
 			return false;
 		}
 
@@ -89,10 +88,9 @@
 
 			CurrentLayer.ClearSelection ();
 			if (null != shape) {
-				if (shape.CanSelect)
+				shape = shape.GetSelectableAncestor ();
+				if(null != shape)
 					CurrentLayer.Select (shape);
-				else
-					CurrentLayer.Select (shape.Owner);
 			}
 		}
 	}

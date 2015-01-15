@@ -207,13 +207,13 @@
 //            var p2 = Point2.Rotate(line.p2, point, angle);
 //            return new Line(p1, p2);
 //        }
-//
+
 //        public void Rotate(Point2 point, double angle)
 //        {
 //            p1.Rotate(point, angle);
 //            p2.Rotate(point, angle);
 //        }
-//
+
 //        public void Rotate(double angle)
 //        {
 //            this.Rotate(Point2.Empty, angle);
@@ -247,7 +247,7 @@
             var v1 = point - p1;
             var v2 = p2 - p1;
 
-            return Math.Abs(Vector.CrossProduct(v1, v2) / v2.Length);
+            return Vector.CrossProduct(v1, v2) / v2.Length;
         }
 
         public static double DistanceBetween(Line line, Point2 point)

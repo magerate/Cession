@@ -23,10 +23,16 @@
             get { return Math.Sqrt(X * X + Y * Y); }
         }
 
-        //(-pi,pi]
+        //(0,2pi]
         public double Angle
         {
-            get { return Math.Atan2(Y, X); }
+            get 
+			{ 
+				var angle = Math.Atan2 (Y, X);
+				if (angle < 0)
+					return angle + Math.PI * 2;
+				return angle; 
+			}
         }
 
         public void Negate()

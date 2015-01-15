@@ -12,7 +12,6 @@
 
 	using Cession.UIKit;
 	using Cession.Geometries;
-	using Cession.Geometries.Shapes;
 	using Cession.Modeling;
 	using Cession.Drawing;
 	using Cession.Alignments;
@@ -70,7 +69,8 @@
 		private void AddRoom()
 		{
 			var polygon = new PathDiagram (points);
-			var room = new Room (polygon);
+			var room = new Room (polygon,CurrentLayer);
+			room.Name = CurrentLayer.CreateRoomName ();
 			CommandManager.ExecuteListAdd (CurrentLayer.Diagrams, room);
 		}
 

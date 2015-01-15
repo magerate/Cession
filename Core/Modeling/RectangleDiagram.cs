@@ -1,21 +1,47 @@
 ﻿namespace Cession.Modeling
 {
 	using System;
+	using System.Collections;
+	using System.Collections.Generic;
+
 	using Cession.Geometries;
 
-	public class RectangleDiagram:ClosedShapeDiagram
+	public interface IPolygonal
+	{
+		int SideCount{ get; }
+		Segment this [int index]{ get; }
+
+		Segment? GetPreviousSide (int index);
+		Segment? GetNextSide (int index);
+
+		Segment MoveSide (int index, Point2 point);
+	}
+
+	public class RectangleDiagram:ClosedShapeDiagram,IPolygonal,IEnumerable<Point2>
 	{
 		private Rect rect;
 
 		public Rect Rect
 		{ 
 			get{ return rect; }
-			set{ rect = value; }
+			set
+			{ 
+				if(value != rect){
+					rect = value; 
+					RaiseEvent (new RoutedEventArgs (Diagram.ShapeChangeEvent, this));
+				}
+			}
 		}
 
-		public override Segment this[int index] {
+		#region polygonal implementation
+
+		public int SideCount{
+			get{ return 4; }
+		}
+
+		public Segment this[int index] {
 			get {
-				if (index < 0 || index > 3)
+				if (index < 0 || index >= SideCount)
 					throw new ArgumentOutOfRangeException ();
 
 				if (index == 0)
@@ -29,6 +55,46 @@
 			}
 		}
 
+		public IEnumerator<Point2> GetEnumerator (){
+			yield return rect.LeftTop;
+			yield return rect.RightTop;
+			yield return rect.RightBottom;
+			yield return rect.LeftBottom;
+		}
+
+		IEnumerator IEnumerable.GetEnumerator(){
+			return this.GetEnumerator ();
+		}
+
+		public Segment? GetPreviousSide(int index){
+			if (index < 0 || index >= SideCount)
+				throw new ArgumentOutOfRangeException ();
+
+			return this [(index - 1 + SideCount) % SideCount];
+		}
+
+		public Segment? GetNextSide(int index){
+			if (index < 0 || index >= SideCount)
+				throw new ArgumentOutOfRangeException ();
+
+			return this [(index + 1)  % SideCount];
+		}
+
+		public Segment MoveSide(int index,Point2 point){
+			if (index < 0 || index >= SideCount)
+				throw new ArgumentOutOfRangeException ();
+
+			var side = this [index];
+			if (side.P1.X == side.P2.X) {
+				return new Segment (new Point2 (point.X, side.P1.Y),
+					new Point2 (point.X, side.P2.Y));
+			}
+			return new Segment (new Point2 (side.P1.X, point.Y),
+				new Point2 (side.P2.X, point.Y));
+		}
+
+		#endregion
+
 		public RectangleDiagram (Rect rect):this(rect,null)
 		{
 		}
@@ -39,6 +105,11 @@
 			this.Parent = parent;
 		}
 
+		public override Rect Bounds {
+			get {
+				return rect;
+			}
+		}
 
 		public override Diagram HitTest (Point2 point)
 		{
@@ -47,7 +118,7 @@
 			return null;
 		}
 
-		public override void Offset (int x, int y)
+		internal override void InternalOffset (int x, int y)
 		{
 			rect.Offset (x, y);
 		}
@@ -69,15 +140,19 @@
 			var side = this [index];
 			var nextSide = this [(index + 2 + sideCount) % sideCount];
 			if (side.P1.X == side.P2.X) {
-				newRect.Width += offsetX;
-
-				if (side.P1.X < nextSide.P1.X)
+				if (side.P1.X < nextSide.P1.X) {
 					newRect.X += offsetX;
-
+					newRect.Width -= offsetX;
+				} else {
+					newRect.Width += offsetX;
+				}
 			}else {
-				newRect.Height += offsetY;
-				if (side.P1.Y < nextSide.P1.Y)
+				if (side.P1.Y < nextSide.P1.Y) {
 					newRect.Y += offsetY;
+					newRect.Height -= offsetY;
+				} else {
+					newRect.Height += offsetY;
+				}
 			}
 
 			return newRect;

@@ -1,46 +1,22 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
-
-namespace Cession.Geometries.Shapes
+﻿namespace Cession.Geometries
 {
-	public class Polygon:Figure
+	using System;
+	using System.Collections.Generic;
+
+	public static class Polygon
 	{
-		private List<Point2> points;
-
-		public Polygon (IEnumerable<Point2> points)
-		{
-			this.points = points.ToList ();
+		public static bool IsClockwise(IList<Point2> polygon){
+			var v1 = polygon [1] - polygon [0];
+			var v2 = polygon [2] - polygon [1];
+			return v1.CrossProduct (v2) > 0;
 		}
 
-		public override double GetArea ()
+		public static bool Contains(Point2 point, IList<Point2> polygon)
 		{
-			return 0;
+			return ContainsPoint (point, polygon) != 0;
 		}
 
-		public override double GetPerimeter ()
-		{
-			return 0;
-		}
-
-		public IList<Point2> Points
-		{
-			get{ return points; }
-		}
-
-		public override bool Contains (Point2 point)
-		{
-			return Contains (point, points) != 0;
-		}
-
-		public override void Offset (int x, int y)
-		{
-			for (int i = 0; i < points.Count; i++) {
-				points [i] = new Point2 (points [i].X + x, points [i].Y + y);
-			}
-		}
-
-		public static int Contains(Point2 point, IList<Point2> polygon)
+		public static int ContainsPoint(Point2 point, IList<Point2> polygon)
 		{
 			//returns 0 if false, +1 if true, -1 if pt ON polygon boundary
 			//http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.88.5498&rep=rep1&type=pdf
