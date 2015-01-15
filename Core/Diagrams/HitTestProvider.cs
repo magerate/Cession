@@ -1,27 +1,33 @@
-﻿namespace Cession.Diagrams
-{
-	using System;
-	using Cession.Geometries;
+﻿using System;
+using Cession.Geometries;
 
+namespace Cession.Diagrams
+{
 	public abstract class HitTestProvider
 	{
-		public abstract Rect GetBounds (Shape shape);
-
-		public bool Contains(Shape shape,Point2 point){
-			if (!GetBounds(shape).Contains (point))
-				return false;
-			return DoContains (shape,point);
-		}
-
-		protected abstract bool DoContains(Shape shape,Point2 point);
-
-		public Shape HitTest(Shape shape,Point2 point,int delta = 0){
+		public Rect GetBounds (Shape shape){
 			if (null == shape)
 				throw new ArgumentNullException ();
-			return null;
+			return DoGetBounds (shape);
 		}
 
-		protected abstract Shape DoHitTest (Shape shape, Point2 point, int delta);
+		public bool Contains(Shape shape,Point2 point){
+			if (null == shape)
+				throw new ArgumentNullException ();
+
+			return DoContains (shape, point);
+		}
+
+
+		public Shape HitTest(Shape shape,Point2 point){
+			if (null == shape)
+				throw new ArgumentNullException ();
+			return DoHitTest(shape,point);
+		}
+
+		protected abstract Rect DoGetBounds (Shape shape);
+		protected abstract bool DoContains(Shape shape,Point2 point);
+		protected abstract Shape DoHitTest (Shape shape, Point2 point);
 	}
 }
 

@@ -76,5 +76,14 @@ namespace Cession.Geometries
 		{
 			return Point2.DistanceBetween(this, point);
 		}
+
+		public void Rotate(Point2 point,double radian){
+			if (this == point)
+				return;
+
+			var v = this - point;
+			v.Rotate (radian);
+			this = point + v;
+		}
 	}
 }

@@ -32,7 +32,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Geometries\" />
@@ -121,5 +120,10 @@
     <Compile Include="Modeling\HitTestProvider.cs" />
     <Compile Include="Utilities\StringExtension.cs" />
     <Compile Include="Modeling\RoomGroup.cs" />
+    <Compile Include="Diagrams\RoutedEvents\RoutedEvent.cs" />
+    <Compile Include="Diagrams\RoutedEvents\RoutedEventArgs.cs" />
+    <Compile Include="Diagrams\Shape+Events.cs" />
+    <Compile Include="Diagrams\Shape+HitTest.cs" />
+    <Compile Include="Diagrams\Circle.cs" />
   </ItemGroup>
 </Project>

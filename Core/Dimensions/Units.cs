@@ -1,7 +1,7 @@
+using System;
 
 namespace Cession.Dimensions
 {
-	using System;
 
 	public class PrecisionAttribute:Attribute{
 		public double Precission{get;private set;}

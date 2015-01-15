@@ -1,7 +1,7 @@
+using System;
+
 namespace Cession.Dimensions
 {
-	using System;
-
 	public struct Length:IEquatable<Length>
 	{
 		public const double LogicUnitPerMM = 1.0;

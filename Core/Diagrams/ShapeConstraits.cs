@@ -1,6 +1,7 @@
-﻿namespace Cession.Diagrams
+﻿using System;
+
+namespace Cession.Diagrams
 {
-	using System;
 
 	[Flags]
 	internal enum ShapeConstraints

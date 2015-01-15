@@ -1,14 +1,12 @@
-﻿namespace Cession.Diagrams
+﻿using System;
+using System.Collections.Generic;
+
+using Cession.Geometries;
+
+namespace Cession.Diagrams
 {
-	using System;
-	using System.Collections.Generic;
-
-	using Cession.Geometries;
-
-	public abstract class Shape
+	public abstract partial class Shape
 	{
-		private static Dictionary<Type,HitTestProvider> m_hitTestors;
-
 		internal ShapeConstraints Constraints{ get; set; }
 
 		public bool CanSelect{
@@ -32,10 +30,8 @@
 		}
 
 
-
 		public Shape Parent{ get; internal set; }
-		public abstract Rect Bounds{ get; }
-			
+
 
 		public Shape Owner
 		{
@@ -61,19 +57,20 @@
 		public void Offset (int x, int y){
 			if (!CanOffset)
 				throw new InvalidOperationException ();
-			InternalOffset (x, y);
+			DoOffset (x, y);
+			RaiseEvent (new RoutedEventArgs (Shape.OffsetEvent,this));
 		}
 
 		public void Rotate(Point2 point,double radian){
 			if(!CanRotate)
 				throw new InvalidOperationException ();
 				
-			InternalRotate (point, radian);
+			DoRotate (point, radian);
+			RaiseEvent (new RoutedEventArgs (Shape.RotateEvent,this));
 		}
 
-		internal abstract void InternalOffset(int x,int y);
-		internal abstract void InternalRotate(Point2 point,double radian);
-
+		internal abstract void DoOffset(int x,int y);
+		internal abstract void DoRotate(Point2 point,double radian);
 	}
 }
 
