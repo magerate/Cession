@@ -67,11 +67,6 @@
 			this.Y += y;
 		}
 
-		public Point2d ToPoint2d()
-		{
-			return new Point2d (X, Y);
-		}
-
 		public static double DistanceBetween(Point2 p1,Point2 p2)
 		{
 			return (p1 - p2).Length;
