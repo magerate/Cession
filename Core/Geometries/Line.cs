@@ -1,33 +1,33 @@
-﻿namespace Cession.Geometries
-{
-    using System;
+﻿using System;
 
+namespace Cession.Geometries
+{
     public struct Line : IEquatable<Line>
     {
-        private Point2 p1;
-        private Point2 p2;
+		private Point2 _p1;
+		private Point2 _p2;
 
         public Line(Point2 p1, Point2 p2)
         {
-            this.p1 = p1;
-            this.p2 = p2;
+            _p1 = p1;
+            _p2 = p2;
         }
 
         public Point2 P1
         {
-            get { return p1; }
-            set { p1 = value; }
+            get { return _p1; }
+            set { _p1 = value; }
         }
 
         public Point2 P2
         {
-            get { return p2; }
-            set { p2 = value; }
+            get { return _p2; }
+            set { _p2 = value; }
         }
 
         public bool IsEmpty
         {
-            get { return p1 == p2; }
+            get { return _p1 == _p2; }
         }
 
         public static bool Contains(Point2 p1, Point2 p2, Point2 point)
@@ -40,7 +40,7 @@
 
         public bool Contains(Point2 point)
         {
-            return Line.Contains(p1, p2, point);
+            return Line.Contains(_p1, _p2, point);
         }
 
         public static bool AlmostContains(Point2 p1, Point2 p2, Point2 point)
@@ -56,7 +56,7 @@
 
         public bool AlmostContains(Point2 point)
         {
-            return Line.AlmostContains(p1, p2, point);
+            return Line.AlmostContains(_p1, _p2, point);
         }
 
         public static bool Equals(Point2 p1, Point2 p2, Point2 p3, Point2 p4)
@@ -68,7 +68,7 @@
 
         public bool Equals(Line line)
         {
-            return Line.Equals(p1, p2, line.p1, line.p2);
+            return Line.Equals(_p1, _p2, line._p1, line._p2);
         }
 
         public override bool Equals(object obj)
@@ -91,7 +91,7 @@
         public override int GetHashCode()
         {
             //wrong 
-            return p1.GetHashCode() ^ p2.GetHashCode();
+            return _p1.GetHashCode() ^ _p2.GetHashCode();
         }
 
         public static bool Parallels(Point2 p1, Point2 p2, Point2 p3, Point2 p4)
@@ -104,7 +104,7 @@
 
         public bool Parallels(Line line)
         {
-            return Line.Parallels(p1, p2, line.p1, line.p2);
+            return Line.Parallels(_p1, _p2, line._p1, line._p2);
         }
 
         public bool Parallels(Point2 p1, Point2 p2)
@@ -126,7 +126,7 @@
 
         public bool AlmostParallels(Line line)
         {
-            return Line.AlmostParallels(p1, p2, p1, p2);
+            return Line.AlmostParallels(_p1, _p2, _p1, _p2);
         }
 
         public bool AlmostParallels(Point2 p1,Point2 p2)
@@ -144,7 +144,7 @@
 
         public bool Orthos(Line line)
         {
-            return Line.Orthos(p1, p2, line.p1, line.p2);
+            return Line.Orthos(_p1, _p2, line._p1, line._p2);
         }
 
         public bool Orthos(Point2 p1,Point2 p2)
@@ -164,7 +164,7 @@
 
         public bool AlmostOrthos(Line line)
         {
-            return Line.AlmostOrthos(p1, p2, line.p1, line.p2);
+            return Line.AlmostOrthos(_p1, _p2, line._p1, line._p2);
         }
 
         public bool AlmostOrthos(Point2 p1,Point2 p2)
@@ -187,13 +187,13 @@
 
         public static Point2? Intersect(Line line1, Line line2)
         {
-            return Line.Intersect(line1.p1, line1.p2, line2.p1, line2.p2);
+            return Line.Intersect(line1._p1, line1._p2, line2._p1, line2._p2);
         }
 
         public void Offset(int x, int y)
         {
-            p1.Offset(x, y);
-            p2.Offset(x, y);
+            _p1.Offset(x, y);
+            _p2.Offset(x, y);
         }
 
         public void Offset(Vector vector)
@@ -231,7 +231,7 @@
 
         public static Point2 Project(Line line, Point2 point)
         {
-            return Line.Project(line.p1, line.p2, point);
+            return Line.Project(line._p1, line._p2, point);
         }
 
         public Point2 Project(Point2 point)
@@ -252,7 +252,7 @@
 
         public static double DistanceBetween(Line line, Point2 point)
         {
-            return Line.DistanceBetween(line.p1, line.p2, point);
+            return Line.DistanceBetween(line._p1, line._p2, point);
         }
 
         public double DistanceBetween(Point2 point)

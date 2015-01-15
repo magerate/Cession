@@ -1,58 +1,57 @@
-﻿namespace Cession.Geometries
-{
-	using System;
-	using System.Collections.Generic;
+﻿using System;
 
+namespace Cession.Geometries
+{
 	public struct Rect : IEquatable<Rect>
 	{
 		public static readonly Rect Empty = new Rect (0, 0, 0, 0);
-		private int x;
-		private int y;
-		private int width;
-		private int height;
+		private int _x;
+		private int _y;
+		private int _width;
+		private int _height;
 
 		public int X
 		{
-			get { return x; }
-			set { x = value; }
+			get { return _x; }
+			set { _x = value; }
 		}
 
 		public int Left
 		{
-			get { return x; }
+			get { return _x; }
 		}
 
 		public int Y
 		{
-			get { return y; }
-			set { y = value; }
+			get { return _y; }
+			set { _y = value; }
 		}
 
 		public int Bottom
 		{
-			get { return y + height; }
+			get { return _y + _height; }
 		}
 
 		public int Width
 		{
-			get { return width; }
-			set { width = value; }
+			get { return _width; }
+			set { _width = value; }
 		}
 
 		public int Right
 		{
-			get { return x + width; }
+			get { return _x + _width; }
 		}
 
 		public int Height
 		{
-			get { return height; }
-			set { height = value; }
+			get { return _height; }
+			set { _height = value; }
 		}
 
 		public int Top
 		{
-			get { return y; }
+			get { return _y; }
 		}
 
 		public Point2 LeftBottom
@@ -77,10 +76,10 @@
 
 		public Rect(int x, int y, int width, int height)
 		{
-			this.x = x;
-			this.y = y;
-			this.width = width;
-			this.height = height;
+			_x = x;
+			_y = y;
+			_width = width;
+			_height = height;
 		}
 
 		public Rect(Point2 location,Size2 size):this(location.X,location.Y,size.Width,size.Height)
@@ -89,8 +88,8 @@
 
 		public bool Contains(Point2 point)
 		{
-			return point.X >= x && point.X <= x + width &&
-				point.Y >= y && point.Y <= y + height;
+			return point.X >= _x && point.X <= _x + _width &&
+				point.Y >= _y && point.Y <= _y + _height;
 		}
 
 		public bool Contains(Rect rect)
@@ -100,8 +99,8 @@
 
 		public bool Equals(Rect rect)
 		{
-			return this.x == rect.x && this.y == rect.y &&
-				this.width == rect.width && this.height == rect.height;
+			return this._x == rect._x && this._y == rect._y &&
+				this._width == rect._width && this._height == rect._height;
 		}
 
 		public override bool Equals(object obj)
@@ -113,7 +112,7 @@
 
 		public override int GetHashCode()
 		{
-			return x.GetHashCode() ^ y.GetHashCode() ^ width.GetHashCode() ^ height.GetHashCode();
+			return _x.GetHashCode() ^ _y.GetHashCode() ^ _width.GetHashCode() ^ _height.GetHashCode();
 		}
 
 		public static bool operator ==(Rect left, Rect right)
@@ -128,8 +127,8 @@
 
 		public void Offset(int x, int y)
 		{
-			this.x += x;
-			this.y += y;
+			this._x += x;
+			this._y += y;
 		}
 
 		public void Offset(Vector vector)
@@ -139,20 +138,20 @@
 
 		public void Inflate(int width, int height)
 		{
-			this.x -= width;
-			this.y -= height;
-			this.width += 2 * width;
-			this.height += 2 * height;
+			this._x -= width;
+			this._y -= height;
+			this._width += 2 * width;
+			this._height += 2 * height;
 
 		}
 
-		public void Scale(int scaleX, int scaleY)
-		{
-			x *= scaleX;
-			y *= scaleY;
-			width *= scaleX;
-			height *= scaleY;
-		}
+//		public void Scale(int scaleX, int scaleY)
+//		{
+//			_x *= scaleX;
+//			_y *= scaleY;
+//			_width *= scaleX;
+//			_height *= scaleY;
+//		}
 
 		public Rect Union(Rect rect)
 		{
@@ -208,7 +207,7 @@
 
 		public override string ToString()
 		{
-			return string.Format("{0},{1},{2},{3}", x.ToString(), y.ToString(), width.ToString(), height.ToString());
+			return string.Format("{0},{1},{2},{3}", _x.ToString(), _y.ToString(), _width.ToString(), _height.ToString());
 		}
 
 

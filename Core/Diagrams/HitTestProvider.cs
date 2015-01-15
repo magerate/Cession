@@ -7,20 +7,21 @@
 	{
 		public abstract Rect GetBounds (Shape shape);
 
-		public bool Contains(Point2 point){
-			if (!GetBounds().Contains (point))
+		public bool Contains(Shape shape,Point2 point){
+			if (!GetBounds(shape).Contains (point))
 				return false;
-			return DoContains (point);
+			return DoContains (shape,point);
 		}
 
-		protected abstract bool DoContains(Point2 point);
+		protected abstract bool DoContains(Shape shape,Point2 point);
 
-		public Shape HitTest(Shape shape,Point2d point,int delta = 0){
+		public Shape HitTest(Shape shape,Point2 point,int delta = 0){
 			if (null == shape)
 				throw new ArgumentNullException ();
+			return null;
 		}
 
-		protected abstract Shape DoHitTest (Shape shape, Point2d point, int delta);
+		protected abstract Shape DoHitTest (Shape shape, Point2 point, int delta);
 	}
 }
 

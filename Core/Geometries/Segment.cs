@@ -1,39 +1,39 @@
-﻿namespace Cession.Geometries
-{
-    using System;
+﻿using System;
 
+namespace Cession.Geometries
+{
     public struct Segment : IEquatable<Segment>
     {
-        private Point2 p1;
-        private Point2 p2;
+		private Point2 _p1;
+		private Point2 _p2;
 
         public Point2 P1
         {
-            get { return p1; }
-            set { p1 = value; }
+            get { return _p1; }
+            set { _p1 = value; }
         }
 
         public Point2 P2
         {
-            get { return p2; }
-            set { p2 = value; }
+            get { return _p2; }
+            set { _p2 = value; }
         }
 
 		public Point2 Center
 		{
-			get{ return new Point2 ((p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2); }
+			get{ return new Point2 ((_p1.X + _p2.X) / 2, (_p1.Y + _p2.Y) / 2); }
 		}
 
 
         public Segment(Point2 p1, Point2 p2)
         {
-            this.p1 = p1;
-            this.p2 = p2;
+            this._p1 = p1;
+            this._p2 = p2;
         }
 
         public bool Equals(Segment segment)
         {
-            return this.p1 == segment.p1 && this.p2 == segment.p2;
+            return this._p1 == segment._p1 && this._p2 == segment._p2;
         }
 
         public override bool Equals(object obj)
@@ -45,7 +45,7 @@
 
         public override int GetHashCode()
         {
-            return p1.GetHashCode() ^ p2.GetHashCode();
+            return _p1.GetHashCode() ^ _p2.GetHashCode();
         }
 
 		public override string ToString ()
@@ -54,7 +54,7 @@
 		}
 
 		public double Length{
-			get{ return (p1 - p2).Length; }
+			get{ return (_p1 - _p2).Length; }
 		}
 
 //        public static Point2? Intersect(Point2 p1, Point2 p2, Point2 p3, Point2 p4)
@@ -110,6 +110,5 @@
 //        {
 //            return Segment.AlmostContains(segment.p1, segment.p2, point);
 //        }
-
     }
 }

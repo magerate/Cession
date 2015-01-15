@@ -128,7 +128,7 @@
 
 		public override Diagram HitTest (Point2 point)
 		{
-			if (Polygon.Contains (point, Points))
+			if (Polygon.Contains (point, points))
 				return this;
 
 			return null;

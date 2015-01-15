@@ -1,22 +1,22 @@
-﻿namespace Cession.Geometries
-{
-	using System;
-	using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-	public static class Polygon
+namespace Cession.Geometries
+{
+	public class Polygon
 	{
-		public static bool IsClockwise(IList<Point2> polygon){
+		public static bool IsClockwise(IReadOnlyList<Point2> polygon){
 			var v1 = polygon [1] - polygon [0];
 			var v2 = polygon [2] - polygon [1];
 			return v1.CrossProduct (v2) > 0;
 		}
 
-		public static bool Contains(Point2 point, IList<Point2> polygon)
+		public static bool Contains(Point2 point, IReadOnlyList<Point2> polygon)
 		{
 			return ContainsPoint (point, polygon) != 0;
 		}
 
-		public static int ContainsPoint(Point2 point, IList<Point2> polygon)
+		public static int ContainsPoint(Point2 point, IReadOnlyList<Point2> polygon)
 		{
 			//returns 0 if false, +1 if true, -1 if pt ON polygon boundary
 			//http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.88.5498&rep=rep1&type=pdf

@@ -34,10 +34,8 @@
 
 
 		public Shape Parent{ get; internal set; }
-		public virtual Rect Bounds{ 
-			get{
-			}
-		}
+		public abstract Rect Bounds{ get; }
+			
 
 		public Shape Owner
 		{

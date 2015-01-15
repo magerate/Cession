@@ -1,7 +1,7 @@
-﻿namespace Cession.Geometries
-{
-	using System;
+﻿using System;
 
+namespace Cession.Geometries
+{
 	public struct Point2:IEquatable<Point2>
 	{
 		public static readonly Point2 Empty = new Point2(0, 0);
@@ -10,8 +10,8 @@
 
 		public Point2(int x,int y)
 		{
-			this.X = x;
-			this.Y = y;
+			X = x;
+			Y = y;
 		}
 
 		public bool Equals(Point2 p)

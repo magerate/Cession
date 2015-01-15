@@ -1,7 +1,7 @@
-﻿namespace Cession.Geometries
-{
-    using System;
+﻿using System;
 
+namespace Cession.Geometries
+{
     public struct Range
     {
         private int min;

@@ -1,33 +1,33 @@
-﻿namespace Cession.Geometries
-{
-    using System;
+﻿using System;
 
+namespace Cession.Geometries
+{
     public struct Ray : IEquatable<Ray>
     {
-        private Point2 point;
-        private Vector direction;
+		private Point2 _point;
+		private Vector _direction;
 
         public Point2 Point
         {
-            get { return point; }
-            set { point = value; }
+            get { return _point; }
+            set { _point = value; }
         }
 
         public Vector Direction
         {
-            get { return direction; }
-            set { direction = value; }
+            get { return _direction; }
+            set { _direction = value; }
         }
 
         public Ray(Point2 point, Vector direction)
         {
-            this.point = point;
-            this.direction = direction;
+            this._point = point;
+            this._direction = direction;
         }
 
         public bool Equals(Ray ray)
         {
-            return point == ray.point && direction.CrossProduct(ray.direction) == 0;
+            return _point == ray._point && _direction.CrossProduct(ray._direction) == 0;
         }
 
         public override bool Equals(object obj)
@@ -39,7 +39,7 @@
 
         public override int GetHashCode()
         {
-            return point.GetHashCode() ^ direction.Angle.GetHashCode();
+            return _point.GetHashCode() ^ _direction.Angle.GetHashCode();
         }
 
 //        public static bool Contains(Point2 p1, Vector vector, Point2 point)

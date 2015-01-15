@@ -85,6 +85,7 @@ namespace Cession.Dimensions
 
 		public static bool TryParse(string s,out Length length)
 		{
+			length = new Length ();
 //			return new Length(GetConverter(Unit).ConvertFrom(s));
 			return false;
 		}

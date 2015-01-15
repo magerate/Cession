@@ -1,7 +1,7 @@
-﻿namespace Cession.Geometries
-{
-    using System;
+﻿using System;
 
+namespace Cession.Geometries
+{
     public struct Vector : IEquatable<Vector>
     {
         public static readonly Vector Zero = new Vector(0, 0);

@@ -1,42 +1,33 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="Size2.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System;
 
 namespace Cession.Geometries
 {
-    using System;
-
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public struct Size2:IEquatable<Size2>
     {
-        private int width;
-        private int height;
+		private int _width;
+		private int _height;
 
         public Size2(int width,int height)
         {
-            this.width = width;
-            this.height = height;
+            this._width = width;
+            this._height = height;
         }
 
         public int Width
         {
-            get { return width; }
-            set { width = value; }
+            get { return _width; }
+            set { _width = value; }
         }
 
         public int Height
         {
-            get { return height; }
-            set { height = value; }
+            get { return _height; }
+            set { _height = value; }
         }
 
         public bool Equals(Size2 size)
         {
-            return this.width == size.width && this.height == size.height;
+            return this._width == size._width && this._height == size._height;
         }
 
         public override bool Equals(object obj)
@@ -58,7 +49,7 @@ namespace Cession.Geometries
 
         public override int GetHashCode()
         {
-            return this.width.GetHashCode() ^ this.height.GetHashCode();
+            return this._width.GetHashCode() ^ this._height.GetHashCode();
         }
     }
 }
