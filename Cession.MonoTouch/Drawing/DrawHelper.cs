@@ -68,6 +68,19 @@
 			context.ClosePath ();
 		}
 
+		public static void BuildPolygonPath(this CGContext context,IList<Point2> polygon)
+		{
+			var p0 = Transform.Transform (polygon [0]);
+			context.MoveTo ((float) p0.X, (float) p0.Y);
+
+			Point2 pi;
+			for (int i = 1; i < polygon.Count; i++) {
+				pi = Transform.Transform (polygon [i]);
+				context.AddLineToPoint((float) pi.X, (float) pi.Y);
+			}
+			context.ClosePath ();
+		}
+
 		public static void BuildFigurePath(this CGContext context,ClosedShapeDiagram figure)
 		{
 			if (figure is PathDiagram)

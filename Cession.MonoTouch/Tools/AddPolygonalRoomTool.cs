@@ -70,6 +70,7 @@
 		{
 			var polygon = new PathDiagram (points);
 			var room = new Room (polygon,CurrentLayer);
+			room.Name = CurrentLayer.CreateRoomName ();
 			CommandManager.ExecuteListAdd (CurrentLayer.Diagrams, room);
 		}
 

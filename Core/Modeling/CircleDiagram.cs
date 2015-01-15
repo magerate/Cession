@@ -40,6 +40,12 @@
 			return null;
 		}
 
+		public override Rect Bounds {
+			get {
+				return new Rect (center.X - radius, center.Y - radius, 2 * radius, 2 * radius);
+			}
+		}
+
 		internal override void InternalOffset (int x, int y)
 		{
 			center.Offset (x, y);

@@ -108,6 +108,24 @@
 			}
 		}
 
+		public override Rect Bounds {
+			get {
+				int left = int.MaxValue;
+				int top = int.MaxValue;
+				int right = int.MinValue;
+				int bottom = int.MinValue;
+
+				foreach (var p in points) {
+					left = Math.Min (p.X, left);
+					right = Math.Max (p.X, right);
+
+					top = Math.Min (p.Y, top);
+					bottom = Math.Max (p.Y, bottom);
+				}
+				return Rect.FromLTRB (left, top, right, bottom);
+			}
+		}
+
 		public override Diagram HitTest (Point2 point)
 		{
 			if (Polygon.Contains (point, Points))

@@ -7,7 +7,6 @@
         private double min;
         private double max;
 
-
         public Range(double x, double y)
         {
             if (x > y)

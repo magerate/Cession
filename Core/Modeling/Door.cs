@@ -37,7 +37,7 @@
 		}
 
 		public Rect OriginalBounds{
-			get{ return new Rect (0, 0, (int)Width, Room.DefaultWallThickness); }
+			get{ return new Rect (0, 0, (int)Width, (int)Room.DefaultWallThickness); }
 		}
 
 		public Matrix Transform{
@@ -61,7 +61,12 @@
 
 		internal override void InternalOffset (int x, int y)
 		{
+		}
 
+		public override Rect Bounds {
+			get {
+				return OriginalBounds;
+			}
 		}
 
 		public override Diagram HitTest (Point2 point)

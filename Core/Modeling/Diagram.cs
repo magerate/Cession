@@ -119,6 +119,7 @@
 			this.Parent = parent;
 		}
 
+		public abstract Rect Bounds{ get; }
 		public abstract Diagram HitTest (Point2 point);
 
 		internal void InternalOffset(Vector vector)

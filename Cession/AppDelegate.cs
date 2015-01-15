@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+
+using Cession.Modeling;
 
 namespace Cession
 {
@@ -29,8 +32,12 @@ namespace Cession
 			viewController = new UINavigationController (new DiagramListController());
 			window.RootViewController = viewController;
 			window.MakeKeyAndVisible ();
-			
+			InitializeDiagramComponents ();
 			return true;
+		}
+
+		private void InitializeDiagramComponents(){
+			Label.HitTestProvider = new LabelHitTestProvider ();
 		}
 	}
 }

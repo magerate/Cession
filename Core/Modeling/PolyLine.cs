@@ -28,6 +28,12 @@
 			}
 		}
 
+		public override Rect Bounds {
+			get {
+				throw new NotImplementedException ();
+			}
+		}
+
 		public override Diagram HitTest (Point2 point)
 		{
 			return null;

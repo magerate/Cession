@@ -64,7 +64,6 @@
     <Compile Include="Assignments\Assignment.cs" />
     <Compile Include="Geometries\Constants.cs" />
     <Compile Include="Geometries\Line.cs" />
-    <Compile Include="Geometries\OpenRange.cs" />
     <Compile Include="Geometries\Range.cs" />
     <Compile Include="Geometries\Ray.cs" />
     <Compile Include="Geometries\Segment.cs" />
@@ -94,7 +93,6 @@
     <Compile Include="Products\Enums.cs" />
     <Compile Include="Assignments\AreaAssignment.cs" />
     <Compile Include="Geometries\Rect.cs" />
-    <Compile Include="Geometries\Point2d.cs" />
     <Compile Include="Geometries\Point2.cs" />
     <Compile Include="Modeling\PolygonHelper.cs" />
     <Compile Include="Geometries\MatrixUtil.cs" />
@@ -117,5 +115,9 @@
     <Compile Include="Mediators\DiagramCommandMediator.cs" />
     <Compile Include="Dimensions\Length.cs" />
     <Compile Include="Dimensions\Units.cs" />
+    <Compile Include="Modeling\Label.cs" />
+    <Compile Include="Modeling\HitTestProvider.cs" />
+    <Compile Include="Utilities\StringExtension.cs" />
+    <Compile Include="Modeling\RoomGroup.cs" />
   </ItemGroup>
 </Project>

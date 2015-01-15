@@ -222,6 +222,8 @@
     <BundleResource Include="Images\warning-16.png" />
     <BundleResource Include="Images\widgets-25.png" />
     <BundleResource Include="Images\widgets-25%402x.png" />
+    <BundleResource Include="Resources\expand-32.png" />
+    <BundleResource Include="Resources\expand-32%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />

@@ -31,6 +31,16 @@
 			return null;
 		}
 
+		public override Rect Bounds {
+			get {
+				Rect bounds = Rect.Empty;
+				foreach (var diagram in this) {
+					bounds = bounds.Union (diagram.Bounds);
+				}
+				return bounds;
+			}
+		}
+
 		internal override void InternalOffset (int x, int y)
 		{
 			foreach (var diagram in this) {

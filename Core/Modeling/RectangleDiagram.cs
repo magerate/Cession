@@ -1,6 +1,9 @@
 ﻿namespace Cession.Modeling
 {
 	using System;
+	using System.Collections;
+	using System.Collections.Generic;
+
 	using Cession.Geometries;
 
 	public interface IPolygonal
@@ -14,7 +17,7 @@
 		Segment MoveSide (int index, Point2 point);
 	}
 
-	public class RectangleDiagram:ClosedShapeDiagram,IPolygonal
+	public class RectangleDiagram:ClosedShapeDiagram,IPolygonal,IEnumerable<Point2>
 	{
 		private Rect rect;
 
@@ -50,6 +53,17 @@
 
 				return new Segment (rect.LeftBottom, rect.LeftTop);
 			}
+		}
+
+		public IEnumerator<Point2> GetEnumerator (){
+			yield return rect.LeftTop;
+			yield return rect.RightTop;
+			yield return rect.RightBottom;
+			yield return rect.LeftBottom;
+		}
+
+		IEnumerator IEnumerable.GetEnumerator(){
+			return this.GetEnumerator ();
 		}
 
 		public Segment? GetPreviousSide(int index){
@@ -91,6 +105,11 @@
 			this.Parent = parent;
 		}
 
+		public override Rect Bounds {
+			get {
+				return rect;
+			}
+		}
 
 		public override Diagram HitTest (Point2 point)
 		{

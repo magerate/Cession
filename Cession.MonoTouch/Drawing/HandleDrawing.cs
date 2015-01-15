@@ -14,6 +14,8 @@
 	{
 		private static Dictionary<Type,Action<Handle,CGContext>> drawers = new Dictionary<Type, Action<Handle, CGContext>>();
 
+		private static readonly UIImage SideHandleImage = UIImage.FromBundle("expand-32");
+
 		static HandleDrawing(){
 			drawers.Add (typeof(SideHandle), DrawSideHandle);
 		}
@@ -36,10 +38,14 @@
 			if (null == sideHandle)
 				throw new ArgumentException ("handle");
 
-			var rect = sideHandle.Bounds.ToRectangleF ();
+			var side = sideHandle.Side;
+			var angle = (float)((side.P2 - side.P1).Angle - Math.PI / 4);
 			context.SaveState ();
-			UIColor.Blue.SetFill ();
-			context.FillRect (rect);
+			context.TranslateCTM ((float)handle.Location.X, 
+				(float)handle.Location.Y);
+			context.RotateCTM (angle);
+			context.TranslateCTM (-SideHandleImage.Size.Width / 2, -SideHandleImage.Size.Height / 2);
+			SideHandleImage.Draw (PointF.Empty);
 			context.RestoreState ();
 		}
 	}

@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="Modeling\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,6 +111,8 @@
     <Compile Include="Drawing\LayerDrawer.cs" />
     <Compile Include="Drawing\DoorDrawer.cs" />
     <Compile Include="Drawing\DrawUtil.cs" />
+    <Compile Include="Modeling\LabelHitTestProvider.cs" />
+    <Compile Include="Drawing\LabelDrawer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>

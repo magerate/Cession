@@ -1,6 +1,8 @@
 ﻿namespace Cession.Drawing
 {
 	using System;
+	using System.Linq;
+	using System.Collections.Generic;
 	using System.Drawing;
 
 	using MonoTouch.CoreGraphics;
@@ -22,12 +24,13 @@
 
 			DrawHelper.Transform = layer.Transform;
 
-			context.SaveState ();
 			foreach (var item in layer.Diagrams) {
 				item.Draw (context);
 			}
 
-			context.RestoreState ();
+			foreach (var roomGroup in layer.RoomGroups) {
+				DrawRoomGroup (context, roomGroup);
+			}
 		} 
 
 		public static Matrix GetLayerDefaultTransform(){
@@ -35,6 +38,21 @@
 				(int)UIScreen.MainScreen.Bounds.Width,
 				(int)UIScreen.MainScreen.Bounds.Height,
 				LogicalUnitPerDp);
+		}
+
+		private void DrawRoomGroup(CGContext context,RoomGroup roomGroup){
+			var polygons = roomGroup.Select (r => r.OuterContour as IEnumerable<Point2>);
+			var outer = PolygonHelper.Union (polygons).ToList();
+			context.BuildPolygonPath (outer);
+
+			foreach (var room in roomGroup) {
+				context.BuildFigurePath (room.Contour);
+			}
+
+			context.SaveState ();
+			UIColor.Gray.SetFill ();
+			context.DrawPath (CGPathDrawingMode.EOFillStroke);
+			context.RestoreState ();
 		}
 	}
 }
