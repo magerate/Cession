@@ -1,8 +1,9 @@
-﻿using Cession.Geometries;
+﻿using System;
+using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
-	public class Circle:Shape
+	public class Circle:ClosedShape
 	{
 		private Point2 _center;
 		private int _radius;
@@ -35,6 +36,16 @@ namespace Cession.Diagrams
 				return;
 
 			_center.Rotate (point, radian);
+		}
+
+		public override double GetArea ()
+		{
+			return Math.PI * _radius * _radius;
+		}
+
+		public override double GetPerimeter ()
+		{
+			return 2 * Math.PI * _radius;
 		}
 
 	}

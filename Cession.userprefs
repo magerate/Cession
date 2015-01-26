@@ -1,16 +1,15 @@
 ﻿<Properties StartupItem="Cession/Cession.csproj" GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone4s.8.1" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Core/Diagrams/Path.cs">
     <Files>
-      <File FileName="Core/Diagrams/Circle.cs" Line="3" Column="3" />
-      <File FileName="Core/Diagrams/Shape.cs" Line="1" Column="1" />
-      <File FileName="Core/Diagrams/Shape+HitTest.cs" Line="29" Column="29" />
+      <File FileName="Core/Diagrams/Path.cs" Line="29" Column="29" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Core" expanded="True" selected="True">
             <Node name="Diagrams" expanded="True" />
+            <Node name="Modeling" expanded="True" />
           </Node>
         </State>
       </Pad>

@@ -129,5 +129,8 @@
     <Compile Include="Diagrams\LineSegment.cs" />
     <Compile Include="Diagrams\Path.cs" />
     <Compile Include="Diagrams\CompositeShape.cs" />
+    <Compile Include="Diagrams\Label.cs" />
+    <Compile Include="Diagrams\Region.cs" />
+    <Compile Include="Diagrams\ClosedShape.cs" />
   </ItemGroup>
 </Project>

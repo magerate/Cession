@@ -75,8 +75,13 @@ namespace Cession.Diagrams
 			return null;
 		}
 
-		protected abstract bool DoContains (Point2 point);
-		protected abstract Rect DoGetBounds ();
+		protected virtual bool DoContains (Point2 point){
+			return false;
+		}
+
+		protected virtual Rect DoGetBounds (){
+			return Rect.Empty;
+		}
 	}
 }
 

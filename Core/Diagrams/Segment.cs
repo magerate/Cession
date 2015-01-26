@@ -16,6 +16,7 @@ namespace Cession.Diagrams
 			get{ return _point1; }
 		}
 
+
 		internal ISegmentHost Host{
 			get{ return Parent as ISegmentHost; }
 		}
