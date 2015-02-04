@@ -7,30 +7,53 @@ using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
-	public class Path:ClosedShape,ISegmentHost,IReadOnlyList<Point2>
+	public class Path:ClosedShape,IReadOnlyList<Point2>
 	{
 		private List<Segment> _segments;
 
-		public Path (IEnumerable<Point2> points)
+		public Path(IEnumerable<Segment> segments){
+			if (null == segments)
+				throw new ArgumentNullException ();
+
+			if (segments.Count () < 3)
+				throw new ArgumentException ();
+
+			_segments = segments.ToList ();
+		}
+
+		public Path (IReadOnlyList<Point2> points)
 		{
-			_segments = new List<Segment> (points.Count());
-			foreach (var p in points) {
-				var segment = new LineSegment (p);
+			if (null == points)
+				throw new ArgumentNullException ();
+
+			if (points.Count < 3)
+				throw new ArgumentException ();
+
+			for (int i = 0; i < points.Count; i++) {
+				var segment = new LineSegment (points [i]);
 				segment.Parent = this;
 				_segments.Add (segment);
 			}
 		}
 
-		Point2 ISegmentHost.GetNextPoint (Segment segment){
-			return ((ISegmentHost)this).GetNextSide (segment).Point1;
-		}
+		public Segment GetNextSide(Segment segment){
+			if (null == segment)
+				throw new ArgumentNullException ();
 
-		Segment ISegmentHost.GetNextSide(Segment segment){
+			if (!_segments.Contains (segment))
+				return null;
+
 			var index = (_segments.IndexOf (segment) + 1) % _segments.Count;
 			return _segments [index];
 		}
 
-		Segment ISegmentHost.GetPreviousSide(Segment segment){
+		public Segment GetPreviousSide(Segment segment){
+			if (null == segment)
+				throw new ArgumentNullException ();
+
+			if (!_segments.Contains (segment))
+				return null;
+
 			var index = (_segments.IndexOf (segment) - 1) % _segments.Count;
 			return _segments [index];
 		}

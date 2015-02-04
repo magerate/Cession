@@ -15,6 +15,9 @@ namespace Cession
 		{
 			// if you want to use a different Application Delegate class from "AppDelegate"
 			// you can specify it here.
+			int x = int.MaxValue;
+			int y = x;
+			y += 1;
 			UIApplication.Main (args, null, "AppDelegate");
 		}
 	}

@@ -9,7 +9,16 @@ namespace Cession.Diagrams
 	public class Region:CompositeShape
 	{
 		private ClosedShape _contour;
-		private List<ClosedShape> _holes;
+		private List<ClosedShape> _holes = null;
+
+
+		public ClosedShape Contour{
+			get{ return _contour; }
+		}
+
+		public IList<ClosedShape> Holes{
+			get{ return _holes; }
+		}
 
 		public Region (ClosedShape contour)
 		{

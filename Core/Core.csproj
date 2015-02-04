@@ -46,6 +46,7 @@
     <Folder Include="Modeling\RoutedEvents\" />
     <Folder Include="Mediators\" />
     <Folder Include="Dimensions\" />
+    <Folder Include="Common\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
@@ -132,5 +133,9 @@
     <Compile Include="Diagrams\Label.cs" />
     <Compile Include="Diagrams\Region.cs" />
     <Compile Include="Diagrams\ClosedShape.cs" />
+    <Compile Include="Diagrams\PolyLine.cs" />
+    <Compile Include="Diagrams\DividableShape.cs" />
+    <Compile Include="Common\BinaryTreeNode.cs" />
+    <Compile Include="Common\BinaryTree.cs" />
   </ItemGroup>
 </Project>

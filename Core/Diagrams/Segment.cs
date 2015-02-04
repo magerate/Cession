@@ -2,24 +2,25 @@
 
 namespace Cession.Diagrams
 {
-	internal interface ISegmentHost{
-		Point2 GetNextPoint (Segment segment);
-		Segment GetNextSide(Segment segment);
-		Segment GetPreviousSide(Segment segment);
-	}
-
 	public abstract class Segment:Shape
 	{
+		public static readonly RoutedEvent CornerMoveEvent = new RoutedEvent ("Offset", 
+			typeof(RoutedEventHandler), 
+			typeof(Segment));
+
 		private Point2 _point1;
 
 		public Point2 Point1{
 			get{ return _point1; }
+			set{
+				if (value != _point1) {
+					_point1 = value;
+					var rea = new RoutedEventArgs (CornerMoveEvent,this);
+					RaiseEvent (rea);
+				}
+			}
 		}
 
-
-		internal ISegmentHost Host{
-			get{ return Parent as ISegmentHost; }
-		}
 
 		internal Segment (Point2 point)
 		{
@@ -29,17 +30,21 @@ namespace Cession.Diagrams
 
 		public Segment Next{
 			get{ 
-				if (null == Host)
-					return null;
-				return Host.GetNextSide (this); 
+				if (Parent is Path)
+					return ((Path)Parent).GetNextSide (this);
+				else if (Parent is PolyLine)
+					return ((PolyLine)Parent).GetNextSide (this);
+				return null;
 			}
 		}
 
 		public Segment Previous{
 			get{
-				if (null == Host)
-					return null;
-				return Host.GetPreviousSide (this); 
+				if (Parent is Path)
+					return ((Path)Parent).GetPreviousSide (this);
+				else if (Parent is PolyLine)
+					return ((PolyLine)Parent).GetPreviousSide (this);
+				return null;
 			}
 		}
 

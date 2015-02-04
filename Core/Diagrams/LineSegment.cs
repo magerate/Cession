@@ -5,7 +5,12 @@ namespace Cession.Diagrams
 	public class LineSegment:Segment
 	{
 		public Point2 Point2{
-			get{ return Host.GetNextPoint (this); }
+			get{ 
+				var segment = Next;
+				if (segment != null)
+					return segment.Point1;
+				return ((PolyLine)Parent).LastPoint;
+			}
 		}
 
 		public LineSegment (Point2 point):base(point)

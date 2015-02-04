@@ -50,7 +50,6 @@
 			toolSegment.ValueChanged += SegmentedValueChanged;
 			segmentButton = new UIBarButtonItem(toolSegment);
 
-
 			var fixedSpace32 = new UIBarButtonItem(UIBarButtonSystemItem.FixedSpace);
 			fixedSpace32.Width = 32;
 

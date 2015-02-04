@@ -57,21 +57,23 @@ namespace Cession.Geometries
 			get{ return (_p1 - _p2).Length; }
 		}
 
-//        public static Point2? Intersect(Point2 p1, Point2 p2, Point2 p3, Point2 p4)
-//        {
-//            var cross = Line.Intersect(p1, p2, p3, p4);
-//            if (cross.HasValue &&
-//                Range.Contains(p1.X, p2.X, cross.Value.X) &&
-//                Range.Contains(p3.X, p4.X, cross.Value.X))
-//                return cross;
-//
-//            return null;
-//        }
+        public static Point2? Intersect(Point2 p1, Point2 p2, Point2 p3, Point2 p4)
+        {
+            var cross = Line.Intersect(p1, p2, p3, p4);
+            if (cross.HasValue &&
+	                Range.Contains(p1.X, p2.X, cross.Value.X) &&
+					Range.Contains(p1.Y, p2.Y, cross.Value.Y) &&
+	                Range.Contains(p3.X, p4.X, cross.Value.X) &&
+					Range.Contains(p3.Y, p4.Y, cross.Value.Y))
+                return cross;
 
-//        public static Point2? Intersect(Segment segment1, Segment segment2)
-//        {
-//            return Segment.Intersect(segment1.p1, segment1.p2, segment2.p1, segment2.p2);
-//        }
+            return null;
+        }
+
+        public static Point2? Intersect(Segment segment1, Segment segment2)
+        {
+            return Segment.Intersect(segment1._p1, segment1._p2, segment2._p1, segment2._p2);
+        }
 
 //        public static Point2? IntersectWithLine(Point2 p1, Point2 p2, Point2 p3, Point2 p4)
 //        {
