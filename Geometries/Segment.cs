@@ -4,28 +4,28 @@ namespace Cession.Geometries
 {
     public struct Segment : IEquatable<Segment>
     {
-		private Point2 _p1;
-		private Point2 _p2;
+		private Point _p1;
+		private Point _p2;
 
-        public Point2 P1
+        public Point P1
         {
             get { return _p1; }
             set { _p1 = value; }
         }
 
-        public Point2 P2
+        public Point P2
         {
             get { return _p2; }
             set { _p2 = value; }
         }
 
-		public Point2 Center
+		public Point Center
 		{
-			get{ return new Point2 ((_p1.X + _p2.X) / 2, (_p1.Y + _p2.Y) / 2); }
+			get{ return new Point ((_p1.X + _p2.X) / 2, (_p1.Y + _p2.Y) / 2); }
 		}
 
 
-        public Segment(Point2 p1, Point2 p2)
+        public Segment(Point p1, Point p2)
         {
             this._p1 = p1;
             this._p2 = p2;
@@ -57,7 +57,7 @@ namespace Cession.Geometries
 			get{ return (_p1 - _p2).Length; }
 		}
 
-        public static Point2? Intersect(Point2 p1, Point2 p2, Point2 p3, Point2 p4)
+        public static Point? Intersect(Point p1, Point p2, Point p3, Point p4)
         {
             var cross = Line.Intersect(p1, p2, p3, p4);
             if (cross.HasValue &&
@@ -70,19 +70,19 @@ namespace Cession.Geometries
             return null;
         }
 
-        public static Point2? Intersect(Segment segment1, Segment segment2)
+        public static Point? Intersect(Segment segment1, Segment segment2)
         {
             return Segment.Intersect(segment1._p1, segment1._p2, segment2._p1, segment2._p2);
         }
 
-        public static bool Contains(Point2 p1, Point2 p2, Point2 point)
+        public static bool Contains(Point p1, Point p2, Point point)
         {
 			return Range.Contains(p1.X, p2.X, point.X) && 
 					Range.Contains(p1.Y,p2.Y,point.Y) &&
 	                Line.Contains(p1, p2, point);
         }
 
-		public bool Contains(Point2 point)
+		public bool Contains(Point point)
 		{
 			return Contains (_p1, _p2, point);
 		}

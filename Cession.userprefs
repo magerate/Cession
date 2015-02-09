@@ -1,23 +1,25 @@
 ﻿<Properties StartupItem="Cession/Cession.csproj" GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad2.8.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Cession/DiagramView.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Geometries/Point.cs">
     <Files>
-      <File FileName="Core/Geometries/Vector.cs" Line="1" Column="1" />
-      <File FileName="Core/Geometries/Constants.cs" Line="1" Column="1" />
-      <File FileName="Core/Geometries/Line.cs" Line="1" Column="1" />
-      <File FileName="Cession/Main.cs" Line="1" Column="1" />
-      <File FileName="Cession/DiagramView.cs" Line="8" Column="8" />
+      <File FileName="GeometryTest/LineTest.cs" Line="37" Column="37" />
+      <File FileName="Core/Clippers/clipper.cs" Line="77" Column="77" />
+      <File FileName="Geometries/Point.cs" Line="11" Column="11" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Core" expanded="True" />
+          <Node name="Geometries" expanded="True" selected="True" />
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
         <State expanded="True" selected="True" />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/tomato/Gits/Cession/Cession/Main.cs" line="20" column="4" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

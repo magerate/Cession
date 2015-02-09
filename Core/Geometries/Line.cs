@@ -177,12 +177,18 @@ namespace Cession.Geometries
             if (p1 == p2 || p3 == p4 || Line.Parallels(p1, p2, p3, p4))
                 return null;
 
-            int x = ((p1.X * p2.Y - p2.X * p1.Y) * (p3.X - p4.X) - (p3.X * p4.Y - p4.X * p3.Y) * (p1.X - p2.X)) /
-                        ((p1.X - p2.X) * (p3.Y - p4.Y) - (p3.X - p4.X) * (p1.Y - p2.Y));
-            int y = ((p1.X * p2.Y - p2.X * p1.Y) * (p3.Y - p4.Y) - (p3.X * p4.Y - p4.X * p3.Y) * (p1.Y - p2.Y)) /
-                        ((p1.X - p2.X) * (p3.Y - p4.Y) - (p3.X - p4.X) * (p1.Y - p2.Y));
+			long x, y;
+			checked{
+				x = ((p1.X * (long)p2.Y - p2.X * (long)p1.Y) * (p3.X - p4.X) - (p3.X * (long)p4.Y - p4.X * (long)p3.Y) * (p1.X - p2.X)) /
+					((p1.X - p2.X) * (long)(p3.Y - p4.Y) - (p3.X - p4.X) * (long)(p1.Y - p2.Y));
+				y = ((p1.X * (long)p2.Y - p2.X * (long)p1.Y) * (p3.Y - p4.Y) - (p3.X * (long)p4.Y - p4.X * (long)p3.Y) * (p1.Y - p2.Y)) /
+					((p1.X - p2.X) * (long)(p3.Y - p4.Y) - (p3.X - p4.X) * (long)(p1.Y - p2.Y));
+			}
 
-            return new Point2(x, y);
+			if (x > int.MaxValue || y > int.MaxValue)
+				return null;
+
+			return new Point2((int)x, (int)y);
         }
 
         public static Point2? Intersect(Line line1, Line line2)
@@ -200,24 +206,6 @@ namespace Cession.Geometries
         {
 			this.Offset((int)vector.X, (int)vector.Y);
         }
-
-//        public static Line Rotate(Line line, Point2 point, double angle)
-//        {
-//            var p1 = Point2.Rotate(line.p1, point, angle);
-//            var p2 = Point2.Rotate(line.p2, point, angle);
-//            return new Line(p1, p2);
-//        }
-
-//        public void Rotate(Point2 point, double angle)
-//        {
-//            p1.Rotate(point, angle);
-//            p2.Rotate(point, angle);
-//        }
-
-//        public void Rotate(double angle)
-//        {
-//            this.Rotate(Point2.Empty, angle);
-//        }
 
         public static Point2 Project(Point2 p1, Point2 p2, Point2 point)
         {
@@ -247,7 +235,7 @@ namespace Cession.Geometries
             var v1 = point - p1;
             var v2 = p2 - p1;
 
-            return Vector.CrossProduct(v1, v2) / v2.Length;
+			return Vector.CrossProduct (v1, v2) / v2.Length;
         }
 
         public static double DistanceBetween(Line line, Point2 point)
@@ -257,7 +245,7 @@ namespace Cession.Geometries
 
         public double DistanceBetween(Point2 point)
         {
-            return Line.DistanceBetween(this, point);
+            return Line.DistanceBetween(_p1, _p2,point);
         }
     }
 }

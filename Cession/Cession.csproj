@@ -256,6 +256,10 @@
       <Project>{2ED77A31-EB48-48A7-AA40-0E87C608946A}</Project>
       <Name>Cession.MonoTouch</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Geometries\Geometries.csproj">
+      <Project>{5815701A-38EF-415C-9783-D78594144A82}</Project>
+      <Name>Geometries</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Res\" />
