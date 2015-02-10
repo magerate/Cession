@@ -43,6 +43,7 @@
     <Compile Include="RangeTests.cs" />
     <Compile Include="RectTests.cs" />
     <Compile Include="SegmentTests.cs" />
+    <Compile Include="CircleTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -12,6 +12,10 @@ namespace GeometryTest
 			return random.NextDouble () * maxValue;
 		}
 
+		public static double NextDouble(){
+			return random.NextDouble ();
+		}
+
 		public static Point CreateRandomPoint(){
 			var x = random.NextDouble ();
 			var y = random.NextDouble ();
@@ -25,7 +29,11 @@ namespace GeometryTest
 		}
 
 		public static void AlmostEqual(double left,double right){
-			Assert.LessOrEqual(Math.Abs (left - right),1e-5);
+			AlmostEqual (left, right, 1e-5);
+		}
+
+		public static void AlmostEqual(double left,double right,double delta){
+			Assert.LessOrEqual (Math.Abs (left - right), delta);
 		}
 
 		public static void AlmostZero(double value){
@@ -36,6 +44,11 @@ namespace GeometryTest
 			for (int i = 0; i < count; i++) {
 				action ();
 			}
+		}
+
+		public static void PointAreEqual(Point p1,Point p2){
+			Assert.AreEqual (p1.X, p2.X);
+			Assert.AreEqual (p1.Y, p2.Y);
 		}
 
 	}
