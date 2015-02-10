@@ -132,6 +132,40 @@ namespace GeometryTest
 
 			test.RunBatch (100000);
 		}
+
+        [Test]
+        public void GetCenterTest1(){
+            var p1 = new Point (-1, 0);
+            var p2 = new Point (1, 0);
+            var p3 = new Point (0, 1);
+
+            var cp = Circle.GetCenter (p1, p2, p3);
+            Assert.NotNull (cp);
+            TestHelper.AlmostEqual (0, cp.Value.X);
+            TestHelper.AlmostEqual(0, cp.Value.Y);
+        }
+
+        [Test]
+        public void GetCenterTest2(){
+            Action test = () => {
+                var p1 = TestHelper.CreateRandomPoint();
+                var p2 = TestHelper.CreateRandomPoint();
+                var p3 = TestHelper.CreateRandomPoint();
+
+                var cp = Circle.GetCenter(p1,p2,p3);
+
+                if(cp != null){
+                    var d1 = cp.Value.DistanceBetween(p1);
+                    var d2 = cp.Value.DistanceBetween(p2);
+                    var d3 = cp.Value.DistanceBetween(p3);
+
+                    TestHelper.AlmostEqual(d1,d2);
+                    TestHelper.AlmostEqual(d1,d3);
+                    TestHelper.AlmostEqual(d2,d3);
+                }
+            };
+            test.RunBatch (100000);
+        }
 	}
 }
 

@@ -46,6 +46,8 @@
     <Compile Include="Circle.cs" />
     <Compile Include="MathHelper.cs" />
     <Compile Include="Ray.cs" />
+    <Compile Include="Triangle.cs" />
+    <Compile Include="Arc.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

@@ -44,6 +44,8 @@
     <Folder Include="Mediators\" />
     <Folder Include="Dimensions\" />
     <Folder Include="Common\" />
+    <Folder Include="Modeling\" />
+    <Folder Include="Modeling\RoutedEvents\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
@@ -96,6 +98,32 @@
     <Compile Include="Diagrams\DividableShape.cs" />
     <Compile Include="Common\BinaryTreeNode.cs" />
     <Compile Include="Common\BinaryTree.cs" />
+    <Compile Include="Modeling\Ceiling.cs" />
+    <Compile Include="Modeling\DiagramCollection.cs" />
+    <Compile Include="Modeling\Floor.cs" />
+    <Compile Include="Modeling\Layer.cs" />
+    <Compile Include="Modeling\LayerCollection.cs" />
+    <Compile Include="Modeling\Project.cs" />
+    <Compile Include="Modeling\Room.cs" />
+    <Compile Include="Modeling\Wall.cs" />
+    <Compile Include="Modeling\WallCollection.cs" />
+    <Compile Include="Modeling\ProjectInfo.cs" />
+    <Compile Include="Modeling\Diagram.cs" />
+    <Compile Include="Modeling\PolygonHelper.cs" />
+    <Compile Include="Modeling\CircleDiagram.cs" />
+    <Compile Include="Modeling\ClosedShapeDiagram.cs" />
+    <Compile Include="Modeling\PathDiagram.cs" />
+    <Compile Include="Modeling\RectangleDiagram.cs" />
+    <Compile Include="Modeling\CompositeDiagram.cs" />
+    <Compile Include="Modeling\RegionDiagram.cs" />
+    <Compile Include="Modeling\RoutedEvents\RoutedEvent.cs" />
+    <Compile Include="Modeling\RoutedEvents\RoutedEventArgs.cs" />
+    <Compile Include="Modeling\PolyLine.cs" />
+    <Compile Include="Modeling\Door.cs" />
+    <Compile Include="Modeling\Events.cs" />
+    <Compile Include="Modeling\Label.cs" />
+    <Compile Include="Modeling\HitTestProvider.cs" />
+    <Compile Include="Modeling\RoomGroup.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">
