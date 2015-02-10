@@ -1,8 +1,8 @@
+using System;
+using Cession.Geometries;
+
 namespace Cession.Alignments
 {
-	using System;
-	using Cession.Geometries;
-
 	public class AndRule:AlignRule
 	{
 		private AlignRule rule1;
@@ -31,7 +31,7 @@ namespace Cession.Alignments
 			protected set {throw new InvalidOperationException();}
 		}
 
-		protected override Point2 DoAlign (Point2 point)
+		protected override Point DoAlign (Point point)
 		{
 			var axis1 = rule1.GetAlignAxis(point);
 
@@ -48,7 +48,7 @@ namespace Cession.Alignments
 										axis2.Value.P1, 
 										axis2.Value.P2);
 			if (cross.HasValue)
-				return new Point2((int)cross.Value.X,(int)cross.Value.Y);
+				return new Point((int)cross.Value.X,(int)cross.Value.Y);
 
 			rule2.Reset ();
 			return axis1.Value.P2;

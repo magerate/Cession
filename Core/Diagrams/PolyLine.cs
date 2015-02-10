@@ -6,16 +6,16 @@ using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
-	public class PolyLine:Shape,IReadOnlyList<Point2>
+	public class PolyLine:Shape,IReadOnlyList<Point>
 	{
 		private List<Segment> _segments;
-		private Point2 _lastPoint;
+		private Point _lastPoint;
 
-		public Point2 LastPoint{
+		public Point LastPoint{
 			get{ return _lastPoint; }
 		}
 
-		public PolyLine (IReadOnlyList<Point2> points)
+		public PolyLine (IReadOnlyList<Point> points)
 		{
 			if (null == points)
 				throw new ArgumentNullException ();
@@ -35,7 +35,7 @@ namespace Cession.Diagrams
 			get{ return _segments.Count + 1; }
 		}
 
-		public Point2 this[int index]{
+		public Point this[int index]{
 			get{
 				if (index < 0 || index >= Count)
 					throw new ArgumentOutOfRangeException ();
@@ -46,7 +46,7 @@ namespace Cession.Diagrams
 			}
 		}
 
-		public IEnumerator<Point2> GetEnumerator(){
+		public IEnumerator<Point> GetEnumerator(){
 			foreach (var s in _segments) {
 				yield return s.Point1;
 			}
@@ -62,7 +62,7 @@ namespace Cession.Diagrams
 			_segments.ForEach (s => s.DoOffset (x, y));
 		}
 
-		internal override void DoRotate (Point2 point, double radian)
+		internal override void DoRotate (Point point, double radian)
 		{
 			_segments.ForEach(s => s.DoRotate(point,radian));
 		}

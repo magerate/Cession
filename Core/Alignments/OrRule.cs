@@ -1,8 +1,8 @@
+using System;
+using Cession.Geometries;
+
 namespace Cession.Alignments
 {
-	using System;
-	using Cession.Geometries;
-
 	public class OrRule:AlignRule
 	{
 		private AlignRule rule1;
@@ -31,7 +31,7 @@ namespace Cession.Alignments
 			rule2.Reset ();
 		}
 
-		protected override Point2 DoAlign (Point2 point)
+		protected override Point DoAlign (Point point)
 		{
 			var alignedPoint = rule1.Align(point);
 
@@ -41,7 +41,7 @@ namespace Cession.Alignments
 			return rule2.Align(point);
 		}
 
-		public override AlignAxis? GetAlignAxis (Point2 point)
+		public override AlignAxis? GetAlignAxis (Point point)
 		{
 			var axis = rule1.GetAlignAxis (point);
 			if (axis.HasValue)

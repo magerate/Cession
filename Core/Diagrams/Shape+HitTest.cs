@@ -45,14 +45,14 @@ namespace Cession.Diagrams
 			return s_hitTestors [this.GetType ()];
 		}
 
-		public bool Contains (Point2 point){
+		public bool Contains (Point point){
 			var htp = GetHitTestProvider ();
 			if (null != htp)
 				return htp.Contains (this, point);
 			return DoContains (point);
 		}
 
-		public Shape HitTest(Point2 point){
+		public Shape HitTest(Point point){
 			if (!CanHitTest)
 				return null;
 
@@ -69,13 +69,13 @@ namespace Cession.Diagrams
 			return DoGetBounds ();
 		}
 
-		protected virtual Shape DoHitTest (Point2 point){
+		protected virtual Shape DoHitTest (Point point){
 			if (Contains (point))
 				return this;
 			return null;
 		}
 
-		protected virtual bool DoContains (Point2 point){
+		protected virtual bool DoContains (Point point){
 			return false;
 		}
 

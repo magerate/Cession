@@ -61,7 +61,7 @@ namespace Cession.Diagrams
 			RaiseEvent (new RoutedEventArgs (Shape.OffsetEvent,this));
 		}
 
-		public void Rotate(Point2 point,double radian){
+		public void Rotate(Point point,double radian){
 			if(!CanRotate)
 				throw new InvalidOperationException ();
 				
@@ -70,7 +70,7 @@ namespace Cession.Diagrams
 		}
 
 		internal abstract void DoOffset(int x,int y);
-		internal abstract void DoRotate(Point2 point,double radian);
+		internal abstract void DoRotate(Point point,double radian);
 	}
 }
 

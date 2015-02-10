@@ -5,11 +5,11 @@ namespace Cession.Diagrams
 {
 	public class Circle:ClosedShape
 	{
-		private Point2 _center;
+		private Point _center;
 		private int _radius;
 
 
-		public Circle (Point2 center,int radius,Shape parent):base(parent)
+		public Circle (Point center,int radius,Shape parent):base(parent)
 		{
 			_center = center;
 			_radius = radius;
@@ -20,7 +20,7 @@ namespace Cession.Diagrams
 			return new Rect (_center.X - _radius, _center.Y - _radius, 2 * _radius, 2 * _radius);
 		}
 
-		protected override bool DoContains (Point2 point)
+		protected override bool DoContains (Point point)
 		{
 			return point.DistanceBetween (_center) <= _radius;
 		}
@@ -30,7 +30,7 @@ namespace Cession.Diagrams
 			_center.Offset (x, y);
 		}
 
-		internal override void DoRotate (Point2 point, double radian)
+		internal override void DoRotate (Point point, double radian)
 		{
 			if (point == _center)
 				return;

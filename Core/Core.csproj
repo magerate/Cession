@@ -34,7 +34,6 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Modeling\" />
     <Folder Include="Assignments\" />
     <Folder Include="Utilities\" />
     <Folder Include="Commands\" />
@@ -42,7 +41,6 @@
     <Folder Include="Clippers\" />
     <Folder Include="Products\" />
     <Folder Include="Diagrams\" />
-    <Folder Include="Modeling\RoutedEvents\" />
     <Folder Include="Mediators\" />
     <Folder Include="Dimensions\" />
     <Folder Include="Common\" />
@@ -50,17 +48,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
-    <Compile Include="Modeling\Ceiling.cs" />
-    <Compile Include="Modeling\DiagramCollection.cs" />
-    <Compile Include="Modeling\Floor.cs" />
-    <Compile Include="Modeling\Layer.cs" />
-    <Compile Include="Modeling\LayerCollection.cs" />
-    <Compile Include="Modeling\Project.cs" />
-    <Compile Include="Modeling\Room.cs" />
-    <Compile Include="Modeling\Wall.cs" />
-    <Compile Include="Modeling\WallCollection.cs" />
     <Compile Include="Assignments\Assignment.cs" />
-    <Compile Include="Modeling\ProjectInfo.cs" />
     <Compile Include="Utilities\EnumExtension.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandManager.cs" />
@@ -79,34 +67,18 @@
     <Compile Include="Alignments\PointToPointRule.cs" />
     <Compile Include="Clippers\clipper.cs" />
     <Compile Include="Products\Product.cs" />
-    <Compile Include="Modeling\Diagram.cs" />
     <Compile Include="Products\ProductCategory.cs" />
     <Compile Include="Products\Enums.cs" />
     <Compile Include="Assignments\AreaAssignment.cs" />
-    <Compile Include="Modeling\PolygonHelper.cs" />
-    <Compile Include="Modeling\CircleDiagram.cs" />
-    <Compile Include="Modeling\ClosedShapeDiagram.cs" />
-    <Compile Include="Modeling\PathDiagram.cs" />
-    <Compile Include="Modeling\RectangleDiagram.cs" />
-    <Compile Include="Modeling\CompositeDiagram.cs" />
-    <Compile Include="Modeling\RegionDiagram.cs" />
     <Compile Include="Handles\Handle.cs" />
     <Compile Include="Handles\SideHandle.cs" />
     <Compile Include="Handles\HandleHelper.cs" />
     <Compile Include="Diagrams\Shape.cs" />
     <Compile Include="Diagrams\HitTestProvider.cs" />
-    <Compile Include="Modeling\RoutedEvents\RoutedEvent.cs" />
-    <Compile Include="Modeling\RoutedEvents\RoutedEventArgs.cs" />
-    <Compile Include="Modeling\PolyLine.cs" />
-    <Compile Include="Modeling\Door.cs" />
-    <Compile Include="Modeling\Events.cs" />
     <Compile Include="Mediators\DiagramCommandMediator.cs" />
     <Compile Include="Dimensions\Length.cs" />
     <Compile Include="Dimensions\Units.cs" />
-    <Compile Include="Modeling\Label.cs" />
-    <Compile Include="Modeling\HitTestProvider.cs" />
     <Compile Include="Utilities\StringExtension.cs" />
-    <Compile Include="Modeling\RoomGroup.cs" />
     <Compile Include="Diagrams\RoutedEvents\RoutedEvent.cs" />
     <Compile Include="Diagrams\RoutedEvents\RoutedEventArgs.cs" />
     <Compile Include="Diagrams\Shape+Events.cs" />

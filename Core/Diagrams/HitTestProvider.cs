@@ -11,7 +11,7 @@ namespace Cession.Diagrams
 			return DoGetBounds (shape);
 		}
 
-		public bool Contains(Shape shape,Point2 point){
+		public bool Contains(Shape shape,Point point){
 			if (null == shape)
 				throw new ArgumentNullException ();
 
@@ -19,15 +19,15 @@ namespace Cession.Diagrams
 		}
 
 
-		public Shape HitTest(Shape shape,Point2 point){
+		public Shape HitTest(Shape shape,Point point){
 			if (null == shape)
 				throw new ArgumentNullException ();
 			return DoHitTest(shape,point);
 		}
 
 		protected abstract Rect DoGetBounds (Shape shape);
-		protected abstract bool DoContains(Shape shape,Point2 point);
-		protected abstract Shape DoHitTest (Shape shape, Point2 point);
+		protected abstract bool DoContains(Shape shape,Point point);
+		protected abstract Shape DoHitTest (Shape shape, Point point);
 	}
 }
 

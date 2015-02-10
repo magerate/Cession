@@ -1,19 +1,22 @@
+using System;
+using Cession.Geometries;
+
 namespace Cession.Alignments
 {
-	using System;
-	using Cession.Geometries;
-
 	public class PointToPointRule:AlignRule
 	{
-		public Point2 ReferencePoint{ get; set; }
+		public Point? ReferencePoint{ get; set; }
 		public double Length{get;set;}
 
 
-		protected override Point2 DoAlign (Point2 point)
+		protected override Point DoAlign (Point point)
 		{
-			if (point.DistanceBetween (ReferencePoint) <= Length) {
+			if (ReferencePoint == null)
+				return point;
+
+			if (point.DistanceBetween (ReferencePoint.Value) <= Length) {
 				IsAligned = true;
-				return ReferencePoint;
+				return ReferencePoint.Value;
 			}
 
 			return point;

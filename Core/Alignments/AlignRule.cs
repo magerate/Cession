@@ -1,8 +1,8 @@
+using System;
+using Cession.Geometries;
+
 namespace Cession.Alignments
 {
-	using System;
-	using Cession.Geometries;
-
 	public abstract class AlignRule
 	{
 		protected AlignRule ()
@@ -18,7 +18,7 @@ namespace Cession.Alignments
 			IsAligned = false;
 		}
 
-		public virtual AlignAxis? GetAlignAxis(Point2 point)
+		public virtual AlignAxis? GetAlignAxis(Point point)
 		{
 			var ap = Align (point);
 			if (!IsAligned)
@@ -27,7 +27,7 @@ namespace Cession.Alignments
 			return DoGetAlignAxis(ap);
 		}
 
-		public Point2 Align(Point2 point)
+		public Point Align(Point point)
 		{
 			Reset ();
 			if(!Enable)
@@ -36,8 +36,8 @@ namespace Cession.Alignments
 			return DoAlign(point);
 		}
 
-		protected abstract Point2 DoAlign(Point2 point);
-		protected virtual AlignAxis? DoGetAlignAxis(Point2 point)
+		protected abstract Point DoAlign(Point point);
+		protected virtual AlignAxis? DoGetAlignAxis(Point point)
 		{
 			return null;
 		}

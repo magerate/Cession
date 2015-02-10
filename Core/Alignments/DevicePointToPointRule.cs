@@ -1,11 +1,11 @@
+using System;
+using Cession.Geometries;
+
 namespace Cession.Alignments
 {
-	using System;
-	using Cession.Geometries;
-
 	public class DevicePointToPointRule:AlignRule
 	{
-		public Point2 ReferencePoint
+		public Point? ReferencePoint
 		{ 
 			get{ return rule.ReferencePoint; }
 			set{ rule.ReferencePoint = value; }
@@ -32,7 +32,7 @@ namespace Cession.Alignments
 			rule.Reset ();
 		}
 
-		protected override Point2 DoAlign (Point2 point)
+		protected override Point DoAlign (Point point)
 		{
 			rule.Length = Length * Scale;
 			return rule.Align (point);

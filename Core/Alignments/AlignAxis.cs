@@ -1,28 +1,26 @@
+using System;
+using Cession.Geometries;
+
 namespace Cession.Alignments
 {
-	using System;
-	using Cession.Geometries;
-
 	public struct AlignAxis
 	{
-		private Point2 p1;
-		private Point2 p2;
+		private Point p1;
+		private Point p2;
 
-		public Point2 P1 
+		public Point P1 
 		{
 			get {return p1;}
 			set {p1 = value;}
 		}
 
-		public Point2 P2 
+		public Point P2 
 		{
 			get {return p2;}
 			set {p2 = value;}
 		}
 
-
-
-		public AlignAxis (Point2 p1,Point2 p2)
+		public AlignAxis (Point p1,Point p2)
 		{
 			this.p1 = p1;
 			this.p2 = p2;

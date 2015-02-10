@@ -8,9 +8,9 @@ namespace Cession.Diagrams
 			typeof(RoutedEventHandler), 
 			typeof(Segment));
 
-		private Point2 _point1;
+		private Point _point1;
 
-		public Point2 Point1{
+		public Point Point1{
 			get{ return _point1; }
 			set{
 				if (value != _point1) {
@@ -22,7 +22,7 @@ namespace Cession.Diagrams
 		}
 
 
-		internal Segment (Point2 point)
+		internal Segment (Point point)
 		{
 			_point1 = point;
 			Ability = ShapeAbility.CanAssign | ShapeAbility.CanHitTest;
@@ -53,7 +53,7 @@ namespace Cession.Diagrams
 			_point1.Offset (x, y);
 		}
 
-		internal override void DoRotate (Point2 point, double radian)
+		internal override void DoRotate (Point point, double radian)
 		{
 			_point1.Rotate (point, radian);
 		}

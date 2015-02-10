@@ -27,7 +27,7 @@ namespace Cession.Diagrams
 			}
 		}
 
-		internal override void DoRotate (Point2 point, double radian)
+		internal override void DoRotate (Point point, double radian)
 		{
 			foreach (var s in this) {
 				s.DoRotate (point, radian);
@@ -43,7 +43,7 @@ namespace Cession.Diagrams
 			return bounds;
 		}
 
-		protected override Shape DoHitTest (Point2 point)
+		protected override Shape DoHitTest (Point point)
 		{
 			Shape shape = null;
 			foreach (var s in this) {

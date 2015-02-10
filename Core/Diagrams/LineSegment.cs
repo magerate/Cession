@@ -4,7 +4,7 @@ namespace Cession.Diagrams
 {
 	public class LineSegment:Segment
 	{
-		public Point2 Point2{
+		public Point Point{
 			get{ 
 				var segment = Next;
 				if (segment != null)
@@ -13,21 +13,21 @@ namespace Cession.Diagrams
 			}
 		}
 
-		public LineSegment (Point2 point):base(point)
+		public LineSegment (Point point):base(point)
 		{
 		}
 
-		protected override bool DoContains (Point2 point)
+		protected override bool DoContains (Point point)
 		{
-			return Line.AlmostContains (Point1, Point2, point);
+			return Line.Contains (Point1, Point, point);
 		}
 
 		protected override Rect DoGetBounds ()
 		{
-			return Rect.FromPoints (Point1, Point2);
+			return Rect.FromPoints (Point1, Point);
 		}
 
-		protected override Shape DoHitTest (Point2 point)
+		protected override Shape DoHitTest (Point point)
 		{
 			return this;
 		}

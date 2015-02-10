@@ -7,7 +7,7 @@ using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
-	public class Path:ClosedShape,IReadOnlyList<Point2>
+	public class Path:ClosedShape,IReadOnlyList<Point>
 	{
 		private List<Segment> _segments;
 
@@ -21,7 +21,7 @@ namespace Cession.Diagrams
 			_segments = segments.ToList ();
 		}
 
-		public Path (IReadOnlyList<Point2> points)
+		public Path (IReadOnlyList<Point> points)
 		{
 			if (null == points)
 				throw new ArgumentNullException ();
@@ -62,7 +62,7 @@ namespace Cession.Diagrams
 			get{ return _segments.Count; }
 		}
 
-		public Point2 this[int index]{
+		public Point this[int index]{
 			get{ 
 				if (index < 0 || index >= _segments.Count)
 					throw new ArgumentOutOfRangeException ();
@@ -70,7 +70,7 @@ namespace Cession.Diagrams
 			}
 		}
 
-		public IEnumerator<Point2> GetEnumerator(){
+		public IEnumerator<Point> GetEnumerator(){
 			foreach (var s in _segments) {
 				yield return s.Point1;
 			}
@@ -96,7 +96,7 @@ namespace Cession.Diagrams
 			return Rect.Empty;
 		}
 
-		protected override bool DoContains (Point2 point)
+		protected override bool DoContains (Point point)
 		{
 			return false;
 		}
@@ -106,7 +106,7 @@ namespace Cession.Diagrams
 			_segments.ForEach (s => s.DoOffset (x, y));
 		}
 
-		internal override void DoRotate (Point2 point, double radian)
+		internal override void DoRotate (Point point, double radian)
 		{
 			_segments.ForEach (s => s.DoRotate (point,radian));
 		}
