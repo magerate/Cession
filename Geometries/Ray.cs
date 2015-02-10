@@ -4,10 +4,10 @@ namespace Cession.Geometries
 {
     public struct Ray : IEquatable<Ray>
     {
-		private Point2 _point;
+		private Point _point;
 		private Vector _direction;
 
-        public Point2 Point
+        public Point Point
         {
             get { return _point; }
             set { _point = value; }
@@ -19,7 +19,7 @@ namespace Cession.Geometries
             set { _direction = value; }
         }
 
-        public Ray(Point2 point, Vector direction)
+        public Ray(Point point, Vector direction)
         {
             this._point = point;
             this._direction = direction;
