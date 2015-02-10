@@ -114,7 +114,7 @@ namespace Cession.Geometries
 			if (p1 == p2)
 				return null;
 
-			double dx, dy, a, b, c, det, t;
+			double dx, dy, a, b, c, bb4ac, t;
 
 			dx = p2.X - p1.X;
 			dy = p2.Y - p1.Y;
@@ -123,13 +123,13 @@ namespace Cession.Geometries
 			b = 2 * (dx * (p1.X - c1.X) + dy * (p1.Y - c1.Y));
 			c = (p1.X - c1.X) * (p1.X - c1.X) + (p1.Y - c1.Y) * (p1.Y - c1.Y) - r1 * r1;
 
-			det = b * b - 4 * a * c;
-			if ((a <= 0.0000001) || (det < 0))
+			bb4ac = b * b - 4 * a * c;
+			if ((a <= 0.0000001) || (bb4ac < 0))
 			{
 				// No real solutions.
 				return null;
 			}
-			else if (det == 0)
+			else if (bb4ac == 0)
 			{
 				// One solution.
 				t = -b / (2 * a);
@@ -139,9 +139,9 @@ namespace Cession.Geometries
 			else
 			{
 				// Two solutions.
-				t = (float)((-b + Math.Sqrt(det)) / (2 * a));
+				t = (float)((-b + Math.Sqrt(bb4ac)) / (2 * a));
 				var ip1 = new Point(p1.X + t * dx, p1.Y + t * dy);
-				t = (float)((-b - Math.Sqrt(det)) / (2 * a));
+				t = (float)((-b - Math.Sqrt(bb4ac)) / (2 * a));
 				var ip2 = new Point(p1.X + t * dx, p1.Y + t * dy);
 				return new Tuple<Point, Point> (ip1, ip2);
 			}
