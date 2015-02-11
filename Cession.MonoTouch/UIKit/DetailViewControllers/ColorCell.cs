@@ -1,10 +1,12 @@
+using System;
+
+using UIKit;
+using Foundation;
+using CoreGraphics;
+
 namespace Cession.UIKit
 {
-	using System;
-	using System.Drawing;
 
-	using MonoTouch.UIKit;
-	using MonoTouch.Foundation;
 
 	public class ColorCell:UITableViewCell
 	{
@@ -23,7 +25,7 @@ namespace Cession.UIKit
 			base.LayoutSubviews ();
 
 			var size = ContentView.Bounds.Height - 2 * margin;
-			ColorView.Frame = new RectangleF(ContentView.Bounds.Width - size - 16 ,
+			ColorView.Frame = new CGRect(ContentView.Bounds.Width - size - 16 ,
 			                                   margin,size,size);
 
 			var frame = TextLabel.Frame;

@@ -1,19 +1,19 @@
-﻿namespace Cession.Drawing
+﻿using CoreGraphics;
+using Cession.Geometries;
+
+namespace Cession.Drawing
 {
-	using System.Drawing;
-	using Cession.Geometries;
+    public static class PointExtension
+    {
+        public static Point ToPoint (this CGPoint point)
+        {
+            return new Point ((double)point.X, (double)point.Y);
+        }
 
-	public static class PointExtension
-	{
-		public static Point2 ToPoint2(this PointF point)
-		{
-			return new Point2 ((int)point.X, (int)point.Y);
-		}
-
-		public static PointF ToPointF(this Point2 point)
-		{
-			return new PointF ((float)point.X, (float)point.Y);
-		}
-	}
+        public static CGPoint ToCGPoint (this Point point)
+        {
+            return new CGPoint ((float)point.X, (float)point.Y);
+        }
+    }
 }
 

@@ -1,12 +1,12 @@
-﻿namespace Cession.Tools
+namespace Cession.Tools
 {
 	using System;
-	using System.Drawing;
+	using CoreGraphics;
 	using System.Linq;
 
-	using MonoTouch.UIKit;
-	using MonoTouch.CoreGraphics;
-	using MonoTouch.Foundation;
+	using UIKit;
+	using CoreGraphics;
+	using Foundation;
 
 	using Cession.UIKit;
 	using Cession.Geometries;
@@ -39,9 +39,9 @@
 			CommandManager.ExecuteListAdd (CurrentLayer.Diagrams, room);
 		}
 
-		private RectangleF GetRect(PointF p1,PointF p2)
+		private CGRect GetRect(CGPoint p1,CGPoint p2)
 		{
-			return RectangleF.FromLTRB (Math.Min (p1.X, p2.X), 
+			return CGRect.FromLTRB (Math.Min (p1.X, p2.X), 
 				Math.Min (p1.Y, p2.Y),
 				Math.Max (p1.X, p2.X),
 				Math.Max (p1.Y, p2.Y));

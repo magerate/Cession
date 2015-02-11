@@ -34,9 +34,7 @@ namespace Cession.Diagrams
             get{ return (Ability & ShapeAbility.CanAssign) != 0; }
         }
 
-
         public Shape Parent{ get; internal set; }
-
 
         public Shape Owner
         {

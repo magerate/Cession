@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{2ED77A31-EB48-48A7-AA40-0E87C608946A}</ProjectGuid>
@@ -11,6 +11,8 @@
     <RootNamespace>Cession.MonoTouch</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>Cession.MonoTouch</AssemblyName>
+    <TargetFrameworkIdentifier>Xamarin.iOS</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,7 +36,7 @@
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
-    <Reference Include="monotouch" />
+    <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -88,33 +90,20 @@
     <Compile Include="UIKit\TableViewHelper.cs" />
     <Compile Include="UIKit\UIFontExtension.cs" />
     <Compile Include="Drawing\AlignmentDrawing.cs" />
-    <Compile Include="Drawing\DiagramDrawer.cs" />
     <Compile Include="Drawing\DrawerManager.cs" />
     <Compile Include="Drawing\DrawHelper.cs" />
     <Compile Include="Drawing\MatrixExtension.cs" />
     <Compile Include="Drawing\PointExtension.cs" />
     <Compile Include="Drawing\RectangleExtension.cs" />
     <Compile Include="Drawing\RoomDrawer.cs" />
-    <Compile Include="Tools\AddPolygonalRoomTool.cs" />
-    <Compile Include="Tools\AddRectRoomTool.cs" />
-    <Compile Include="Tools\DragDropTool.cs" />
-    <Compile Include="Tools\MoveTool.cs" />
-    <Compile Include="Tools\MoveVertexTool.cs" />
-    <Compile Include="Tools\PanTool.cs" />
-    <Compile Include="Tools\SelectTool.cs" />
-    <Compile Include="Tools\Tool.cs" />
-    <Compile Include="Tools\ToolManager.cs" />
-    <Compile Include="Tools\ToolTypes.cs" />
-    <Compile Include="Tools\ZoomTool.cs" />
-    <Compile Include="Tools\MoveSideTool.cs" />
     <Compile Include="Drawing\HandleDrawing.cs" />
     <Compile Include="Drawing\LayerDrawer.cs" />
     <Compile Include="Drawing\DoorDrawer.cs" />
     <Compile Include="Drawing\DrawUtil.cs" />
     <Compile Include="Modeling\LabelHitTestProvider.cs" />
     <Compile Include="Drawing\LabelDrawer.cs" />
+    <Compile Include="Drawing\ShapeDrawer.cs" />
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{F25F6954-2A81-4E4F-A2C0-EDF47B0A3F52}</Project>
@@ -125,4 +114,5 @@
       <Name>Geometries</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

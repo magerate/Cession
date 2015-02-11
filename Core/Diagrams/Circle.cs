@@ -8,7 +8,6 @@ namespace Cession.Diagrams
         private Point _center;
         private int _radius;
 
-
         public Circle (Point center, int radius, Shape parent) : base (parent)
         {
             _center = center;

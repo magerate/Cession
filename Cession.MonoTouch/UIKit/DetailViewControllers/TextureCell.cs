@@ -1,11 +1,11 @@
+using System;
+using CoreGraphics;
+
+using UIKit;
+using Foundation;
+
 namespace Cession.UIKit
 {
-	using System;
-	using System.Drawing;
-
-	using MonoTouch.UIKit;
-	using MonoTouch.Foundation;
-
 	public class TextureCell:UITableViewCell
 	{
 		static readonly float margin = 2.0f;
@@ -24,7 +24,7 @@ namespace Cession.UIKit
 			frame.X = ImageView.Frame.X;
 			TextLabel.Frame = frame;
 			
-			ImageView.Frame = new RectangleF (ContentView.Bounds.Width - imageViewSize - 16 , margin, 
+			ImageView.Frame = new CGRect (ContentView.Bounds.Width - imageViewSize - 16 , margin, 
 			                                  imageViewSize, imageViewSize);
 
 		}

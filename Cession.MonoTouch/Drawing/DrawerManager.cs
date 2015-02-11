@@ -1,59 +1,71 @@
-﻿namespace Cession.Drawing
+using System;
+using System.Collections.Generic;
+
+using CoreGraphics;
+using Cession.Diagrams;
+
+namespace Cession.Drawing
 {
-	using System;
-	using System.Collections.Generic;
+    public static class DrawerManager
+    {
+        private static Dictionary<Type,ShapeDrawer> s_drawers = new Dictionary<Type, ShapeDrawer> ();
 
-	using MonoTouch.CoreGraphics;
+        static DrawerManager ()
+        {
+//            RegisterDrawer (typeof(Room), new RoomDrawer ());
+//            RegisterDrawer (typeof(Layer), new LayerDrawer ());
+            RegisterDrawer (typeof(Label), new LabelDrawer ());
+        }
 
-	using Cession.Modeling;
+        public static void RegisterDrawer (Type type, ShapeDrawer drawer)
+        {
+            if (null == type)
+                throw new ArgumentNullException ();
 
-	public static class DrawerManager
-	{
-		private static Dictionary<Type,DiagramDrawer> drawers=new Dictionary<Type, DiagramDrawer>();
+            if (null == drawer)
+                throw new ArgumentNullException ();
 
-		static DrawerManager ()
-		{
-			RegisterDrawer(typeof(Room),new RoomDrawer());
-			RegisterDrawer(typeof(Layer),new LayerDrawer());
-			RegisterDrawer (typeof(Label), new LabelDrawer ());
-		}
+            s_drawers [type] = drawer;
+        }
 
-		public static void RegisterDrawer(Type type,DiagramDrawer drawer)
-		{
-			if(null == type)
-				throw new ArgumentNullException();
+        public static ShapeDrawer GetDrawer (Shape shape)
+        {
+            if (null == shape)
+                throw new ArgumentNullException ();
 
-			if(null == drawer)
-				throw new ArgumentNullException();
+            var type = shape.GetType ();
+            ShapeDrawer drawer;
+            s_drawers.TryGetValue (type, out drawer);
+            return drawer;
+        }
 
-			drawers[type] = drawer;
-		}
+        public static void Draw (this Shape shape, CGContext context)
+        {
+            if (null == shape)
+                throw new ArgumentNullException ();
+            if (null == context)
+                throw new ArgumentNullException ();
 
-		public static DiagramDrawer GetDrawer(Diagram diagramElement)
-		{
-			var type = diagramElement.GetType ();
-			DiagramDrawer drawer;
-			drawers.TryGetValue(type,out drawer);
-			return drawer;
-		}
+            var drawer = GetDrawer (shape);
+            if (null == drawer)
+                throw new InvalidOperationException ();
 
-		public static void Draw(this Diagram diagramElement,CGContext context)
-		{
-			var drawer = GetDrawer (diagramElement);
-			if (null == drawer)
-				throw new InvalidOperationException ();
+            drawer.Draw (context, shape);
+        }
 
-			drawer.Draw (context, diagramElement);
-		}
+        public static void DrawSelected (this Shape shape, CGContext context)
+        {
+            if (null == shape)
+                throw new ArgumentNullException ();
+            if (null == context)
+                throw new ArgumentNullException ();
 
-		public static void DrawSelected(this Diagram diagramElement,CGContext context)
-		{
-			var drawer = GetDrawer (diagramElement);
-			if (null == drawer)
-				throw new InvalidOperationException ();
+            var drawer = GetDrawer (shape);
+            if (null == drawer)
+                throw new InvalidOperationException ();
 
-			drawer.DrawSelected (context, diagramElement);
-		}
-	}
+            drawer.DrawSelected (context, shape);
+        }
+    }
 }
 

@@ -3,7 +3,7 @@ namespace Cession.UIKit
 	using System;
 	using System.Collections.Generic;
 
-	using MonoTouch.UIKit;
+	using UIKit;
 
 	public class DetailSection
 	{

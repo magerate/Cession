@@ -30,9 +30,17 @@ namespace Cession.Diagrams
 
         protected abstract Rect DoGetBounds (Shape shape);
 
-        protected abstract bool DoContains (Shape shape, Point point);
+        protected virtual bool DoContains (Shape shape, Point point)
+        {
+            return DoGetBounds (shape).Contains (point);
+        }
 
-        protected abstract Shape DoHitTest (Shape shape, Point point);
+        protected virtual Shape DoHitTest (Shape shape, Point point)
+        {
+            if (Contains (shape, point))
+                return shape;
+            return null;
+        }
     }
 }
 

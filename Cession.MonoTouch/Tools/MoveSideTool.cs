@@ -1,9 +1,9 @@
-﻿namespace Cession.Tools
+namespace Cession.Tools
 {
 	using System;
 	using System.Collections.Generic;
 
-	using MonoTouch.CoreGraphics;
+	using CoreGraphics;
 
 	using Cession.Modeling;
 	using Cession.Drawing;

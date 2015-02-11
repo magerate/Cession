@@ -1,9 +1,9 @@
-﻿namespace Cession.Tools
+namespace Cession.Tools
 {
 	using System;
-	using System.Drawing;
+	using CoreGraphics;
 
-	using MonoTouch.UIKit;
+	using UIKit;
 
 	using Cession.UIKit;
 	using Cession.Geometries;
@@ -12,7 +12,7 @@
 
 	public class SelectTool:Tool
 	{
-		private PointF touchPoint;
+		private CGPoint touchPoint;
 
 		public SelectTool (ToolManager toolManager):base(toolManager)
 		{
@@ -30,7 +30,7 @@
 			}
 		}
 
-		public override void TouchBegin (PointF point)
+		public override void TouchBegin (CGPoint point)
 		{
 			touchPoint = point;
 		}

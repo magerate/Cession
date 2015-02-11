@@ -1,24 +1,24 @@
-﻿namespace Cession.Drawing
+using System;
+
+using CoreGraphics;
+using UIKit;
+
+using Cession.Diagrams;
+
+namespace Cession.Drawing
 {
-	using System;
+    public class LabelDrawer:ShapeDrawer
+    {
+        protected override void DoDraw (CGContext context, Shape shape)
+        {
+            var label = shape as Label;
+            if (null == label)
+                throw new ArgumentException ("shape");
 
-	using MonoTouch.CoreGraphics;
-	using MonoTouch.UIKit;
-
-	using Cession.Modeling;
-
-	public class LabelDrawer:DiagramDrawer
-	{
-		protected override void DoDraw (CGContext context, Diagram diagram)
-		{
-			var label = diagram as Label;
-			if (null == label)
-				throw new ArgumentException ("label");
-
-			var layer = diagram.Owner as Layer;
-			var point = layer.ConvertToViewPoint (label.Location).ToPointF ();
-			label.Text.DrawString (point, new UIStringAttributes ());
-		}
-	}
+            var layer = shape.Owner as Layer;
+            var point = layer.ConvertToViewPoint (label.Location).ToCGPoint ();
+            label.Text.DrawString (point, new UIStringAttributes ());
+        }
+    }
 }
 

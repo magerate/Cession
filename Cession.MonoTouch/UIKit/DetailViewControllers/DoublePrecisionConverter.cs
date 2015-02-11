@@ -1,4 +1,4 @@
-﻿
+
 namespace Cession.UIKit
 {
 	using System;

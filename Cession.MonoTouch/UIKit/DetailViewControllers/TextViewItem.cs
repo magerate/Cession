@@ -1,10 +1,10 @@
+using System;
+using UIKit;
+using Foundation;
+using CoreGraphics;
+
 namespace Cession.UIKit
 {
-	using System;
-	using MonoTouch.UIKit;
-	using MonoTouch.Foundation;
-	using System.Drawing;
-
 	public class TextViewItem:DetailItem
 	{
 		static readonly NSString cellId = new NSString("textViewId");

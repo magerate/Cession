@@ -1,4 +1,4 @@
-﻿//namespace Cession.Drawing
+//namespace Cession.Drawing
 //{
 //	using System;
 //

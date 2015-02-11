@@ -1,12 +1,14 @@
-﻿namespace Cession.UIKit
+using System;
+
+using CoreGraphics;
+using UIKit;
+using Foundation;
+
+using Cession.Drawing;
+
+namespace Cession.UIKit
 {
-	using System;
-	using System.Drawing;
 
-	using MonoTouch.UIKit;
-	using MonoTouch.Foundation;
-
-	using Cession.Drawing;
 
 	public class UITextViewPH : UITextView
 	{
@@ -24,7 +26,7 @@
 			};
 		}
 
-		public override void Draw (RectangleF rect)
+		public override void Draw (CGRect rect)
 		{
 			base.Draw (rect);
 

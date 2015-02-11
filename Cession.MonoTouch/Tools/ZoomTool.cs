@@ -1,8 +1,8 @@
-﻿namespace Cession.Tools
+namespace Cession.Tools
 {
 	using System;
 
-	using MonoTouch.UIKit;
+	using UIKit;
 
 	using Cession.Geometries;
 	using Cession.UIKit;

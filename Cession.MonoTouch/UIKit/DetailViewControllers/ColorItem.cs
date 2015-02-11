@@ -1,46 +1,47 @@
+using System;
+
+using UIKit;
+using Foundation;
+
 namespace Cession.UIKit
 {
-	using System;
+    public class ColorItem:DetailItem
+    {
+        static readonly NSString cellId = new NSString ("colorId");
 
-	using MonoTouch.UIKit;
-	using MonoTouch.Foundation;
+        public override NSString CellId
+        {
+            get { return cellId; }
+        }
 
+        public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
+        {
+            var cell = new ColorCell (CellId);
+            cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
+            return cell;
+        }
 
-	public class ColorItem:DetailItem
-	{
-		static readonly NSString cellId = new NSString("colorId");
+        protected override void DoActive (NSIndexPath indexPath, UITableViewCell cell, object data)
+        {
+            var colorCell = cell as ColorCell;
+            colorCell.TextLabel.Text = Title;
 
-		public override NSString CellId {
-			get {return cellId;}
-		}
+            var color = GetValue (data) as UIColor;
+            colorCell.ColorView.BackgroundColor = color;
+        }
 
-		public override UITableViewCell GetCell (UITableView tableView,NSIndexPath indexPath)
-		{
-			var cell = new ColorCell(CellId);
-			cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
-			return cell;
-		}
+        public override void Select (DetailViewController controller, NSIndexPath indexPath)
+        {
+            var cp = new ColorPicker ();
+            cp.SelectedAction = c =>
+            {
+                controller.NavigationController.PopViewController (true);
+                SetValue (controller.DataContext, c);
+            };
 
-		protected override void DoActive (NSIndexPath indexPath, UITableViewCell cell, object data)
-		{
-			var colorCell = cell as ColorCell;
-			colorCell.TextLabel.Text = Title;
+            controller.NavigationController.PushViewController (cp, true);
+        }
 
-			var color = GetValue (data) as UIColor;
-			colorCell.ColorView.BackgroundColor = color;
-		}
-
-		public override void Select (DetailViewController controller, NSIndexPath indexPath)
-		{
-			var cp = new ColorPicker();
-			cp.SelectedAction = c =>{
-				controller.NavigationController.PopViewControllerAnimated(true);
-				SetValue(controller.DataContext,c);
-			};
-
-			controller.NavigationController.PushViewController(cp,true);
-		}
-
-	}
+    }
 }
 

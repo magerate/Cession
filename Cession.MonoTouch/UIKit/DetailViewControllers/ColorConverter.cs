@@ -1,8 +1,8 @@
-﻿namespace Cession.UIKit
+namespace Cession.UIKit
 {
 	using System;
 
-	using MonoTouch.UIKit;
+	using UIKit;
 
 	public class ColorConverter:ValueConverter
 	{

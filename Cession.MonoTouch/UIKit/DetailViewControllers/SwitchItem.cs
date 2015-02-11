@@ -1,45 +1,46 @@
+using System;
+
+using UIKit;
+using Foundation;
+
 namespace Cession.UIKit
 {
-	using System;
+    public class SwitchItem:DetailItem
+    {
+        static readonly NSString cellId = new NSString ("switchId");
 
-	using MonoTouch.UIKit;
-	using MonoTouch.Foundation;
+        public override NSString CellId
+        {
+            get { return cellId; }
+        }
 
-	public class SwitchItem:DetailItem
-	{
-		static readonly NSString cellId = new NSString("switchId");
+        public SwitchItem ()
+        {
+            NeedReloadSelf = false;
+        }
 
-		public override NSString CellId {
-			get {return cellId;}
-		}
+        public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
+        {
+            var cell = new SwitchCell (CellId);
+            cell.SelectionStyle = UITableViewCellSelectionStyle.None;
 
-		public SwitchItem ()
-		{
-			NeedReloadSelf = false;
-		}
+            return cell;
+        }
 
-		public override UITableViewCell GetCell (UITableView tableView,NSIndexPath indexPath)
-		{
-			var cell = new SwitchCell (CellId);
-			cell.SelectionStyle = UITableViewCellSelectionStyle.None;
+        protected override void DoActive (NSIndexPath indexPath, UITableViewCell cell, object data)
+        {
+            var switchCell = cell as SwitchCell;
+            switchCell.TextLabel.Text = Title;
+            switchCell.Switch.On = (bool)GetValue (data);
+            switchCell.SwitchValueChangedAction = SwitchValueChange;
+        }
 
-			return cell;
-		}
-
-		protected override void DoActive (NSIndexPath indexPath,UITableViewCell cell, object data)
-		{
-			var switchCell = cell as SwitchCell;
-			switchCell.TextLabel.Text = Title;
-			switchCell.Switch.On = (bool)GetValue (data);
-			switchCell.SwitchValueChangedAction = SwitchValueChange;
-		}
-
-		private void SwitchValueChange(bool value)
-		{
-			var data = detailController.DataContext;
-			if (null != data)
-				SetValue (data, value);
-		}
-	}
+        private void SwitchValueChange (bool value)
+        {
+            var data = detailController.DataContext;
+            if (null != data)
+                SetValue (data, value);
+        }
+    }
 }
 

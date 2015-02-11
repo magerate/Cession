@@ -1,10 +1,10 @@
+using System;
+
+using UIKit;
+using Foundation;
+
 namespace Cession.UIKit
 {
-	using System;
-
-	using MonoTouch.UIKit;
-	using MonoTouch.Foundation;
-
 	public class ImageItem:DetailItem
 	{
 		static readonly NSString cellId = new NSString("imageId");

@@ -1,24 +1,19 @@
-﻿namespace Cession.Drawing
+using CoreGraphics;
+using Cession.Geometries;
+
+namespace Cession.Drawing
 {
-	using System;
-	using System.Drawing;
+    public static class RectangleExtension
+    {
+        public static Rect ToRect (this CGRect rect)
+        {
+            return new Rect ((double)rect.X, (double)rect.Y, (double)rect.Width, (double)rect.Height);
+        }
 
-	using Cession.Geometries;
-	using Cession.Modeling;
-
-	public static class RectangleExtension
-	{
-		public static RectangleF ToRect(this RectangleDiagram rect,Matrix transform)
-		{
-			var p1 = transform.Transform(rect.Rect.LeftTop).ToPointF();
-			var p2 = transform.Transform(rect.Rect.RightBottom).ToPointF();
-
-			return RectangleF.FromLTRB (p1.X, p1.Y, p2.X, p2.Y);
-		}
-
-		public static RectangleF ToRectangleF(this Rect rect){
-			return new RectangleF((float)rect.X,(float)rect.Y,(float)rect.Width,(float)rect.Height);
-		}
-	}
+        public static CGRect ToCGRect (this Rect rect)
+        {
+            return new CGRect ((float)rect.X, (float)rect.Y, (float)rect.Width, (float)rect.Height);
+        }
+    }
 }
 

@@ -1,26 +1,28 @@
+using System;
+
+using UIKit;
+using Foundation;
+
 namespace Cession.UIKit
 {
-	using System;
+    public class SwitchCell:UITableViewCell
+    {
+        public UISwitch Switch { get; private set; }
 
-	using MonoTouch.UIKit;
-	using MonoTouch.Foundation;
-
-	public class SwitchCell:UITableViewCell
-	{
-		public UISwitch Switch { get; private set; }
-		public Action<bool> SwitchValueChangedAction{ get; set; }
+        public Action<bool> SwitchValueChangedAction{ get; set; }
 
 
-		public SwitchCell (NSString reuseId):base(UITableViewCellStyle.Default,reuseId)
-		{
-			Switch = new UISwitch ();
-			Switch.ValueChanged += (sender, e) => {
-				if (null != SwitchValueChangedAction)
-					SwitchValueChangedAction (Switch.On);
-			};
+        public SwitchCell (NSString reuseId) : base (UITableViewCellStyle.Default, reuseId)
+        {
+            Switch = new UISwitch ();
+            Switch.ValueChanged += (sender, e) =>
+            {
+                if (null != SwitchValueChangedAction)
+                    SwitchValueChangedAction (Switch.On);
+            };
 
-			AccessoryView = Switch;
-		}
-	}
+            AccessoryView = Switch;
+        }
+    }
 }
 

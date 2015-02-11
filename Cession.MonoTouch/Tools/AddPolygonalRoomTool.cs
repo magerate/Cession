@@ -1,14 +1,14 @@
-﻿namespace Cession.Tools
+namespace Cession.Tools
 {
 	using System;
-	using System.Drawing;
+	using CoreGraphics;
 	using System.Linq;
 	using System.Collections.Generic;
 
 
-	using MonoTouch.UIKit;
-	using MonoTouch.CoreGraphics;
-	using MonoTouch.Foundation;
+	using UIKit;
+	using CoreGraphics;
+	using Foundation;
 
 	using Cession.UIKit;
 	using Cession.Geometries;
@@ -29,7 +29,7 @@
 			p2pRule.Scale = (float)(1 / CurrentLayer.Scale);
 		}
 
-		public override void TouchBegin (PointF point)
+		public override void TouchBegin (CGPoint point)
 		{
 			if (points.Count == 0) {
 				var lp = ConvertToLogicalPoint (point);

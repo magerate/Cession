@@ -1,31 +1,32 @@
-﻿namespace Cession.Modeling
+using System;
+
+using UIKit;
+using Foundation;
+
+using Cession.Geometries;
+using Cession.Drawing;
+using Cession.Diagrams;
+
+namespace Cession.Modeling
 {
-	using System;
+    public class LabelHitTestProvider:HitTestProvider
+    {
+        protected override Rect DoGetBounds (Shape shape)
+        {
+            var label = shape as Label;
+            if (null == label)
+                throw new ArgumentException ("shape");
 
-	using MonoTouch.UIKit;
-	using MonoTouch.Foundation;
+            using (var nsStr = new NSString (label.Text))
+            {
+                var stringAttribute = new UIStringAttributes (){ };
+                var size = nsStr.GetSizeUsingAttributes (stringAttribute);
 
-	using Cession.Geometries;
-	using Cession.Drawing;
+                var logicalSize = new Size (size.Width * Layer.LogicalUnitPerPixel, size.Height * Layer.LogicalUnitPerPixel);
 
-	public class LabelHitTestProvider:HitTestProvider
-	{
-		protected override Rect DoGetBounds (Diagram diagram)
-		{
-			var label = diagram as Label;
-			if (null == label)
-				throw new ArgumentException ("diagram");
-
-			using (var nsStr = new NSString (label.Text)) {
-				var stringAttribute = new UIStringAttributes (){ };
-				var size = nsStr.GetSizeUsingAttributes (stringAttribute);
-
-				var logicalSize = new Size ((int)(size.Width * LayerDrawer.LogicalUnitPerDp),
-					(int)(size.Height * LayerDrawer.LogicalUnitPerDp));
-
-				return new Rect (label.Location, logicalSize);
-			}
-		}
-	}
+                return new Rect (label.Location, logicalSize);
+            }
+        }
+    }
 }
 

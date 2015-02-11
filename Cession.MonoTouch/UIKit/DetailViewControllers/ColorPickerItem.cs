@@ -1,4 +1,4 @@
-﻿//using System;
+//using System;
 //
 //using MonoTouch.UIKit;
 //using MonoTouch.Foundation;

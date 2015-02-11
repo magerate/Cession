@@ -1,11 +1,11 @@
 namespace Cession.Tools
 {
 	using System;
-	using System.Drawing;
+	using CoreGraphics;
 
-	using MonoTouch.UIKit;
-	using MonoTouch.CoreGraphics;
-	using MonoTouch.Foundation;
+	using UIKit;
+	using CoreGraphics;
+	using Foundation;
 
 	using Cession.Geometries;
 	using Cession.Drawing;
@@ -34,7 +34,7 @@ namespace Cession.Tools
 		{
 		}
 
-		public virtual void TouchBegin(PointF point)
+		public virtual void TouchBegin(CGPoint point)
 		{
 		}
 
@@ -155,14 +155,14 @@ namespace Cession.Tools
 			return ConvertToLogicalPoint (point);
 		}
 
-		protected Point2 ConvertToLogicalPoint(PointF point)
+		protected Point2 ConvertToLogicalPoint(CGPoint point)
 		{
 			return CurrentLayer.ConvertToLogicalPoint (point.ToPoint2());
 		}
 
-		protected PointF ConvertToViewPoint(Point2 point)
+		protected CGPoint ConvertToViewPoint(Point2 point)
 		{
-			return CurrentLayer.ConvertToViewPoint (point).ToPointF();
+			return CurrentLayer.ConvertToViewPoint (point).ToCGPoint();
 		}
 
 	}

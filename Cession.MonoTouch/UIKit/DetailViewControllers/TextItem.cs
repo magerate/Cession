@@ -4,8 +4,8 @@ namespace Cession.UIKit
 {
 	using System;
 
-	using MonoTouch.UIKit;
-	using MonoTouch.Foundation;
+	using UIKit;
+	using Foundation;
 
 //	public class TextItem:DetailItem
 //	{

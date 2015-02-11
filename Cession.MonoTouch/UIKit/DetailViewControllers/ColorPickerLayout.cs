@@ -1,34 +1,38 @@
+using System;
+using CoreGraphics;
+using UIKit;
+
 namespace Cession.UIKit
 {
-	using System;
-	using System.Drawing;
-	using MonoTouch.UIKit;
 
-	public class ColorPickerLayout:UICollectionViewFlowLayout
-	{
-		const float margin = 4.0f;
-		
-		public ColorPickerLayout ()
-		{
-			float size;
-			int countPerRow;
-			float viewWidth;
 
-			if (DeviceHelper.IsPad ()) {
-				countPerRow = 8;
-				viewWidth = 540;
-			} else {
-				countPerRow = 6;
-				viewWidth = UIScreen.MainScreen.Bounds.Width;
-			}
-			size = (viewWidth - (countPerRow+1) * margin) / countPerRow;
+    public class ColorPickerLayout:UICollectionViewFlowLayout
+    {
+        const float margin = 4.0f;
 
-			ItemSize = new SizeF(size,size);
-			MinimumLineSpacing = margin;
-			MinimumInteritemSpacing = 0;
+        public ColorPickerLayout ()
+        {
+            nfloat size;
+            int countPerRow;
+            nfloat viewWidth;
 
-			SectionInset = new UIEdgeInsets(margin, margin, .0f, margin);
-		}
-	}
+            if (DeviceHelper.IsPad ())
+            {
+                countPerRow = 8;
+                viewWidth = 540;
+            } else
+            {
+                countPerRow = 6;
+                viewWidth = UIScreen.MainScreen.Bounds.Width;
+            }
+            size = (viewWidth - (countPerRow + 1) * margin) / countPerRow;
+
+            ItemSize = new CGSize (size, size);
+            MinimumLineSpacing = margin;
+            MinimumInteritemSpacing = 0;
+
+            SectionInset = new UIEdgeInsets (margin, margin, .0f, margin);
+        }
+    }
 }
 

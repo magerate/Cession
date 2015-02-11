@@ -2,11 +2,11 @@ namespace Cession.Tools
 {
 	using System;
 	using System.Collections.Generic;
-	using System.Drawing;
+	using CoreGraphics;
 
-	using MonoTouch.UIKit;
-	using MonoTouch.CoreGraphics;
-	using MonoTouch.Foundation;
+	using UIKit;
+	using CoreGraphics;
+	using Foundation;
 
 	using Cession.Utilities;
 	using Cession.Modeling;

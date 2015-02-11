@@ -1,31 +1,29 @@
-﻿namespace Cession.Drawing
+using System;
+
+using CoreGraphics;
+using UIKit;
+
+using Cession.Geometries;
+using Cession.Alignments;
+
+namespace Cession.Drawing
 {
-	using System;
-	using System.Drawing;
+    public static class AlignmentDrawing
+    {
+        public static void Draw (this DevicePointToPointRule rule,
+                          CGContext context,
+                          Matrix transform)
+        {
+            if (!rule.IsAligned)
+                return;
 
-	using MonoTouch.CoreGraphics;
-	using MonoTouch.UIKit;
-
-	using Cession.Geometries;
-	using Cession.Alignments;
-
-	public static class AlignmentDrawing
-	{
-		public static void Draw(this DevicePointToPointRule rule,
-			CGContext context,
-			Matrix transform)
-
-		{
-			if (!rule.IsAligned)
-				return;
-
-			var point = transform.Transform(rule.ReferencePoint).ToPointF ();
-			context.SaveState ();
-			context.SetAlpha (.4f);
-			UIColor.Blue.SetFill ();
-			context.FillCircle (point, 16);
-			context.RestoreState ();
-		}
-	}
+            var point = transform.Transform (rule.ReferencePoint.Value).ToCGPoint ();
+            context.SaveState ();
+            context.SetAlpha (.4f);
+            UIColor.Blue.SetFill ();
+            context.FillCircle (point, 16);
+            context.RestoreState ();
+        }
+    }
 }
 
