@@ -51,7 +51,7 @@ namespace Cession.Diagrams
             }
         }
 
-        internal override void DoOffset (int x, int y)
+        internal override void DoOffset (double x, double y)
         {
             _point1.Offset (x, y);
         }

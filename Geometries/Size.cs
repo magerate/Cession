@@ -2,12 +2,12 @@
 
 namespace Cession.Geometries
 {
-    public struct Size2:IEquatable<Size2>
+    public struct Size:IEquatable<Size>
     {
         private double _width;
         private double _height;
 
-        public Size2 (double width, double height)
+        public Size (double width, double height)
         {
             this._width = width;
             this._height = height;
@@ -23,24 +23,24 @@ namespace Cession.Geometries
             set { _height = value; }
         }
 
-        public bool Equals (Size2 size)
+        public bool Equals (Size size)
         {
             return this._width == size._width && this._height == size._height;
         }
 
         public override bool Equals (object obj)
         {
-            if (null == obj || !(obj is Size2))
+            if (null == obj || !(obj is Size))
                 return false;
-            return Equals ((Size2)obj);
+            return Equals ((Size)obj);
         }
 
-        public static bool operator == (Size2 left, Size2 right)
+        public static bool operator == (Size left, Size right)
         {
             return left.Equals (right);
         }
 
-        public static bool operator != (Size2 left, Size2 right)
+        public static bool operator != (Size left, Size right)
         {
             return !left.Equals (right);
         }

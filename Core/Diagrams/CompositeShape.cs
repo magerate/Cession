@@ -22,7 +22,7 @@ namespace Cession.Diagrams
             return this.GetEnumerator ();
         }
 
-        internal override void DoOffset (int x, int y)
+        internal override void DoOffset (double x, double y)
         {
             foreach (var s in this) {
                 s.DoOffset (x, y);

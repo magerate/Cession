@@ -26,7 +26,7 @@ namespace Cession.Diagrams
             _location = location;
         }
 
-        internal override void DoOffset (int x, int y)
+        internal override void DoOffset (double x, double y)
         {
             _location.Offset (x, y);
         }

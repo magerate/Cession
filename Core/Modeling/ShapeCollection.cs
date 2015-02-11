@@ -3,10 +3,11 @@ using System.Collections.ObjectModel;
 
 namespace Cession.Modeling
 {
-	public class DiagramCollection:Collection<Diagram>
+	public class ShapeCollection:Collection<Diagram>
 	{
-		public DiagramCollection ()
+		public ShapeCollection ()
 		{
+
 		}
 	}
 }

@@ -20,10 +20,10 @@ namespace Cession.Modeling
 
 	public class Layer:Diagram
 	{
-		public static readonly Size2 DefaultSize = new Size2 (200000, 200000);
+		public static readonly Size DefaultSize = new Size (200000, 200000);
 
 		public string Name{ get; set; }
-		public DiagramCollection Diagrams{ get; private set; }
+		public ShapeCollection Diagrams{ get; private set; }
 
 		private List<Diagram> selectedDiagrams = new List<Diagram> ();
 		private ReadOnlyCollection<Diagram> readOnlySelectedDiagrams;
@@ -35,7 +35,7 @@ namespace Cession.Modeling
 			}
 		}
 
-		public Size2 Size{get;set;}
+		public Size Size{get;set;}
 
 		public ReadOnlyCollection<Diagram> SelectedDiagrams
 		{
@@ -56,7 +56,7 @@ namespace Cession.Modeling
 			Size = DefaultSize;
 
 			this.Name = name;
-			Diagrams = new DiagramCollection ();
+			Diagrams = new ShapeCollection ();
 
 			readOnlySelectedDiagrams = new ReadOnlyCollection<Diagram> (selectedDiagrams);
 
@@ -129,13 +129,13 @@ namespace Cession.Modeling
 			return Transform.Transform (point);
 		}
 
-		public Size2 ConvertToLogicalSize(Size2 size){
-			return new Size2 ((int)(size.Width / Transform.M11), 
+		public Size ConvertToLogicalSize(Size size){
+			return new Size ((int)(size.Width / Transform.M11), 
 				(int)(size.Height / Transform.M11));
 		}
 
-		public Size2 ConvertToViewSize(Size2 size){
-			return new Size2 ((int)(size.Width * Transform.M11), 
+		public Size ConvertToViewSize(Size size){
+			return new Size ((int)(size.Width * Transform.M11), 
 				(int)(size.Height * Transform.M11));
 		}
 
@@ -143,7 +143,7 @@ namespace Cession.Modeling
 			return (int)(size / Transform.M11);
 		}
 
-		public static Matrix GetDefaultTransform(Size2 layerSize,int width,int height,int logicalUnitPerDp){
+		public static Matrix GetDefaultTransform(Size layerSize,int width,int height,int logicalUnitPerDp){
 			var matrix = Matrix.Identity;
 			matrix.Scale ((double)1 / logicalUnitPerDp, (double)1 / logicalUnitPerDp);
 			matrix.Translate ((width   - layerSize.Width / logicalUnitPerDp) / 2,

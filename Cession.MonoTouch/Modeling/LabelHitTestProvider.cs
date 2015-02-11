@@ -20,7 +20,7 @@
 				var stringAttribute = new UIStringAttributes (){ };
 				var size = nsStr.GetSizeUsingAttributes (stringAttribute);
 
-				var logicalSize = new Size2 ((int)(size.Width * LayerDrawer.LogicalUnitPerDp),
+				var logicalSize = new Size ((int)(size.Width * LayerDrawer.LogicalUnitPerDp),
 					(int)(size.Height * LayerDrawer.LogicalUnitPerDp));
 
 				return new Rect (label.Location, logicalSize);

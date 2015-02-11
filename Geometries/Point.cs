@@ -60,7 +60,7 @@ namespace Cession.Geometries
             return new Point (p.X + v.X, p.Y + v.Y);
         }
 
-        public void Offset (int x, int y)
+        public void Offset (double x, double y)
         {
             this.X += x;
             this.Y += y;

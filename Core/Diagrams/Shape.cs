@@ -9,27 +9,27 @@ namespace Cession.Diagrams
     {
         internal ShapeAbility Ability{ get; set; }
 
-        public bool CanSelect 
+        public bool CanSelect
         {
             get{ return (Ability & ShapeAbility.CanSelect) != 0; }
         }
 
-        public bool CanHitTest 
+        public bool CanHitTest
         {
             get{ return (Ability & ShapeAbility.CanHitTest) != 0; }
         }
 
-        public bool CanOffset 
+        public bool CanOffset
         {
             get{ return (Ability & ShapeAbility.CanOffset) != 0; }
         }
 
-        public bool CanRotate 
+        public bool CanRotate
         {
             get{ return (Ability & ShapeAbility.CanRotate) != 0; }
         }
 
-        public bool CanAssign 
+        public bool CanAssign
         {
             get{ return (Ability & ShapeAbility.CanAssign) != 0; }
         }
@@ -38,9 +38,9 @@ namespace Cession.Diagrams
         public Shape Parent{ get; internal set; }
 
 
-        public Shape Owner 
+        public Shape Owner
         {
-            get 
+            get
             {
                 var parent = Parent;
                 while (parent != null && parent.Parent != null)
@@ -60,7 +60,7 @@ namespace Cession.Diagrams
             this.Ability = ShapeAbility.All;
         }
 
-        public void Offset (int x, int y)
+        public void Offset (double x, double y)
         {
             if (!CanOffset)
                 throw new InvalidOperationException ();
@@ -72,12 +72,11 @@ namespace Cession.Diagrams
         {
             if (!CanRotate)
                 throw new InvalidOperationException ();
-				
             DoRotate (point, radian);
             RaiseEvent (new RoutedEventArgs (Shape.RotateEvent, this));
         }
 
-        internal abstract void DoOffset (int x, int y);
+        internal abstract void DoOffset (double x, double y);
 
         internal abstract void DoRotate (Point point, double radian);
     }

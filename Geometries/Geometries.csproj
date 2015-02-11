@@ -37,7 +37,6 @@
     <Compile Include="Vector.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Range.cs" />
-    <Compile Include="Size2.cs" />
     <Compile Include="Rect.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="MatrixUtil.cs" />
@@ -49,6 +48,7 @@
     <Compile Include="Triangle.cs" />
     <Compile Include="Arc.cs" />
     <Compile Include="Clipper\clipper.cs" />
+    <Compile Include="Size.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

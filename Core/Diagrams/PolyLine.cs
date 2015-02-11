@@ -59,7 +59,7 @@ namespace Cession.Diagrams
             return this.GetEnumerator ();
         }
 
-        internal override void DoOffset (int x, int y)
+        internal override void DoOffset (double x, double y)
         {
             _segments.ForEach (s => s.DoOffset (x, y));
         }

@@ -10,55 +10,78 @@ namespace Cession.Geometries
         private double _width;
         private double _height;
 
-        public double X {
+        public Point Location
+        {
+            get{ return new Point (_x, _y); }
+        }
+
+        public double X
+        {
             get { return _x; }
             set { _x = value; }
         }
 
-        public double Left {
+        public double Left
+        {
             get { return _x; }
         }
 
-        public double Y {
+        public double Y
+        {
             get { return _y; }
             set { _y = value; }
         }
 
-        public double Bottom {
+        public double Bottom
+        {
             get { return _y + _height; }
         }
 
-        public double Width {
+        public double Width
+        {
             get { return _width; }
             set { _width = value; }
         }
 
-        public double Right {
+        public Size Size
+        {
+            get{ return new Size (_width, _height); }
+        }
+
+        public double Right
+        {
             get { return _x + _width; }
         }
 
-        public double Height {
+        public double Height
+        {
             get { return _height; }
             set { _height = value; }
         }
 
-        public double Top {
+        public double Top
+        {
             get { return _y; }
         }
 
-        public Point LeftBottom {
+
+        public Point LeftBottom
+        {
             get { return new Point (this.Left, this.Bottom); }
         }
 
-        public Point RightBottom {
+        public Point RightBottom
+        {
             get { return new Point (this.Right, this.Bottom); }
         }
 
-        public Point LeftTop {
+        public Point LeftTop
+        {
             get { return new Point (this.Left, this.Top); }
         }
 
-        public Point RightTop {
+        public Point RightTop
+        {
             get { return new Point (this.Right, this.Top); }
         }
 
@@ -75,7 +98,7 @@ namespace Cession.Geometries
             _height = height;
         }
 
-        public Rect (Point location, Size2 size) : this (location.X, location.Y, size.Width, size.Height)
+        public Rect (Point location, Size size) : this (location.X, location.Y, size.Width, size.Height)
         {
         }
 

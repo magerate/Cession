@@ -7,14 +7,17 @@ namespace Cession.Geometries
         private Point _center;
         private double _radius;
 
-        public Point Center {
+        public Point Center
+        {
             get{ return _center; }
             set{ _center = value; }
         }
 
-        public double Radius {
+        public double Radius
+        {
             get{ return _radius; }
-            set { 
+            set
+            { 
                 if (double.IsInfinity (value) || double.IsNaN (value))
                     throw new ArgumentException ();
 
@@ -73,20 +76,25 @@ namespace Cession.Geometries
             if (p1 == p2)
                 return null;
 
-            if (d == r1 + r2) {
+            if (d == r1 + r2)
+            {
                 var v = p2 - p1;
                 v = v / v.Length * r1;
                 return new Tuple<Point, Point> (p1 + v, p1 + v);
             }
 
-            if (d == Math.Abs (r1 - r2)) {
+            if (d == Math.Abs (r1 - r2))
+            {
                 Point p;
                 Vector v;
-                if (r1 > r2) {
+                if (r1 > r2)
+                {
                     p = p1;
                     v = p2 - p1;
                     v = v / v.Length * r1;
-                } else {
+                } 
+                else
+                {
                     p = p2;
                     v = p1 - p2;
                     v = v / v.Length * r2;
@@ -137,15 +145,18 @@ namespace Cession.Geometries
             c = (p1.X - c1.X) * (p1.X - c1.X) + (p1.Y - c1.Y) * (p1.Y - c1.Y) - r1 * r1;
 
             bb4ac = b * b - 4 * a * c;
-            if ((a <= 0.0000001) || (bb4ac < 0)) {
+            if ((a <= 0.0000001) || (bb4ac < 0))
+            {
                 // No real solutions.
                 return null;
-            } else if (bb4ac == 0) {
+            } else if (bb4ac == 0)
+            {
                 // One solution.
                 t = -b / (2 * a);
                 var ip = new Point (p1.X + t * dx, p1.Y + t * dy);
                 return new Tuple<Point, Point> (ip, ip);
-            } else {
+            } else
+            {
                 // Two solutions.
                 t = (float)((-b + Math.Sqrt (bb4ac)) / (2 * a));
                 var ip1 = new Point (p1.X + t * dx, p1.Y + t * dy);

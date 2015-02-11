@@ -25,7 +25,7 @@ namespace Cession.Diagrams
             return point.DistanceBetween (_center) <= _radius;
         }
 
-        internal override void DoOffset (int x, int y)
+        internal override void DoOffset (double x, double y)
         {
             _center.Offset (x, y);
         }
