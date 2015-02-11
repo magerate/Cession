@@ -5,83 +5,92 @@ using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
-	public partial class Shape
-	{
-		private static Dictionary<Type,HitTestProvider> s_hitTestors;
+    public partial class Shape
+    {
+        private static Dictionary<Type,HitTestProvider> s_hitTestors;
 
-		public static void RegisterHitTestProvider(Type type,HitTestProvider hitTestProvider){
-			if (null == type)
-				throw new ArgumentNullException ();
-			if (null == hitTestProvider)
-				throw new ArgumentNullException ();
+        public static void RegisterHitTestProvider (Type type, HitTestProvider hitTestProvider)
+        {
+            if (null == type)
+                throw new ArgumentNullException ();
+            if (null == hitTestProvider)
+                throw new ArgumentNullException ();
 
-			if(!type.IsSubclassOf(typeof(Shape)))
-				throw new ArgumentException();
+            if (!type.IsSubclassOf (typeof(Shape)))
+                throw new ArgumentException ();
 
-			if (null == s_hitTestors)
-				s_hitTestors = new Dictionary<Type, HitTestProvider> ();
-			s_hitTestors [type] = hitTestProvider;
-		}
+            if (null == s_hitTestors)
+                s_hitTestors = new Dictionary<Type, HitTestProvider> ();
+            s_hitTestors [type] = hitTestProvider;
+        }
 
-		public static void UnregisterHitTestProvider(Type type,HitTestProvider hitTestProvider){
-			if (null == type)
-				throw new ArgumentNullException ();
-			if (null == hitTestProvider)
-				throw new ArgumentNullException ();
+        public static void UnregisterHitTestProvider (Type type, HitTestProvider hitTestProvider)
+        {
+            if (null == type)
+                throw new ArgumentNullException ();
+            if (null == hitTestProvider)
+                throw new ArgumentNullException ();
 
-			if(!type.IsSubclassOf(typeof(Shape)))
-				throw new ArgumentException();
+            if (!type.IsSubclassOf (typeof(Shape)))
+                throw new ArgumentException ();
 
-			if (null == s_hitTestors)
-				return;
+            if (null == s_hitTestors)
+                return;
 
-			s_hitTestors.Remove (type);
-		}
+            s_hitTestors.Remove (type);
+        }
 
 
-		protected HitTestProvider GetHitTestProvider(){
-			if (null == s_hitTestors)
-				return null;
-			return s_hitTestors [this.GetType ()];
-		}
+        protected HitTestProvider GetHitTestProvider ()
+        {
+            if (null == s_hitTestors)
+                return null;
+            return s_hitTestors [this.GetType ()];
+        }
 
-		public bool Contains (Point point){
-			var htp = GetHitTestProvider ();
-			if (null != htp)
-				return htp.Contains (this, point);
-			return DoContains (point);
-		}
+        public bool Contains (Point point)
+        {
+            var htp = GetHitTestProvider ();
+            if (null != htp)
+                return htp.Contains (this, point);
+            return DoContains (point);
+        }
 
-		public Shape HitTest(Point point){
-			if (!CanHitTest)
-				return null;
+        public Shape HitTest (Point point)
+        {
+            if (!CanHitTest)
+                return null;
 
-			var htp = GetHitTestProvider ();
-			if (null != htp)
-				return htp.HitTest (this, point);
-			return DoHitTest (point);
-		}
+            var htp = GetHitTestProvider ();
+            if (null != htp)
+                return htp.HitTest (this, point);
+            return DoHitTest (point);
+        }
 
-		public  Rect GetBounds(){
-			var htp = GetHitTestProvider ();
-			if (null != htp)
-				return htp.GetBounds (this);
-			return DoGetBounds ();
-		}
+        public  Rect GetBounds ()
+        {
+            var htp = GetHitTestProvider ();
+            if (null != htp)
+                return htp.GetBounds (this);
+            return DoGetBounds ();
+        }
 
-		protected virtual Shape DoHitTest (Point point){
-			if (Contains (point))
-				return this;
-			return null;
-		}
+        protected virtual Shape DoHitTest (Point point)
+        {
+            if (Contains (point))
+                return this;
+            return null;
+        }
 
-		protected virtual bool DoContains (Point point){
-			return false;
-		}
+        protected virtual bool DoContains (Point point)
+        {
+            return false;
+        }
 
-		protected virtual Rect DoGetBounds (){
-			return Rect.Empty;
-		}
-	}
+        protected virtual Rect DoGetBounds ()
+        {
+            return Rect.Empty;
+        }
+    }
 }
 

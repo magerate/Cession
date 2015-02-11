@@ -2,18 +2,19 @@
 
 namespace Cession.Diagrams
 {
-	public abstract class ClosedShape:Shape
-	{
-		public abstract double GetPerimeter();
-		public abstract double GetArea ();
+    public abstract class ClosedShape:Shape
+    {
+        public abstract double GetPerimeter ();
 
-		protected ClosedShape ()
-		{
-		}
+        public abstract double GetArea ();
 
-		protected ClosedShape (Shape parent):base(parent)
-		{
-		}
-	}
+        protected ClosedShape ()
+        {
+        }
+
+        protected ClosedShape (Shape parent) : base (parent)
+        {
+        }
+    }
 }
 

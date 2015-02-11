@@ -48,6 +48,10 @@
     <Compile Include="Ray.cs" />
     <Compile Include="Triangle.cs" />
     <Compile Include="Arc.cs" />
+    <Compile Include="Clipper\clipper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Clipper\" />
+  </ItemGroup>
 </Project>

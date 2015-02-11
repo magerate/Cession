@@ -38,7 +38,6 @@
     <Folder Include="Utilities\" />
     <Folder Include="Commands\" />
     <Folder Include="Alignments\" />
-    <Folder Include="Clippers\" />
     <Folder Include="Products\" />
     <Folder Include="Diagrams\" />
     <Folder Include="Mediators\" />
@@ -67,7 +66,6 @@
     <Compile Include="Alignments\DevicePointToPointRule.cs" />
     <Compile Include="Alignments\OrRule.cs" />
     <Compile Include="Alignments\PointToPointRule.cs" />
-    <Compile Include="Clippers\clipper.cs" />
     <Compile Include="Products\Product.cs" />
     <Compile Include="Products\ProductCategory.cs" />
     <Compile Include="Products\Enums.cs" />

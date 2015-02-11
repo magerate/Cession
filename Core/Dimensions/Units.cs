@@ -3,38 +3,43 @@ using System;
 namespace Cession.Dimensions
 {
 
-	public class PrecisionAttribute:Attribute{
-		public double Precission{get;private set;}
-		public PrecisionAttribute(double precission){
-			this.Precission = precission;
-		}
-	}
+    public class PrecisionAttribute:Attribute
+    {
+        public double Precission{ get; private set; }
 
-	public class FormatSymbolAttribute:Attribute{
-		public string FormatSymbol{ get; private set;}
+        public PrecisionAttribute (double precission)
+        {
+            this.Precission = precission;
+        }
+    }
 
-		public FormatSymbolAttribute(string formatSymbol){
-			this.FormatSymbol = formatSymbol;
-		}
-	}
+    public class FormatSymbolAttribute:Attribute
+    {
+        public string FormatSymbol{ get; private set; }
+
+        public FormatSymbolAttribute (string formatSymbol)
+        {
+            this.FormatSymbol = formatSymbol;
+        }
+    }
 
 
-	public enum Units
-	{
-		[Precision(Length.LogicUnitPerFoot),FormatSymbol("fi")]
-		FeetInches = 0,
+    public enum Units
+    {
+        [Precision (Length.LogicUnitPerFoot),FormatSymbol ("fi")]
+        FeetInches = 0,
 
-		[Precision(Length.LogicUnitPerInchDiv4),FormatSymbol("fif")]
-		FeetInchesFraction4,
+        [Precision (Length.LogicUnitPerInchDiv4),FormatSymbol ("fif")]
+        FeetInchesFraction4,
 
-		[Precision(Length.LogicUnitPerCM),FormatSymbol("m")]
-		Meter,
+        [Precision (Length.LogicUnitPerCM),FormatSymbol ("m")]
+        Meter,
 
-		[Precision(Length.LogicUnitPerCM),FormatSymbol("cm")]
-		Centimeter,
+        [Precision (Length.LogicUnitPerCM),FormatSymbol ("cm")]
+        Centimeter,
 
-		[Precision(Length.LogicUnitPerMM),FormatSymbol("mm")]
-		Milimeter,
-	}
+        [Precision (Length.LogicUnitPerMM),FormatSymbol ("mm")]
+        Milimeter,
+    }
 }
 

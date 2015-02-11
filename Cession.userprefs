@@ -1,16 +1,20 @@
 ﻿<Properties StartupItem="Cession/Cession.csproj" GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad2.8.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Geometries/Point.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Core/Clippers/clipper.cs">
     <Files>
-      <File FileName="GeometryTest/LineTest.cs" Line="37" Column="37" />
-      <File FileName="Core/Clippers/clipper.cs" Line="77" Column="77" />
-      <File FileName="Geometries/Point.cs" Line="11" Column="11" />
+      <File FileName="Geometries/Triangle.cs" Line="9" Column="9" />
+      <File FileName="Core/Clippers/clipper.cs" Line="44" Column="44" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Core" expanded="True" />
-          <Node name="Geometries" expanded="True" selected="True" />
+          <Node name="Core" expanded="True">
+            <Node name="Clippers" expanded="True">
+              <Node name="clipper.cs" selected="True" />
+            </Node>
+          </Node>
+          <Node name="Geometries" expanded="True" />
+          <Node name="GeometryTest" expanded="True" />
         </State>
       </Pad>
       <Pad Id="MonoDevelop.NUnit.TestPad">

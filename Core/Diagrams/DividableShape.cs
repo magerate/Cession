@@ -7,55 +7,60 @@ using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
-	public class DividableShape:CompositeShape
-	{
-		class DivideData{
-			public PolyLine Divider{ get; set; }
-			public Path Path{ get; set; }
-		}
+    public class DividableShape:CompositeShape
+    {
+        class DivideData
+        {
+            public PolyLine Divider{ get; set; }
 
-		private Path _contour;
+            public Path Path{ get; set; }
+        }
 
-		private BinaryTree<DivideData> _dividerTree;
+        private Path _contour;
 
-		public DividableShape (Path contour)
-		{
-			_contour = contour;
-		}
+        private BinaryTree<DivideData> _dividerTree;
 
-		public override IEnumerator<Shape> GetEnumerator ()
-		{
-			yield return _contour;
-		}
+        public DividableShape (Path contour)
+        {
+            _contour = contour;
+        }
 
-		public void AddDivider(Path path,PolyLine divider){
-			var node = GetTreeNode (path);
-			node.Data.Divider = divider;
+        public override IEnumerator<Shape> GetEnumerator ()
+        {
+            yield return _contour;
+        }
 
-			var leftChild = new BinaryTreeNode<DivideData> (new DivideData (){ Path = null });
-			var rightChild = new BinaryTreeNode<DivideData> (new DivideData (){ Path = null });
+        public void AddDivider (Path path, PolyLine divider)
+        {
+            var node = GetTreeNode (path);
+            node.Data.Divider = divider;
 
-			node.LeftChild = leftChild;
-			node.RightChild = rightChild;
-		}
+            var leftChild = new BinaryTreeNode<DivideData> (new DivideData (){ Path = null });
+            var rightChild = new BinaryTreeNode<DivideData> (new DivideData (){ Path = null });
 
-		public void RemoveDivider(Path path,PolyLine divider){
-			var node = GetTreeNode (path);
-			node.Data.Divider = null;
+            node.LeftChild = leftChild;
+            node.RightChild = rightChild;
+        }
 
-			node.LeftChild = null;
-			node.RightChild = null;
-		}
+        public void RemoveDivider (Path path, PolyLine divider)
+        {
+            var node = GetTreeNode (path);
+            node.Data.Divider = null;
 
-		private BinaryTreeNode<DivideData> GetTreeNode(Path path){
-			if(null == _dividerTree){
-				_dividerTree = new BinaryTree<DivideData> ();
-				var data = new DivideData (){ Path = _contour };
-				_dividerTree.Root = new BinaryTreeNode<DivideData> (data);
-			}
+            node.LeftChild = null;
+            node.RightChild = null;
+        }
 
-			return _dividerTree.Search (n => n.Data.Path == path);
-		}
-	}
+        private BinaryTreeNode<DivideData> GetTreeNode (Path path)
+        {
+            if (null == _dividerTree) {
+                _dividerTree = new BinaryTree<DivideData> ();
+                var data = new DivideData (){ Path = _contour };
+                _dividerTree.Root = new BinaryTreeNode<DivideData> (data);
+            }
+
+            return _dividerTree.Search (n => n.Data.Path == path);
+        }
+    }
 }
 
