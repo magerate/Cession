@@ -1,132 +1,131 @@
-﻿namespace Cession
+using System;
+
+using CoreGraphics;
+using UIKit;
+using Foundation;
+
+using Cession.Diagrams;
+using Cession.Tools;
+using Cession.UIKit;
+using Cession.Commands;
+//using Cession.Mediators;
+using Cession.Projects;
+
+namespace Cession
 {
-	using System;
-	using System.Drawing;
+    public partial class DiagramController:UIViewController,IToolHost
+    {
+        private DiagramView diagramView;
+        private ToolView toolView;
 
-	using MonoTouch.UIKit;
-	using MonoTouch.Foundation;
+        private Project project;
+        private ProjectInfo projectInfo;
+        private CommandManager commandManager;
+//        private DiagramCommandMediator diagramCommandMediator;
+        private ToolManager toolManager;
 
-	using Cession.Modeling;
-	using Cession.Tools;
-	using Cession.UIKit;
-	using Cession.Commands;
-	using Cession.Mediators;
+        public DiagramController ()
+        {
+        }
 
-	public partial class DiagramController:UIViewController,IToolHost
-	{
-		private DiagramView diagramView;
-		private ToolView toolView;
+        public void SetProject (Project project, ProjectInfo projectInfo)
+        {
+            this.project = project;
+            this.projectInfo = projectInfo;
+            if (null == commandManager)
+            {
+                commandManager = new CommandManager ();
+//                diagramCommandMediator = new DiagramCommandMediator (commandManager);
+            } else
+                commandManager.Clear ();
 
-		private Project project;
-		private ProjectInfo projectInfo;
-		private CommandManager commandManager;
-		private DiagramCommandMediator diagramCommandMediator;
-		private ToolManager toolManager;
+//            diagramCommandMediator.RegisterProjectEvents (project);
 
-		public DiagramController ()
-		{
-		}
+            commandManager.Committed += CommandCommited;
+            commandManager.CanUndoChanged += CanUndoChanged;
+            commandManager.CanRedoChanged += CanRedoChanged;
+        }
 
-		public void SetProject(Project project,ProjectInfo projectInfo)
-		{
-			this.project = project;
-			this.projectInfo = projectInfo;
-			if (null == commandManager) {
-				commandManager = new CommandManager ();
-				diagramCommandMediator = new DiagramCommandMediator (commandManager);
-			}
-			else
-				commandManager.Clear ();
+        private void CommandCommited (object sender, EventArgs e)
+        {
+            diagramView.SetNeedsDisplay ();
+            toolView.SetNeedsDisplay ();
+        }
 
-			diagramCommandMediator.RegisterProjectEvents (project);
+        private void CanUndoChanged (object sender, EventArgs e)
+        {
+            undoButton.Enabled = CommandManager.CanUndo;
+        }
 
-			commandManager.Committed += CommandCommited;
-			commandManager.CanUndoChanged += CanUndoChanged;
-			commandManager.CanRedoChanged += CanRedoChanged;
-		}
+        private void CanRedoChanged (object sender, EventArgs e)
+        {
+            redoButton.Enabled = CommandManager.CanRedo;
+        }
 
-		private void CommandCommited(object sender,EventArgs e)
-		{
-			diagramView.SetNeedsDisplay();
-			toolView.SetNeedsDisplay ();
-		}
+        public override void LoadView ()
+        {
+            var view = new UIView (UIScreen.MainScreen.Bounds);
 
-		private void CanUndoChanged(object sender,EventArgs e)
-		{
-			undoButton.Enabled = CommandManager.CanUndo;
-		}
+            diagramView = new DiagramView (UIScreen.MainScreen.Bounds);
+            diagramView.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+            view.AddSubview (diagramView);
 
-		private void CanRedoChanged(object sender,EventArgs e)
-		{
-			redoButton.Enabled = CommandManager.CanRedo;
-		}
+            toolView = new ToolView (UIScreen.MainScreen.Bounds);
+            toolView.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+            view.AddSubview (toolView);
 
-		public override void LoadView ()
-		{
-			var view = new UIView (UIScreen.MainScreen.Bounds);
+            View = view;
+        }
 
-			diagramView = new DiagramView (UIScreen.MainScreen.Bounds);
-			diagramView.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
-			view.AddSubview (diagramView);
+        public override void ViewDidLoad ()
+        {
+            base.ViewDidLoad ();
 
-			toolView = new ToolView (UIScreen.MainScreen.Bounds);
-			toolView.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
-			view.AddSubview (toolView);
+            InitializeNavigationItems ();
+            diagramView.Project = project;
 
-			View = view;
-		}
+            toolManager = new ToolManager ();
+            toolManager.Host = this;
 
-		public override void ViewDidLoad ()
-		{
-			base.ViewDidLoad ();
+            toolView.ToolManager = toolManager;
+        }
 
-			InitializeNavigationItems ();
-			diagramView.Project = project;
+        public UIView DiagramView
+        {
+            get{ return diagramView; }
+        }
 
-			toolManager = new ToolManager ();
-			toolManager.Host = this;
+        public UIView ToolView
+        {
+            get{ return toolView; }
+        }
 
-			toolView.ToolManager = toolManager;
-		}
+        public Layer Layer
+        {
+            get{ return project.SelectedLayer; }
+        }
 
-		public UIView DiagramView
-		{
-			get{ return diagramView; }
-		}
+        public CommandManager CommandManager
+        {
+            get{return commandManager;}
+        }
 
-		public UIView ToolView
-		{
-			get{ return toolView; }
-		}
+        public override void DidRotate (UIInterfaceOrientation fromInterfaceOrientation)
+        {
+            base.DidRotate (fromInterfaceOrientation);
+            toolView.SetNeedsDisplay ();
+            diagramView.SetNeedsDisplay ();
+        }
 
-		public Project Project
-		{
-			get{ return project; }
-		}
+        private void Undo ()
+        {
+            CommandManager.Undo ();
+        }
 
-		public CommandManager CommandManager
-		{
-			get{
-				return commandManager;
-			}
-		}
-
-		public override void DidRotate (UIInterfaceOrientation fromInterfaceOrientation)
-		{
-			base.DidRotate (fromInterfaceOrientation);
-			toolView.SetNeedsDisplay ();
-			diagramView.SetNeedsDisplay ();
-		}
-
-		private void Undo()
-		{
-			CommandManager.Undo ();
-		}
-
-		private void Redo()
-		{
-			CommandManager.Redo ();
-		}
-	}
+        private void Redo ()
+        {
+            CommandManager.Redo ();
+        }
+    }
 }
 

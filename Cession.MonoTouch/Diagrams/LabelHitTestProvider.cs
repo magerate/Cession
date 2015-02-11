@@ -7,7 +7,7 @@ using Cession.Geometries;
 using Cession.Drawing;
 using Cession.Diagrams;
 
-namespace Cession.Modeling
+namespace Cession.Diagrams
 {
     public class LabelHitTestProvider:HitTestProvider
     {

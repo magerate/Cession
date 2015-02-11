@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -11,7 +11,8 @@ namespace Cession.Diagrams
         private List<Segment> _segments;
         private Point _lastPoint;
 
-        public Point LastPoint {
+        public Point LastPoint
+        {
             get{ return _lastPoint; }
         }
 
@@ -23,7 +24,10 @@ namespace Cession.Diagrams
             if (points.Count < 2)
                 throw new ArgumentException ();
 
-            for (int i = 0; i < points.Count - 1; i++) {
+            _segments = new List<Segment> (points.Count);
+
+            for (int i = 0; i < points.Count - 1; i++)
+            {
                 var segment = new LineSegment (points [i]);
                 segment.Parent = this;
                 _segments.Add (segment);
@@ -31,12 +35,15 @@ namespace Cession.Diagrams
             _lastPoint = points [points.Count - 1];
         }
 
-        public int Count {
+        public int Count
+        {
             get{ return _segments.Count + 1; }
         }
 
-        public Point this [int index] {
-            get {
+        public Point this [int index]
+        {
+            get
+            {
                 if (index < 0 || index >= Count)
                     throw new ArgumentOutOfRangeException ();
 
@@ -48,7 +55,8 @@ namespace Cession.Diagrams
 
         public IEnumerator<Point> GetEnumerator ()
         {
-            foreach (var s in _segments) {
+            foreach (var s in _segments)
+            {
                 yield return s.Point1;
             }
             yield return _lastPoint;

@@ -1,44 +1,51 @@
-﻿namespace Cession
+using System;
+using CoreGraphics;
+
+using UIKit;
+using Foundation;
+
+using Cession.Diagrams;
+using Cession.Drawing;
+using Cession.Projects;
+
+namespace Cession
 {
-	using System;
-	using System.Drawing;
+    public class DiagramView:UIView
+    {
+        private Project _project;
 
-	using MonoTouch.UIKit;
-	using MonoTouch.Foundation;
+        public Project Project
+        {
+            get{ return _project; }
+            set
+            {
+                if (value != _project)
+                {
+                    _project = value;
+                    SetNeedsDisplay ();
+                }
+            }
+        }
 
-	using Cession.Modeling;
-	using Cession.Drawing;
+        public DiagramView (CGRect frame) : base (frame)
+        {
+            this.BackgroundColor = UIColor.White;
+        }
 
-	public class DiagramView:UIView
-	{
-		private Project project;
+        public override void Draw (CGRect rect)
+        {
+            if (null == _project)
+                return;
 
-		public Project Project
-		{
-			get{ return project; }
-			set{
-				if (value != project) {
-					project = value;
-					SetNeedsDisplay ();
-				}
-			}
-		}
-
-		public DiagramView (RectangleF frame):base(frame)
-		{
-			this.BackgroundColor = UIColor.White;
-		}
-
-		public override void Draw (RectangleF rect)
-		{
-			if (null == project)
-				return;
-
-			var layer = project.Layers.SelectedLayer;
-			using (var context = UIGraphics.GetCurrentContext ()) {
-				layer.Draw (context);
-			}
-		}
-	}
+            Layer layer = _project.SelectedLayer;
+            using (CGContext context = UIGraphics.GetCurrentContext ())
+            {
+                var dc = new DrawingContext (context);
+                dc.PushTransform (layer.DrawingTransform);
+                layer.Draw (dc);
+                dc.PopTransform ();
+            }
+        }
+    }
 }
 

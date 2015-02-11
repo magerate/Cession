@@ -10,7 +10,7 @@ namespace Cession.Drawing
         {
         }
 
-        public void Draw (CGContext context, Shape shape)
+        public void Draw (DrawingContext context, Shape shape)
         {
             if (null == context)
                 throw new ArgumentNullException ();	
@@ -20,7 +20,7 @@ namespace Cession.Drawing
             DoDraw (context, shape);
         }
 
-        public virtual void DrawSelected (CGContext context, Shape shape)
+        public virtual void DrawSelected (DrawingContext context, Shape shape)
         {
             if (null == context)
                 throw new ArgumentNullException ();	
@@ -30,9 +30,9 @@ namespace Cession.Drawing
             DoDrawSelected (context, shape);
         }
 
-        protected abstract void DoDraw (CGContext context, Shape shape);
+        protected abstract void DoDraw (DrawingContext context, Shape shape);
 
-        protected virtual void DoDrawSelected (CGContext context, Shape shape)
+        protected virtual void DoDrawSelected (DrawingContext context, Shape shape)
         {
         }
     }

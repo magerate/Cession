@@ -1,4 +1,4 @@
-﻿//namespace Cession.Mediators
+//namespace Cession.Mediators
 //{
 //	using System;
 //

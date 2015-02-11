@@ -9,7 +9,7 @@ namespace Cession.Drawing
 {
     public class LabelDrawer:ShapeDrawer
     {
-        protected override void DoDraw (CGContext context, Shape shape)
+        protected override void DoDraw (DrawingContext context, Shape shape)
         {
             var label = shape as Label;
             if (null == label)

@@ -11,72 +11,66 @@ using Cession.Dimensions;
 
 namespace Cession.Drawing
 {
-    public static class DrawHelper
+    public class DrawingContext
     {
-        public static Matrix Transform{ get; set; }
+        private Stack<Matrix> _matrices = new Stack<Matrix> ();
+        private CGContext _context;
 
-        private static Stack<Matrix> matrices = new Stack<Matrix> ();
-
-        public static void PushTransform (Matrix transform)
+        public Matrix Transform{ get; set; }
+        public CGContext CGContext
         {
-            matrices.Push (transform);
+            get{ return _context; }
+        }
+
+
+        public void PushTransform (Matrix transform)
+        {
+            _matrices.Push (Transform);
             Transform = transform;
         }
 
-        public static void PopTransform ()
+        public void PopTransform ()
         {
-            Transform = matrices.Pop ();
+            Transform = _matrices.Pop ();
         }
 
-
-        static DrawHelper ()
+        public DrawingContext(CGContext context)
         {
+            if (null == context)
+                throw new ArgumentException ();
+
+            _context = context;
             Transform = Matrix.Identity;
         }
 
-        public static void StrokeLine (this CGContext context, Point p1, Point p2)
+        public void StrokeLine (Point p1, Point p2)
         {
             p1 = Transform.Transform (p1);
             p2 = Transform.Transform (p2);
 
-            context.MoveTo ((nfloat)p1.X, (nfloat)p1.Y);
-            context.AddLineToPoint ((nfloat)p2.X, (nfloat)p2.Y);
-            context.StrokePath ();
+            _context.MoveTo ((nfloat)p1.X, (nfloat)p1.Y);
+            _context.AddLineToPoint ((nfloat)p2.X, (nfloat)p2.Y);
+            _context.StrokePath ();
         }
 
-//        public static void StrokePolygon (this CGContext context, PathDiagram polygon)
-//        {
-//            context.BuildPolygonPath (polygon);
-//            context.StrokePath ();
-//        }
-//
-//        public static void BuildPolygonPath (this CGContext context, PathDiagram polygon)
-//        {
-//            var points = polygon.Points;
-//            var p0 = Transform.Transform (points [0]);
-//            context.MoveTo ((float)p0.X, (float)p0.Y);
-//
-//            Point pi;
-//            for (int i = 1; i < points.Count; i++)
-//            {
-//                pi = Transform.Transform (points [i]);
-//                context.AddLineToPoint ((float)pi.X, (float)pi.Y);
-//            }
-//            context.ClosePath ();
-//        }
+        public void StrokePolygon (IReadOnlyList<Point> polygon)
+        {
+            BuildPolygonPath (polygon);
+            _context.StrokePath ();
+        }
 
-        public static void BuildPolygonPath (this CGContext context, IReadOnlyList<Point> polygon)
+        public void BuildPolygonPath (IReadOnlyList<Point> polygon)
         {
             var p0 = Transform.Transform (polygon [0]);
-            context.MoveTo ((nfloat)p0.X, (nfloat)p0.Y);
+            _context.MoveTo ((nfloat)p0.X, (nfloat)p0.Y);
 
             Point pi;
             for (int i = 1; i < polygon.Count; i++)
             {
                 pi = Transform.Transform (polygon [i]);
-                context.AddLineToPoint ((nfloat)pi.X, (nfloat)pi.Y);
+                _context.AddLineToPoint ((nfloat)pi.X, (nfloat)pi.Y);
             }
-            context.ClosePath ();
+            _context.ClosePath ();
         }
 
         private static bool NeedReverse (double angle)
@@ -84,7 +78,7 @@ namespace Cession.Drawing
             return angle >= Math.PI / 2 && angle <= Math.PI * 3 / 2;
         }
 
-        public static void DrawDimension (this CGContext context, Point p1, Point p2)
+        public void DrawDimension (Point p1, Point p2)
         {
             var logicalLength = p1.DistanceBetween (p2);
             var length = new Length (logicalLength);
@@ -116,15 +110,15 @@ namespace Cession.Drawing
                     dimensionPoint = p1 + offsetVector;
 
                 Point ddPoint = Transform.Transform (dimensionPoint);
-                context.SaveState ();
-                context.TranslateCTM ((nfloat)ddPoint.X, (nfloat)ddPoint.Y);
+                _context.SaveState ();
+                _context.TranslateCTM ((nfloat)ddPoint.X, (nfloat)ddPoint.Y);
                 if (NeedReverse (angle))
-                    context.RotateCTM ((nfloat)(Math.PI + angle));
+                    _context.RotateCTM ((nfloat)(Math.PI + angle));
                 else
-                    context.RotateCTM ((nfloat)angle);
+                    _context.RotateCTM ((nfloat)angle);
 
                 nsStr.DrawString (CGPoint.Empty, stringAttribute);
-                context.RestoreState ();
+                _context.RestoreState ();
             }
         }
 

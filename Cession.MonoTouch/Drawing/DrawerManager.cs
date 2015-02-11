@@ -13,8 +13,9 @@ namespace Cession.Drawing
         static DrawerManager ()
         {
 //            RegisterDrawer (typeof(Room), new RoomDrawer ());
-//            RegisterDrawer (typeof(Layer), new LayerDrawer ());
+            RegisterDrawer (typeof(Layer), new LayerDrawer ());
             RegisterDrawer (typeof(Label), new LabelDrawer ());
+            RegisterDrawer (typeof(PolyLine), new PolyLineDrawer ());
         }
 
         public static void RegisterDrawer (Type type, ShapeDrawer drawer)
@@ -39,7 +40,7 @@ namespace Cession.Drawing
             return drawer;
         }
 
-        public static void Draw (this Shape shape, CGContext context)
+        public static void Draw (this Shape shape, DrawingContext context)
         {
             if (null == shape)
                 throw new ArgumentNullException ();
@@ -53,7 +54,7 @@ namespace Cession.Drawing
             drawer.Draw (context, shape);
         }
 
-        public static void DrawSelected (this Shape shape, CGContext context)
+        public static void DrawSelected (this Shape shape, DrawingContext context)
         {
             if (null == shape)
                 throw new ArgumentNullException ();

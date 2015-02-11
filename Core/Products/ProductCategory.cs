@@ -1,4 +1,4 @@
-﻿namespace Cession.Products
+namespace Cession.Products
 {
 	public class ProductCategory
 	{

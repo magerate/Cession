@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Cession.Geometries;
 
 namespace Cession.Diagrams

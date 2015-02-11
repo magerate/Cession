@@ -3,7 +3,7 @@
 namespace Cession.Resources
 {
 	using System;
-	using MonoTouch.Foundation;
+	using Foundation;
 
 	public static class StringExtension
 	{

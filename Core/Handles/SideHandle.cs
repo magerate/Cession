@@ -1,4 +1,4 @@
-﻿//namespace Cession.Handles
+//namespace Cession.Handles
 //{
 //	using System;
 //

@@ -1,4 +1,4 @@
-﻿using Cession.Geometries;
+using Cession.Geometries;
 
 namespace Cession.Diagrams
 {

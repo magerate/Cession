@@ -1,4 +1,4 @@
-﻿namespace Cession.Utilities
+namespace Cession.Utilities
 {
 	using System;
 	using System.ComponentModel;

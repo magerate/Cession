@@ -1,98 +1,102 @@
+using System;
+using CoreGraphics;
+
+using UIKit;
+
+using Cession.UIKit;
+using Cession.Geometries;
+using Cession.Drawing;
+using Cession.Diagrams;
+
 namespace Cession.Tools
 {
-	using System;
-	using CoreGraphics;
+    public class SelectTool:Tool
+    {
+        private CGPoint _touchPoint;
 
-	using UIKit;
+        public SelectTool (ToolManager toolManager) : base (toolManager)
+        {
+        }
 
-	using Cession.UIKit;
-	using Cession.Geometries;
-	using Cession.Drawing;
-	using Cession.Modeling;
+        public override void Pan (UIPanGestureRecognizer gestureRecognizer)
+        {
+            if (gestureRecognizer.IsBegan ())
+            {
+                if (!TryOperateDiagram ())
+                {
+                    _toolManager.PushTool (ToolType.Pan);
+                }
+                _toolManager.CurrentTool.TouchBegin (_touchPoint);
+                _toolManager.CurrentTool.Pan (gestureRecognizer);
+            }
+        }
 
-	public class SelectTool:Tool
-	{
-		private CGPoint touchPoint;
+        public override void TouchBegin (CGPoint point)
+        {
+            _touchPoint = point;
+        }
 
-		public SelectTool (ToolManager toolManager):base(toolManager)
-		{
-		}
+        private bool TryOperateDiagram ()
+        {
+            if (TryPanHandle ())
+                return true;
 
-		public override void Pan (UIPanGestureRecognizer gestureRecognizer)
-		{
-			if(gestureRecognizer.IsBegan())
-			{
-				if (!TryOperateDiagram ()) {
-					toolManager.PushTool (ToolType.Pan);
-				}
-				toolManager.CurrentTool.TouchBegin (touchPoint);
-				toolManager.CurrentTool.Pan (gestureRecognizer);
-			}
-		}
+            if (TryMove ())
+                return true;
 
-		public override void TouchBegin (CGPoint point)
-		{
-			touchPoint = point;
-		}
+            return false;
+        }
 
-		private bool TryOperateDiagram()
-		{
-			if (TryPanHandle ())
-				return true;
+        private bool TryPanHandle ()
+        {
+//            if (CurrentLayer.SelectedDiagrams.Count == 0)
+//                return false;
+//
+//            var room = CurrentLayer.SelectedDiagrams [0] as Room;
+//            if (null == room)
+//                return false;
+//
+//            var handles = room.Contour.GetHandles (CurrentLayer.Transform);
+//            for (int i = 0; i < handles.Length; i++)
+//            {
+//                if (handles [i].Contains (_touchPoint.ToPoint2 ()))
+//                {
+//                    _toolManager.PushTool (ToolType.MoveSide, handles [i]);
+//                    return true;
+//                }
+//            }
+            return false;
+        }
 
-			if (TryMove ())
-				return true;
+        private bool TryMove ()
+        {
+            HitTest (ConvertToLogicalPoint (_touchPoint));
+            if (CurrentLayer.SelectedShapes.Count != 0)
+            {
+                _toolManager.PushTool (ToolType.Move, CurrentLayer.SelectedShapes);
+                return true;
+            }
+            return false;
+        }
 
-			return false;
-		}
+        public override void Tap (UITapGestureRecognizer gestureRecognizer)
+        {
+            var point = GetLogicPoint (gestureRecognizer);
+            HitTest (point);
+            RefreshToolView ();
+        }
 
-		private bool TryPanHandle()
-		{
-			if(CurrentLayer.SelectedDiagrams.Count == 0)
-				return false;
+        private void HitTest (Point point)
+        {
+            var shape = CurrentLayer.HitTest (point);
 
-			var room = CurrentLayer.SelectedDiagrams [0] as Room;
-			if (null == room)
-				return false;
-
-			var handles = room.Contour.GetHandles (CurrentLayer.Transform);
-			for (int i = 0; i < handles.Length; i++) {
-				if (handles[i].Contains (touchPoint.ToPoint2())) {
-					toolManager.PushTool (ToolType.MoveSide,handles[i]);
-					return true;
-				}
-			}
-			return false;
-		}
-
-		private bool TryMove()
-		{
-			HitTest (ConvertToLogicalPoint(touchPoint));
-			if (CurrentLayer.SelectedDiagrams.Count != 0) {
-				toolManager.PushTool (ToolType.Move,CurrentLayer.SelectedDiagrams);
-				return true;
-			}
-			return false;
-		}
-
-		public override void Tap (UITapGestureRecognizer gestureRecognizer)
-		{
-			var point = GetLogicPoint (gestureRecognizer);
-			HitTest (point);
-			RefreshToolView ();
-		}
-
-		private void HitTest(Point2 point)
-		{
-			var shape = CurrentLayer.HitTest (point);
-
-			CurrentLayer.ClearSelection ();
-			if (null != shape) {
-				shape = shape.GetSelectableAncestor ();
-				if(null != shape)
-					CurrentLayer.Select (shape);
-			}
-		}
-	}
+            CurrentLayer.ClearSelection ();
+            if (null != shape)
+            {
+                if (null != shape)
+                    CurrentLayer.Select (shape);
+            }
+        }
+    }
 }
 

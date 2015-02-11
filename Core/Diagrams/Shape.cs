@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 using Cession.Geometries;
@@ -64,6 +64,11 @@ namespace Cession.Diagrams
                 throw new InvalidOperationException ();
             DoOffset (x, y);
             RaiseEvent (new RoutedEventArgs (Shape.OffsetEvent, this));
+        }
+
+        public void Offset(Vector vector)
+        {
+            Offset (vector.X, vector.Y);
         }
 
         public void Rotate (Point point, double radian)

@@ -1,39 +1,41 @@
+using System;
+
+using UIKit;
+using CoreGraphics;
+
+using Cession.Geometries;
+using Cession.UIKit;
+
 namespace Cession.Tools
 {
-	using System;
+    public class PanTool:Tool
+    {
+        private Matrix _matrix;
 
-	using UIKit;
+        public PanTool (ToolManager toolManager) : base (toolManager)
+        {
+        }
 
-	using Cession.Geometries;
-	using Cession.UIKit;
+        public override void Enter (Tool parentTool, params object[] args)
+        {
+            base.Enter (parentTool, args);
+            _matrix = CurrentLayer.Transform;
+        }
 
-	public class PanTool:Tool
-	{
-		private Matrix matrix;
+        public override void Pan (UIPanGestureRecognizer gestureRecognizer)
+        {
+            Matrix transform = _matrix;
+            CGPoint offset = gestureRecognizer.TranslationInView (Host.ToolView);
+            transform.Translate ((double)offset.X, (double)offset.Y);
+            CurrentLayer.Transform = transform;
+            RefreshDiagramView ();
+            RefreshToolView ();
 
-		public PanTool (ToolManager toolManager):base(toolManager)
-		{
-		}
-
-		public override void Enter (Tool parentTool, params object[] args)
-		{
-			base.Enter (parentTool, args);
-			matrix = CurrentLayer.Transform;
-		}
-
-		public override void Pan (UIPanGestureRecognizer gestureRecognizer)
-		{
-			var transform = matrix;
-			var offset = gestureRecognizer.TranslationInView (this.Host.ToolView);
-			transform.Translate ((double)offset.X, (double)offset.Y);
-			CurrentLayer.Transform = transform;
-			RefreshDiagramView ();
-			RefreshToolView ();
-
-			if (gestureRecognizer.IsDone ()) {
-				TryRestoreState ();
-			}
-		}
-	}
+            if (gestureRecognizer.IsDone ())
+            {
+                TryRestoreState ();
+            }
+        }
+    }
 }
 

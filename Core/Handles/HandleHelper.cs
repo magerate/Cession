@@ -1,4 +1,4 @@
-﻿//namespace Cession.Modeling
+//namespace Cession.Modeling
 //{
 //	using System;
 //

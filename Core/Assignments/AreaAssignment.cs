@@ -1,4 +1,4 @@
-﻿//namespace Cession.Assignments
+//namespace Cession.Assignments
 //{
 //	using System;
 //

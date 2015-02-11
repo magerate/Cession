@@ -1,4 +1,4 @@
-﻿namespace Cession.Resources
+namespace Cession.Resources
 {
 	public static class ImageFiles
 	{
@@ -35,7 +35,7 @@
 		public static readonly string DragRight16 = "Images/dragright16.png";
 		public static readonly string DragLeft16 = "Images/dragleft16.png";
 
-		public static readonly string Select25 = "/Images/select-25.png";
+		public static readonly string Select25 = "Images/select-25.png";
 		public static readonly string Rectangle25 = "Images/rectangle-25.png";
 		public static readonly string Polygon25 = "Images/polygon-25.png";
 		public static readonly string Elevation25 = "Images/elevation-25.png";

@@ -19,7 +19,7 @@ namespace Cession.Diagrams
 
     public class Layer:Shape
     {
-        public static readonly int LogicalUnitPerPixel = 25;
+        public static readonly double LogicalUnitPerPixel = 25;
         public static readonly Size DefaultSize = new Size (200000, 200000);
 
         public string Name{ get; set; }
@@ -30,6 +30,15 @@ namespace Cession.Diagrams
         private ReadOnlyCollection<Shape> _readOnlySelectedShapes;
 
         public Matrix Transform{ get; set; }
+        public Matrix DrawingTransform
+        {
+            get
+            {
+                Matrix m = Transform;
+                m.ScalePrepend (1 / LogicalUnitPerPixel, 1 / LogicalUnitPerPixel);
+                return m;
+            }
+        }
 
         public double Scale
         {
@@ -123,8 +132,7 @@ namespace Cession.Diagrams
 
         public Point ConvertToLogicalPoint (Point point)
         {
-            var matrix = Transform;
-            Transform.ScalePrepend (1 / LogicalUnitPerPixel, 1 / LogicalUnitPerPixel);
+            var matrix = DrawingTransform;
             matrix.Invert ();
 
             return matrix.Transform (point);
@@ -132,8 +140,7 @@ namespace Cession.Diagrams
 
         public Point ConvertToViewPoint (Point point)
         {
-            var matrix = Transform;
-            Transform.ScalePrepend (1 / LogicalUnitPerPixel, 1 / LogicalUnitPerPixel);
+            var matrix = DrawingTransform;
             return Transform.Transform (point);
         }
 
@@ -155,6 +162,16 @@ namespace Cession.Diagrams
         public double ConvertToViewLength (double length)
         {
             return length / LogicalUnitPerPixel * Transform.M11;
+        }
+
+        public Vector ConvertToViewVector(Vector vector)
+        {
+            return new Vector (ConvertToViewLength (vector.X), ConvertToViewLength (vector.Y));
+        }
+
+        public Vector ConvertToLogicalVector(Vector vector)
+        {
+            return new Vector (ConvertToLogicalLength (vector.X), ConvertToLogicalLength (vector.Y));
         }
 
 

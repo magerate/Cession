@@ -40,10 +40,24 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="Modeling\" />
+    <Folder Include="Diagrams\" />
+    <Folder Include="Tools\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Drawing\AlignmentDrawing.cs" />
+    <Compile Include="Drawing\DrawerManager.cs" />
+    <Compile Include="Drawing\MatrixExtension.cs" />
+    <Compile Include="Drawing\PointExtension.cs" />
+    <Compile Include="Drawing\RectangleExtension.cs" />
+    <Compile Include="Drawing\RoomDrawer.cs" />
+    <Compile Include="Drawing\HandleDrawing.cs" />
+    <Compile Include="Drawing\LayerDrawer.cs" />
+    <Compile Include="Drawing\DoorDrawer.cs" />
+    <Compile Include="Drawing\DrawUtil.cs" />
+    <Compile Include="Drawing\LabelDrawer.cs" />
+    <Compile Include="Drawing\ShapeDrawer.cs" />
+    <Compile Include="Diagrams\LabelHitTestProvider.cs" />
     <Compile Include="UIKit\ActionSheetManager.cs" />
     <Compile Include="UIKit\DetailViewControllers\ActionItem.cs" />
     <Compile Include="UIKit\DetailViewControllers\ButtonItem.cs" />
@@ -89,29 +103,31 @@
     <Compile Include="UIKit\PopoverControllerManager.cs" />
     <Compile Include="UIKit\TableViewHelper.cs" />
     <Compile Include="UIKit\UIFontExtension.cs" />
-    <Compile Include="Drawing\AlignmentDrawing.cs" />
-    <Compile Include="Drawing\DrawerManager.cs" />
-    <Compile Include="Drawing\DrawHelper.cs" />
-    <Compile Include="Drawing\MatrixExtension.cs" />
-    <Compile Include="Drawing\PointExtension.cs" />
-    <Compile Include="Drawing\RectangleExtension.cs" />
-    <Compile Include="Drawing\RoomDrawer.cs" />
-    <Compile Include="Drawing\HandleDrawing.cs" />
-    <Compile Include="Drawing\LayerDrawer.cs" />
-    <Compile Include="Drawing\DoorDrawer.cs" />
-    <Compile Include="Drawing\DrawUtil.cs" />
-    <Compile Include="Modeling\LabelHitTestProvider.cs" />
-    <Compile Include="Drawing\LabelDrawer.cs" />
-    <Compile Include="Drawing\ShapeDrawer.cs" />
+    <Compile Include="Drawing\DrawingContext.cs" />
+    <Compile Include="Tools\AddPolygonalRoomTool.cs" />
+    <Compile Include="Tools\AddRectRoomTool.cs" />
+    <Compile Include="Tools\DragDropTool.cs" />
+    <Compile Include="Tools\MoveSideTool.cs" />
+    <Compile Include="Tools\MoveTool.cs" />
+    <Compile Include="Tools\MoveVertexTool.cs" />
+    <Compile Include="Tools\PanTool.cs" />
+    <Compile Include="Tools\SelectTool.cs" />
+    <Compile Include="Tools\Tool.cs" />
+    <Compile Include="Tools\ToolManager.cs" />
+    <Compile Include="Tools\ToolTypes.cs" />
+    <Compile Include="Tools\ZoomTool.cs" />
+    <Compile Include="Drawing\PolyLineDrawer.cs" />
+    <Compile Include="Tools\AddPolylineTool.cs" />
+    <Compile Include="Tools\PolygonMeasurer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{F25F6954-2A81-4E4F-A2C0-EDF47B0A3F52}</Project>
-      <Name>Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Geometries\Geometries.csproj">
       <Project>{5815701A-38EF-415C-9783-D78594144A82}</Project>
       <Name>Geometries</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{F25F6954-2A81-4E4F-A2C0-EDF47B0A3F52}</Project>
+      <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

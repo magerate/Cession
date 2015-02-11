@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 using Cession.Geometries;
@@ -45,7 +45,10 @@ namespace Cession.Diagrams
         {
             if (null == s_hitTestors)
                 return null;
-            return s_hitTestors [this.GetType ()];
+
+            HitTestProvider htp;
+            s_hitTestors.TryGetValue (GetType (), out htp);
+            return htp;
         }
 
         public bool Contains (Point point)
