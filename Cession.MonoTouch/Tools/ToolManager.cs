@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CoreGraphics;
 
 using UIKit;
 using CoreGraphics;
@@ -8,6 +9,7 @@ using Foundation;
 using Cession.Utilities;
 using Cession.Diagrams;
 using Cession.Commands;
+using Cession.Projects;
 
 namespace Cession.Tools
 {
