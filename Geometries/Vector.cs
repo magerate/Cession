@@ -13,17 +13,35 @@ namespace Cession.Geometries
             this.Y = y;
         }
 
-        public double LengthSquared {
+        public bool IsZero
+        {
+            get{ return X == 0 && Y == 0; }
+        }
+
+        public double LengthSquared
+        {
             get { return X * X + Y * Y; }
         }
 
-        public double Length {
+        public double Length
+        {
             get { return Math.Sqrt (X * X + Y * Y); }
+            set 
+            { 
+                if (IsZero)
+                    return;
+
+                double length = Length;
+                X = X / length * value;
+                Y = Y / length * value;
+            }
         }
 
         //(0,2pi]
-        public double Angle {
-            get { 
+        public double Angle
+        {
+            get
+            { 
                 var angle = Math.Atan2 (Y, X);
                 if (angle < 0)
                     return angle + Math.PI * 2;
@@ -40,6 +58,11 @@ namespace Cession.Geometries
         public static double CrossProduct (Vector v1, Vector v2)
         {
             return v1.X * v2.Y - v1.Y * v2.X;
+        }
+
+        public static double DotProduct (Vector v1, Vector v2)
+        {
+            return v1.X * v2.X + v1.Y * v2.Y;
         }
 
         public double CrossProduct (Vector vector)

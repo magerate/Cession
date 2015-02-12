@@ -4,43 +4,36 @@ namespace Cession.Geometries
 {
     public struct Range
     {
-        private double min;
-        private double max;
+        private int _min;
+        private int _max;
 
-        public Range (double x, double y)
+        public Range (int x, int y)
         {
             if (x > y) {
-                min = y;
-                max = x;
+                _min = y;
+                _max = x;
             } else {
-                min = x;
-                max = y;
+                _min = x;
+                _max = y;
             }
         }
 
-        public bool Contains (double value)
+        public bool Contains (int value)
         {
-            return Range.Contains (min, max, value);
+            return Range.Contains (_min, _max, value);
         }
 
-        public static bool Contains (double x, double y, double value)
+        public static bool Contains (int x, int y, int value)
         {
             return Range.Contains (x, y, value, 0);
         }
 
-        public static bool Contains (double x, double y, double value, double delta)
+        public static bool Contains (int x, int y, int value, int delta)
         {
-            if (double.IsNaN (x))
-                throw new ArgumentException ();
+            if (delta < 0 || delta > 1000)
+                throw new ArgumentNullException ("delta");
 
-            if (double.IsNaN (y))
-                throw new ArgumentException ();
-
-            if (double.IsNaN (value))
-                throw new ArgumentException ();
-
-            return value >= Math.Min (x, y) - Math.Abs (delta) &&
-            value <= Math.Max (x, y) + Math.Abs (delta);
+            return value >= Math.Min (x, y) - delta && value <= Math.Max (x, y) + delta;
         }
     }
 }

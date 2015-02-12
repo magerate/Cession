@@ -655,28 +655,28 @@ namespace Cession.Geometries
         /// <summary>
         /// MultiplyPoint
         /// </summary>
-        internal void MultiplyPoint (ref double x, ref double y)
+        internal void MultiplyPoint (ref int x, ref int y)
         {
             switch (_type) {
             case MatrixTypes.TRANSFORM_IS_IDENTITY:
                 return;
             case MatrixTypes.TRANSFORM_IS_TRANSLATION:
-                x += _offsetX;
-                y += _offsetY;
+                x += MathHelper.Round(_offsetX);
+                y += MathHelper.Round(_offsetY);
                 return;
             case MatrixTypes.TRANSFORM_IS_SCALING:
-                x = (x * _m11);
-                y = (y * _m22);
+                x = MathHelper.Round((x * _m11));
+                y = MathHelper.Round(y * _m22);
                 return;
             case MatrixTypes.TRANSFORM_IS_SCALING | MatrixTypes.TRANSFORM_IS_TRANSLATION:
-                x = (x * _m11 + _offsetX);
-                y = (y * _m22 + _offsetY);
+                x = MathHelper.Round(x * _m11 + _offsetX);
+                y = MathHelper.Round(y * _m22 + _offsetY);
                 break;
             default:
                 double xadd = y * _m21 + _offsetX;
                 double yadd = x * _m12 + _offsetY;
-                x = (x * _m11 + xadd);
-                y = (y * _m22 + yadd);
+                x = MathHelper.Round(x * _m11 + xadd);
+                y = MathHelper.Round(y * _m22 + yadd);
                 break;
             }
         }

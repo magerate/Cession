@@ -22,7 +22,7 @@ namespace Cession.Geometries
                     throw new ArgumentException ();
 
                 if (value < 0)
-                    throw new ArgumentOutOfRangeException ();
+                    throw new ArgumentOutOfRangeException ("value");
 
                 _radius = value; 
             }
@@ -65,12 +65,9 @@ namespace Cession.Geometries
             if (double.IsNaN (r2) || double.IsInfinity (r2))
                 throw new ArgumentException ("r2");
 
-            var d = p1.DistanceBetween (p2);
+            double d = p1.DistanceBetween (p2);
 
-            if (d > r1 + r2)
-                return null;
-
-            if (d < Math.Abs (r1 - r2))
+            if (d > r1 + r2 || d < Math.Abs (r1 - r2))
                 return null;
 
             if (p1 == p2)
@@ -108,22 +105,23 @@ namespace Cession.Geometries
                        (d - r1 + r2) *
                        (-d + r1 + r2)) / 4;
 
-            double x1 = (p1.X + p2.X) / 2 +
+            double x1 = (p1.X + p2.X) / 2d +
                         (p2.X - p1.X) * (r1 * r1 - r2 * r2) / (2 * d * d) +
                         2 * (p1.Y - p2.Y) * q / (d * d);
-            double x2 = (p1.X + p2.X) / 2 +
+            double x2 = (p1.X + p2.X) / 2d +
                         (p2.X - p1.X) * (r1 * r1 - r2 * r2) / (2 * d * d) -
                         2 * (p1.Y - p2.Y) * q / (d * d);
 
-            double y1 = (p1.Y + p2.Y) / 2 +
+            double y1 = (p1.Y + p2.Y) / 2d +
                         (p2.Y - p1.Y) * (r1 * r1 - r2 * r2) / (2 * d * d) -
                         2 * (p1.X - p2.X) * q / (d * d);
 
-            double y2 = (p1.Y + p2.Y) / 2 +
+            double y2 = (p1.Y + p2.Y) / 2d +
                         (p2.Y - p1.Y) * (r1 * r1 - r2 * r2) / (2 * d * d) +
                         2 * (p1.X - p2.X) * q / (d * d);
 
-            return new Tuple<Point, Point> (new Point (x1, y1), new Point (x2, y2));
+            return new Tuple<Point, Point> (new Point (MathHelper.Round(x1), MathHelper.Round(y1)), 
+                new Point (MathHelper.Round(x2), MathHelper.Round(y2)));
         }
 
 
@@ -153,15 +151,15 @@ namespace Cession.Geometries
             {
                 // One solution.
                 t = -b / (2 * a);
-                var ip = new Point (p1.X + t * dx, p1.Y + t * dy);
+                var ip = new Point (MathHelper.Round(p1.X + t * dx), MathHelper.Round(p1.Y + t * dy));
                 return new Tuple<Point, Point> (ip, ip);
             } else
             {
                 // Two solutions.
                 t = (float)((-b + Math.Sqrt (bb4ac)) / (2 * a));
-                var ip1 = new Point (p1.X + t * dx, p1.Y + t * dy);
+                var ip1 = new Point (MathHelper.Round(p1.X + t * dx), MathHelper.Round(p1.Y + t * dy));
                 t = (float)((-b - Math.Sqrt (bb4ac)) / (2 * a));
-                var ip2 = new Point (p1.X + t * dx, p1.Y + t * dy);
+                var ip2 = new Point (MathHelper.Round(p1.X + t * dx), MathHelper.Round(p1.Y + t * dy));
                 return new Tuple<Point, Point> (ip1, ip2);
             }
         }

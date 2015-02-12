@@ -45,6 +45,8 @@
     <Compile Include="SegmentTests.cs" />
     <Compile Include="CircleTests.cs" />
     <Compile Include="TriangleTests.cs" />
+    <Compile Include="RandomHelper.cs" />
+    <Compile Include="PointHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

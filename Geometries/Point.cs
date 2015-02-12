@@ -5,9 +5,9 @@ namespace Cession.Geometries
     public struct Point:IEquatable<Point>
     {
         public static readonly Point Empty = new Point (0, 0);
-        public double X, Y;
+        public int X, Y;
 
-        public Point (double x, double y)
+        public Point (int x, int y)
         {
             X = x;
             Y = y;
@@ -52,24 +52,30 @@ namespace Cession.Geometries
 
         public static Point operator - (Point p, Vector v)
         {
-            return new Point (p.X - v.X, p.Y - v.Y);
+            return new Point (MathHelper.Round (p.X - v.X), MathHelper.Round (p.Y - v.Y));
         }
 
         public static Point operator + (Point p, Vector v)
         {
-            return new Point (p.X + v.X, p.Y + v.Y);
+            return new Point (MathHelper.Round (p.X + v.X), MathHelper.Round (p.Y + v.Y));
         }
 
-        public void Offset (double x, double y)
+        public void Offset (int x, int y)
         {
-            this.X += x;
-            this.Y += y;
+            X += x;
+            Y += y;
+        }
+
+        public void Offset (Vector vector)
+        {
+            X += MathHelper.Round (vector.X);
+            Y += MathHelper.Round (vector.Y);
         }
 
         public static double DistanceBetween (Point p1, Point p2)
         {
-            var dx = p1.X - p2.X;
-            var dy = p1.Y - p2.Y;
+            double dx = (double)p1.X - p2.X;
+            double dy = (double)p1.Y - p2.Y;
             return Math.Sqrt (dx * dx + dy * dy);
         }
 
