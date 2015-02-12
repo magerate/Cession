@@ -5,48 +5,42 @@ namespace Cession.Geometries
     public struct Rect : IEquatable<Rect>
     {
         public static readonly Rect Empty = new Rect (0, 0, 0, 0);
-
-        private int _x;
-        private int _y;
-        private int _width;
-        private int _height;
+        private double _x;
+        private double _y;
+        private double _width;
+        private double _height;
 
         public Point Location
         {
             get{ return new Point (_x, _y); }
         }
 
-        public int X
+        public double X
         {
             get { return _x; }
             set { _x = value; }
         }
 
-        public int Left
+        public double Left
         {
             get { return _x; }
         }
 
-        public int Y
+        public double Y
         {
             get { return _y; }
             set { _y = value; }
         }
 
-        public int Bottom
+        public double Bottom
         {
             get { return _y + _height; }
         }
 
-        public int Width
+        public double Width
         {
             get { return _width; }
-            set 
-            { 
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException ("value");
-                _width = value; 
-            }
+            set { _width = value; }
         }
 
         public Size Size
@@ -54,23 +48,18 @@ namespace Cession.Geometries
             get{ return new Size (_width, _height); }
         }
 
-        public int Right
+        public double Right
         {
             get { return _x + _width; }
         }
 
-        public int Height
+        public double Height
         {
             get { return _height; }
-            set 
-            { 
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException ("value");
-                _height = value; 
-            }
+            set { _height = value; }
         }
 
-        public int Top
+        public double Top
         {
             get { return _y; }
         }
@@ -78,30 +67,30 @@ namespace Cession.Geometries
 
         public Point LeftBottom
         {
-            get { return new Point (Left, Bottom); }
+            get { return new Point (this.Left, this.Bottom); }
         }
 
         public Point RightBottom
         {
-            get { return new Point (Right, Bottom); }
+            get { return new Point (this.Right, this.Bottom); }
         }
 
         public Point LeftTop
         {
-            get { return new Point (Left, Top); }
+            get { return new Point (this.Left, this.Top); }
         }
 
         public Point RightTop
         {
-            get { return new Point (Right, Top); }
+            get { return new Point (this.Right, this.Top); }
         }
 
-        public Rect (int x, int y, int width, int height)
+        public Rect (double x, double y, double width, double height)
         {
             if (width < 0)
-                throw new ArgumentOutOfRangeException ("width");
+                throw new ArgumentException ();
             if (height < 0)
-                throw new ArgumentOutOfRangeException ("height");
+                throw new ArgumentException ();
 
             _x = x;
             _y = y;
@@ -116,7 +105,7 @@ namespace Cession.Geometries
         public bool Contains (Point point)
         {
             return point.X >= _x && point.X <= _x + _width &&
-                point.Y >= _y && point.Y <= _y + _height;
+            point.Y >= _y && point.Y <= _y + _height;
         }
 
         public bool Contains (Rect rect)
@@ -126,7 +115,8 @@ namespace Cession.Geometries
 
         public bool Equals (Rect rect)
         {
-            return _x == rect._x && _y == rect._y && _width == rect._width && _height == rect._height;
+            return this._x == rect._x && this._y == rect._y &&
+            this._width == rect._width && this._height == rect._height;
         }
 
         public override bool Equals (object obj)
@@ -151,23 +141,24 @@ namespace Cession.Geometries
             return !left.Equals (right);
         }
 
-        public void Offset (int x, int y)
+        public void Offset (double x, double y)
         {
-            _x += x;
-            _y += y;
+            this._x += x;
+            this._y += y;
         }
 
         public void Offset (Vector vector)
         {
-            Offset (MathHelper.Round(vector.X), MathHelper.Round(vector.Y));
+            this.Offset (vector.X, vector.Y);
         }
 
-        public void Inflate (int width, int height)
+        public void Inflate (double width, double height)
         {
-            _x -= width;
-            _y -= height;
-            _width += 2 * width;
-            _height += 2 * height;
+            this._x -= width;
+            this._y -= height;
+            this._width += 2 * width;
+            this._height += 2 * height;
+
         }
 
         public Rect Union (Rect rect)
@@ -177,21 +168,21 @@ namespace Cession.Geometries
             if (rect == Empty)
                 return this;
 
-            int left = Math.Min (Left, rect.Left);
-            int top = Math.Min (Top, rect.Top);
+            var left = Math.Min (this.Left, rect.Left);
+            var top = Math.Min (this.Top, rect.Top);
 
-            int right = Math.Max (Right, rect.Right);
-            int bottom = Math.Max (Bottom, rect.Bottom);
+            var right = Math.Max (this.Right, rect.Right);
+            var bottom = Math.Max (this.Bottom, rect.Bottom);
 
             return Rect.FromLTRB (left, top, right, bottom);
         }
 
         public Rect? Intersects (Rect rect)
         {
-            int left = Math.Max (Left, rect.Left);
-            int right = Math.Min (Right, rect.Right);
-            int top = Math.Max (Top, rect.Top);
-            int bottom = Math.Min (Bottom, rect.Bottom);
+            var left = Math.Max (this.Left, rect.Left);
+            var right = Math.Min (this.Right, rect.Right);
+            var top = Math.Max (this.Top, rect.Top);
+            var bottom = Math.Min (this.Bottom, rect.Bottom);
 
             if (left <= right && top <= bottom)
                 return Rect.FromLTRB (left, top, right, bottom);
@@ -205,7 +196,7 @@ namespace Cession.Geometries
         }
 
 
-        public static Rect FromLTRB (int left, int top, int right, int bottom)
+        public static Rect FromLTRB (double left, double top, double right, double bottom)
         {
             return new Rect (left, top, right - left, bottom - top);
         }

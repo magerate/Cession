@@ -8,17 +8,6 @@ namespace Cession.Geometries
         {
             return Math.Abs (left - right) <= delta;
         }
-
-        public static int Round(double value)
-        {
-            if (double.IsNaN (value) || double.IsInfinity (value))
-                throw new ArgumentException ("value");
-
-            if (value > int.MaxValue)
-                throw new ArgumentOutOfRangeException ("value");
-
-            return (int)Math.Round (value);
-        }
     }
 }
 

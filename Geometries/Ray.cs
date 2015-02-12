@@ -7,22 +7,20 @@ namespace Cession.Geometries
         private Point _point;
         private Vector _direction;
 
-        public Point Point
-        {
+        public Point Point {
             get { return _point; }
             set { _point = value; }
         }
 
-        public Vector Direction
-        {
+        public Vector Direction {
             get { return _direction; }
             set { _direction = value; }
         }
 
         public Ray (Point point, Vector direction)
         {
-            _point = point;
-            _direction = direction;
+            this._point = point;
+            this._direction = direction;
         }
 
         public bool Equals (Ray ray)

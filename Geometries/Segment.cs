@@ -7,20 +7,17 @@ namespace Cession.Geometries
         private Point _p1;
         private Point _p2;
 
-        public Point P1
-        {
+        public Point P1 {
             get { return _p1; }
             set { _p1 = value; }
         }
 
-        public Point P2
-        {
+        public Point P2 {
             get { return _p2; }
             set { _p2 = value; }
         }
 
-        public Point Center
-        {
+        public Point Center {
             get{ return new Point ((_p1.X + _p2.X) / 2, (_p1.Y + _p2.Y) / 2); }
         }
 
@@ -53,8 +50,7 @@ namespace Cession.Geometries
             return string.Format ("[Segment: P1={0}, P2={1}, Center={2}]", P1, P2, Center);
         }
 
-        public double Length
-        {
+        public double Length {
             get{ return (_p1 - _p2).Length; }
         }
 

@@ -4,47 +4,23 @@ namespace Cession.Geometries
 {
     public struct Size:IEquatable<Size>
     {
-        public static readonly Size Empty = new Size (0, 0);
+        private double _width;
+        private double _height;
 
-        private int _width;
-        private int _height;
-
-        public Size (int width, int height)
+        public Size (double width, double height)
         {
-            if (width < 0)
-                throw new ArgumentOutOfRangeException ("width");
-            if (height < 0)
-                throw new ArgumentOutOfRangeException ("height");
-
-            _width = width;
-            _height = height;
+            this._width = width;
+            this._height = height;
         }
 
-        public bool IsEmpty
-        {
-            get{ return _width == 0 && _height == 0; }
-        }
-
-        public int Width
-        {
+        public double Width {
             get { return _width; }
-            set 
-            { 
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException ("value");
-                _width = value; 
-            }
+            set { _width = value; }
         }
 
-        public int Height
-        {
+        public double Height {
             get { return _height; }
-            set 
-            { 
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException ("value");
-                _height = value; 
-            }
+            set { _height = value; }
         }
 
         public bool Equals (Size size)

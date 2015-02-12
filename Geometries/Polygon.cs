@@ -38,7 +38,7 @@ namespace Cession.Geometries
                             result = 1 - result;
                         else {
                             double d = (ip.X - point.X) * (ipNext.Y - point.Y) -
-                                (ipNext.X - point.X) * (ip.Y - point.Y);
+                            (ipNext.X - point.X) * (ip.Y - point.Y);
                             if (d == 0)
                                 return -1;
                             else if ((d > 0) == (ipNext.Y > ip.Y))
@@ -47,7 +47,7 @@ namespace Cession.Geometries
                     } else {
                         if (ipNext.X > point.X) {
                             double d = (ip.X - point.X) * (ipNext.Y - point.Y) -
-                                (ipNext.X - point.X) * (ip.Y - point.Y);
+                            (ipNext.X - point.X) * (ip.Y - point.Y);
                             if (d == 0)
                                 return -1;
                             else if ((d > 0) == (ipNext.Y > ip.Y))

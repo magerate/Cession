@@ -13,20 +13,17 @@ namespace Cession.Geometries
             _p2 = p2;
         }
 
-        public Point P1
-        {
+        public Point P1 {
             get { return _p1; }
             set { _p1 = value; }
         }
 
-        public Point P2
-        {
+        public Point P2 {
             get { return _p2; }
             set { _p2 = value; }
         }
 
-        public bool IsEmpty
-        {
+        public bool IsEmpty {
             get { return _p1 == _p2; }
         }
 
@@ -120,21 +117,19 @@ namespace Cession.Geometries
         {
             if (p1 == p2 || p3 == p4)
                 return null;
-            double denominator = (p1.X - p2.X) * (double)(p3.Y - p4.Y) - (p3.X - p4.X) * (double)(p1.Y - p2.Y);
+		
+            double denominator = (p1.X - p2.X) * (p3.Y - p4.Y) - (p3.X - p4.X) * (p1.Y - p2.Y);
 
-            if (denominator == 0 || double.IsInfinity (denominator))
+            if (denominator == 0 || double.IsInfinity (denominator) || double.IsNaN (denominator))
                 return null;
 
-            double x = ((p1.X * (double)p2.Y - p2.X * (double)p1.Y) * (p3.X - (double)p4.X) - 
-                        (p3.X * (double)p4.Y - p4.X * (double)p3.Y) * (p1.X - (double)p2.X)) / denominator;
+            double	x = ((p1.X * p2.Y - p2.X * p1.Y) * (p3.X - p4.X) - (p3.X * p4.Y - p4.X * p3.Y) * (p1.X - p2.X)) / denominator;
+            double	y = ((p1.X * p2.Y - p2.X * p1.Y) * (p3.Y - p4.Y) - (p3.X * p4.Y - p4.X * p3.Y) * (p1.Y - p2.Y)) / denominator;
 
-            double y = ((p1.X * (double)p2.Y - p2.X * (double)p1.Y) * (p3.Y - (double)p4.Y) - 
-                        (p3.X * (double)p4.Y - p4.X * (double)p3.Y) * (p1.Y - (double)p2.Y)) / denominator;
-
-            if (x > int.MaxValue || x < int.MinValue || y > int.MaxValue || y < int.MinValue)
+            if (double.IsInfinity (x) || double.IsNaN (x) || double.IsInfinity (y) || double.IsNaN (y))
                 return null;
 
-            return new Point (MathHelper.Round(x), MathHelper.Round(y));
+            return new Point (x, y);
         }
 
         public static Point? Intersect (Line line1, Line line2)
@@ -152,6 +147,8 @@ namespace Cession.Geometries
         {
             this.Offset ((int)vector.X, (int)vector.Y);
         }
+
+       
 
         public static double DistanceBetween (Point p1, Point p2, Point point)
         {
