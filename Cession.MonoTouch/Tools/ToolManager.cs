@@ -27,25 +27,24 @@ namespace Cession.Tools
     {
         public IToolHost Host{ get; set; }
 
-        private Dictionary<ToolType,Tool> _tools = new Dictionary<ToolType, Tool> ();
-        private Stack<ToolType> _toolStack = new Stack<ToolType> ();
+        private Dictionary<Type,Tool> _tools = new Dictionary<Type, Tool> ();
+        private Stack<Type> _toolStack = new Stack<Type> ();
 
-        public ToolType CurrentToolType{ get; private set; }
+        public Type CurrentToolType{ get; private set; }
 
         public ToolManager ()
         {
-            CurrentToolType = ToolType.Select;
+            CurrentToolType = typeof(SelectTool);
         }
 
-        public ToolManager (ToolType toolType)
+        public ToolManager (Type toolType)
         {
             CurrentToolType = toolType;
         }
 
-        private Tool CreateTool (ToolType toolType)
+        private Tool CreateTool (Type toolType)
         {
-            var attribute = toolType.GetAttribute (typeof(ToolAttribute)) as ToolAttribute;
-            var tool = Activator.CreateInstance (attribute.Type, this) as Tool;
+            var tool = Activator.CreateInstance (toolType, this) as Tool;
             return tool;
         }
 
@@ -54,7 +53,7 @@ namespace Cession.Tools
             get{ return GetTool (CurrentToolType); }
         }
 
-        public Tool GetTool (ToolType toolType)
+        public Tool GetTool (Type toolType)
         {
             Tool tool;
             if (_tools.TryGetValue (toolType, out tool))
@@ -65,7 +64,7 @@ namespace Cession.Tools
             return tool;
         }
 
-        public void SelectTool (ToolType toolType, params object[] args)
+        public void SelectTool (Type toolType, params object[] args)
         {
             if (CurrentToolType == toolType)
                 return;
@@ -77,7 +76,7 @@ namespace Cession.Tools
             _toolStack.Clear ();
         }
 
-        public void PushTool (ToolType toolType, params object[] args)
+        public void PushTool (Type toolType, params object[] args)
         {
             if (CurrentToolType == toolType)
                 return;

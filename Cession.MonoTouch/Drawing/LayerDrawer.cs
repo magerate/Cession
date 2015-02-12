@@ -7,15 +7,24 @@ namespace Cession.Drawing
 {
     public class LayerDrawer:ShapeDrawer
     {
-        protected override void DoDraw (DrawingContext context, Shape shape)
+        protected override void DoDraw (DrawingContext drawingContext, Shape shape)
         {
             var layer = shape as Layer;
             if (null == layer)
                 throw new ArgumentException ("shape");
 
+            Rect rect = layer.ConvertToViewRect (layer.Frame);
+
+            var cgrect = rect.ToCGRect ();
+            var context = drawingContext.CGContext;
+            context.SaveState ();
+            context.SetLineWidth (10);
+            context.StrokeRect (cgrect);
+            context.RestoreState ();
+
             foreach (var s in layer.Shapes)
             {
-                s.Draw (context);
+                s.Draw (drawingContext);
             }
         }
     }

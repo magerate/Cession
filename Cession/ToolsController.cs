@@ -37,7 +37,7 @@ namespace Cession.UIKit
             var polylineItem = new DetailMenuItem ();
             polylineItem.Title = "Add Polyline";
             polylineItem.Image = ImageHelper.GetTemplateImage (ImageFiles.Rectangle25);
-            polylineItem.Tag = ToolType.AddPolyline;
+            polylineItem.Tag = typeof(AddPolylineTool);
             polylineItem.Action = toolSelector;
             section.Items.Add (polylineItem);
 //

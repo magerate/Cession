@@ -5,6 +5,7 @@ using CoreGraphics;
 
 using Cession.Geometries;
 using Cession.UIKit;
+using Cession.Diagrams;
 
 namespace Cession.Tools
 {
@@ -26,7 +27,32 @@ namespace Cession.Tools
         {
             Matrix transform = _matrix;
             CGPoint offset = gestureRecognizer.TranslationInView (Host.ToolView);
-            transform.Translate ((double)offset.X, (double)offset.Y);
+
+            double x = CurrentLayer.Size.Width / 2;
+            double y = CurrentLayer.Size.Height / 2;
+
+            Matrix dm = transform;
+            dm.ScalePrepend (1 / Layer.LogicalUnitPerPixel, 1 / Layer.LogicalUnitPerPixel);
+
+            double maxTx = x * dm.M11 - dm.OffsetX;
+            double minTx = Host.ToolView.Bounds.Right - x * dm.M11 - dm.OffsetX;
+            double maxTy = y * dm.M22 - dm.OffsetY;;
+            double minTy = Host.ToolView.Bounds.Bottom - y * dm.M22 - dm.OffsetY;;
+
+            double ox;
+            if (minTx >= maxTx)
+                ox = 0;
+            else
+                ox = MathHelper.Clamp (minTx, maxTx, (double)offset.X);
+
+            double oy;
+            if (minTy >= maxTy)
+                oy = 0;
+            else
+                oy = MathHelper.Clamp (minTy, maxTy, (double)offset.Y);
+
+            transform.Translate (ox, oy);
+                
             CurrentLayer.Transform = transform;
             RefreshDiagramView ();
             RefreshToolView ();

@@ -29,7 +29,7 @@ namespace Cession
         private UIBarButtonItem undoButton;
         private UIBarButtonItem redoButton;
 
-        private ToolType segmentToolType = ToolType.Select;
+        private Type segmentToolType = typeof(SelectTool);
 
         private void InitializeNavigationItems ()
         {
@@ -144,7 +144,7 @@ namespace Cession
             if (toolSegment.SelectedSegment == 0)
             {
                 preSelectedSegment = 0;
-                SelectTool (ToolType.Select);
+                SelectTool (typeof(SelectTool));
             } else if (toolSegment.SelectedSegment == 1)
             {
                 preSelectedSegment = 1;
@@ -162,7 +162,7 @@ namespace Cession
             PopoverControllerManager.Dismiss (true);
 
             var toolSegmented = toolSegment;
-            var targetToolType = (ToolType)item.Tag;
+            var targetToolType = (Type)item.Tag;
             segmentToolType = targetToolType;
             if (item.Image != null)
             {
@@ -172,7 +172,7 @@ namespace Cession
             SelectTool (targetToolType);
         }
 
-        public void SelectTool (ToolType toolType)
+        public void SelectTool (Type toolType)
         {
             toolManager.SelectTool (toolType);
         }

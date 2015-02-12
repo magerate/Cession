@@ -26,8 +26,8 @@ namespace Cession.Tools
             var transform = _matrix;
             transform.ScaleAt (gestureRecognizer.Scale, 
                 gestureRecognizer.Scale,
-                (double)DiagramView.Center.X,
-                (double)DiagramView.Center.Y);
+                (double)Host.ToolView.Center.X,
+                (double)Host.ToolView.Center.Y);
             CurrentLayer.Transform = transform;
             RefreshDiagramView ();
             RefreshToolView ();

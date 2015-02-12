@@ -24,7 +24,7 @@ namespace Cession.Tools
             {
                 if (!TryOperateDiagram ())
                 {
-                    _toolManager.PushTool (ToolType.Pan);
+                    _toolManager.PushTool (typeof(PanTool));
                 }
                 _toolManager.CurrentTool.TouchBegin (_touchPoint);
                 _toolManager.CurrentTool.Pan (gestureRecognizer);
@@ -73,7 +73,7 @@ namespace Cession.Tools
             HitTest (ConvertToLogicalPoint (_touchPoint));
             if (CurrentLayer.SelectedShapes.Count != 0)
             {
-                _toolManager.PushTool (ToolType.Move, CurrentLayer.SelectedShapes);
+                _toolManager.PushTool (typeof(MoveTool), CurrentLayer.SelectedShapes);
                 return true;
             }
             return false;

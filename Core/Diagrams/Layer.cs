@@ -47,6 +47,11 @@ namespace Cession.Diagrams
 
         public Size Size{ get; set; }
 
+        public Rect Frame
+        {
+            get{ return new Rect (-Size.Width / 2, -Size.Height / 2, Size.Width, Size.Height); }
+        }
+
         public ReadOnlyCollection<Shape> SelectedShapes
         {
             get{ return _readOnlySelectedShapes; }
@@ -58,12 +63,10 @@ namespace Cession.Diagrams
 
         public Layer (string name)
         {
-            this.Transform = Matrix.Identity;
-
             //default layer size 200 meter
             Size = DefaultSize;
 
-            this.Name = name;
+            Name = name;
             Shapes = new ShapeCollection ();
 
             _readOnlySelectedShapes = new ReadOnlyCollection<Shape> (_selectedShapes);
@@ -140,8 +143,7 @@ namespace Cession.Diagrams
 
         public Point ConvertToViewPoint (Point point)
         {
-            var matrix = DrawingTransform;
-            return Transform.Transform (point);
+            return DrawingTransform.Transform (point);
         }
 
         public Size ConvertToLogicalSize (Size size)

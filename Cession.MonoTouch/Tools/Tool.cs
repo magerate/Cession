@@ -39,13 +39,13 @@ namespace Cession.Tools
 
         public virtual void LongPress (UILongPressGestureRecognizer gestureRecognizer)
         {
-            _toolManager.PushTool (ToolType.Select);
+            _toolManager.PushTool (typeof(SelectTool));
             _toolManager.CurrentTool.LongPress (gestureRecognizer);
         }
 
         public virtual void DoubleTap (UITapGestureRecognizer gestureRecognizer)
         {
-            _toolManager.PushTool (ToolType.Select);
+            _toolManager.PushTool (typeof(SelectTool));
             _toolManager.CurrentTool.DoubleTap (gestureRecognizer);
         }
 
@@ -66,7 +66,7 @@ namespace Cession.Tools
 
         public virtual void Pinch (UIPinchGestureRecognizer gestureRecognizer)
         {
-            _toolManager.PushTool (ToolType.Zoom);
+            _toolManager.PushTool (typeof(ZoomTool));
             _toolManager.CurrentTool.Pinch (gestureRecognizer);
         }
 
@@ -83,11 +83,11 @@ namespace Cession.Tools
             this._parentTool = parentTool;
         }
 
-        public virtual void WillPushTool (ToolType toolType)
+        public virtual void WillPushTool (Type toolType)
         {
         }
 
-        public virtual void RestoredFrom (ToolType toolType)
+        public virtual void RestoredFrom (Type toolType)
         {
         }
 
