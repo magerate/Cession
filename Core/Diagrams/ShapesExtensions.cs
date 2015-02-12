@@ -1,17 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
-    public class ShapeCollection:Collection<Shape>
-    {
-        public ShapeCollection ()
-        {
-        }
-    }
-
     public static class ShapesExtensions
     {
         public static Shape HitTest(this IEnumerable<Shape> shapes,Point point)

@@ -1,10 +1,11 @@
+using System;
 using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
     public class LineSegment:Segment
     {
-        public Point Point {
+        public Point Point2 {
             get { 
                 var segment = Next;
                 if (segment != null)
@@ -19,17 +20,23 @@ namespace Cession.Diagrams
 
         protected override bool DoContains (Point point)
         {
-            return Line.Contains (Point1, Point, point);
+            return Line.Contains (Point1, Point2, point);
         }
 
         protected override Rect DoGetBounds ()
         {
-            return Rect.FromPoints (Point1, Point);
+            return Rect.FromPoints (Point1, Point2);
         }
 
         protected override Shape DoHitTest (Point point)
         {
-            return this;
+            Layer layer = this.Owner as Layer;
+            double delta = layer.ConvertToLogicalLength (24);
+            if (Math.Abs (Line.DistanceBetween (Point1, Point2, point)) <= delta &&
+                Range.Contains (Point1.X, Point2.X, point.X, delta) &&
+                Range.Contains (Point1.Y, Point2.Y, point.Y, delta))
+                return this;
+            return null;
         }
     }
 }

@@ -55,6 +55,17 @@ namespace Cession.Diagrams
             }
             return null;
         }
+
+        protected Shape HitTestAny(Point point)
+        {
+            Shape shape = null;
+            foreach (var s in this) {
+                shape = s.HitTest (point);
+                if (null != shape)
+                    return this;
+            }
+            return null;
+        }
     }
 }
 

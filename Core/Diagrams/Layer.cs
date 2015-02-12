@@ -24,7 +24,7 @@ namespace Cession.Diagrams
 
         public string Name{ get; set; }
 
-        public ShapeCollection Shapes{ get; private set; }
+        public LayerShapeCollection Shapes{ get; private set; }
 
         private List<Shape> _selectedShapes = new List<Shape> ();
         private ReadOnlyCollection<Shape> _readOnlySelectedShapes;
@@ -67,7 +67,7 @@ namespace Cession.Diagrams
             Size = DefaultSize;
 
             Name = name;
-            Shapes = new ShapeCollection ();
+            Shapes = new LayerShapeCollection (this);
 
             _readOnlySelectedShapes = new ReadOnlyCollection<Shape> (_selectedShapes);
         }

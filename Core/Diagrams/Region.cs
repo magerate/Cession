@@ -8,19 +8,18 @@ namespace Cession.Diagrams
 {
     public class Region:CompositeShape
     {
-        private ClosedShape _contour;
-        private List<ClosedShape> _holes = null;
+        private Path _contour;
+        private List<Path> _holes = null;
 
-
-        public ClosedShape Contour {
+        public Path Contour {
             get{ return _contour; }
         }
 
-        public IList<ClosedShape> Holes {
+        public IList<Path> Holes {
             get{ return _holes; }
         }
 
-        public Region (ClosedShape contour)
+        public Region (Path contour)
         {
             if (null == contour)
                 throw new ArgumentNullException ();

@@ -31,7 +31,7 @@ namespace Cession.Tools
 
         protected override void DoDraw (DrawingContext drawingContext)
         {
-            PolyLineDrawer.DrawPolyline (drawingContext, _measurer.Points);
+            drawingContext.DrawPolyline (_measurer.Points);
             if (_measurer.CurrentPoint != null)
             {
                 Point p1 = _measurer.Points.Last ();

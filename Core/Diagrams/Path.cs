@@ -7,7 +7,7 @@ using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
-    public class Path:ClosedShape,IReadOnlyList<Point>
+    public class Path:CompositeShape,IReadOnlyList<Point>
     {
         private List<Segment> _segments;
 
@@ -30,7 +30,7 @@ namespace Cession.Diagrams
             if (points.Count < 3)
                 throw new ArgumentException ();
 
-            for (int i = 0; i < points.Count; i++) 
+            for (int i = 0; i < points.Count; i++)
             {
                 var segment = new LineSegment (points [i]);
                 segment.Parent = this;
@@ -62,21 +62,30 @@ namespace Cession.Diagrams
             return _segments [index];
         }
 
-        public int Count {
+        public int Count
+        {
             get{ return _segments.Count; }
         }
 
-        public Point this [int index] {
-            get { 
+        public Point this [int index]
+        {
+            get
+            { 
                 if (index < 0 || index >= _segments.Count)
                     throw new ArgumentOutOfRangeException ();
                 return _segments [index].Point1; 
             }
         }
 
-        public IEnumerator<Point> GetEnumerator ()
+        public override IEnumerator<Shape> GetEnumerator ()
         {
-            foreach (var s in _segments) {
+            return _segments.GetEnumerator ();
+        }
+
+        IEnumerator<Point> IEnumerable<Point>.GetEnumerator ()
+        {
+            foreach (var s in _segments)
+            {
                 yield return s.Point1;
             }
         }
@@ -86,13 +95,12 @@ namespace Cession.Diagrams
             return this.GetEnumerator ();
         }
 
-
-        public override double GetArea ()
+        public double GetArea ()
         {
             return 0;
         }
 
-        public override double GetPerimeter ()
+        public double GetPerimeter ()
         {
             return 0;
         }
@@ -106,17 +114,6 @@ namespace Cession.Diagrams
         {
             return false;
         }
-
-        internal override void DoOffset (double x, double y)
-        {
-            _segments.ForEach (s => s.DoOffset (x, y));
-        }
-
-        internal override void DoRotate (Point point, double radian)
-        {
-            _segments.ForEach (s => s.DoRotate (point, radian));
-        }
-
     }
 }
 

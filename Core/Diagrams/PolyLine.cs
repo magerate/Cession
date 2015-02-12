@@ -6,10 +6,15 @@ using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
-    public class PolyLine:Shape,IReadOnlyList<Point>
+    public class PolyLine:CompositeShape
     {
         private List<Segment> _segments;
         private Point _lastPoint;
+
+        public IReadOnlyList<Segment> Segments
+        {
+            get{ return _segments; }
+        }
 
         public Point LastPoint
         {
@@ -35,48 +40,10 @@ namespace Cession.Diagrams
             _lastPoint = points [points.Count - 1];
         }
 
-        public int Count
+        public override IEnumerator<Shape> GetEnumerator ()
         {
-            get{ return _segments.Count + 1; }
+            return _segments.GetEnumerator ();
         }
-
-        public Point this [int index]
-        {
-            get
-            {
-                if (index < 0 || index >= Count)
-                    throw new ArgumentOutOfRangeException ();
-
-                if (index == Count - 1)
-                    return _lastPoint;
-                return _segments [index].Point1;
-            }
-        }
-
-        public IEnumerator<Point> GetEnumerator ()
-        {
-            foreach (var s in _segments)
-            {
-                yield return s.Point1;
-            }
-            yield return _lastPoint;
-        }
-
-        IEnumerator IEnumerable.GetEnumerator ()
-        {
-            return this.GetEnumerator ();
-        }
-
-        internal override void DoOffset (double x, double y)
-        {
-            _segments.ForEach (s => s.DoOffset (x, y));
-        }
-
-        internal override void DoRotate (Point point, double radian)
-        {
-            _segments.ForEach (s => s.DoRotate (point, radian));
-        }
-
 
         public Segment GetNextSide (Segment segment)
         {
@@ -104,6 +71,22 @@ namespace Cession.Diagrams
             if (index >= 0)
                 return _segments [index];
             return null;
+        }
+
+        protected override Shape DoHitTest (Point point)
+        {
+            return base.HitTestAny (point);
+        }
+
+        protected override bool DoContains (Point point)
+        {
+            return false;
+        }
+
+        internal override void DoOffset (double x, double y)
+        {
+            base.DoOffset (x, y);
+            _lastPoint.Offset (x, y);
         }
     }
 }

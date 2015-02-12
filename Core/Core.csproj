@@ -91,17 +91,17 @@
     <Compile Include="Diagrams\CompositeShape.cs" />
     <Compile Include="Diagrams\Label.cs" />
     <Compile Include="Diagrams\Region.cs" />
-    <Compile Include="Diagrams\ClosedShape.cs" />
     <Compile Include="Diagrams\PolyLine.cs" />
     <Compile Include="Diagrams\DividableShape.cs" />
     <Compile Include="Common\BinaryTreeNode.cs" />
     <Compile Include="Common\BinaryTree.cs" />
     <Compile Include="Diagrams\Layer.cs" />
-    <Compile Include="Diagrams\ShapeCollection.cs" />
     <Compile Include="Projects\Project.cs" />
     <Compile Include="Projects\LayerCollection.cs" />
     <Compile Include="Diagrams\Rectangle.cs" />
     <Compile Include="Projects\ProjectInfo.cs" />
+    <Compile Include="Diagrams\ShapesExtensions.cs" />
+    <Compile Include="Diagrams\LayerShapeCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">

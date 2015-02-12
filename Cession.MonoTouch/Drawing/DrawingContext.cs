@@ -73,7 +73,7 @@ namespace Cession.Drawing
             _context.ClosePath ();
         }
 
-        private static bool NeedReverse (double angle)
+        private bool NeedReverse (double angle)
         {
             return angle >= Math.PI / 2 && angle <= Math.PI * 3 / 2;
         }
@@ -119,6 +119,35 @@ namespace Cession.Drawing
 
                 nsStr.DrawString (CGPoint.Empty, stringAttribute);
                 _context.RestoreState ();
+            }
+        }
+
+        public void DrawPolyline(IReadOnlyList<Point> polyline)
+        {
+            if (null == polyline)
+                throw new ArgumentNullException ();
+
+            if (polyline.Count <= 1)
+                return;
+
+            BuildPolyLinePath (polyline);
+            CGContext.StrokePath ();
+
+            for (int i = 0; i < polyline.Count - 1; i++)
+            {
+                DrawDimension (polyline [i], polyline [i + 1]);
+            }
+        }
+
+        public void BuildPolyLinePath(IReadOnlyList<Point> polyline)
+        {
+            Point p1 = Transform.Transform (polyline [0]);
+            CGContext context = CGContext;
+            context.MoveTo ((nfloat)p1.X, (nfloat)p1.Y);
+            for (int i = 1; i < polyline.Count; i++)
+            {
+                Point pi = Transform.Transform(polyline [i]);
+                context.AddLineToPoint ((nfloat)pi.X, (nfloat)pi.Y);
             }
         }
 

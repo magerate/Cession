@@ -12,42 +12,20 @@ namespace Cession.Drawing
     {
         protected override void DoDraw (DrawingContext drawingContext, Shape shape)
         {
-            var polyLine = shape as PolyLine;
-            if (null == polyLine)
+            var polyline = shape as PolyLine;
+            if (null == polyline)
                 throw new ArgumentException ("shape");
 
-            DrawPolyline (drawingContext, polyLine);
+            DrawPolyline (drawingContext, polyline);
         }
 
-        public static void DrawPolyline(DrawingContext drawingContext,IReadOnlyList<Point> polyline)
+        private void DrawPolyline(DrawingContext drawingContext,PolyLine polyline)
         {
-            if (null == drawingContext)
-                throw new ArgumentNullException ();
-
-            if (null == polyline)
-                throw new ArgumentNullException ();
-
-            if (polyline.Count <= 1)
-                return;
-
-            BuildPolyLinePath (drawingContext, polyline);
-            drawingContext.CGContext.StrokePath ();
-
-            for (int i = 0; i < polyline.Count - 1; i++)
+            foreach (var s in polyline.Segments)
             {
-                drawingContext.DrawDimension (polyline [i], polyline [i + 1]);
-            }
-        }
-
-        private static void BuildPolyLinePath(DrawingContext drawingContext,IReadOnlyList<Point> polyline)
-        {
-            Point p1 = drawingContext.Transform.Transform (polyline [0]);
-            CGContext context = drawingContext.CGContext;
-            context.MoveTo ((nfloat)p1.X, (nfloat)p1.Y);
-            for (int i = 1; i < polyline.Count; i++)
-            {
-                Point pi = drawingContext.Transform.Transform(polyline [i]);
-                context.AddLineToPoint ((nfloat)pi.X, (nfloat)pi.Y);
+                LineSegment ls = s as LineSegment;
+                drawingContext.StrokeLine (ls.Point1, ls.Point2);
+                drawingContext.DrawDimension (ls.Point1, ls.Point2);
             }
         }
     }
