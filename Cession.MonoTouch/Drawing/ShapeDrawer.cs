@@ -10,29 +10,29 @@ namespace Cession.Drawing
         {
         }
 
-        public void Draw (DrawingContext context, Shape shape)
+        public void Draw (DrawingContext drawingContext, Shape shape)
         {
-            if (null == context)
+            if (null == drawingContext)
                 throw new ArgumentNullException ();	
             if (null == shape)
                 throw new ArgumentNullException ();	
 
-            DoDraw (context, shape);
+            DoDraw (drawingContext, shape);
         }
 
-        public virtual void DrawSelected (DrawingContext context, Shape shape)
+        public void DrawSelected (DrawingContext drawingContext, Shape shape)
         {
-            if (null == context)
+            if (null == drawingContext)
                 throw new ArgumentNullException ();	
             if (null == shape)
                 throw new ArgumentNullException ();	
 
-            DoDrawSelected (context, shape);
+            DoDrawSelected (drawingContext, shape);
         }
 
-        protected abstract void DoDraw (DrawingContext context, Shape shape);
+        protected abstract void DoDraw (DrawingContext drawingContext, Shape shape);
 
-        protected virtual void DoDrawSelected (DrawingContext context, Shape shape)
+        protected virtual void DoDrawSelected (DrawingContext drawingContext, Shape shape)
         {
         }
     }

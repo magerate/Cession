@@ -22,7 +22,6 @@ namespace Cession.Drawing
             get{ return _context; }
         }
 
-
         public void PushTransform (Matrix transform)
         {
             _matrices.Push (Transform);
@@ -61,15 +60,13 @@ namespace Cession.Drawing
 
         public void BuildPolygonPath (IReadOnlyList<Point> polygon)
         {
-            var p0 = Transform.Transform (polygon [0]);
-            _context.MoveTo ((nfloat)p0.X, (nfloat)p0.Y);
+            if (null == polygon)
+                throw new ArgumentNullException ();
 
-            Point pi;
-            for (int i = 1; i < polygon.Count; i++)
-            {
-                pi = Transform.Transform (polygon [i]);
-                _context.AddLineToPoint ((nfloat)pi.X, (nfloat)pi.Y);
-            }
+            if (polygon.Count < 3)
+                throw new ArgumentException ();
+
+            BuildPolyLinePath (polygon);
             _context.ClosePath ();
         }
 
@@ -149,6 +146,26 @@ namespace Cession.Drawing
                 Point pi = Transform.Transform(polyline [i]);
                 context.AddLineToPoint ((nfloat)pi.X, (nfloat)pi.Y);
             }
+        }
+
+        public void StrokeCircle(Rect rect)
+        {
+            var cr = GetCGRect (rect);
+            CGContext.StrokeEllipseInRect (cr);
+        }
+
+        public void StrokeRect(Rect rect)
+        {
+            var cr = GetCGRect (rect);
+            CGContext.StrokeRect (cr);
+        }
+
+        private CGRect GetCGRect(Rect rect)
+        {
+            CGPoint location = Transform.Transform (rect.Location).ToCGPoint ();
+            nfloat width = (nfloat)(Transform.M11 * rect.Width);
+            nfloat height = (nfloat)(Transform.M11 * rect.Height); 
+            return new CGRect (location.X, location.Y, width, height);
         }
 
 

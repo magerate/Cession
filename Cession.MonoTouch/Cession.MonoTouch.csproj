@@ -8,7 +8,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{2ED77A31-EB48-48A7-AA40-0E87C608946A}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Cession.MonoTouch</RootNamespace>
+    <RootNamespace>Cession</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>Cession.MonoTouch</AssemblyName>
     <TargetFrameworkIdentifier>Xamarin.iOS</TargetFrameworkIdentifier>
@@ -119,6 +119,13 @@
     <Compile Include="Drawing\PolyLineDrawer.cs" />
     <Compile Include="Tools\AddPolylineTool.cs" />
     <Compile Include="Tools\PolygonMeasurer.cs" />
+    <Compile Include="Tools\AddCircleTool.cs" />
+    <Compile Include="Drawing\CircleDrawer.cs" />
+    <Compile Include="Drawing\RectangleDrawer.cs" />
+    <Compile Include="Tools\AddRectTool.cs" />
+    <Compile Include="Drawing\PathDrawer.cs" />
+    <Compile Include="Tools\AddPathTool.cs" />
+    <Compile Include="Tools\AddPolygonalShapeTool.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">

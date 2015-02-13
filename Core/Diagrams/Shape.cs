@@ -47,6 +47,17 @@ namespace Cession.Diagrams
             }
         }
 
+        public Shape GetSelectableAncestor()
+        {
+            Shape shape = this;
+            while (shape != null)
+            {
+                if (shape.CanSelect)
+                    return shape;
+                shape = shape.Parent;
+            }
+            return null;
+        }
 
         protected Shape () : this (null)
         {

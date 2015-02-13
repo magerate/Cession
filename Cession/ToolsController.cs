@@ -40,13 +40,27 @@ namespace Cession.UIKit
             polylineItem.Tag = typeof(AddPolylineTool);
             polylineItem.Action = toolSelector;
             section.Items.Add (polylineItem);
-//
-//            var polygonItem = new DetailMenuItem ();
-//            polygonItem.Title = "Add Polygonal Room";
-//            polygonItem.Image = ImageHelper.GetTemplateImage (ImageFiles.Polygon25);
-//            polygonItem.Tag = ToolType.AddPolygonalRoom;
-//            polygonItem.Action = toolSelector;
-//            section.Items.Add (polygonItem);
+
+            var circleItem = new DetailMenuItem ();
+            circleItem.Title = "Add Circle";
+            circleItem.Image = ImageHelper.GetTemplateImage (ImageFiles.Polygon25);
+            circleItem.Tag = typeof(AddCircleTool);
+            circleItem.Action = toolSelector;
+            section.Items.Add (circleItem);
+
+            var rectItem = new DetailMenuItem ();
+            rectItem.Title = "Add Rect";
+            rectItem.Image = ImageHelper.GetTemplateImage (ImageFiles.Polygon25);
+            rectItem.Tag = typeof(AddRectTool);
+            rectItem.Action = toolSelector;
+            section.Items.Add (rectItem);
+
+            var polygonItem = new DetailMenuItem ();
+            polygonItem.Title = "Add Polygon";
+            polygonItem.Image = ImageHelper.GetTemplateImage (ImageFiles.Polygon25);
+            polygonItem.Tag = typeof(AddPathTool);
+            polygonItem.Action = toolSelector;
+            section.Items.Add (polygonItem);
         }
 
 

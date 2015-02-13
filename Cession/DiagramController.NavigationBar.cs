@@ -29,7 +29,7 @@ namespace Cession
         private UIBarButtonItem undoButton;
         private UIBarButtonItem redoButton;
 
-        private Type segmentToolType = typeof(SelectTool);
+        private Type segmentToolType = typeof(AddRectTool);
 
         private void InitializeNavigationItems ()
         {

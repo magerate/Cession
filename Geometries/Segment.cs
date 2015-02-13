@@ -83,5 +83,10 @@ namespace Cession.Geometries
         {
             return Contains (_p1, _p2, point);
         }
+
+        public static Point GetCenter(Point p1,Point p2)
+        {
+            return new Point ((p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2);
+        }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Cession.Commands
 {
-    public class CommandManager
+    public partial class CommandManager
     {
         private Stack<Command> undoStack;
         private Stack<Command> redoStack;
@@ -14,7 +14,6 @@ namespace Cession.Commands
 
         public event EventHandler<EventArgs> CanUndoChanged;
         public event EventHandler<EventArgs> CanRedoChanged;
-
 
         public CommandManager ()
         {
@@ -141,7 +140,6 @@ namespace Cession.Commands
             action ();
             OnCommit ();
         }
-
 
         private void CheckChanged (bool isPush, Stack<Command> stack, Action action)
         {

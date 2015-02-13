@@ -11,11 +11,16 @@ using Cession.UIKit;
 
 namespace Cession.Tools
 {
-    public class AddPolylineTool:Tool
+    public abstract class AddPolygonalShapeTool:Tool
     {
         private PolygonMeasurer _measurer;
 
-        public AddPolylineTool (ToolManager toolManager) : base (toolManager)
+        protected PolygonMeasurer Measurer
+        {
+            get{return _measurer;}
+        }
+
+        protected AddPolygonalShapeTool (ToolManager toolManager) : base (toolManager)
         {
             _measurer = new PolygonMeasurer ();
         }
@@ -54,17 +59,17 @@ namespace Cession.Tools
             RefreshToolView ();
         }
 
-        public override void DoubleTap (UITapGestureRecognizer gestureRecognizer)
+        protected abstract void Commit();
+
+        protected virtual void Clear()
         {
-            Commit ();
+            _measurer.Clear ();
         }
 
-        protected virtual void Commit()
+        protected void Complete()
         {
-            var polyline = new PolyLine (_measurer.Points);
-            CommandManager.ExecuteListAdd (CurrentLayer.Shapes, polyline);
-
-            _measurer.Clear ();
+            Commit ();
+            Clear ();
             RefreshToolView ();
             RefreshDiagramView ();
         }

@@ -25,7 +25,6 @@ namespace Cession.Drawing
             {
                 LineSegment ls = s as LineSegment;
                 drawingContext.StrokeLine (ls.Point1, ls.Point2);
-                drawingContext.DrawDimension (ls.Point1, ls.Point2);
             }
         }
     }

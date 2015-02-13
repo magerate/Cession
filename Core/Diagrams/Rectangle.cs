@@ -8,6 +8,11 @@ namespace Cession.Diagrams
         private Rect _rect;
         private Matrix _transform;
 
+        public Rect Rect
+        {
+            get{ return _rect; }
+        }
+
         public Rectangle (Rect rect)
         {
             _rect = rect;
@@ -21,7 +26,7 @@ namespace Cession.Diagrams
 
         protected override bool DoContains (Point point)
         {
-            var matrix = _transform;
+            Matrix matrix = _transform;
             matrix.Invert ();
             var pp = matrix.Transform (point);
             return _rect.Contains (pp);
@@ -39,7 +44,7 @@ namespace Cession.Diagrams
 
         internal override void DoOffset (double x, double y)
         {
-            _transform.Translate (x, y);
+            _rect.Offset (x, y);
         }
 
         internal override void DoRotate (Point point, double radian)

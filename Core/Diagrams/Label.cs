@@ -8,13 +8,13 @@ namespace Cession.Diagrams
         private string _text;
         private Point _location;
 
-        public string Text 
+        public string Text
         {
             get{ return _text; }
             set{ _text = value; }
         }
 
-        public Point Location 
+        public Point Location
         {
             get{ return _location; }
             set{ _location = value; }

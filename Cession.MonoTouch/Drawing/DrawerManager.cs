@@ -16,6 +16,9 @@ namespace Cession.Drawing
             RegisterDrawer (typeof(Layer), new LayerDrawer ());
             RegisterDrawer (typeof(Label), new LabelDrawer ());
             RegisterDrawer (typeof(PolyLine), new PolyLineDrawer ());
+            RegisterDrawer (typeof(Circle), new CircleDrawer ());
+            RegisterDrawer (typeof(Rectangle), new RectangleDrawer ());
+            RegisterDrawer (typeof(Path), new PathDrawer ());
         }
 
         public static void RegisterDrawer (Type type, ShapeDrawer drawer)

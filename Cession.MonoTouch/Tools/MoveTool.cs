@@ -31,7 +31,7 @@ namespace Cession.Tools
 
         protected override void Commit ()
         {
-            var vector = endPoint.Value - startPoint.Value;
+            var vector = EndPoint.Value - StartPoint.Value;
             var command = Command.Create (_shapes, vector, -vector, OffsetShapes);
             CommandManager.Execute (command);
         }
@@ -46,7 +46,7 @@ namespace Cession.Tools
 
         protected override void DoDrawDragDrop (DrawingContext drawingContext)
         {
-            Vector vector = endPoint.Value - startPoint.Value;
+            Vector vector = EndPoint.Value - StartPoint.Value;
             vector = CurrentLayer.ConvertToViewVector (vector);
 
             CGContext context = drawingContext.CGContext;

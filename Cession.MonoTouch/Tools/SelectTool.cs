@@ -93,6 +93,7 @@ namespace Cession.Tools
             CurrentLayer.ClearSelection ();
             if (null != shape)
             {
+                shape = shape.GetSelectableAncestor ();
                 if (null != shape)
                     CurrentLayer.Select (shape);
             }

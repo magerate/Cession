@@ -2,7 +2,6 @@ using System;
 
 using UIKit;
 using CoreGraphics;
-using Foundation;
 
 using Cession.UIKit;
 using Cession.Geometries;
@@ -12,16 +11,16 @@ namespace Cession.Tools
 {
     public abstract class DragDropTool:Tool
     {
-        protected Point? startPoint;
-        protected Point? endPoint;
+        protected Point? StartPoint{ get; set; }
+        protected Point? EndPoint{ get; set; }
 
-        public DragDropTool (ToolManager toolManager) : base (toolManager)
+        protected DragDropTool (ToolManager toolManager) : base (toolManager)
         {
         }
 
         public override void TouchBegin (CGPoint point)
         {
-            startPoint = ConvertToLogicalPoint (point);
+            StartPoint = ConvertToLogicalPoint (point);
         }
 
         public override void Pan (UIPanGestureRecognizer gestureRecognizer)
@@ -32,31 +31,31 @@ namespace Cession.Tools
                 Clear ();
                 RefreshToolView ();
                 TryRestoreState ();
-                return;
             }
-
-
-            endPoint = GetLogicPoint (gestureRecognizer);
-            RefreshToolView ();
+            else
+            {
+                EndPoint = GetLogicPoint (gestureRecognizer);
+                RefreshToolView ();
+            }
         }
 
         protected abstract void Commit ();
 
         protected virtual void Clear ()
         {
-            startPoint = null;
-            endPoint = null;
+            StartPoint = null;
+            EndPoint = null;
         }
 
-        protected override void DoDraw (DrawingContext context)
+        protected override void DoDraw (DrawingContext drawingContext)
         {
-            if (startPoint.HasValue && endPoint.HasValue)
+            if (StartPoint.HasValue && EndPoint.HasValue)
             {
-                DoDrawDragDrop (context);
+                DoDrawDragDrop (drawingContext);
             }
         }
 
-        protected abstract void DoDrawDragDrop (DrawingContext context);
+        protected abstract void DoDrawDragDrop (DrawingContext drawingContext);
 
     }
 }

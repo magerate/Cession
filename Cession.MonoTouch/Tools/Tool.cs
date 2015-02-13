@@ -102,7 +102,7 @@ namespace Cession.Tools
             return false;
         }
 
-        public void Complete ()
+        public void Finish ()
         {
             if (TryRestoreState ())
                 return;
@@ -157,6 +157,11 @@ namespace Cession.Tools
         protected CGPoint ConvertToViewPoint (Point point)
         {
             return CurrentLayer.ConvertToViewPoint (point).ToCGPoint ();
+        }
+
+        protected void ExecuteAddShape(Shape shape)
+        {
+            CommandManager.ExecuteListAdd (CurrentLayer.Shapes, shape);
         }
 
     }

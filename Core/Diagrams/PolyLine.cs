@@ -35,6 +35,7 @@ namespace Cession.Diagrams
             {
                 var segment = new LineSegment (points [i]);
                 segment.Parent = this;
+                segment.Ability = ShapeAbility.CanHitTest | ShapeAbility.CanAssign;
                 _segments.Add (segment);
             }
             _lastPoint = points [points.Count - 1];

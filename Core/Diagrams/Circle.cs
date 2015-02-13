@@ -6,9 +6,9 @@ namespace Cession.Diagrams
     public class Circle:Shape
     {
         private Point _center;
-        private int _radius;
+        private double _radius;
 
-        public Circle (Point center, int radius, Shape parent) : base (parent)
+        public Circle (Point center, double radius)
         {
             _center = center;
             _radius = radius;

@@ -30,10 +30,13 @@ namespace Cession.Diagrams
             if (points.Count < 3)
                 throw new ArgumentException ();
 
+            _segments = new List<Segment> (points.Count);
+
             for (int i = 0; i < points.Count; i++)
             {
                 var segment = new LineSegment (points [i]);
                 segment.Parent = this;
+                segment.Ability = ShapeAbility.CanAssign | ShapeAbility.CanHitTest;
                 _segments.Add (segment);
             }
         }
@@ -107,12 +110,24 @@ namespace Cession.Diagrams
 
         protected override Rect DoGetBounds ()
         {
-            return Rect.Empty;
+            return Polygon.GetBounds (this);
         }
 
         protected override bool DoContains (Point point)
         {
-            return false;
+            return Polygon.Contains (point, this);
+        }
+
+        protected override Shape DoHitTest (Point point)
+        {
+            Shape shape = base.DoHitTest (point);
+            if (null != shape)
+                return shape;
+           
+            if (DoContains (point))
+                return this;
+
+            return null;
         }
     }
 }

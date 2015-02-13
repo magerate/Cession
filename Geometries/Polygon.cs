@@ -5,6 +5,29 @@ namespace Cession.Geometries
 {
     public class Polygon
     {
+        public static Rect GetBounds(IReadOnlyList<Point> polygon)
+        {
+            if (null == polygon)
+                throw new ArgumentNullException ();
+            if (polygon.Count < 3)
+                throw new ArgumentException ("polygon");
+
+            double left = double.MaxValue;
+            double right = double.MinValue;
+            double top = double.MaxValue;
+            double bottom = double.MinValue;
+
+            for (int i = 0; i < polygon.Count; i++)
+            {
+                left = Math.Min (polygon [i].X, left);
+                right = Math.Max (polygon [i].X, right);
+
+                top = Math.Min (polygon [i].Y, top);
+                bottom = Math.Max (polygon [i].Y, bottom);
+            }
+            return Rect.FromLTRB (left, top, right, bottom);
+        }
+
         public static bool IsClockwise (IReadOnlyList<Point> polygon)
         {
             var v1 = polygon [1] - polygon [0];
