@@ -12,14 +12,14 @@ namespace Cession.Drawing
     {
         protected override void DoDraw (DrawingContext drawingContext, Shape shape)
         {
-            var polyline = shape as PolyLine;
+            var polyline = shape as Polyline;
             if (null == polyline)
                 throw new ArgumentException ("shape");
 
             DrawPolyline (drawingContext, polyline);
         }
 
-        private void DrawPolyline(DrawingContext drawingContext,PolyLine polyline)
+        private void DrawPolyline(DrawingContext drawingContext,Polyline polyline)
         {
             foreach (var s in polyline.Segments)
             {

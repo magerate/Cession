@@ -22,6 +22,11 @@ namespace Cession.Drawing
             context.FillEllipseInRect (rect);
         }
 
+        public static void FillRect(this CGContext context,CGRect rect)
+        {
+            context.FillRect (rect);
+        }
+
         public static void DrawString (this string str, CGPoint point, UIStringAttributes stringAttribute)
         {
             if (null == str)

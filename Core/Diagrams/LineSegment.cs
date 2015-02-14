@@ -5,13 +5,20 @@ namespace Cession.Diagrams
 {
     public class LineSegment:Segment
     {
-        public Point Point2 {
-            get { 
+        public Point Point2
+        {
+            get
+            { 
                 var segment = Next;
                 if (segment != null)
                     return segment.Point1;
-                return ((PolyLine)Parent).LastPoint;
+                return ((Polyline)Parent).LastPoint;
             }
+        }
+
+        public Point Middle
+        {
+            get{ return new Point ((Point1.X + Point2.X) / 2, (Point1.Y + Point2.Y) / 2); }
         }
 
         public LineSegment (Point point) : base (point)

@@ -1,21 +1,48 @@
 using System;
-using CoreGraphics;
-
-using UIKit;
+using System.Collections.Generic;
 
 using Cession.UIKit;
 using Cession.Geometries;
 using Cession.Drawing;
 using Cession.Diagrams;
+using Cession.Handles;
+using Cession.Projects;
+
+using CoreGraphics;
+using UIKit;
 
 namespace Cession.Tools
 {
     public class SelectTool:Tool
     {
         private CGPoint _touchPoint;
+        private HandleManager _handlerManager;
+
+        public IEnumerable<Handle> Handles
+        {
+            get
+            { 
+                if (null == _handlerManager)
+                    return null;
+                return _handlerManager.Handles;
+            }
+        }
 
         public SelectTool (ToolManager toolManager) : base (toolManager)
         {
+        }
+
+        public void AttachProject(Project project)
+        {
+            if (null == _handlerManager)
+                _handlerManager = new HandleManager ();
+            _handlerManager.AttachProject (project);
+        }
+
+        public void DetachProject(Project project)
+        {
+            if (null != _handlerManager)
+                _handlerManager.DetachProject (project);
         }
 
         public override void Pan (UIPanGestureRecognizer gestureRecognizer)
@@ -97,6 +124,7 @@ namespace Cession.Tools
                 if (null != shape)
                     CurrentLayer.Select (shape);
             }
+            RefreshToolView ();
         }
     }
 }

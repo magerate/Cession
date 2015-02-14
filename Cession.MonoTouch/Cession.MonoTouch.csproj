@@ -42,6 +42,7 @@
     <Folder Include="Resources\" />
     <Folder Include="Diagrams\" />
     <Folder Include="Tools\" />
+    <Folder Include="Drawing\Handles\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Drawing\PathDrawer.cs" />
     <Compile Include="Tools\AddPathTool.cs" />
     <Compile Include="Tools\AddPolygonalShapeTool.cs" />
+    <Compile Include="Drawing\Handles\HandleDrawing.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">

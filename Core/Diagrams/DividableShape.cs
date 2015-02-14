@@ -11,7 +11,7 @@ namespace Cession.Diagrams
     {
         class DivideData
         {
-            public PolyLine Divider{ get; set; }
+            public Polyline Divider{ get; set; }
 
             public Path Path{ get; set; }
         }
@@ -30,7 +30,7 @@ namespace Cession.Diagrams
             yield return _contour;
         }
 
-        public void AddDivider (Path path, PolyLine divider)
+        public void AddDivider (Path path, Polyline divider)
         {
             var node = GetTreeNode (path);
             node.Data.Divider = divider;
@@ -42,7 +42,7 @@ namespace Cession.Diagrams
             node.RightChild = rightChild;
         }
 
-        public void RemoveDivider (Path path, PolyLine divider)
+        public void RemoveDivider (Path path, Polyline divider)
         {
             var node = GetTreeNode (path);
             node.Data.Divider = null;

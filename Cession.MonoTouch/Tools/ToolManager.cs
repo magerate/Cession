@@ -8,6 +8,7 @@ using Foundation;
 using Cession.Utilities;
 using Cession.Diagrams;
 using Cession.Commands;
+using Cession.Projects;
 
 namespace Cession.Tools
 {
@@ -17,7 +18,7 @@ namespace Cession.Tools
 
         UIView ToolView{ get; }
 
-        Layer Layer{ get; }
+        Project Project{ get; }
 
         CommandManager CommandManager{ get; }
     }

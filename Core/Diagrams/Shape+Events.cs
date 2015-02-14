@@ -3,17 +3,43 @@ using System.Collections.Generic;
 
 namespace Cession.Diagrams
 {
+    public class OffsetEventArgs:RoutedEventArgs
+    {
+        public double OffsetX{ get; set; }
+
+        public double OffsetY{ get; set; }
+
+        public OffsetEventArgs (RoutedEvent routedEvent, object source, double offsetX, double offsetY) :
+            base (routedEvent, source)
+        {
+            OffsetX = offsetX;
+            OffsetY = offsetY;
+        }
+    }
+
     public  partial class Shape
     {
         private Dictionary<RoutedEvent,Delegate> _eventStore;
 
         public static readonly RoutedEvent OffsetEvent = new RoutedEvent ("Offset", 
-                                                       typeof(RoutedEventHandler), 
-                                                       typeof(Shape));
+                                                             typeof(EventHandler<OffsetEventArgs>), 
+                                                             typeof(Shape));
 
         public static readonly RoutedEvent RotateEvent = new RoutedEvent ("Rotate", 
-                                                       typeof(RoutedEventHandler), 
-                                                       typeof(Shape));
+                                                             typeof(RoutedEventHandler), 
+                                                             typeof(Shape));
+
+        public event EventHandler<OffsetEventArgs> Offseted
+        {
+            add{ AddHandler (OffsetEvent, value);}
+            remove{ RemoveHandler (OffsetEvent, value);}
+        }
+
+        public event RoutedEventHandler Rotated
+        {
+            add{ AddHandler (RotateEvent, value);}
+            remove{ RemoveHandler (RotateEvent, value);}
+        }
 
         public void AddHandler (RoutedEvent routedEvent, Delegate handler)
         {
@@ -64,7 +90,8 @@ namespace Cession.Diagrams
         protected void RaiseEvent (RoutedEventArgs args)
         {
             var shape = this;
-            while (shape != null) {
+            while (shape != null)
+            {
                 shape.InvokeHandler (args);
                 shape = shape.Parent;
             }
@@ -77,7 +104,8 @@ namespace Cession.Diagrams
 
             args.Source = this;
             var handler = GetHandler (args.RoutedEvent);
-            if (null != handler) {
+            if (null != handler)
+            {
                 if (handler is RoutedEventHandler)
                     ((RoutedEventHandler)handler).Invoke (this, args);
                 else

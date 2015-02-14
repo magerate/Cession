@@ -6,6 +6,7 @@ using CoreGraphics;
 
 using Cession.Drawing;
 using Cession.Tools;
+using Cession.Drawing.Handles;
 
 namespace Cession
 {
@@ -126,11 +127,20 @@ namespace Cession
             using (var context = UIGraphics.GetCurrentContext ())
             {
                 var dc = new DrawingContext (context);
-                var matrix = ToolManager.Host.Layer.DrawingTransform;
+                var layer = ToolManager.Host.Project.SelectedLayer;
+                var matrix = layer.DrawingTransform;
                 dc.PushTransform (matrix);
-                foreach (var shape in ToolManager.Host.Layer.SelectedShapes)
+                foreach (var shape in layer.SelectedShapes)
                 {
                     shape.DrawSelected (dc);
+                }
+                var selectTool = ToolManager.GetTool (typeof(SelectTool)) as SelectTool;
+                if (selectTool.Handles != null)
+                {
+                    foreach (var handle in selectTool.Handles)
+                    {
+                        handle.Draw (dc);
+                    }
                 }
                 ToolManager.CurrentTool.Draw (dc);
                 dc.PopTransform ();

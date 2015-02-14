@@ -71,8 +71,6 @@
     <Compile Include="Products\Enums.cs" />
     <Compile Include="Assignments\AreaAssignment.cs" />
     <Compile Include="Handles\Handle.cs" />
-    <Compile Include="Handles\SideHandle.cs" />
-    <Compile Include="Handles\HandleHelper.cs" />
     <Compile Include="Diagrams\Shape.cs" />
     <Compile Include="Diagrams\HitTestProvider.cs" />
     <Compile Include="Mediators\DiagramCommandMediator.cs" />
@@ -102,6 +100,10 @@
     <Compile Include="Projects\ProjectInfo.cs" />
     <Compile Include="Diagrams\ShapesExtensions.cs" />
     <Compile Include="Diagrams\LayerShapeCollection.cs" />
+    <Compile Include="Handles\LineHandle.cs" />
+    <Compile Include="Handles\VertexHandle.cs" />
+    <Compile Include="Handles\HandleHelper.cs" />
+    <Compile Include="Handles\HandleManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">

@@ -35,8 +35,8 @@ namespace Cession.Diagrams
             get { 
                 if (Parent is Path)
                     return ((Path)Parent).GetNextSide (this);
-                else if (Parent is PolyLine)
-                    return ((PolyLine)Parent).GetNextSide (this);
+                else if (Parent is Polyline)
+                    return ((Polyline)Parent).GetNextSide (this);
                 return null;
             }
         }
@@ -45,8 +45,8 @@ namespace Cession.Diagrams
             get {
                 if (Parent is Path)
                     return ((Path)Parent).GetPreviousSide (this);
-                else if (Parent is PolyLine)
-                    return ((PolyLine)Parent).GetPreviousSide (this);
+                else if (Parent is Polyline)
+                    return ((Polyline)Parent).GetPreviousSide (this);
                 return null;
             }
         }

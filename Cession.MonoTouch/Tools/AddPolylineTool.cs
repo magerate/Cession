@@ -61,7 +61,7 @@ namespace Cession.Tools
 
         protected virtual void Commit()
         {
-            var polyline = new PolyLine (_measurer.Points);
+            var polyline = new Polyline (_measurer.Points);
             CommandManager.ExecuteListAdd (CurrentLayer.Shapes, polyline);
 
             _measurer.Clear ();

@@ -44,6 +44,21 @@ namespace Cession
             commandManager.Committed += CommandCommited;
             commandManager.CanUndoChanged += CanUndoChanged;
             commandManager.CanRedoChanged += CanRedoChanged;
+
+            if (null != toolManager)
+            {
+                var selectTool = toolManager.GetTool (typeof(SelectTool)) as SelectTool;
+                selectTool.AttachProject (project);
+            }
+        }
+
+        public override void DidMoveToParentViewController (UIViewController parent)
+        {
+            if (parent == null)
+            {
+                var selectTool = toolManager.GetTool (typeof(SelectTool)) as SelectTool;
+                selectTool.DetachProject (project);
+            }
         }
 
         private void CommandCommited (object sender, EventArgs e)
@@ -88,6 +103,12 @@ namespace Cession
             toolManager.Host = this;
 
             toolView.ToolManager = toolManager;
+
+            if (null != project)
+            {
+                var selectTool = toolManager.GetTool (typeof(SelectTool)) as SelectTool;
+                selectTool.AttachProject (project);
+            }
         }
 
         public UIView DiagramView
@@ -100,9 +121,9 @@ namespace Cession
             get{ return toolView; }
         }
 
-        public Layer Layer
+        public Project Project
         {
-            get{ return project.SelectedLayer; }
+            get{ return project; }
         }
 
         public CommandManager CommandManager

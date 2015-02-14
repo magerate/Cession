@@ -6,7 +6,7 @@ using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
-    public class PolyLine:CompositeShape
+    public class Polyline:CompositeShape
     {
         private List<Segment> _segments;
         private Point _lastPoint;
@@ -21,7 +21,7 @@ namespace Cession.Diagrams
             get{ return _lastPoint; }
         }
 
-        public PolyLine (IReadOnlyList<Point> points)
+        public Polyline (IReadOnlyList<Point> points)
         {
             if (null == points)
                 throw new ArgumentNullException ();
@@ -39,6 +39,15 @@ namespace Cession.Diagrams
                 _segments.Add (segment);
             }
             _lastPoint = points [points.Count - 1];
+        }
+
+        public IEnumerable<Point> GetVertices()
+        {
+            foreach (var s in _segments)
+            {
+                yield return s.Point1;
+            }
+            yield return _lastPoint;
         }
 
         public override IEnumerator<Shape> GetEnumerator ()

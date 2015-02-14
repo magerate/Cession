@@ -135,7 +135,7 @@ namespace Cession.Tools
 
         protected Layer CurrentLayer
         {
-            get{ return Host.Layer; }
+            get{ return Host.Project.SelectedLayer; }
         }
 
         protected CommandManager CommandManager

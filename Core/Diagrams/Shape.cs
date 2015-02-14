@@ -59,6 +59,17 @@ namespace Cession.Diagrams
             return null;
         }
 
+        public bool IsAncestor(Shape shape)
+        {
+            while (shape != null)
+            {
+                if (shape == this)
+                    return true;
+                shape = shape.Parent;
+            }
+            return false;
+        }
+
         protected Shape () : this (null)
         {
         }
@@ -74,7 +85,7 @@ namespace Cession.Diagrams
             if (!CanOffset)
                 throw new InvalidOperationException ();
             DoOffset (x, y);
-            RaiseEvent (new RoutedEventArgs (Shape.OffsetEvent, this));
+            RaiseEvent (new OffsetEventArgs (Shape.OffsetEvent, this,x,y));
         }
 
         public void Offset(Vector vector)

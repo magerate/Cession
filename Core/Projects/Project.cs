@@ -11,6 +11,9 @@ namespace Cession.Projects
 
         public LayerCollection Layers{ get; private set; }
 
+        public event EventHandler<EventArgs> SelectedLayerChanging;
+        public event EventHandler<EventArgs> SelectedLayerChanged;
+
         public int SelectedLayerIndex
         {
             get{ return _selectedLayerIndex; }
@@ -18,7 +21,14 @@ namespace Cession.Projects
             {
                 if (value < 0 || value >= Layers.Count)
                     throw new ArgumentOutOfRangeException ();
-                _selectedLayerIndex = value;
+                if (value != _selectedLayerIndex)
+                {
+                    if (null != SelectedLayerChanging)
+                        SelectedLayerChanging (this, EventArgs.Empty);
+                    _selectedLayerIndex = value;
+                    if (null != SelectedLayerChanged)
+                        SelectedLayerChanged (this, EventArgs.Empty);
+                }
             }
         }
 
