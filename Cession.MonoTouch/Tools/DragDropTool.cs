@@ -29,6 +29,7 @@ namespace Cession.Tools
             {
                 Commit ();
                 Clear ();
+                RefreshDiagramView ();
                 RefreshToolView ();
                 TryRestoreState ();
             }

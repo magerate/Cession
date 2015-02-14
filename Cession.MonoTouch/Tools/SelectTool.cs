@@ -30,6 +30,7 @@ namespace Cession.Tools
 
         public SelectTool (ToolManager toolManager) : base (toolManager)
         {
+            VertexHandle.TargetToolType = typeof(MoveVertexTool);
         }
 
         public void AttachProject(Project project)
@@ -51,10 +52,10 @@ namespace Cession.Tools
             {
                 if (!TryOperateDiagram ())
                 {
-                    _toolManager.PushTool (typeof(PanTool));
+                    ToolManager.PushTool (typeof(PanTool));
                 }
-                _toolManager.CurrentTool.TouchBegin (_touchPoint);
-                _toolManager.CurrentTool.Pan (gestureRecognizer);
+                ToolManager.CurrentTool.TouchBegin (_touchPoint);
+                ToolManager.CurrentTool.Pan (gestureRecognizer);
             }
         }
 
@@ -76,31 +77,27 @@ namespace Cession.Tools
 
         private bool TryPanHandle ()
         {
-//            if (CurrentLayer.SelectedDiagrams.Count == 0)
-//                return false;
-//
-//            var room = CurrentLayer.SelectedDiagrams [0] as Room;
-//            if (null == room)
-//                return false;
-//
-//            var handles = room.Contour.GetHandles (CurrentLayer.Transform);
-//            for (int i = 0; i < handles.Length; i++)
-//            {
-//                if (handles [i].Contains (_touchPoint.ToPoint2 ()))
-//                {
-//                    _toolManager.PushTool (ToolType.MoveSide, handles [i]);
-//                    return true;
-//                }
-//            }
+            if (Handles == null)
+                return false;
+
+            Point tp = ConvertToLogicalPoint (_touchPoint);
+            foreach (var h in Handles)
+            {
+                if (h.Contains (tp, CurrentLayer.DrawingTransform))
+                {
+                    ToolManager.PushTool (h.ToolType, h);
+                    return true;
+                }
+            }
             return false;
         }
 
         private bool TryMove ()
         {
             HitTest (ConvertToLogicalPoint (_touchPoint));
-            if (CurrentLayer.SelectedShapes.Count != 0)
+            if (CurrentLayer.SelectedShapes.Count > 0)
             {
-                _toolManager.PushTool (typeof(MoveTool), CurrentLayer.SelectedShapes);
+                ToolManager.PushTool (typeof(MoveTool), CurrentLayer.SelectedShapes);
                 return true;
             }
             return false;

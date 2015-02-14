@@ -13,8 +13,13 @@ namespace Cession.Tools
 {
     public abstract class Tool
     {
-        protected ToolManager _toolManager;
-        protected Tool _parentTool;
+        private ToolManager _toolManager;
+        private Tool _parentTool;
+
+        protected ToolManager ToolManager
+        {
+            get{ return _toolManager; }
+        }
 
         protected Tool (ToolManager toolManager)
         {

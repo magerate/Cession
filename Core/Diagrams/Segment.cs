@@ -1,14 +1,32 @@
+using System;
+
 using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
+    public class VertexChangedEventArgs:RoutedEventArgs
+    {
+        public Point Point{get;set;}
+
+        public VertexChangedEventArgs(RoutedEvent routedEvent,object source,Point point):base(routedEvent,source)
+        {
+            Point = point;
+        }
+    }
+
     public abstract class Segment:Shape
     {
-        public static readonly RoutedEvent CornerMoveEvent = new RoutedEvent ("Offset", 
-                                                           typeof(RoutedEventHandler), 
+        public static readonly RoutedEvent VertexChangeEvent = new RoutedEvent ("VertexChange", 
+                                                           typeof(EventHandler<VertexChangedEventArgs>), 
                                                            typeof(Segment));
 
         private Point _point1;
+
+//        public event EventHandler<VertexChangedEventArgs> VertexChanged
+//        {
+//            add{AddHandler(VertexChangeEvent,value);}
+//            remove{ RemoveHandler (VertexChangeEvent, value);}
+//        }
 
         public Point Point1 
         {
@@ -17,12 +35,11 @@ namespace Cession.Diagrams
             {
                 if (value != _point1) {
                     _point1 = value;
-                    var rea = new RoutedEventArgs (CornerMoveEvent, this);
+                    var rea = new VertexChangedEventArgs (VertexChangeEvent, this,value);
                     RaiseEvent (rea);
                 }
             }
         }
-
 
         internal Segment (Point point)
         {

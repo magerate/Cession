@@ -18,20 +18,23 @@ namespace Cession.Handles
 
         public static Type TargetToolType{ get; set;}
 
+        public override Type ToolType
+        {
+            get{return TargetToolType;}
+        }
+
         public VertexHandle (Shape shape,Point location):base(shape,location)
         {
         }
 
-        public override Handle HitTest (Point point, Matrix transform)
+        public override bool Contains (Point point, Matrix transform)
         {
             double dx = Math.Abs (point.X - Location.X);
             double dy = Math.Abs (point.Y - Location.Y);
 
-            double delta = (Size/2) * transform.M11;
+            double delta = (Size/2) / transform.M11;
 
-            if (dx <= delta && dy <= delta)
-                return this;
-            return null;
+            return dx <= delta && dy <= delta;
         }
 
 //        public Command CreateCommand(Point point)

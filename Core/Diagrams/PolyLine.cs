@@ -19,6 +19,15 @@ namespace Cession.Diagrams
         public Point LastPoint
         {
             get{ return _lastPoint; }
+            set
+            { 
+                if (value != _lastPoint)
+                {
+                    _lastPoint = value; 
+                    var ea = new VertexChangedEventArgs (Segment.VertexChangeEvent, this,value);
+                    RaiseEvent (ea);
+                }
+            }
         }
 
         public Polyline (IReadOnlyList<Point> points)

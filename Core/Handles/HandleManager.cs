@@ -1,15 +1,19 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Specialized;
 using System.Collections.Generic;
+using System.Linq;
 
 using Cession.Geometries;
 using Cession.Diagrams;
 using Cession.Projects;
+using D = Cession.Diagrams;
 
 namespace Cession.Handles
 {
     public class HandleManager
     {
-        private List<Handle> _handles = new List<Handle>();
+        private List<Handle> _handles = new List<Handle> ();
 
         public IReadOnlyList<Handle> Handles
         {
@@ -35,50 +39,85 @@ namespace Cession.Handles
             _handles.Clear ();
         }
 
-        private void SelectedLayerChanging(object sender,EventArgs e)
+        private void SelectedLayerChanging (object sender, EventArgs e)
         {
             var p = sender as Project;
             UnregisterLayerEvents (p.SelectedLayer);
         }
 
-        private void SelectedLayerChanged(object sender,EventArgs e)
+        private void SelectedLayerChanged (object sender, EventArgs e)
         {
             var p = sender as Project;
             RegisterLayerEvents (p.SelectedLayer);
         }
 
-        private void SelectionCleared(object sender,EventArgs e)
+        private void SelectionCleared (object sender, EventArgs e)
         {
-            _handles.Clear();
+            _handles.Clear ();
         }
 
-        private void ShapeSelected(object sender,ShapeSelectedEventArgs e)
+        private void ShapeSelected (object sender, ShapeSelectedEventArgs e)
         {
             var handles = e.Shape.CreateHandles ();
             _handles.AddRange (handles);
         }
 
-        private void RegisterLayerEvents(Layer layer)
+        private void RegisterLayerEvents (Layer layer)
         {
             layer.SelectionClear += SelectionCleared;
             layer.ShapeSelected += ShapeSelected;
             layer.Offseted += ShapeOffseted;
+            layer.AddHandler (D.Segment.VertexChangeEvent, new EventHandler<VertexChangedEventArgs> (VertexChange));
+            layer.Shapes.CollectionChanged += ShapeCollectionChanged;
         }
 
-        private void UnregisterLayerEvents(Layer layer)
+        private void UnregisterLayerEvents (Layer layer)
         {
             layer.SelectionClear -= SelectionCleared;
             layer.ShapeSelected -= ShapeSelected;
             layer.Offseted -= ShapeOffseted;
+            layer.RemoveHandler (D.Segment.VertexChangeEvent, new EventHandler<VertexChangedEventArgs> (VertexChange));
+            layer.Shapes.CollectionChanged -= ShapeCollectionChanged;
         }
 
-        private void ShapeOffseted(object sender,OffsetEventArgs e)
+        private void ShapeOffseted (object sender, OffsetEventArgs e)
         {
             foreach (var h in _handles)
             {
                 var shape = e.OriginalSource as Shape;
                 if (shape.IsAncestor (h.Shape))
                     h.Offset (e.OffsetX, e.OffsetY);
+            }
+        }
+
+        private void VertexChange (object sender, VertexChangedEventArgs e)
+        {
+            foreach (var h in _handles)
+            {
+                if (e.OriginalSource == h.Shape)
+                {
+                    h.Location = e.Point;
+                }
+            }
+        }
+
+        private bool ContainsHandleShape(IList shapes,Shape shape)
+        {
+            foreach (var item in shapes)
+            {
+                var ss = item as Shape;
+                if (ss.IsAncestor (shape))
+                    return true;
+            }
+            return false;
+        }
+
+        private void ShapeCollectionChanged (object sender, NotifyCollectionChangedEventArgs e)
+        {
+            var rhs = _handles.Where (h => ContainsHandleShape (e.OldItems, h.Shape)).ToArray();
+            foreach (var item in rhs)
+            {
+                _handles.Remove (item);
             }
         }
     }

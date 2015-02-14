@@ -5,7 +5,7 @@ using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
-    public class LayerShapeCollection:Collection<Shape>
+    public class LayerShapeCollection:ObservableCollection<Shape>
     {
         private Layer _layer;
 

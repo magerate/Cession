@@ -168,7 +168,15 @@ namespace Cession.Drawing
             return new CGRect (location.X, location.Y, width, height);
         }
 
+        public void SaveState()
+        {
+            _context.SaveState ();
+        }
 
+        public void RestoreState()
+        {
+            _context.RestoreState ();
+        }
     }
 }
 

@@ -120,6 +120,16 @@ namespace Cession.Commands
             var command = Command.Create (newValue, oldValue, action);
             Execute (command, isPush);
         }
+
+        public void Execute<T1,T2> (T1 target,
+                                    T2 newValue,
+                                    T2 oldValue,
+                                    Action<T1,T2> action,
+                                    bool isPush = true)
+        {
+            var command = Command.Create (target, newValue, oldValue, action);
+            Execute (command, isPush);
+        }
     }
 }
 
