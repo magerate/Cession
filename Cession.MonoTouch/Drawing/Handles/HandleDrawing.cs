@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Cession.Handles;
 using Cession.Geometries;
+using Cession.Diagrams;
 
 using CoreGraphics;
 using UIKit;
@@ -16,6 +17,7 @@ namespace Cession.Drawing.Handles
         static HandleDrawing()
         {
             s_drawers [typeof(VertexHandle)] = DrawVertexHandle;
+            s_drawers [typeof(LineHandle)] = DrawLineHandle;
         }
 
         public static void Draw(this Handle handle,DrawingContext drawingContext)
@@ -46,6 +48,27 @@ namespace Cession.Drawing.Handles
             context.SaveState ();
             UIColor.Blue.SetFill ();
             drawingContext.CGContext.FillRect (rect);
+            context.RestoreState ();
+        }
+
+        private static void DrawLineHandle(Handle handle,DrawingContext drawingContext)
+        {
+            var lineHandle = handle as LineHandle;
+            CGPoint point = drawingContext.Transform.Transform(lineHandle.Location).ToCGPoint();
+            var rect = new CGRect (- (nfloat)VertexHandle.Size / 2, 
+                - (nfloat)VertexHandle.Size / 2, 
+                (nfloat)LineHandle.Size, 
+                (nfloat)LineHandle.Size);
+
+            LineSegment line = handle.Shape as LineSegment;
+            nfloat angle = (nfloat)(line.Angle);
+
+            CGContext context = drawingContext.CGContext;
+            context.SaveState ();
+            context.TranslateCTM (point.X, point.Y);
+            context.RotateCTM(angle);
+            UIColor.Blue.SetFill ();
+            context.FillRect (rect);
             context.RestoreState ();
         }
     }

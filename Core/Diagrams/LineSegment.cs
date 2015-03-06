@@ -16,6 +16,11 @@ namespace Cession.Diagrams
             }
         }
 
+        public double Angle
+        {
+            get{ return (Point2 - Point1).Angle; }
+        }
+
         public Point Middle
         {
             get{ return new Point ((Point1.X + Point2.X) / 2, (Point1.Y + Point2.Y) / 2); }

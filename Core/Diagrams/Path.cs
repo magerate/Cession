@@ -11,6 +11,11 @@ namespace Cession.Diagrams
     {
         private List<Segment> _segments;
 
+        public IReadOnlyList<Segment> Segments
+        {
+            get{ return _segments; }
+        }
+
         public Path (IEnumerable<Segment> segments)
         {
             if (null == segments)
@@ -61,7 +66,8 @@ namespace Cession.Diagrams
             if (!_segments.Contains (segment))
                 return null;
 
-            var index = (_segments.IndexOf (segment) - 1) % _segments.Count;
+            int index = _segments.IndexOf (segment) - 1;
+            index = index >= 0 ? index : _segments.Count - 1;
             return _segments [index];
         }
 

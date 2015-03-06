@@ -59,7 +59,8 @@ namespace Cession.Handles
         private void ShapeSelected (object sender, ShapeSelectedEventArgs e)
         {
             var handles = e.Shape.CreateHandles ();
-            _handles.AddRange (handles);
+            if(null != handles && handles.Length > 0)
+                _handles.AddRange (handles);
         }
 
         private void RegisterLayerEvents (Layer layer)

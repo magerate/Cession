@@ -22,11 +22,11 @@ namespace Cession.Diagrams
 
         private Point _point1;
 
-//        public event EventHandler<VertexChangedEventArgs> VertexChanged
-//        {
-//            add{AddHandler(VertexChangeEvent,value);}
-//            remove{ RemoveHandler (VertexChangeEvent, value);}
-//        }
+        public event EventHandler<VertexChangedEventArgs> VertexChanged
+        {
+            add{AddHandler(VertexChangeEvent,value);}
+            remove{ RemoveHandler (VertexChangeEvent, value);}
+        }
 
         public Point Point1 
         {

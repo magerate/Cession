@@ -21,6 +21,18 @@ namespace Cession.Handles
                 handles [polyline.Segments.Count] = new VertexHandle (polyline, polyline.LastPoint);
                 return handles;
             }
+            else if (shape is Path)
+            {
+                var path = shape as Path;
+                Handle[] handles = new Handle[path.Segments.Count * 2];
+                for (int i = 0; i < path.Segments.Count; i++)
+                {
+                    LineSegment lineSegment = path.Segments [i] as LineSegment;
+                    handles [i] = new VertexHandle (path.Segments [i], lineSegment.Point1);
+                    handles [i+path.Segments.Count] = new LineHandle (lineSegment, lineSegment.Middle);
+                }
+                return handles;
+            }
             return null;
         }
     }
