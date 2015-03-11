@@ -128,6 +128,8 @@
     <Compile Include="Tools\AddPathTool.cs" />
     <Compile Include="Tools\AddPolygonalShapeTool.cs" />
     <Compile Include="Drawing\Handles\HandleDrawing.cs" />
+    <Compile Include="Drawing\PolygonMeasureDrawing.cs" />
+    <Compile Include="Tools\DiscreteTool.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">

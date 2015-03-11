@@ -22,8 +22,7 @@ namespace Cession
         private UIBarButtonItem layersButton;
         private UIBarButtonItem estimateButton;
 
-
-
+        private UIBarButtonItem fixedSpace32;
         private UIBarButtonItem settingButton;
 
         private UIBarButtonItem undoButton;
@@ -51,7 +50,7 @@ namespace Cession
             toolSegment.ValueChanged += SegmentedValueChanged;
             segmentButton = new UIBarButtonItem (toolSegment);
 
-            var fixedSpace32 = new UIBarButtonItem (UIBarButtonSystemItem.FixedSpace);
+            fixedSpace32 = new UIBarButtonItem (UIBarButtonSystemItem.FixedSpace);
             fixedSpace32.Width = 32;
 
             layersButton = new UIBarButtonItem ();
@@ -120,7 +119,11 @@ namespace Cession
                 Redo ();
             };
 
+            SetDefaultNavigationItems ();
+        }
 
+        private void SetDefaultNavigationItems()
+        {
             NavigationItem.LeftBarButtonItems = new UIBarButtonItem[] {
                 homeButton,
                 segmentButton,
@@ -134,6 +137,15 @@ namespace Cession
                 redoButton,
                 undoButton,
             };
+        }
+
+        private void SetToolNavigationItems(UINavigationItem navigationItem)
+        {
+            NavigationItem.LeftBarButtonItems = navigationItem.LeftBarButtonItems;
+            NavigationItem.RightBarButtonItems = navigationItem.RightBarButtonItems;
+
+            NavigationItem.LeftBarButtonItem = navigationItem.LeftBarButtonItem;
+            NavigationItem.RightBarButtonItem = navigationItem.RightBarButtonItem;
         }
 
 

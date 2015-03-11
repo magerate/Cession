@@ -28,10 +28,25 @@ namespace Cession.Tools
     {
         public IToolHost Host{ get; set; }
 
+        public event EventHandler<EventArgs> CurrentToolTypeChanged;
+
         private Dictionary<Type,Tool> _tools = new Dictionary<Type, Tool> ();
         private Stack<Type> _toolStack = new Stack<Type> ();
+        private Type _currentToolType; 
 
-        public Type CurrentToolType{ get; private set; }
+        public Type CurrentToolType
+        { 
+            get{ return _currentToolType; }
+            private set
+            {
+                if (value != _currentToolType)
+                {
+                    _currentToolType = value;
+                    if (null != CurrentToolTypeChanged)
+                        CurrentToolTypeChanged (this, EventArgs.Empty);
+                }
+            }
+        }
 
         public ToolManager ()
         {
@@ -70,10 +85,12 @@ namespace Cession.Tools
             if (CurrentToolType == toolType)
                 return;
 
-            var prevToolType = CurrentToolType;
+            Type prevToolType = CurrentToolType;
             CurrentTool.Leave ();
+            Tool tool = GetTool (toolType);
+            tool.Enter (null, args);
             CurrentToolType = toolType;
-            CurrentTool.Enter (null, args);
+
             _toolStack.Clear ();
         }
 
@@ -82,11 +99,11 @@ namespace Cession.Tools
             if (CurrentToolType == toolType)
                 return;
 
-            CurrentTool.WillPushTool (toolType);
             SaveState ();
-            var parentTool = CurrentTool;
+            Tool parentTool = CurrentTool;
+            Tool tool = GetTool (toolType);
+            tool.Enter (parentTool, args);
             CurrentToolType = toolType;
-            CurrentTool.Enter (parentTool, args);
         }
 
 

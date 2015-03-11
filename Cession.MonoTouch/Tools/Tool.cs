@@ -16,6 +16,11 @@ namespace Cession.Tools
         private ToolManager _toolManager;
         private Tool _parentTool;
 
+        public Tool ParentTool
+        {
+            get{ return _parentTool; }
+        }
+
         protected ToolManager ToolManager
         {
             get{ return _toolManager; }
@@ -86,10 +91,6 @@ namespace Cession.Tools
         public virtual void Enter (Tool parentTool, params object[] args)
         {
             this._parentTool = parentTool;
-        }
-
-        public virtual void WillPushTool (Type toolType)
-        {
         }
 
         public virtual void RestoredFrom (Type toolType)

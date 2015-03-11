@@ -31,7 +31,7 @@ namespace Cession.Diagrams
 
         protected override Shape DoHitTest (Point point)
         {
-            Layer layer = this.Owner as Layer;
+            Layer layer = Owner as Layer;
             double delta = layer.ConvertToLogicalLength (24);
             if (Math.Abs (Line.DistanceBetween (Point1, Point2, point)) <= delta &&
                 Range.Contains (Point1.X, Point2.X, point.X, delta) &&

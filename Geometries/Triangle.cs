@@ -11,7 +11,7 @@ namespace Cession.Geometries
 
         public static double GetSignedArea (Point p1, Point p2, Point p3)
         {
-            Vector v1 = p2 - p1;
+            Vector v1 = p3 - p1;
             Vector v2 = p3 - p2;
             return Vector.CrossProduct (v1, v2) / 2;
         }

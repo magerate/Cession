@@ -131,10 +131,13 @@ namespace Cession.Handles
 
         private void ShapeCollectionChanged (object sender, NotifyCollectionChangedEventArgs e)
         {
-            var rhs = _handles.Where (h => ContainsHandleShape (e.OldItems, h.Shape)).ToArray();
-            foreach (var item in rhs)
+            if (e.Action == NotifyCollectionChangedAction.Remove)
             {
-                _handles.Remove (item);
+                Handle[] handles = _handles.Where (h => ContainsHandleShape (e.OldItems, h.Shape)).ToArray ();
+                foreach (var item in handles)
+                {
+                    _handles.Remove (item);
+                }
             }
         }
     }

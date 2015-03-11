@@ -104,6 +104,7 @@
     <Compile Include="Handles\VertexHandle.cs" />
     <Compile Include="Handles\HandleHelper.cs" />
     <Compile Include="Handles\HandleManager.cs" />
+    <Compile Include="Diagrams\ArcSegment.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">

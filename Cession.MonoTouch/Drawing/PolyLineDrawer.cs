@@ -23,8 +23,16 @@ namespace Cession.Drawing
         {
             foreach (var s in polyline.Segments)
             {
-                LineSegment ls = s as LineSegment;
-                drawingContext.StrokeLine (ls.Point1, ls.Point2);
+                if (s is LineSegment)
+                {
+                    LineSegment ls = s as LineSegment;
+                    drawingContext.StrokeLine (ls.Point1, ls.Point2);
+                }
+                else if(s is ArcSegment)
+                {
+                    ArcSegment arcs = s as ArcSegment;
+                    drawingContext.StrokeArc (arcs.Point1, arcs.PointOnArc, arcs.Point2);
+                }
             }
         }
     }

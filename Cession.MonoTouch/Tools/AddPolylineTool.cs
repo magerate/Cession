@@ -11,13 +11,38 @@ using Cession.UIKit;
 
 namespace Cession.Tools
 {
-    public class AddPolylineTool:Tool
+    public class AddPolylineTool:DiscreteTool
     {
         private PolygonMeasurer _measurer;
 
         public AddPolylineTool (ToolManager toolManager) : base (toolManager)
         {
             _measurer = new PolygonMeasurer ();
+            InitializeNavigationItem ();
+        }
+
+        private void InitializeNavigationItem()
+        {
+            NavigationItem = new UINavigationItem ();
+
+            var doneButton = new UIBarButtonItem (UIBarButtonSystemItem.Done);
+            doneButton.Clicked += delegate
+            {
+                Complete();
+            };
+            NavigationItem.LeftBarButtonItem = doneButton;
+
+
+            var arcButton = new UIBarButtonItem ();
+            arcButton.Title = "Arc";
+            NavigationItem.RightBarButtonItem = arcButton;
+        }
+
+        private void Complete()
+        {
+            if(_measurer.Points.Count > 1)
+                Commit ();
+            ToolManager.SelectTool (typeof(SelectTool));
         }
 
         public override void TouchBegin (CGPoint point)
@@ -29,14 +54,7 @@ namespace Cession.Tools
 
         protected override void DoDraw (DrawingContext drawingContext)
         {
-            drawingContext.DrawPolyline (_measurer.Points);
-            if (_measurer.CurrentPoint != null)
-            {
-                Point p1 = _measurer.Points.Last ();
-                Point p2 = _measurer.CurrentPoint.Value;
-                drawingContext.StrokeLine (p1, p2);
-                drawingContext.DrawDimension (p1, p2);
-            }
+            _measurer.Draw (drawingContext);
         }
 
         public override void Pan (UIPanGestureRecognizer gestureRecognizer)
@@ -54,14 +72,33 @@ namespace Cession.Tools
             RefreshToolView ();
         }
 
-        public override void DoubleTap (UITapGestureRecognizer gestureRecognizer)
+        public override void Pinch (UIPinchGestureRecognizer gestureRecognizer)
         {
-            Commit ();
+            if (gestureRecognizer.IsDone ())
+            {
+//                Point p1 = _measurer.Points.Last ();
+//                Point p2 = _measurer.CurrentPoint.Value;
+//                Point middle = new Point ((p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2);
+//                Vector v = p2 - p1;
+//                v.Rotate (Math.PI / 2);
+//                Point pp = middle + v;
+//
+//                _measurer.Points.Add (_measurer.CurrentPoint.Value);
+//                _measurer.ArcPoints.Add (p1, pp);
+//
+//                _measurer.CurrentPoint = null;
+            }
+            else
+            {
+                CGPoint dp = gestureRecognizer.LocationInView (Host.ToolView);
+                _measurer.CurrentPoint = ConvertToLogicalPoint (dp);
+            }
+            RefreshToolView ();
         }
 
         protected virtual void Commit()
         {
-            var polyline = new Polyline (_measurer.Points);
+            var polyline = _measurer.ToPolyline ();
             CommandManager.ExecuteListAdd (CurrentLayer.Shapes, polyline);
 
             _measurer.Clear ();

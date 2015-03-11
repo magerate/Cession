@@ -8,6 +8,7 @@ using UIKit;
 using Cession.Diagrams;
 using Cession.Geometries;
 using Cession.Dimensions;
+using G = Cession.Geometries;
 
 namespace Cession.Drawing
 {
@@ -42,13 +43,26 @@ namespace Cession.Drawing
             Transform = Matrix.Identity;
         }
 
-        public void StrokeLine (Point p1, Point p2)
+        public void StrokeLine (Point point1, Point point2)
         {
-            p1 = Transform.Transform (p1);
-            p2 = Transform.Transform (p2);
+            point1 = Transform.Transform (point1);
+            point2 = Transform.Transform (point2);
 
-            _context.MoveTo ((nfloat)p1.X, (nfloat)p1.Y);
-            _context.AddLineToPoint ((nfloat)p2.X, (nfloat)p2.Y);
+            _context.MoveTo ((nfloat)point1.X, (nfloat)point1.Y);
+            _context.AddLineToPoint ((nfloat)point2.X, (nfloat)point2.Y);
+            _context.StrokePath ();
+        }
+
+        public void StrokeArc(Point point1,Point point2,Point point3)
+        {
+            Point center = G.Circle.GetCenter (point1, point2, point3).Value;
+            nfloat r = (nfloat)(center.DistanceBetween (point1) * Transform.M11);
+            nfloat startAngle = (nfloat)((point1 - center).Angle);
+            nfloat endAngle = (nfloat)((point3 - center).Angle);
+            bool isClockwise = G.Triangle.IsClockwise (point1, point2, point3);
+
+            CGPoint deviceCenter = Transform.Transform (center).ToCGPoint ();
+            _context.AddArc (deviceCenter.X, deviceCenter.Y, r, startAngle, endAngle, isClockwise);
             _context.StrokePath ();
         }
 
@@ -130,10 +144,10 @@ namespace Cession.Drawing
             BuildPolyLinePath (polyline);
             CGContext.StrokePath ();
 
-            for (int i = 0; i < polyline.Count - 1; i++)
-            {
-                DrawDimension (polyline [i], polyline [i + 1]);
-            }
+//            for (int i = 0; i < polyline.Count - 1; i++)
+//            {
+//                DrawDimension (polyline [i], polyline [i + 1]);
+//            }
         }
 
         public void BuildPolyLinePath(IReadOnlyList<Point> polyline)

@@ -32,6 +32,23 @@ namespace Cession.Diagrams
             }
         }
 
+        public Polyline (IEnumerable<Segment> segments,Point lastPoint)
+        {
+            if (null == segments)
+                throw new ArgumentNullException ();
+
+            if (segments.Count () < 1)
+                throw new ArgumentException ("segments");
+
+            _segments = segments.ToList ();
+            _lastPoint = lastPoint;
+            foreach (var s in _segments)
+            {
+                s.Parent = this;
+                s.Ability = ShapeAbility.CanHitTest | ShapeAbility.CanAssign;
+            }
+        }
+
         public Polyline (IReadOnlyList<Point> points)
         {
             if (null == points)

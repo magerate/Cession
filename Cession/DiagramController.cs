@@ -102,6 +102,11 @@ namespace Cession
             toolManager = new ToolManager ();
             toolManager.Host = this;
 
+            toolManager.CurrentToolTypeChanged += delegate
+            {
+                ToolTypeChanged();
+            };
+
             toolView.ToolManager = toolManager;
 
             if (null != project)
@@ -109,6 +114,23 @@ namespace Cession
                 var selectTool = toolManager.GetTool (typeof(SelectTool)) as SelectTool;
                 selectTool.AttachProject (project);
             }
+        }
+
+        private void ToolTypeChanged()
+        {
+            DiscreteTool tool = toolManager.CurrentTool as DiscreteTool;
+            if (null != tool && tool.NavigationItem != null)
+                SetToolNavigationItems (tool.NavigationItem);
+            else
+            {
+                if (toolManager.CurrentTool.ParentTool == null)
+                    SetDefaultNavigationItems ();
+            }
+
+            if (toolManager.CurrentToolType == typeof(SelectTool))
+                toolSegment.SelectedSegment = 0;
+            else
+                toolSegment.SelectedSegment = 1;
         }
 
         public UIView DiagramView
