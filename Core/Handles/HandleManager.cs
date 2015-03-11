@@ -97,7 +97,8 @@ namespace Cession.Handles
             {
                 if (h is VertexHandle)
                 {
-                    if (e.OriginalSource == h.Shape)
+                    VertexHandle vertexHandle = h as VertexHandle;
+                    if (e.OriginalSource == h.Shape && e.IsFirstVertex == vertexHandle.IsFirstVertex)
                     {
                         h.Location = e.Point;
                     }
@@ -105,23 +106,14 @@ namespace Cession.Handles
                 else if (h is LineHandle)
                 {
                     LineHandle lh = h as LineHandle;
-                    if (e.OriginalSource is Polyline)
-                    {
-                        var polyline = e.OriginalSource as Polyline;
-                        var ls = polyline.Segments.Last () as LineSegment;
-                        if(ls == lh.Shape)
-                            lh.Location = ls.Middle;
-                    }
-                    else if(e.OriginalSource is LineSegment)
-                    {
-                        var ls = e.OriginalSource as LineSegment;
-                        var pl = ls.Previous as LineSegment;
+                   
+                    var ls = e.OriginalSource as LineSegment;
+                    var pl = ls.Previous as LineSegment;
 
-                        if (ls == lh.Shape)
-                            lh.Location = ls.Middle;
-                        else if (pl == lh.Shape)
-                            lh.Location = pl.Middle;
-                    }
+                    if (ls == lh.Shape)
+                        lh.Location = ls.Middle;
+                    else if (pl == lh.Shape)
+                        lh.Location = pl.Middle;
                 }
             }
         }

@@ -17,14 +17,17 @@ namespace Cession.Handles
         }
 
         public static Type TargetToolType{ get; set;}
+        public bool IsFirstVertex{ get; private set;}
 
         public override Type ToolType
         {
             get{return TargetToolType;}
         }
 
-        public VertexHandle (Shape shape,Point location):base(shape,location)
+        public VertexHandle (D.Segment segment,bool isFirstVertex)
+            :base(segment,isFirstVertex ? segment.Point1 : segment.Point2)
         {
+            IsFirstVertex = isFirstVertex;
         }
 
         public override bool Contains (Point point, Matrix transform)

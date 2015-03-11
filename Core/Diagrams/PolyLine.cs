@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -24,7 +25,8 @@ namespace Cession.Diagrams
                 if (value != _lastPoint)
                 {
                     _lastPoint = value; 
-                    var ea = new VertexChangedEventArgs (Segment.VertexChangeEvent, this,value);
+                    var ea = new VertexChangedEventArgs (Segment.VertexChangeEvent, _segments.Last(),value);
+                    ea.IsFirstVertex = false;
                     RaiseEvent (ea);
                 }
             }

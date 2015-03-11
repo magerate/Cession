@@ -31,10 +31,9 @@ namespace Cession.Tools
         {
             drawingContext.SaveState ();
             drawingContext.CGContext.SetAlpha (.5f);
-            if (_handle.Shape is Polyline)
+            if (!_handle.IsFirstVertex)
             {
-                var polyline = _handle.Shape as Polyline;
-                var segment = polyline.Segments.Last ();
+                var segment = _handle.Shape as Segment;
                 drawingContext.StrokeLine (segment.Point1, EndPoint.Value);
             }
             else if (_handle.Shape is LineSegment)
@@ -52,16 +51,11 @@ namespace Cession.Tools
 
         protected override void Commit ()
         {
-            if (_handle.Shape is Polyline)
-            {
-                var polyline = _handle.Shape as Polyline;
-                CommandManager.Execute (polyline, EndPoint.Value, polyline.LastPoint, (pl, p) => pl.LastPoint = p);
-            }
-            else if(_handle.Shape is Segment)
-            {
-                var line = _handle.Shape as Segment;
-                CommandManager.Execute (line, EndPoint.Value, line.Point1, (l, p) => l.Point1 = p);
-            }
+            Segment segment = _handle.Shape as Segment;
+            if(_handle.IsFirstVertex)
+                CommandManager.Execute (segment, EndPoint.Value, segment.Point1, (l, p) => l.Point1 = p);
+            else
+                CommandManager.Execute (segment, EndPoint.Value, segment.Point2, (l, p) => l.Point2 = p);
         }
     }
 }

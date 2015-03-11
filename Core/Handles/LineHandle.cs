@@ -21,7 +21,7 @@ namespace Cession.Handles
             get{return TargetToolType;}
         }
 
-        public LineHandle (LineSegment line,Point location):base(line,location)
+        public LineHandle (LineSegment line):base(line,line.Middle)
         {
         }
 

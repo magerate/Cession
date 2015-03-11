@@ -7,7 +7,7 @@ namespace Cession.Diagrams
     public class VertexChangedEventArgs:RoutedEventArgs
     {
         public Point Point{get;set;}
-
+        public bool IsFirstVertex{ get; set;}
         public VertexChangedEventArgs(RoutedEvent routedEvent,object source,Point point):base(routedEvent,source)
         {
             Point = point;
@@ -36,8 +36,28 @@ namespace Cession.Diagrams
                 if (value != _point1) {
                     _point1 = value;
                     var rea = new VertexChangedEventArgs (VertexChangeEvent, this,value);
+                    rea.IsFirstVertex = true;
                     RaiseEvent (rea);
                 }
+            }
+        }
+
+        public Point Point2
+        {
+            get
+            { 
+                var segment = Next;
+                if (segment != null)
+                    return segment.Point1;
+                return ((Polyline)Parent).LastPoint;
+            }
+            set
+            {
+                var segment = Next;
+                if (segment != null)
+                    segment.Point1 = value;
+                else
+                    ((Polyline)Parent).LastPoint = value;
             }
         }
 

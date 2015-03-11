@@ -27,10 +27,10 @@ namespace Cession.Handles
             for (int i = 0; i < polyline.Segments.Count; i++)
             {
                 LineSegment lineSegment = polyline.Segments [i] as LineSegment;
-                handles [i] = new VertexHandle (polyline.Segments [i], polyline.Segments [i].Point1);
-                handles [i+polyline.Segments.Count +1] = new LineHandle (lineSegment, lineSegment.Middle);
+                handles [i] = new VertexHandle (polyline.Segments [i],true);
+                handles [i+polyline.Segments.Count +1] = new LineHandle (lineSegment);
             }
-            handles [polyline.Segments.Count] = new VertexHandle (polyline, polyline.LastPoint);
+            handles [polyline.Segments.Count] = new VertexHandle (polyline.Segments.Last(),false);
             return handles;
         }
 
@@ -40,8 +40,8 @@ namespace Cession.Handles
             for (int i = 0; i < path.Segments.Count; i++)
             {
                 LineSegment lineSegment = path.Segments [i] as LineSegment;
-                handles [i] = new VertexHandle (path.Segments [i], lineSegment.Point1);
-                handles [i+path.Segments.Count] = new LineHandle (lineSegment, lineSegment.Middle);
+                handles [i] = new VertexHandle (path.Segments [i], true);
+                handles [i+path.Segments.Count] = new LineHandle (lineSegment);
             }
             return handles;
         }

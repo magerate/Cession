@@ -5,17 +5,6 @@ namespace Cession.Diagrams
 {
     public class LineSegment:Segment
     {
-        public Point Point2
-        {
-            get
-            { 
-                var segment = Next;
-                if (segment != null)
-                    return segment.Point1;
-                return ((Polyline)Parent).LastPoint;
-            }
-        }
-
         public double Angle
         {
             get{ return (Point2 - Point1).Angle; }

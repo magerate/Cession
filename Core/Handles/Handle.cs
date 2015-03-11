@@ -13,7 +13,6 @@ namespace Cession.Handles
         public Shape Shape
         {
             get{ return _shape; }
-            set{ _shape = value; }
         }
 
         public Point Location
