@@ -1,21 +1,37 @@
 ﻿<Properties StartupItem="Cession/Cession.csproj" GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad2.8.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Core/Handles/HandleManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Cession.MonoTouch/Tools/ToolManager.cs">
     <Files>
-      <File FileName="Core/Diagrams/Layer.cs" Line="36" Column="36" />
-      <File FileName="Core/Diagrams/LayerShapeCollection.cs" Line="10" Column="10" />
-      <File FileName="Core/Handles/HandleManager.cs" Line="14" Column="14" />
+      <File FileName="Core/Handles/HandleHelper.cs" Line="32" Column="32" />
+      <File FileName="Cession.MonoTouch/Drawing/Handles/HandleDrawing.cs" Line="1" Column="1" />
+      <File FileName="Cession/ToolView.cs" Line="1" Column="1" />
+      <File FileName="Cession.MonoTouch/Tools/ToolManager.cs" Line="10" Column="10" />
+      <File FileName="Core/Diagrams/LineSegment.cs" Line="51" Column="51" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True" selected="True" />
+        <State expanded="True" selected="True">
+          <Node name="Cession" expanded="True" />
+          <Node name="Cession.MonoTouch" expanded="True">
+            <Node name="Drawing" expanded="True">
+              <Node name="Handles" expanded="True" />
+            </Node>
+            <Node name="Tools" expanded="True" />
+          </Node>
+          <Node name="Core" expanded="True">
+            <Node name="Diagrams" expanded="True" />
+            <Node name="Handles" expanded="True" />
+          </Node>
+        </State>
       </Pad>
       <Pad Id="MonoDevelop.NUnit.TestPad">
         <State expanded="True" selected="True" />
       </Pad>
       <Pad Id="MonoDevelop.Debugger.WatchPad">
         <State>
-          <Value>e</Value>
+          <Value>-1 % 4</Value>
+          <Value>5 % 4</Value>
+          <Value>(-1) % 4</Value>
         </State>
       </Pad>
     </Pads>
