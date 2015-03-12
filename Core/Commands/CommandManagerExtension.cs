@@ -130,6 +130,15 @@ namespace Cession.Commands
             var command = Command.Create (target, newValue, oldValue, action);
             Execute (command, isPush);
         }
+
+        public void ExecuteSetProperty<T1,T2> (T1 target,
+                                                T2 value,
+                                                string propertyName,
+                                                bool isPush = true)
+        {
+            var command = Command.CreateSetProperty (target, value,propertyName);
+            Execute (command, isPush);
+        }
     }
 }
 

@@ -31,6 +31,7 @@ namespace Cession.Tools
         public SelectTool (ToolManager toolManager) : base (toolManager)
         {
             VertexHandle.TargetToolType = typeof(MoveVertexTool);
+            LineHandle.TargetToolType = typeof(MoveLineTool);
         }
 
         public void AttachProject(Project project)

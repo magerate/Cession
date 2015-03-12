@@ -108,7 +108,6 @@
     <Compile Include="Tools\AddPolygonalRoomTool.cs" />
     <Compile Include="Tools\AddRectRoomTool.cs" />
     <Compile Include="Tools\DragDropTool.cs" />
-    <Compile Include="Tools\MoveSideTool.cs" />
     <Compile Include="Tools\MoveTool.cs" />
     <Compile Include="Tools\MoveVertexTool.cs" />
     <Compile Include="Tools\PanTool.cs" />
@@ -130,6 +129,7 @@
     <Compile Include="Drawing\Handles\HandleDrawing.cs" />
     <Compile Include="Drawing\PolygonMeasureDrawing.cs" />
     <Compile Include="Tools\DiscreteTool.cs" />
+    <Compile Include="Tools\MoveLineTool.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">

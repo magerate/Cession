@@ -15,7 +15,6 @@ namespace Cession.Handles
         }
 
         public abstract Point Location{ get; }
-       
 
         public abstract Type ToolType{ get; }
 
@@ -27,11 +26,6 @@ namespace Cession.Handles
         }
 
         public abstract bool Contains (Point point, Matrix transform);
-
-//        public virtual void Offset(double offsetX,double offsetY)
-//        {
-//            _location.Offset (offsetX, offsetY);
-//        }
     }
 }
 

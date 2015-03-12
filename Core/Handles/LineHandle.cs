@@ -2,6 +2,8 @@ using System;
 
 using Cession.Geometries;
 using Cession.Diagrams;
+using D = Cession.Diagrams;
+using G = Cession.Geometries;
 
 namespace Cession.Handles
 {
@@ -37,9 +39,6 @@ namespace Cession.Handles
 
         public override bool Contains (Point point, Matrix transform)
         {
-//            double dx = Math.Abs (point.X - Location.X);
-//            double dy = Math.Abs (point.Y - Location.Y);
-
             double size = Size / transform.M11;
             Rect rect = new Rect (0, 0, size, size);
 
@@ -54,7 +53,35 @@ namespace Cession.Handles
             Point ip = m.Transform (point);
 
             return rect.Contains (ip);
-//            return dx <= delta && dy <= delta;
+        }
+
+        public Tuple<Point,Point> MoveLine(Point point)
+        {
+            D.Segment segment = Line;
+            D.Segment prevSegment = segment.Previous;
+            D.Segment nextSegment = segment.Next;
+
+            Point p = Point.Project (segment.Point1, segment.Point2, point);
+            Vector v = point - p;
+
+            Point p1 = segment.Point1 + v;
+            Point p2 = segment.Point2 + v;
+
+            if (prevSegment != null)
+            {
+                Point? ip = G.Line.Intersect (prevSegment.Point1, prevSegment.Point2, p1, p2);
+                if (ip != null)
+                    p1 = ip.Value;
+            }
+
+            if (nextSegment != null)
+            {
+                Point? ip = G.Line.Intersect (nextSegment.Point1, nextSegment.Point2, p1, p2);
+                if (ip != null)
+                    p2 = ip.Value;
+            }
+
+            return new Tuple<Point, Point> (p1, p2);
         }
     }
 }

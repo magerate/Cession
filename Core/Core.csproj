@@ -100,11 +100,11 @@
     <Compile Include="Projects\ProjectInfo.cs" />
     <Compile Include="Diagrams\ShapesExtensions.cs" />
     <Compile Include="Diagrams\LayerShapeCollection.cs" />
-    <Compile Include="Handles\LineHandle.cs" />
     <Compile Include="Handles\VertexHandle.cs" />
     <Compile Include="Handles\HandleHelper.cs" />
     <Compile Include="Handles\HandleManager.cs" />
     <Compile Include="Diagrams\ArcSegment.cs" />
+    <Compile Include="Handles\LineHandle.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">
