@@ -24,8 +24,22 @@ namespace Cession.Handles
             get{return TargetToolType;}
         }
 
-        public VertexHandle (D.Segment segment,bool isFirstVertex)
-            :base(segment,isFirstVertex ? segment.Point1 : segment.Point2)
+        public D.Segment Segment
+        {
+            get{ return Shape as D.Segment; }
+        }
+
+        public override Point Location
+        {
+            get
+            {
+                if (IsFirstVertex)
+                    return Segment.Point1;
+                return Segment.Point2;
+            }
+        }
+
+        public VertexHandle (D.Segment segment,bool isFirstVertex):base(segment)
         {
             IsFirstVertex = isFirstVertex;
         }

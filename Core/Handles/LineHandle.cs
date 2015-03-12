@@ -7,21 +7,31 @@ namespace Cession.Handles
 {
     public class LineHandle:Handle
     {
-        public static double Size{ get; set;}
+        public static double Size{ get; set; }
 
-        static LineHandle()
+        static LineHandle ()
         {
             Size = 24;
         }
 
-        public static Type TargetToolType{ get; set;}
+        public static Type TargetToolType{ get; set; }
 
         public override Type ToolType
         {
-            get{return TargetToolType;}
+            get{ return TargetToolType; }
         }
 
-        public LineHandle (LineSegment line):base(line,line.Middle)
+        public LineSegment Line
+        {
+            get{ return Shape as LineSegment; }
+        }
+
+        public override Point Location
+        {
+            get{ return Line.Middle; }
+        }
+
+        public LineHandle (LineSegment line) : base (line)
         {
         }
 

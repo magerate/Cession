@@ -69,9 +69,8 @@ namespace Cession.Tools
 
         public virtual void DoublePan (UIPanGestureRecognizer gestureRecognizer)
         {
-//			toolManager.PushTool (ToolType.Pan);
-//			toolManager.CurrentTool.TouchBegin(_touchPoint);
-//			toolManager.CurrentTool.Pan (gestureRecognizer);
+            _toolManager.PushTool(typeof(PanTool));
+            _toolManager.CurrentTool.Pan (gestureRecognizer);
         }
 
         public virtual void Pinch (UIPinchGestureRecognizer gestureRecognizer)

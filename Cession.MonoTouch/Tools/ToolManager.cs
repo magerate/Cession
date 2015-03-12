@@ -15,11 +15,8 @@ namespace Cession.Tools
     public interface IToolHost
     {
         UIView DiagramView{ get; }
-
         UIView ToolView{ get; }
-
         Project Project{ get; }
-
         CommandManager CommandManager{ get; }
     }
 
