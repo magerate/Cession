@@ -28,10 +28,11 @@ namespace Cession.Handles
             {
                 LineSegment lineSegment = polyline.Segments [i] as LineSegment;
                 handles [i] = new VertexHandle (polyline.Segments [i],true);
-                handles [i+polyline.Segments.Count +1] = new LineHandle (lineSegment);
+                if(null != lineSegment)
+                    handles [i+polyline.Segments.Count +1] = new LineHandle (lineSegment);
             }
             handles [polyline.Segments.Count] = new VertexHandle (polyline.Segments.Last(),false);
-            return handles;
+            return handles.Where(h => h != null).ToArray();
         }
 
         private static Handle[] CreatePathHandle(Path path)

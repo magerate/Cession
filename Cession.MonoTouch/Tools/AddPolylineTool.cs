@@ -14,6 +14,7 @@ namespace Cession.Tools
     public class AddPolylineTool:DiscreteTool
     {
         private PolygonMeasurer _measurer;
+        private UIBarButtonItem _arcButton;
 
         public AddPolylineTool (ToolManager toolManager) : base (toolManager)
         {
@@ -40,10 +41,18 @@ namespace Cession.Tools
                     Commit();
             };
 
-            var arcButton = new UIBarButtonItem ();
-            arcButton.Title = "Arc";
+            _arcButton = new UIBarButtonItem ();
+            _arcButton.Title = "Arc";
+            _arcButton.Clicked += delegate
+            {
+                if(_arcButton.Style == UIBarButtonItemStyle.Plain)
+                    _arcButton.Style = UIBarButtonItemStyle.Done;
+                else
+                    _arcButton.Style = UIBarButtonItemStyle.Plain;
+            };
+
             NavigationItem.RightBarButtonItems = new UIBarButtonItem[]{
-                arcButton,
+                _arcButton,
                 doneButton,
             };
         }
@@ -69,6 +78,12 @@ namespace Cession.Tools
 
         public override void Pan (UIPanGestureRecognizer gestureRecognizer)
         {
+            if (_arcButton.Style == UIBarButtonItemStyle.Done)
+            {
+                AddArc (gestureRecognizer);
+                return;
+            }
+
             if (gestureRecognizer.IsDone ())
             {
                 _measurer.Points.Add (_measurer.CurrentPoint.Value);
@@ -82,29 +97,29 @@ namespace Cession.Tools
             RefreshToolView ();
         }
 
-//        public override void Pinch (UIPinchGestureRecognizer gestureRecognizer)
-//        {
-//            if (gestureRecognizer.IsDone ())
-//            {
-////                Point p1 = _measurer.Points.Last ();
-////                Point p2 = _measurer.CurrentPoint.Value;
-////                Point middle = new Point ((p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2);
-////                Vector v = p2 - p1;
-////                v.Rotate (Math.PI / 2);
-////                Point pp = middle + v;
-////
-////                _measurer.Points.Add (_measurer.CurrentPoint.Value);
-////                _measurer.ArcPoints.Add (p1, pp);
-////
-////                _measurer.CurrentPoint = null;
-//            }
-//            else
-//            {
-//                CGPoint dp = gestureRecognizer.LocationInView (Host.ToolView);
-//                _measurer.CurrentPoint = ConvertToLogicalPoint (dp);
-//            }
-//            RefreshToolView ();
-//        }
+        public void AddArc (UIPanGestureRecognizer gestureRecognizer)
+        {
+            if (gestureRecognizer.IsDone ())
+            {
+                Point p1 = _measurer.Points.Last ();
+                Point p2 = _measurer.CurrentPoint.Value;
+                Point middle = new Point ((p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2);
+                Vector v = p2 - p1;
+                v.Rotate (Math.PI / 2);
+                Point pp = middle + v;
+
+                _measurer.Points.Add (_measurer.CurrentPoint.Value);
+                _measurer.ArcPoints.Add (p1, pp);
+
+                _measurer.CurrentPoint = null;
+            }
+            else
+            {
+                CGPoint dp = gestureRecognizer.LocationInView (Host.ToolView);
+                _measurer.CurrentPoint = ConvertToLogicalPoint (dp);
+            }
+            RefreshToolView ();
+        }
 
         protected virtual void Commit()
         {

@@ -43,17 +43,40 @@ namespace Cession.Drawing
             Transform = Matrix.Identity;
         }
 
-        public void StrokeLine (Point point1, Point point2)
+        public void AddLine(Point point1, Point point2)
         {
             point1 = Transform.Transform (point1);
             point2 = Transform.Transform (point2);
 
             _context.MoveTo ((nfloat)point1.X, (nfloat)point1.Y);
             _context.AddLineToPoint ((nfloat)point2.X, (nfloat)point2.Y);
+        }
+
+        public void AddLineToPoint(Point point)
+        {
+            point = Transform.Transform (point);
+            _context.AddLineToPoint ((nfloat)point.X, (nfloat)point.Y);
+        }
+
+        public void MoveToPoint(Point point)
+        {
+            point = Transform.Transform (point);
+            _context.MoveTo ((nfloat)point.X, (nfloat)point.Y);
+        }
+
+        public void StrokeLine (Point point1, Point point2)
+        {
+            AddLine (point1, point2);
             _context.StrokePath ();
         }
 
         public void StrokeArc(Point point1,Point point2,Point point3)
+        {
+            AddArc (point1, point2, point3);
+            _context.StrokePath ();
+        }
+
+        public void AddArc(Point point1,Point point2,Point point3)
         {
             Point center = G.Circle.GetCenter (point1, point2, point3).Value;
             nfloat r = (nfloat)(center.DistanceBetween (point1) * Transform.M11);
@@ -63,7 +86,6 @@ namespace Cession.Drawing
 
             CGPoint deviceCenter = Transform.Transform (center).ToCGPoint ();
             _context.AddArc (deviceCenter.X, deviceCenter.Y, r, startAngle, endAngle, isClockwise);
-            _context.StrokePath ();
         }
 
         public void StrokePolygon (IReadOnlyList<Point> polygon)

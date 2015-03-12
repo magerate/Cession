@@ -51,7 +51,7 @@ namespace Cession.Diagrams
             Vector v11 = point - Point1;
             Vector v22 = point - center;
 
-            return v1 * v11 >= 0 && v2 * v22 >= 2;
+            return v1 * v11 >= 0 && v2 * v22 >= 0;
         }
     }
 }
