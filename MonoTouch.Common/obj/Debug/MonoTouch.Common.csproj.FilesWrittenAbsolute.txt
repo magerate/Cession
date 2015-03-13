@@ -1,5 +1,0 @@
-/Users/tomato/Gits/Cession/MonoTouch.Common/obj/Debug/Xamarin.iOS,Version=v1.0.AssemblyAttribute.cs
-/Users/tomato/Gits/Cession/MonoTouch.Common/bin/Debug/MonoTouch.Common.dll.mdb
-/Users/tomato/Gits/Cession/MonoTouch.Common/bin/Debug/MonoTouch.Common.dll
-/Users/tomato/Gits/Cession/MonoTouch.Common/obj/Debug/MonoTouch.Common.dll
-/Users/tomato/Gits/Cession/MonoTouch.Common/obj/Debug/MonoTouch.Common.dll.mdb
