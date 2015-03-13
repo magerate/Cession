@@ -1,12 +1,12 @@
-﻿using System;
-
-namespace Cession.Geometries
-{
-    public struct Arc
-    {
-        public Arc ()
-        {
-        }
-    }
-}
-
+﻿//using System;
+//
+//namespace Cession.Geometries
+//{
+//    public struct Arc
+//    {
+//        public Arc ()
+//        {
+//        }
+//    }
+//}
+//
