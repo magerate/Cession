@@ -44,8 +44,11 @@ namespace Cession.Tools
 
         protected override void Commit ()
         {
-            var path = new Path (Measurer.Points);
-            ExecuteAddShape (path);
+            if (Measurer.Points.Count > 2)
+            {
+                var path = new Path (Measurer.Points);
+                ExecuteAddShape (path);
+            }
         }
 
     }

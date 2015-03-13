@@ -97,7 +97,6 @@ namespace Cession.Geometries
             return Line.Parallels (p1, p2, p1, p2);
         }
 
-
         public static bool Orthos (Point p1, Point p2, Point p3, Point p4)
         {
             if (p1 == p2 || p3 == p4)

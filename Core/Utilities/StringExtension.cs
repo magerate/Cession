@@ -4,38 +4,39 @@ using System.Collections.Generic;
 
 namespace Cession.Utilities
 {
-	public static class StringExtension
-	{
-		public static string CreateDuplicateName(this string prefix,IEnumerable<string> strings)
-		{
-			if (null == strings)
-				throw new ArgumentNullException ();
+    public static class StringExtension
+    {
+        public static string CreateDuplicateName (this string prefix, IEnumerable<string> strings)
+        {
+            if (null == strings)
+                throw new ArgumentNullException ();
 
-			if (null == prefix)
-				throw new ArgumentNullException ();
+            if (null == prefix)
+                throw new ArgumentNullException ();
 
-			var values = strings.
+            var values = strings.
 				Where (s => s.Contains (prefix)).
-				Select(s => GetIntValue(s,prefix));
+				Select (s => GetIntValue (s, prefix));
 
-			int max = 0;
-			if(values.Count() > 0)
-				max = values.Max ();
+            int max = 0;
+            if (values.Count () > 0)
+                max = values.Max ();
 
-			var result = prefix + (max + 1).ToString ();
-			return result;
-		}
+            var result = prefix + (max + 1).ToString ();
+            return result;
+        }
 
-		private static int GetIntValue(string str,string prefix){
-			return SafeParse (str.Substring (prefix.Length));
-		}
+        private static int GetIntValue (string str, string prefix)
+        {
+            return SafeParse (str.Substring (prefix.Length));
+        }
 
-		private static int SafeParse(string str)
-		{
-			int num = 0;
-			int.TryParse (str, out num);
-			return num;
-		}
-	}
+        private static int SafeParse (string str)
+        {
+            int num = 0;
+            int.TryParse (str, out num);
+            return num;
+        }
+    }
 }
 
