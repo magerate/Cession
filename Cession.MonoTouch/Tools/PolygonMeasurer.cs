@@ -60,6 +60,12 @@ namespace Cession.Tools
             }
             return new Polyline (segments,Points.Last());
         }
+
+        public void AddPoint()
+        {
+            Points.Add (CurrentPoint.Value);
+            CurrentPoint = null;
+        }
     }
 }
 

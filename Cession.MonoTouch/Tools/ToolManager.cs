@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 using UIKit;
@@ -64,6 +65,18 @@ namespace Cession.Tools
         public Tool CurrentTool
         {
             get{ return GetTool (CurrentToolType); }
+        }
+
+        public Tool RootTool
+        {
+            get
+            {
+                if (_toolStack.Count == 0)
+                    return CurrentTool;
+
+                Type type = _toolStack.First ();
+                return GetTool(type);
+            }
         }
 
         public Tool GetTool (Type toolType)

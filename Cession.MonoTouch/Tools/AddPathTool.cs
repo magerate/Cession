@@ -15,11 +15,31 @@ namespace Cession.Tools
     {
         public AddPathTool (ToolManager toolManager) : base (toolManager)
         {
+            InitializeNavigationItem ();
         }
 
-        public override void DoubleTap (UITapGestureRecognizer gestureRecognizer)
+        private void InitializeNavigationItem()
         {
-            Complete ();
+            NavigationItem = new UINavigationItem ();
+
+            var exitButton = new UIBarButtonItem ();
+            exitButton.Title = "Exit";
+            exitButton.Clicked += delegate
+            {
+                Exit();
+            };
+
+            NavigationItem.LeftBarButtonItem = exitButton;
+
+            var doneButton = new UIBarButtonItem (UIBarButtonSystemItem.Done);
+            doneButton.Clicked += delegate
+            {
+                Complete();
+            };
+
+            NavigationItem.RightBarButtonItems = new UIBarButtonItem[]{
+                doneButton,
+            };
         }
 
         protected override void Commit ()
@@ -27,6 +47,7 @@ namespace Cession.Tools
             var path = new Path (Measurer.Points);
             ExecuteAddShape (path);
         }
+
     }
 }
 

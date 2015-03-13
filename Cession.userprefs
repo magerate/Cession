@@ -1,35 +1,12 @@
 ﻿<Properties StartupItem="Cession/Cession.csproj" GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad2.8.2" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Cession.MonoTouch/Drawing/PolygonMeasureDrawing.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Cession.MonoTouch/Tools/AddPolygonalShapeTool.cs">
     <Files>
-      <File FileName="Cession.MonoTouch/Drawing/PolygonMeasureDrawing.cs" Line="18" Column="18" />
-      <File FileName="Cession.MonoTouch/Drawing/DrawingContext.cs" Line="30" Column="30" />
-      <File FileName="Core/Handles/Handle.cs" Line="1" Column="1" />
-      <File FileName="Core/Handles/HandleHelper.cs" Line="77" Column="77" />
-      <File FileName="Core/Diagrams/ArcSegment.cs" Line="56" Column="56" />
-      <File FileName="Cession.MonoTouch/Tools/AddPolylineTool.cs" Line="9" Column="9" />
+      <File FileName="Cession.MonoTouch/Tools/AddPolylineTool.cs" Line="1" Column="1" />
+      <File FileName="Cession.MonoTouch/Tools/PolygonMeasurer.cs" Line="1" Column="1" />
+      <File FileName="Cession.MonoTouch/Tools/AddPolygonalShapeTool.cs" Line="43" Column="43" />
+      <File FileName="Cession.MonoTouch/Tools/AddPathTool.cs" Line="1" Column="1" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="Cession.MonoTouch" expanded="True">
-            <Node name="Drawing" expanded="True">
-              <Node name="PolygonMeasureDrawing.cs" selected="True" />
-            </Node>
-            <Node name="Tools" expanded="True" />
-          </Node>
-        </State>
-      </Pad>
-      <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True" selected="True" />
-      </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State>
-          <Value>v1 * v11</Value>
-          <Value>v2 * v22</Value>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

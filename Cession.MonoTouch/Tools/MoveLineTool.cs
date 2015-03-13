@@ -47,11 +47,15 @@ namespace Cession.Tools
             Point p1 = pair.Item1;
             Point p2 = pair.Item2;
 
+            CGContext context = drawingContext.CGContext;
+            context.SaveState ();
+            context.SetAlpha (.5f);
             if (prevSegment != null)
                 drawingContext.StrokeLine (prevSegment.Point1, p1);
             drawingContext.StrokeLine (p1, p2);
             if (nextSegment != null)
                 drawingContext.StrokeLine (p2, nextSegment.Point2);
+            context.RestoreState ();
         }
 
         protected override void Commit ()

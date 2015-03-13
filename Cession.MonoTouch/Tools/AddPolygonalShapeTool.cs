@@ -11,7 +11,7 @@ using Cession.UIKit;
 
 namespace Cession.Tools
 {
-    public abstract class AddPolygonalShapeTool:Tool
+    public abstract class AddPolygonalShapeTool:DiscreteTool
     {
         private PolygonMeasurer _measurer;
 
@@ -34,22 +34,14 @@ namespace Cession.Tools
 
         protected override void DoDraw (DrawingContext drawingContext)
         {
-            drawingContext.DrawPolyline (_measurer.Points);
-            if (_measurer.CurrentPoint != null)
-            {
-                Point p1 = _measurer.Points.Last ();
-                Point p2 = _measurer.CurrentPoint.Value;
-                drawingContext.StrokeLine (p1, p2);
-                drawingContext.DrawDimension (p1, p2);
-            }
+            _measurer.Draw (drawingContext);
         }
 
         public override void Pan (UIPanGestureRecognizer gestureRecognizer)
         {
             if (gestureRecognizer.IsDone ())
             {
-                _measurer.Points.Add (_measurer.CurrentPoint.Value);
-                _measurer.CurrentPoint = null;
+                _measurer.AddPoint ();
             }
             else
             {
@@ -66,12 +58,18 @@ namespace Cession.Tools
             _measurer.Clear ();
         }
 
-        protected void Complete()
+        protected virtual void Complete()
         {
             Commit ();
             Clear ();
             RefreshToolView ();
             RefreshDiagramView ();
+        }
+
+        protected void Exit ()
+        {
+            Complete ();
+            ToolManager.SelectTool (typeof(SelectTool));
         }
     }
 }

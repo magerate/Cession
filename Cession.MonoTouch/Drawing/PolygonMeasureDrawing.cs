@@ -10,27 +10,32 @@ namespace Cession.Drawing
     {
         public static void Draw(this PolygonMeasurer polygonMeasurer,DrawingContext drawingContext)
         {
-            drawingContext.MoveToPoint (polygonMeasurer.Points[0]);
-
-            for (int i = 0; i < polygonMeasurer.Points.Count -1; i++)
+            if (polygonMeasurer.Points.Count > 0)
             {
-                Point p1 = polygonMeasurer.Points [i];
-                Point p2 = polygonMeasurer.Points [i+1];
-                if(polygonMeasurer.ArcPoints.ContainsKey(p1))
+                drawingContext.MoveToPoint (polygonMeasurer.Points [0]);
+                for (int i = 0; i < polygonMeasurer.Points.Count - 1; i++)
                 {
-                    Point p3 = polygonMeasurer.ArcPoints [p1];
-                    drawingContext.AddArc (p1, p3, p2);
+                    Point p1 = polygonMeasurer.Points [i];
+                    Point p2 = polygonMeasurer.Points [i + 1];
+                    if (polygonMeasurer.ArcPoints.ContainsKey (p1))
+                    {
+                        Point p3 = polygonMeasurer.ArcPoints [p1];
+                        drawingContext.AddArc (p1, p3, p2);
+                    }
+                    else
+                    {
+                        drawingContext.AddLineToPoint (p2);
+                    }
                 }
-                else
+                if (polygonMeasurer.CurrentPoint != null)
                 {
-                    drawingContext.AddLineToPoint (p2);
+                    drawingContext.AddLineToPoint (polygonMeasurer.CurrentPoint.Value);
                 }
+                drawingContext.CGContext.StrokePath ();
             }
-            if (polygonMeasurer.CurrentPoint != null)
+            else
             {
-                drawingContext.AddLineToPoint (polygonMeasurer.CurrentPoint.Value);
             }
-            drawingContext.CGContext.StrokePath ();
         }
     }
 }

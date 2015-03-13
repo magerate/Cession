@@ -42,9 +42,10 @@ namespace Cession.Handles
             {
                 LineSegment lineSegment = path.Segments [i] as LineSegment;
                 handles [i] = new VertexHandle (path.Segments [i], true);
-                handles [i+path.Segments.Count] = new LineHandle (lineSegment);
+                if(null != lineSegment)
+                    handles [i+path.Segments.Count] = new LineHandle (lineSegment);
             }
-            return handles;
+            return handles.Where(h => h != null).ToArray();
         }
     }
 }

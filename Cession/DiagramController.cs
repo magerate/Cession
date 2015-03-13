@@ -127,8 +127,8 @@ namespace Cession
                     SetDefaultNavigationItems ();
             }
 
-            if (toolManager.CurrentToolType == typeof(SelectTool))
-                toolSegment.SelectedSegment = 1;
+            if (toolManager.RootTool.GetType() == typeof(SelectTool))
+                toolSegment.SelectedSegment = 0;
             else
                 toolSegment.SelectedSegment = 1;
         }
