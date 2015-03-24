@@ -51,10 +51,10 @@ namespace Cession.Tools
             context.SaveState ();
             context.SetAlpha (.5f);
             if (prevSegment != null)
-                drawingContext.StrokeLine (prevSegment.Point1, p1);
+                drawingContext.DrawSegment (prevSegment, p1,true);
             drawingContext.StrokeLine (p1, p2);
             if (nextSegment != null)
-                drawingContext.StrokeLine (p2, nextSegment.Point2);
+                drawingContext.DrawSegment (nextSegment,p2,false);
             context.RestoreState ();
         }
 

@@ -4,7 +4,8 @@ using System.Linq;
 using Cession.Handles;
 using Cession.Drawing;
 using Cession.Diagrams;
-
+using Cession.Geometries;
+using D = Cession.Diagrams;
 using UIKit;
 
 namespace Cession.Tools
@@ -31,27 +32,27 @@ namespace Cession.Tools
         {
             drawingContext.SaveState ();
             drawingContext.CGContext.SetAlpha (.5f);
+            var segment = _handle.Shape as D.Segment;
+
             if (!_handle.IsFirstVertex)
             {
-                var segment = _handle.Shape as Segment;
-                drawingContext.StrokeLine (segment.Point1, EndPoint.Value);
+                drawingContext.DrawSegment (segment, EndPoint.Value, true);
             }
-            else if (_handle.Shape is LineSegment)
+            else
             {
-                var line = _handle.Shape as LineSegment;
-                var prevLine = line.Previous;
+                var prevLine = segment.Previous;
                 if (prevLine != null)
                 {
-                    drawingContext.StrokeLine (prevLine.Point1, EndPoint.Value);
+                    drawingContext.DrawSegment (prevLine, EndPoint.Value, true);
                 }
-                drawingContext.StrokeLine (EndPoint.Value, line.Point2);
+                drawingContext.DrawSegment (segment, EndPoint.Value, false);
             }
             drawingContext.RestoreState ();
         }
 
         protected override void Commit ()
         {
-            Segment segment = _handle.Shape as Segment;
+            D.Segment segment = _handle.Shape as D.Segment;
             if(_handle.IsFirstVertex)
                 CommandManager.Execute (segment, EndPoint.Value, segment.Point1, (l, p) => l.Point1 = p);
             else

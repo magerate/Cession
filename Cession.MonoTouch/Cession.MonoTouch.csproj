@@ -130,6 +130,7 @@
     <Compile Include="Drawing\PolygonMeasureDrawing.cs" />
     <Compile Include="Tools\DiscreteTool.cs" />
     <Compile Include="Tools\MoveLineTool.cs" />
+    <Compile Include="Tools\ToolDrawHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">
