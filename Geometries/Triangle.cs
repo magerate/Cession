@@ -11,14 +11,14 @@ namespace Cession.Geometries
 
         public static double GetSignedArea (Point p1, Point p2, Point p3)
         {
-            Vector v1 = p3 - p1;
+            Vector v1 = p2 - p1;
             Vector v2 = p3 - p2;
             return Vector.CrossProduct (v1, v2) / 2;
         }
 
         public static bool IsClockwise (Point p1, Point p2, Point p3)
         {
-            return GetSignedArea (p1, p2, p3) > 0;
+            return GetSignedArea (p1, p2, p3) >= 0;
         }
 
         //http://totologic.blogspot.fr/2014/01/accurate-point-in-triangle-test.html

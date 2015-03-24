@@ -83,9 +83,8 @@ namespace Cession.Drawing
             nfloat startAngle = (nfloat)((point1 - center).Angle);
             nfloat endAngle = (nfloat)((point3 - center).Angle);
             bool isClockwise = G.Triangle.IsClockwise (point1, point2, point3);
-
             CGPoint deviceCenter = Transform.Transform (center).ToCGPoint ();
-            _context.AddArc (deviceCenter.X, deviceCenter.Y, r, startAngle, endAngle, isClockwise);
+            _context.AddArc (deviceCenter.X, deviceCenter.Y, r, startAngle, endAngle, !isClockwise);
         }
 
         public void StrokePolygon (IReadOnlyList<Point> polygon)

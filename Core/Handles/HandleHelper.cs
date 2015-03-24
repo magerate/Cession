@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Cession.Geometries;
 using Cession.Diagrams;
+using D = Cession.Diagrams;
 
 namespace Cession.Handles
 {
@@ -23,29 +25,44 @@ namespace Cession.Handles
 
         private static Handle[] CreatePolylineHandle(Polyline polyline)
         {
-            Handle[] handles = new Handle[polyline.Segments.Count * 2 + 1];
-            for (int i = 0; i < polyline.Segments.Count; i++)
+            List<Handle> handles = new List<Handle> ();
+            foreach (var segment in polyline.Segments)
             {
-                LineSegment lineSegment = polyline.Segments [i] as LineSegment;
-                handles [i] = new VertexHandle (polyline.Segments [i],true);
-                if(null != lineSegment)
-                    handles [i+polyline.Segments.Count +1] = new LineHandle (lineSegment);
+                AppendHandle (segment, handles);
             }
-            handles [polyline.Segments.Count] = new VertexHandle (polyline.Segments.Last(),false);
-            return handles.Where(h => h != null).ToArray();
+            handles.Add (new VertexHandle (polyline.Segments.Last (), false));
+            return handles.ToArray ();
         }
 
         private static Handle[] CreatePathHandle(Path path)
         {
-            Handle[] handles = new Handle[path.Segments.Count * 2];
-            for (int i = 0; i < path.Segments.Count; i++)
+            List<Handle> handles = new List<Handle> ();
+
+            foreach (var segment in path.Segments)
             {
-                LineSegment lineSegment = path.Segments [i] as LineSegment;
-                handles [i] = new VertexHandle (path.Segments [i], true);
-                if(null != lineSegment)
-                    handles [i+path.Segments.Count] = new LineHandle (lineSegment);
+                AppendHandle (segment, handles);
             }
-            return handles.Where(h => h != null).ToArray();
+            return handles.ToArray ();
+        }
+
+        private static void AppendHandle(D.Segment segment,IList<Handle> handles)
+        {
+            if (segment is LineSegment)
+            {
+                var lineSegment = segment as LineSegment;
+                var lineHandle = new LineHandle (lineSegment);
+                handles.Add (lineHandle);
+                var vertexHandle = new VertexHandle (lineSegment, true);
+                handles.Add (vertexHandle);
+            }
+            else if (segment is ArcSegment)
+            {
+                var arcSegment = segment as ArcSegment;
+                var arcHandle = new ArcHandle (arcSegment);
+                handles.Add (arcHandle);
+                var vertexHandle = new VertexHandle (arcSegment, true);
+                handles.Add (vertexHandle);
+            }
         }
     }
 }

@@ -18,6 +18,7 @@ namespace Cession.Drawing.Handles
         {
             s_drawers [typeof(VertexHandle)] = DrawVertexHandle;
             s_drawers [typeof(LineHandle)] = DrawLineHandle;
+            s_drawers [typeof(ArcHandle)] = DrawArcHandle;
         }
 
         public static void Draw(this Handle handle,DrawingContext drawingContext)
@@ -62,6 +63,27 @@ namespace Cession.Drawing.Handles
 
             LineSegment line = handle.Shape as LineSegment;
             nfloat angle = (nfloat)(line.Angle);
+
+            CGContext context = drawingContext.CGContext;
+            context.SaveState ();
+            context.TranslateCTM (point.X, point.Y);
+            context.RotateCTM(angle);
+            UIColor.Blue.SetFill ();
+            context.FillRect (rect);
+            context.RestoreState ();
+        }
+
+        private static void DrawArcHandle(Handle handle,DrawingContext drawingContext)
+        {
+            var arcHandle = handle as ArcHandle;
+
+            CGPoint point = drawingContext.Transform.Transform(arcHandle.Location).ToCGPoint();
+            var rect = new CGRect (- (nfloat)VertexHandle.Size / 2, 
+                - (nfloat)VertexHandle.Size / 2, 
+                (nfloat)LineHandle.Size, 
+                (nfloat)LineHandle.Size);
+
+            nfloat angle = (nfloat)arcHandle.GetMiddleTangentAngle();
 
             CGContext context = drawingContext.CGContext;
             context.SaveState ();

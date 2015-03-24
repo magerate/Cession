@@ -1,16 +1,25 @@
 ﻿<Properties StartupItem="Cession/Cession.csproj" GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad2.8.2" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Cession.MonoTouch/Drawing/DrawingContext.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Core/Handles/ArcHandle.cs">
     <Files>
-      <File FileName="Core/Alignments/PointToPointRule.cs" Line="29" Column="29" />
-      <File FileName="Geometries/Arc.cs" Line="12" Column="12" />
-      <File FileName="Geometries/Circle.cs" Line="13" Column="13" />
-      <File FileName="Cession.MonoTouch/Drawing/DrawingContext.cs" Line="1" Column="1" />
+      <File FileName="Cession.MonoTouch/Tools/MoveLineTool.cs" Line="2" Column="2" />
+      <File FileName="Core/Handles/LineHandle.cs" Line="53" Column="53" />
+      <File FileName="Core/Handles/ArcHandle.cs" Line="41" Column="41" />
+      <File FileName="Core/Diagrams/ArcSegment.cs" Line="10" Column="10" />
+      <File FileName="Core/Diagrams/LineSegment.cs" Line="1" Column="1" />
+      <File FileName="Core/Handles/Handle.cs" Line="46" Column="46" />
+      <File FileName="Geometries/Vector.cs" Line="10" Column="10" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True" selected="True">
-          <Node name="Core" expanded="True" />
+        <State expanded="True">
+          <Node name="Core" expanded="True">
+            <Node name="Diagrams" expanded="True" />
+            <Node name="Handles" expanded="True">
+              <Node name="ArcHandle.cs" selected="True" />
+            </Node>
+          </Node>
+          <Node name="Geometries" expanded="True" />
         </State>
       </Pad>
       <Pad Id="MonoDevelop.NUnit.TestPad">

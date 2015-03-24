@@ -131,6 +131,7 @@
     <Compile Include="Tools\DiscreteTool.cs" />
     <Compile Include="Tools\MoveLineTool.cs" />
     <Compile Include="Tools\ToolDrawHelper.cs" />
+    <Compile Include="Tools\MoveArcTool.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">

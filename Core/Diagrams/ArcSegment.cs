@@ -11,6 +11,30 @@ namespace Cession.Diagrams
         public Point PointOnArc
         {
             get{ return _pointOnArc; }
+            set{ _pointOnArc = value; }
+        }
+
+        public Point GetMiddle()
+        {
+            Point center = GetCenter ();
+            double r = center.DistanceBetween (Point1);
+
+            Vector v1 = Point1 - center;
+            Vector v2 = Point2 - center;
+
+            double angle1 = (v1.Angle + v2.Angle) / 2;
+            double angle2 = (angle1 + Math.PI) % (Math.PI * 2);
+
+            Vector v3 = _pointOnArc - center;
+
+            double angle;
+            if (Math.Abs (angle1 - v3.Angle) <= Math.Abs (angle2 - v3.Angle))
+                angle = angle1;
+            else
+                angle = angle2;
+
+            Vector vv = new Vector (r * Math.Cos (angle), r * Math.Sin (angle));
+            return center + vv;
         }
 
         public Point GetCenter()
