@@ -69,6 +69,13 @@ namespace Cession.UIKit
             elevationItem.Tag = typeof(AddElevationTool);
             elevationItem.Action = toolSelector;
             section.Items.Add (elevationItem);
+
+            var circleElevationItem = new DetailMenuItem ();
+            circleElevationItem.Title = "Add Circle Elevation";
+            circleElevationItem.Image = ImageHelper.GetTemplateImage (ImageFiles.Polygon25);
+            circleElevationItem.Tag = typeof(AddCircleElevationTool);
+            circleElevationItem.Action = toolSelector;
+            section.Items.Add (circleElevationItem);
         }
     }
 }

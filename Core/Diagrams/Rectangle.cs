@@ -3,7 +3,7 @@ using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
-    public class Rectangle:Shape
+    public class Rectangle:ClosedShape
     {
         private Rect _rect;
         private Matrix _transform;
@@ -32,12 +32,12 @@ namespace Cession.Diagrams
             return _rect.Contains (pp);
         }
 
-        public double GetArea ()
+        public override double GetArea ()
         {
             return _rect.Width * _rect.Height;
         }
 
-        public double GetPerimeter ()
+        public override double GetPerimeter ()
         {
             return 2 * (_rect.Width + _rect.Height);
         }

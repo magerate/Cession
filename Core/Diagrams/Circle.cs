@@ -3,15 +3,38 @@ using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
-    public class Circle:Shape
+    public class Circle:ClosedShape
     {
         private Point _center;
         private double _radius;
+
+        public event EventHandler<EventArgs> RadiusChanged;
 
         public Circle (Point center, double radius)
         {
             _center = center;
             _radius = radius;
+        }
+
+        public Point Center
+        {
+            get{ return _center; }
+        }
+
+        public double Radius
+        {
+            get{ return _radius; }
+            set
+            {
+                if (value <= 0)
+                    throw new ArgumentOutOfRangeException ();
+                
+                if (value != _radius)
+                {
+                    _radius = value;
+                    RadiusChanged?.Invoke (this,EventArgs.Empty);
+                }
+            }
         }
 
         protected override Rect DoGetBounds ()
@@ -37,12 +60,12 @@ namespace Cession.Diagrams
             _center.Rotate (point, radian);
         }
 
-        public double GetArea ()
+        public override double GetArea ()
         {
             return Math.PI * _radius * _radius;
         }
 
-        public double GetPerimeter ()
+        public override double GetPerimeter ()
         {
             return 2 * Math.PI * _radius;
         }

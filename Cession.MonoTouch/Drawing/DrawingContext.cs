@@ -10,6 +10,7 @@ using Cession.Diagrams;
 using Cession.Geometries;
 using Cession.Dimensions;
 using G = Cession.Geometries;
+using D = Cession.Diagrams;
 
 namespace Cession.Drawing
 {
@@ -110,6 +111,18 @@ namespace Cession.Drawing
             }
         }
 
+        public void BuildCirclePath(D.Circle circle)
+        {
+            CGRect rect = GetCGRect (circle.GetBounds ());
+            _context.AddEllipseInRect (rect);
+        }
+
+        public void BuildRectPath(Rectangle rectangle)
+        {
+            CGRect rect = GetCGRect (rectangle.Rect);
+            _context.AddRect (rect);
+        }
+
         public void StrokePolygon (IReadOnlyList<Point> polygon)
         {
             BuildPolygonPath (polygon);
@@ -137,6 +150,21 @@ namespace Cession.Drawing
         {
             CGPoint cgPoint = Transform.Transform (point).ToCGPoint ();
             str.DrawString (cgPoint);
+        }
+
+        public void DrawDimension(ClosedShape closedShape)
+        {
+            if (closedShape is Path)
+                DrawPathDimension (closedShape as Path);
+                
+        }
+
+        public void DrawPathDimension(Path path)
+        {
+            foreach (var segment in path.Segments)
+            {
+                DrawDimension (segment.Point1, segment.Point2);
+            }
         }
 
         public void DrawDimension (Point p1, Point p2)
@@ -193,11 +221,6 @@ namespace Cession.Drawing
 
             BuildPolyLinePath (polyline);
             CGContext.StrokePath ();
-
-//            for (int i = 0; i < polyline.Count - 1; i++)
-//            {
-//                DrawDimension (polyline [i], polyline [i + 1]);
-//            }
         }
 
         public void BuildPolyLinePath(IReadOnlyList<Point> polyline)
@@ -222,6 +245,28 @@ namespace Cession.Drawing
         {
             var cr = GetCGRect (rect);
             CGContext.StrokeRect (cr);
+        }
+
+        public void BuildClosedShapePath(ClosedShape closedShape)
+        {
+            if (closedShape is Path)
+                BuildPath (closedShape as Path);
+            else if (closedShape is D.Circle)
+                BuildCirclePath (closedShape as D.Circle);
+            else if (closedShape is Rectangle)
+                BuildRectPath (closedShape as Rectangle);
+        }
+
+        public void StrokeCloseShape(ClosedShape closedShape)
+        {
+            BuildClosedShapePath (closedShape);
+            _context.DrawPath (CGPathDrawingMode.Stroke);
+        }
+
+        public void FillCloseShape(ClosedShape closedShape)
+        {
+            BuildClosedShapePath (closedShape);
+            _context.DrawPath (CGPathDrawingMode.Fill);
         }
 
         private CGRect GetCGRect(Rect rect)

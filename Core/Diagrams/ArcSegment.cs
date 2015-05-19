@@ -14,6 +14,21 @@ namespace Cession.Diagrams
             set{ _pointOnArc = value; }
         }
 
+        public override double Length
+        {
+            get
+            {
+                Point center = GetCenter ();
+                double r = center.DistanceBetween (Point1);
+
+                Vector v1 = Point1 - center;
+                Vector v2 = Point2 - center;
+                double radian = Vector.AngleBetween (v1, v2);
+
+                return radian / Math.PI / 2 * r;
+            }
+        }
+
         public Point GetMiddle()
         {
             Point center = GetCenter ();

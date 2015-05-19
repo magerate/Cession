@@ -20,6 +20,10 @@ namespace Cession.Diagrams
                                                            typeof(EventHandler<VertexChangedEventArgs>), 
                                                            typeof(Segment));
 
+        public static readonly RoutedEvent LengthChangedEvent = new RoutedEvent ("LengthChange",
+                                                                    typeof(EventHandler<RoutedEventArgs>),
+                                                                    typeof(Segment));
+
         private Point _point1;
 
         public event EventHandler<VertexChangedEventArgs> VertexChanged
@@ -27,6 +31,14 @@ namespace Cession.Diagrams
             add{AddHandler(VertexChangeEvent,value);}
             remove{ RemoveHandler (VertexChangeEvent, value);}
         }
+
+        public event EventHandler<RoutedEventArgs> LengthChanged
+        {
+            add{ AddHandler (LengthChangedEvent, value);}
+            remove{ RemoveHandler (LengthChangedEvent, value);}
+        }
+
+        public abstract double Length{ get;}
 
         public Point Point1 
         {
@@ -38,6 +50,13 @@ namespace Cession.Diagrams
                     var rea = new VertexChangedEventArgs (VertexChangeEvent, this,value);
                     rea.IsFirstVertex = true;
                     RaiseEvent (rea);
+
+                    var prev = Previous;
+                    if(null != prev)
+                    {
+                        prev.RaiseEvent (new RoutedEventArgs (LengthChangedEvent, prev));
+                    }
+                    RaiseEvent (new RoutedEventArgs (LengthChangedEvent, this));
                 }
             }
         }

@@ -15,6 +15,14 @@ namespace Cession.Diagrams
             get{ return new Point ((Point1.X + Point2.X) / 2, (Point1.Y + Point2.Y) / 2); }
         }
 
+        public override double Length
+        {
+            get
+            {
+                return Point1.DistanceBetween (Point2);
+            }
+        }
+
         public LineSegment (Point point) : base (point)
         {
         }

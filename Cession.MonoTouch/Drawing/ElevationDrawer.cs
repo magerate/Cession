@@ -5,6 +5,7 @@ using CoreGraphics;
 
 using Cession.Diagrams;
 using Cession.Geometries;
+using D = Cession.Diagrams;
 
 namespace Cession.Drawing
 {
@@ -16,7 +17,8 @@ namespace Cession.Drawing
             if (null == elevation)
                 throw new ArgumentException ("shape");
 
-            drawingContext.StrokePath (elevation.Contour);
+            drawingContext.StrokeCloseShape (elevation.Contour);
+            drawingContext.DrawDimension (elevation.Contour);
 
             if (!string.IsNullOrEmpty (elevation.Name))
             {

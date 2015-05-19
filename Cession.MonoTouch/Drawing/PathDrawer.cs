@@ -16,11 +16,7 @@ namespace Cession.Drawing
             if(null == path)
                 throw new ArgumentException("shape");
 
-            foreach (var s in path)
-            {
-                var ls = s as LineSegment;
-                drawingContext.StrokeLine (ls.Point1, ls.Point2);
-            }
+            drawingContext.StrokePath (path);
         }
     }
 }

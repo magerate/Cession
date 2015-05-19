@@ -7,7 +7,7 @@ using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
-    public class Path:CompositeShape,IReadOnlyList<Point>
+    public class Path:ClosedShape,IReadOnlyList<Point>
     {
         private List<Segment> _segments;
 
@@ -86,12 +86,12 @@ namespace Cession.Diagrams
             }
         }
 
-        public override IEnumerator<Shape> GetEnumerator ()
-        {
-            return _segments.GetEnumerator ();
-        }
+//        public override IEnumerator<Shape> GetEnumerator ()
+//        {
+//            return _segments.GetEnumerator ();
+//        }
 
-        IEnumerator<Point> IEnumerable<Point>.GetEnumerator ()
+        public IEnumerator<Point> GetEnumerator ()
         {
             foreach (var s in _segments)
             {
@@ -101,15 +101,15 @@ namespace Cession.Diagrams
 
         IEnumerator IEnumerable.GetEnumerator ()
         {
-            return this.GetEnumerator ();
+            return GetEnumerator ();
         }
 
-        public double GetArea ()
+        public override double GetArea ()
         {
             return 0;
         }
 
-        public double GetPerimeter ()
+        public override double GetPerimeter ()
         {
             return 0;
         }
@@ -124,9 +124,25 @@ namespace Cession.Diagrams
             return Polygon.Contains (point, this);
         }
 
+        internal override void DoOffset (double x, double y)
+        {
+            foreach (var segment in _segments)
+            {
+                segment.DoOffset (x, y);
+            }
+        }
+
+        internal override void DoRotate (Point point, double radian)
+        {
+            foreach (var segment in _segments)
+            {
+                segment.DoRotate (point, radian);
+            }
+        }
+
         protected override Shape DoHitTest (Point point)
         {
-            Shape shape = base.DoHitTest (point);
+            Shape shape = _segments.HitTest (point);
             if (null != shape)
                 return shape;
            
