@@ -19,6 +19,7 @@ namespace Cession.Drawing
             RegisterDrawer (typeof(Circle), new CircleDrawer ());
             RegisterDrawer (typeof(Rectangle), new RectangleDrawer ());
             RegisterDrawer (typeof(Path), new PathDrawer ());
+            RegisterDrawer (typeof(Elevation), new ElevationDrawer ());
         }
 
         public static void RegisterDrawer (Type type, ShapeDrawer drawer)

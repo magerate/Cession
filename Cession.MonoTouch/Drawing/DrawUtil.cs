@@ -22,11 +22,6 @@ namespace Cession.Drawing
             context.FillEllipseInRect (rect);
         }
 
-        public static void FillRect(this CGContext context,CGRect rect)
-        {
-            context.FillRect (rect);
-        }
-
         public static void DrawString (this string str, CGPoint point, UIStringAttributes stringAttribute)
         {
             if (null == str)
@@ -39,6 +34,12 @@ namespace Cession.Drawing
             {
                 nsString.DrawString (point, stringAttribute);
             }
+        }
+
+        public static void DrawString(this string str,CGPoint point)
+        {
+            UIStringAttributes sa = new UIStringAttributes ();
+            DrawString (str, point, sa);
         }
 
         public static CGSize MeasureString (this string str, UIStringAttributes stringAttribute)

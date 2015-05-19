@@ -34,6 +34,15 @@ namespace Cession.Geometries
 
             return 0 <= t1 && t1 <= 1 && 0 <= t2 && t2 <= 1 && s <= 1;
         }
+
+        public static bool IsClamp(Point p1, Point p2, Point p3, Point point)
+        {
+            double denominator = (p1.X * (p2.Y - p3.Y) + p1.Y * (p3.X - p2.X) + p2.X * p3.Y - p2.Y * p3.X);
+            double t1 = (point.X * (p3.Y - p1.Y) + point.Y * (p1.X - p3.X) - p1.X * p3.Y + p1.Y * p3.X) / denominator;
+            double t2 = (point.X * (p2.Y - p1.Y) + point.Y * (p1.X - p2.X) - p1.X * p2.Y + p1.Y * p2.X) / -denominator;
+
+            return 0 <= t1 && 0 <= t2;
+        }
     }
 }
 

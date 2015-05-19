@@ -1,8 +1,8 @@
 using System;
-using CoreGraphics;
 
 using UIKit;
 using Foundation;
+using CoreGraphics;
 
 using Cession.Tools;
 using Cession.Resources;
@@ -38,6 +38,7 @@ namespace Cession.UIKit
             polylineItem.Title = "Add Polyline";
             polylineItem.Image = ImageHelper.GetTemplateImage (ImageFiles.Rectangle25);
             polylineItem.Tag = typeof(AddPolylineTool);
+//            polylineItem.Tag = typeof(TriangleTestTool);
             polylineItem.Action = toolSelector;
             section.Items.Add (polylineItem);
 
@@ -61,10 +62,14 @@ namespace Cession.UIKit
             polygonItem.Tag = typeof(AddPathTool);
             polygonItem.Action = toolSelector;
             section.Items.Add (polygonItem);
+
+            var elevationItem = new DetailMenuItem ();
+            elevationItem.Title = "Add Elevation";
+            elevationItem.Image = ImageHelper.GetTemplateImage (ImageFiles.Polygon25);
+            elevationItem.Tag = typeof(AddElevationTool);
+            elevationItem.Action = toolSelector;
+            section.Items.Add (elevationItem);
         }
-
-
-
     }
 }
 

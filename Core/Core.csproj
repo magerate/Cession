@@ -106,6 +106,8 @@
     <Compile Include="Diagrams\ArcSegment.cs" />
     <Compile Include="Handles\LineHandle.cs" />
     <Compile Include="Handles\ArcHandle.cs" />
+    <Compile Include="Diagrams\WallSurface.cs" />
+    <Compile Include="Diagrams\Elevation.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">

@@ -64,6 +64,11 @@ namespace Cession.Geometries
             get { return _y; }
         }
 
+        public Point Center
+        {
+            get{ return new Point (_x + _width / 2, _y + Height / 2); }
+        }
+
 
         public Point LeftBottom
         {

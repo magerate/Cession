@@ -69,13 +69,7 @@ namespace Cession.Diagrams
 
         private bool IsClamped(Point point,Point center)
         {
-            Vector v1 = center - Point1;
-            Vector v2 = Point2 - center;
-
-            Vector v11 = point - Point1;
-            Vector v22 = point - center;
-
-            return v1 * v11 >= 0 && v2 * v22 >= 0;
+            return Triangle.IsClamp (center, Point1, Point2, point);
         }
     }
 }

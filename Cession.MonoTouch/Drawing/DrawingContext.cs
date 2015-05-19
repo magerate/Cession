@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using CoreGraphics;
 using Foundation;
@@ -87,6 +88,28 @@ namespace Cession.Drawing
             _context.AddArc (deviceCenter.X, deviceCenter.Y, r, startAngle, endAngle, !isClockwise);
         }
 
+        public void StrokePath(Path path)
+        {
+            BuildPath (path);
+            _context.StrokePath ();
+        }
+
+        public void BuildPath(Path path)
+        {
+            var startPoint = path.Segments.First ().Point1;
+            MoveToPoint (startPoint);
+            foreach (var segment in path.Segments)
+            {
+                if (segment is LineSegment)
+                    AddLineToPoint (segment.Point2);
+                else
+                {
+                    var arcSegment = segment as ArcSegment;
+                    AddArc (arcSegment.Point1, arcSegment.PointOnArc,arcSegment.Point2);
+                }
+            }
+        }
+
         public void StrokePolygon (IReadOnlyList<Point> polygon)
         {
             BuildPolygonPath (polygon);
@@ -108,6 +131,12 @@ namespace Cession.Drawing
         private bool NeedReverse (double angle)
         {
             return angle >= Math.PI / 2 && angle <= Math.PI * 3 / 2;
+        }
+
+        public void DrawString(string str,Point point)
+        {
+            CGPoint cgPoint = Transform.Transform (point).ToCGPoint ();
+            str.DrawString (cgPoint);
         }
 
         public void DrawDimension (Point p1, Point p2)
