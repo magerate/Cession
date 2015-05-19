@@ -1,29 +1,18 @@
 ﻿<Properties StartupItem="Cession/Cession.csproj" GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad2.8.3" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Core/Diagrams/Path.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Cession.MonoTouch/UIKit/ImageHelper.cs">
     <Files>
-      <File FileName="Cession.MonoTouch/UIKit/UIFontExtension.cs" Line="8" Column="40" />
-      <File FileName="Cession.MonoTouch/UIKit/ActionSheetManager.cs" Line="31" Column="43" />
-      <File FileName="Cession.MonoTouch/UIKit/PopoverControllerManager.cs" Line="24" Column="52" />
-      <File FileName="Core/Diagrams/Elevation.cs" Line="12" Column="21" />
-      <File FileName="Core/Diagrams/Label.cs" Line="20" Column="38" />
-      <File FileName="Core/Diagrams/Path.cs" Line="10" Column="5" />
+      <File FileName="Cession.MonoTouch/Drawing/ElevationDrawer.cs" Line="19" Column="13" />
+      <File FileName="Cession.MonoTouch/UIKit/ImageHelper.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Cession" expanded="True">
             <Node name="Cession.MonoTouch" expanded="True" />
-            <Node name="Core" expanded="True">
-              <Node name="Diagrams" expanded="True">
-                <Node name="Path.cs" selected="True" />
-              </Node>
-            </Node>
+            <Node name="Core" expanded="True" />
           </Node>
         </State>
-      </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
       </Pad>
       <Pad Id="MonoDevelop.NUnit.TestPad">
         <State name="__root__">

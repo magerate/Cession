@@ -12,7 +12,6 @@ namespace Cession.Diagrams
         class DivideData
         {
             public Polyline Divider{ get; set; }
-
             public Path Path{ get; set; }
         }
 

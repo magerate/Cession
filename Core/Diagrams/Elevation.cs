@@ -14,10 +14,22 @@ namespace Cession.Diagrams
         private List<WallSurface> _walls;
         private ClosedShape _contour;
         private double _height;
+        private Shape _dock;
 
         public string Name{ get; set; }
-        public Shape Dock{ get; set;}
         public ReadOnlyCollection<WallSurface> Walls{ get; private set; }
+
+        public Shape Dock
+        { 
+            get{ return _dock; }
+            set
+            {
+                if (value != _dock)
+                {
+                    _dock = value;
+                }
+            }
+        }
 
         public ClosedShape Contour
         {
