@@ -14,21 +14,20 @@ namespace Cession.Diagrams
         private List<WallSurface> _walls;
         private ClosedShape _contour;
         private double _height;
-        private Shape _dock;
+        private Shape _dockedShape;
+        private ObservableCollection<ClosedShape> _holes;
 
         public string Name{ get; set; }
         public ReadOnlyCollection<WallSurface> Walls{ get; private set; }
 
-        public Shape Dock
+        public ObservableCollection<ClosedShape> Holes
+        {
+            get{ return _holes; }
+        }
+
+        public Shape DockedShape
         { 
-            get{ return _dock; }
-            set
-            {
-                if (value != _dock)
-                {
-                    _dock = value;
-                }
-            }
+            get{ return _dockedShape; }
         }
 
         public ClosedShape Contour
@@ -57,13 +56,13 @@ namespace Cession.Diagrams
         {
             if (null == contour)
                 throw new ArgumentNullException ();
-            
+
             Name = "C";
             _contour = contour;
             _height = DefaultHeight;
+            _holes = new ObservableCollection<ClosedShape> ();
             _walls = new List<WallSurface> ();
             Walls = new ReadOnlyCollection<WallSurface> (_walls);
-
             CreateWalls (contour, DefaultHeight);
         }
 
@@ -104,6 +103,31 @@ namespace Cession.Diagrams
         protected override bool DoContains (Point point)
         {
             return _contour.Contains (point);
+        }
+
+        public void Dock(Shape shape)
+        {
+            if(_dockedShape != shape)
+            {
+                Undock ();
+                _dockedShape = shape;
+                if (_dockedShape is Elevation)
+                {
+                    ((Elevation)_dockedShape).Holes.Add (Contour);
+                }
+            }
+        }
+
+        public void Undock()
+        {
+            if (null == _dockedShape)
+                return;
+
+            if(_dockedShape is Elevation)
+            {
+                ((Elevation)_dockedShape).Holes.Remove (Contour);
+            }
+            _dockedShape = null;
         }
     }
 }
