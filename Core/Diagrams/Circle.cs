@@ -16,7 +16,7 @@ namespace Cession.Diagrams
             _radius = radius;
         }
 
-        public Point Center
+        public override Point Center
         {
             get{ return _center; }
         }

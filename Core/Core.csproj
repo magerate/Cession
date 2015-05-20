@@ -109,6 +109,8 @@
     <Compile Include="Diagrams\WallSurface.cs" />
     <Compile Include="Diagrams\Elevation.cs" />
     <Compile Include="Diagrams\ClosedShape.cs" />
+    <Compile Include="Handles\RectangleHandle.cs" />
+    <Compile Include="Handles\CircleHandle.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">

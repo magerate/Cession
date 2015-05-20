@@ -22,7 +22,7 @@ namespace Cession.Drawing
 
             if (!string.IsNullOrEmpty (elevation.Name))
             {
-                drawingContext.DrawString (elevation.Name, elevation.Center);
+                drawingContext.DrawString (elevation.Name, elevation.Contour.Center);
             }
         }
     }

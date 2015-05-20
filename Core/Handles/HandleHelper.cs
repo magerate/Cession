@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 
 using Cession.Geometries;
 using Cession.Diagrams;
@@ -19,6 +19,14 @@ namespace Cession.Handles
             else if (shape is Path)
             {
                 return CreatePathHandle (shape as Path);
+            }
+            else if (shape is Rectangle)
+            {
+                return CreateRectHandles (shape as Rectangle);
+            }
+            else if (shape is D.Circle)
+            {
+                return CreateCircleHandles (shape as D.Circle);
             }
             return null;
         }
@@ -63,6 +71,18 @@ namespace Cession.Handles
                 var vertexHandle = new VertexHandle (arcSegment, true);
                 handles.Add (vertexHandle);
             }
+        }
+
+        private static Handle[] CreateRectHandles(Rectangle rect)
+        {
+            var values = Enum.GetValues (typeof(RectangleHandleTypes)) as IEnumerable<RectangleHandleTypes>;
+            return values.Select (v => new RectangleHandle (rect, v)).ToArray ();
+        }
+
+        private static Handle[] CreateCircleHandles(D.Circle circle)
+        {
+            var values = Enum.GetValues (typeof(CircleHandleTypes)) as IEnumerable<CircleHandleTypes>;
+            return values.Select (v => new CircleHandle (circle, v)).ToArray ();
         }
     }
 }

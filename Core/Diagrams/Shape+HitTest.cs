@@ -11,10 +11,7 @@ namespace Cession.Diagrams
     {
         private static Dictionary<Type,HitTestProvider> s_hitTestors;
 
-        public Point Center
-        {
-            get{ return GetBounds ().Center; }
-        }
+        public virtual Point Center => GetBounds ().Center;
 
         public static void RegisterHitTestProvider (Type type, HitTestProvider hitTestProvider)
         {
