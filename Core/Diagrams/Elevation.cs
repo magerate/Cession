@@ -99,6 +99,11 @@ namespace Cession.Diagrams
         {
             return _contour.Contains (point);
         }
+
+        protected override Rect DoGetBounds ()
+        {
+            return _contour.Bounds;
+        }
     }
 }
 

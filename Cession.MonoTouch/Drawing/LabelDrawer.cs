@@ -1,8 +1,5 @@
 using System;
 
-using CoreGraphics;
-using UIKit;
-
 using Cession.Diagrams;
 
 namespace Cession.Drawing
@@ -15,9 +12,7 @@ namespace Cession.Drawing
             if (null == label)
                 throw new ArgumentException ("shape");
 
-            var layer = shape.Owner as Layer;
-            var point = layer.ConvertToViewPoint (label.Location).ToCGPoint ();
-            label.Text.DrawString (point, new UIStringAttributes ());
+            context.DrawString (label.Text, label.Location);
         }
     }
 }
