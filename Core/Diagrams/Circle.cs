@@ -39,7 +39,12 @@ namespace Cession.Diagrams
 
         protected override Rect DoGetBounds ()
         {
-            return new Rect (_center.X - _radius, _center.Y - _radius, 2 * _radius, 2 * _radius);
+            return CalcBounds (_center, _radius);
+        }
+
+        public static Rect CalcBounds(Point center,double radius)
+        {
+            return new Rect (center.X - radius, center.Y - radius, 2 * radius, 2 * radius);
         }
 
         protected override bool DoContains (Point point)

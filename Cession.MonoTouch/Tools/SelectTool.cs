@@ -33,6 +33,7 @@ namespace Cession.Tools
             VertexHandle.TargetToolType = typeof(MoveVertexTool);
             LineHandle.TargetToolType = typeof(MoveLineTool);
             ArcHandle.TargetToolType = typeof(MoveArcTool);
+            CircleHandle.TargetToolType = typeof(AdjustCircleTool);
         }
 
         public void AttachProject(Project project)

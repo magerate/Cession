@@ -17,6 +17,8 @@ namespace Cession.Handles
 
     public class CircleHandle:Handle
     {
+        public static Type TargetToolType{ get; set;}
+
         private CircleHandleTypes _type;
 
         public override Point Location
@@ -39,8 +41,15 @@ namespace Cession.Handles
             }
         }
 
-        public D.Circle Circle => Shape as D.Circle;
-        public override Type ToolType => null;
+        public D.Circle Circle
+        {
+            get{ return Shape as D.Circle; }
+        }
+
+        public override Type ToolType
+        {
+            get{ return TargetToolType; }
+        }
 
         public CircleHandle (D.Circle circle,CircleHandleTypes type) : base (circle)
         {
