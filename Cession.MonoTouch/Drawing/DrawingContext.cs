@@ -169,10 +169,10 @@ namespace Cession.Drawing
 
         public void DrawDimension (Point p1, Point p2)
         {
-            var logicalLength = p1.DistanceBetween (p2);
-            var length = new Length (logicalLength);
+            double logicalLength = p1.DistanceBetween (p2);
+            string strLength = Length.ConvertToString (logicalLength);
 
-            using (var nsStr = new NSString (length.ToString ()))
+            using (var nsStr = new NSString (strLength.ToString ()))
             {
                 Vector vector = p2 - p1;
                 double angle = vector.Angle;

@@ -44,22 +44,24 @@ namespace Cession.Handles
             IsFirstVertex = isFirstVertex;
         }
 
-        public override bool Contains (Point point, Matrix transform)
+        public override bool Contains (Point point)
         {
             double dx = Math.Abs (point.X - Location.X);
             double dy = Math.Abs (point.Y - Location.Y);
 
+            var transform = Transform;
             double delta = (Size/2) / transform.M11;
 
             return dx <= delta && dy <= delta;
         }
 
-//        public Command CreateCommand(Point point)
-//        {
-//            var command = Command.Create (Segment,point, Segment.Point1, (s,p) => s.Point1 = p);
-//            return command;
-//        }
-
+        //bounds of handles is in device coordiante space
+        //then handle won't scale when diagram scaled
+        public Rect GetBounds()
+        {
+            var point = Transform.Transform (Location);
+            return new Rect (point.X - Size / 2, point.Y - Size / 2, Size, Size);
+        }
     }
 }
 

@@ -85,7 +85,7 @@ namespace Cession.Tools
             Point tp = ConvertToLogicalPoint (_touchPoint);
             foreach (var h in Handles)
             {
-                if (h.Contains (tp, CurrentLayer.Transform))
+                if (h.Contains (tp))
                 {
                     ToolManager.PushTool (h.ToolType, h);
                     return true;

@@ -87,10 +87,15 @@ namespace Cession.Dimensions
             }      
         }
 
+        public static string ConvertToString(double value)
+        {
+            var length = new Length (value);
+            return length.ToString ();
+        }
+
         public static bool TryParse (string s, out Length length)
         {
             length = new Length ();
-//			return new Length(GetConverter(Unit).ConvertFrom(s));
             return false;
         }
 
@@ -242,7 +247,7 @@ namespace Cession.Dimensions
             double n = Math.Ceiling (Math.Log10 (PixelsPerInch / _precision));
             string formatSymbol = "F" + n.ToString ();
             double inches = (Inches % InchesPerFoot);
-				
+
             if (feet == 0)
                 return string.Format ("{0}\"", inches.ToString (formatSymbol));
             return string.Format ("{0}'{1}\"", feet.ToString (), inches.ToString (formatSymbol));

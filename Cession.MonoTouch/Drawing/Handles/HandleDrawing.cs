@@ -39,11 +39,7 @@ namespace Cession.Drawing.Handles
         private static void DrawVertexHandle(Handle handle,DrawingContext drawingContext)
         {
             var vh = handle as VertexHandle;
-            CGPoint point = drawingContext.Transform.Transform(vh.Location).ToCGPoint();
-            var rect = new CGRect (point.X - (nfloat)VertexHandle.Size / 2, 
-                point.Y - (nfloat)VertexHandle.Size / 2, 
-                (nfloat)VertexHandle.Size, 
-                (nfloat)VertexHandle.Size);
+            var rect = vh.GetBounds().ToCGRect();
 
             CGContext context = drawingContext.CGContext;
             context.SaveState ();

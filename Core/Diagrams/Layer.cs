@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 using Cession.Geometries;
-using Cession.Utilities;
+using Cession.Dimensions;
 
 namespace Cession.Diagrams
 {
@@ -19,8 +19,7 @@ namespace Cession.Diagrams
 
     public class Layer:Shape
     {
-        //about 200m
-        public static readonly Size DefaultSize = new Size (8000, 8000);
+        public static readonly Size DefaultSize = new Size (200 * Length.PixelsPerMeter, 200 * Length.PixelsPerMeter);
 
         public string Name{ get; set; }
 

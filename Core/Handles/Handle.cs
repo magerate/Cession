@@ -15,8 +15,16 @@ namespace Cession.Handles
         }
 
         public abstract Point Location{ get; }
-
         public abstract Type ToolType{ get; }
+
+        protected Matrix Transform
+        {
+            get
+            { 
+                var layer = Shape.Owner as Layer;
+                return layer.Transform;
+            }
+        }
 
         protected Handle (Shape shape)
         {
@@ -25,7 +33,7 @@ namespace Cession.Handles
             _shape = shape;
         }
 
-        public abstract bool Contains (Point point, Matrix transform);
+        public abstract bool Contains (Point point);
     }
 }
 

@@ -36,8 +36,10 @@ namespace Cession.Handles
         {
         }
 
-        public override bool Contains (Point point, Matrix transform)
+        public override bool Contains (Point point)
         {
+            var transform = Transform;
+
             double size = Size / transform.M11;
             Rect rect = new Rect (0, 0, size, size);
 
