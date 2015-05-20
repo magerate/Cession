@@ -111,6 +111,7 @@
     <Compile Include="Diagrams\ClosedShape.cs" />
     <Compile Include="Handles\RectangleHandle.cs" />
     <Compile Include="Handles\CircleHandle.cs" />
+    <Compile Include="Diagrams\Floor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 using Cession.Geometries;
 using Cession.Dimensions;
@@ -14,10 +15,16 @@ namespace Cession.Diagrams
         private List<WallSurface> _walls;
         private ClosedShape _contour;
         private double _height;
+        private Region _region;
 
         public string Name{ get; set; }
         public ReadOnlyCollection<WallSurface> Walls{ get; private set; }
         public ObservableCollection<Elevation> ChildElevations{ get; private set; }
+
+        public Region Region
+        {
+            get{ return _region; }
+        }
 
         public ClosedShape Contour
         {
@@ -59,6 +66,7 @@ namespace Cession.Diagrams
             _contour = contour;
             _contour.Ability = _contour.Ability & ~(ShapeAbility.CanSelect | ShapeAbility.CanOffset | ShapeAbility.CanRotate);
             _contour.Parent = this;
+            _region = new Region (_contour);
 
             _walls = new List<WallSurface> ();
             Walls = new ReadOnlyCollection<WallSurface> (_walls);
