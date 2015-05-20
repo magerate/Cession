@@ -17,7 +17,14 @@ namespace Cession.Handles
 
     public class RectangleHandle:Handle
     {
+        public static Type TargetToolType{ get; set;}
+
         private RectangleHandleTypes _type;
+
+        public RectangleHandleTypes Type
+        {
+            get{ return _type; }
+        }
 
         public override Point Location
         {
@@ -39,8 +46,15 @@ namespace Cession.Handles
             }
         }
 
-        public Rectangle Rectangle => Shape as Rectangle;
-        public override Type ToolType => null;
+        public Rectangle Rectangle
+        {
+            get{ return Shape as Rectangle; }
+        }
+
+        public override Type ToolType
+        {
+            get{ return TargetToolType; }
+        }
 
 
         public RectangleHandle (Rectangle rectangle,RectangleHandleTypes type) : base (rectangle)

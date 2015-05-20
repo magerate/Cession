@@ -11,6 +11,7 @@ namespace Cession.Diagrams
         public Rect Rect
         {
             get{ return _rect; }
+            set{ _rect = value; }
         }
 
         public Rectangle (Rect rect)
