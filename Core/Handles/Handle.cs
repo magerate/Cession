@@ -14,8 +14,26 @@ namespace Cession.Handles
             get{ return _shape; }
         }
 
+
         public abstract Point Location{ get; }
         public abstract Type ToolType{ get; }
+
+        //handle size is in device coordiante space
+        public virtual double Size
+        {
+            get{ return 24; }
+        }
+
+        //bounds of handles is in device coordiante space
+        //then handle won't scale when diagram scaled
+        public Rect Bounds
+        {
+            get
+            {
+                var point = Transform.Transform (Location);
+                return new Rect (point.X - Size / 2, point.Y - Size / 2, Size, Size);
+            }
+        }
 
         protected Matrix Transform
         {
@@ -33,7 +51,23 @@ namespace Cession.Handles
             _shape = shape;
         }
 
-        public abstract bool Contains (Point point);
+        public virtual Matrix GetHanldeTransform()
+        {
+            return Matrix.Identity;
+        }
+
+        public bool Contains (Point point)
+        {
+            Rect bounds = Bounds;
+            point = Transform.Transform (point);
+
+            var matrix = GetHanldeTransform ();
+            matrix.Invert ();
+
+            point = matrix.Transform (point);
+
+            return bounds.Contains (point);
+        }
     }
 }
 

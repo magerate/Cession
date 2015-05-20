@@ -9,6 +9,8 @@ namespace Cession.Drawing
 {
     public static class DrawUtil
     {
+        private static readonly UIStringAttributes DefaultStringAsstributes = new UIStringAttributes();
+
         public static void StrokeLine (this CGContext context, CGPoint p1, CGPoint p2)
         {
             context.MoveTo (p1.X, p1.Y);
@@ -38,8 +40,7 @@ namespace Cession.Drawing
 
         public static void DrawString(this string str,CGPoint point)
         {
-            UIStringAttributes sa = new UIStringAttributes ();
-            DrawString (str, point, sa);
+            DrawString (str, point, DefaultStringAsstributes);
         }
 
         public static CGSize MeasureString (this string str, UIStringAttributes stringAttribute)

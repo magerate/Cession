@@ -127,13 +127,7 @@ namespace Cession
             using (var context = UIGraphics.GetCurrentContext ())
             {
                 var dc = new DrawingContext (context);
-                var layer = ToolManager.Host.Project.SelectedLayer;
-                var matrix = layer.Transform;
-                dc.PushTransform (matrix);
-                foreach (var shape in layer.SelectedShapes)
-                {
-                    shape.DrawSelected (dc);
-                }
+
                 var selectTool = ToolManager.GetTool (typeof(SelectTool)) as SelectTool;
                 if (selectTool.Handles != null)
                 {
@@ -142,6 +136,15 @@ namespace Cession
                         handle.Draw (dc);
                     }
                 }
+
+                var layer = ToolManager.Host.Project.SelectedLayer;
+                var matrix = layer.Transform;
+                dc.PushTransform (matrix);
+                foreach (var shape in layer.SelectedShapes)
+                {
+                    shape.DrawSelected (dc);
+                }
+
                 ToolManager.CurrentTool.Draw (dc);
                 dc.PopTransform ();
             }

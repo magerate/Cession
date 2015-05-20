@@ -12,15 +12,6 @@ namespace Cession.Drawing.Handles
 {
     public static class HandleDrawing
     {
-        private static Dictionary<Type,Action<Handle,DrawingContext>> s_drawers = new Dictionary<Type, Action<Handle, DrawingContext>>();
-
-        static HandleDrawing()
-        {
-            s_drawers [typeof(VertexHandle)] = DrawVertexHandle;
-            s_drawers [typeof(LineHandle)] = DrawLineHandle;
-            s_drawers [typeof(ArcHandle)] = DrawArcHandle;
-        }
-
         public static void Draw(this Handle handle,DrawingContext drawingContext)
         {
             if (null == handle)
@@ -28,65 +19,14 @@ namespace Cession.Drawing.Handles
             if (null == drawingContext)
                 throw new ArgumentNullException ();
 
-            Action<Handle,DrawingContext> drawAction;
-            if (!s_drawers.TryGetValue (handle.GetType (), out drawAction))
-            {
-                throw new InvalidOperationException ();
-            }
-            drawAction (handle, drawingContext);
-        }
-
-        private static void DrawVertexHandle(Handle handle,DrawingContext drawingContext)
-        {
-            var vh = handle as VertexHandle;
-            var rect = vh.GetBounds().ToCGRect();
+            var rect = handle.Bounds.ToCGRect();
+            var transform = handle.GetHanldeTransform ().ToCGAffineTransform ();
 
             CGContext context = drawingContext.CGContext;
             context.SaveState ();
+            context.ConcatCTM (transform);
             UIColor.Blue.SetFill ();
             drawingContext.CGContext.FillRect (rect);
-            context.RestoreState ();
-        }
-
-        private static void DrawLineHandle(Handle handle,DrawingContext drawingContext)
-        {
-            var lineHandle = handle as LineHandle;
-            CGPoint point = drawingContext.Transform.Transform(lineHandle.Location).ToCGPoint();
-            var rect = new CGRect (- (nfloat)VertexHandle.Size / 2, 
-                - (nfloat)VertexHandle.Size / 2, 
-                (nfloat)LineHandle.Size, 
-                (nfloat)LineHandle.Size);
-
-            LineSegment line = handle.Shape as LineSegment;
-            nfloat angle = (nfloat)(line.Angle);
-
-            CGContext context = drawingContext.CGContext;
-            context.SaveState ();
-            context.TranslateCTM (point.X, point.Y);
-            context.RotateCTM(angle);
-            UIColor.Blue.SetFill ();
-            context.FillRect (rect);
-            context.RestoreState ();
-        }
-
-        private static void DrawArcHandle(Handle handle,DrawingContext drawingContext)
-        {
-            var arcHandle = handle as ArcHandle;
-
-            CGPoint point = drawingContext.Transform.Transform(arcHandle.Location).ToCGPoint();
-            var rect = new CGRect (- (nfloat)VertexHandle.Size / 2, 
-                - (nfloat)VertexHandle.Size / 2, 
-                (nfloat)LineHandle.Size, 
-                (nfloat)LineHandle.Size);
-
-            nfloat angle = (nfloat)arcHandle.GetMiddleTangentAngle();
-
-            CGContext context = drawingContext.CGContext;
-            context.SaveState ();
-            context.TranslateCTM (point.X, point.Y);
-            context.RotateCTM(angle);
-            UIColor.Blue.SetFill ();
-            context.FillRect (rect);
             context.RestoreState ();
         }
     }

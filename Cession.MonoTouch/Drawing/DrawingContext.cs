@@ -16,10 +16,8 @@ namespace Cession.Drawing
 {
     public class DrawingContext
     {
-        private Stack<Matrix> _matrices = new Stack<Matrix> ();
         private CGContext _context;
 
-        public Matrix Transform{ get; set; }
         public CGContext CGContext
         {
             get{ return _context; }
@@ -27,13 +25,13 @@ namespace Cession.Drawing
 
         public void PushTransform (Matrix transform)
         {
-            _matrices.Push (Transform);
-            Transform = transform;
+            _context.SaveState ();
+            _context.ConcatCTM (transform.ToCGAffineTransform ());
         }
 
         public void PopTransform ()
         {
-            Transform = _matrices.Pop ();
+            _context.RestoreState ();
         }
 
         public DrawingContext(CGContext context)
@@ -42,27 +40,21 @@ namespace Cession.Drawing
                 throw new ArgumentException ();
 
             _context = context;
-            Transform = Matrix.Identity;
         }
 
         public void AddLine(Point point1, Point point2)
         {
-            point1 = Transform.Transform (point1);
-            point2 = Transform.Transform (point2);
-
             _context.MoveTo ((nfloat)point1.X, (nfloat)point1.Y);
             _context.AddLineToPoint ((nfloat)point2.X, (nfloat)point2.Y);
         }
 
         public void AddLineToPoint(Point point)
         {
-            point = Transform.Transform (point);
             _context.AddLineToPoint ((nfloat)point.X, (nfloat)point.Y);
         }
 
         public void MoveToPoint(Point point)
         {
-            point = Transform.Transform (point);
             _context.MoveTo ((nfloat)point.X, (nfloat)point.Y);
         }
 
@@ -81,12 +73,11 @@ namespace Cession.Drawing
         public void AddArc(Point point1,Point point2,Point point3)
         {
             Point center = G.Circle.GetCenter (point1, point2, point3).Value;
-            nfloat r = (nfloat)(center.DistanceBetween (point1) * Transform.M11);
+            nfloat r = (nfloat)(center.DistanceBetween (point1) );
             nfloat startAngle = (nfloat)((point1 - center).Angle);
             nfloat endAngle = (nfloat)((point3 - center).Angle);
             bool isClockwise = G.Triangle.IsClockwise (point1, point2, point3);
-            CGPoint deviceCenter = Transform.Transform (center).ToCGPoint ();
-            _context.AddArc (deviceCenter.X, deviceCenter.Y, r, startAngle, endAngle, !isClockwise);
+            _context.AddArc ((nfloat)center.X, (nfloat)center.Y, r, startAngle, endAngle, !isClockwise);
         }
 
         public void StrokePath(Path path)
@@ -113,13 +104,13 @@ namespace Cession.Drawing
 
         public void BuildCirclePath(D.Circle circle)
         {
-            CGRect rect = GetCGRect (circle.GetBounds ());
+            CGRect rect = circle.GetBounds ().ToCGRect();
             _context.AddEllipseInRect (rect);
         }
 
         public void BuildRectPath(Rectangle rectangle)
         {
-            CGRect rect = GetCGRect (rectangle.Rect);
+            CGRect rect = rectangle.Rect.ToCGRect();
             _context.AddRect (rect);
         }
 
@@ -148,8 +139,7 @@ namespace Cession.Drawing
 
         public void DrawString(string str,Point point)
         {
-            CGPoint cgPoint = Transform.Transform (point).ToCGPoint ();
-            str.DrawString (cgPoint);
+            str.DrawString (point.ToCGPoint());
         }
 
         public void DrawDimension(ClosedShape closedShape)
@@ -179,17 +169,15 @@ namespace Cession.Drawing
 
                 var stringAttribute = new UIStringAttributes (){ };
                 CGSize size = nsStr.GetSizeUsingAttributes (stringAttribute);
-                double logicalWidth = size.Width / Transform.M11;
-                double logicalHeight = size.Height / Transform.M11;
 
                 double position;
                 if (NeedReverse (angle))
-                    position = (logicalLength + logicalWidth) / 2;
+                    position = (logicalLength + size.Width) / 2;
                 else
-                    position = (logicalLength - logicalWidth) / 2;
+                    position = (logicalLength - size.Width) / 2;
 
                 Vector offsetVector = vector * position / vector.Length;
-                Vector rotateVector = vector * logicalHeight / vector.Length;
+                Vector rotateVector = vector * size.Height / vector.Length;
                 rotateVector.Rotate (Math.PI / 2);
 
                 Point dimensionPoint;
@@ -198,9 +186,8 @@ namespace Cession.Drawing
                 else
                     dimensionPoint = p1 + offsetVector;
 
-                Point ddPoint = Transform.Transform (dimensionPoint);
                 _context.SaveState ();
-                _context.TranslateCTM ((nfloat)ddPoint.X, (nfloat)ddPoint.Y);
+                _context.TranslateCTM ((nfloat)dimensionPoint.X, (nfloat)dimensionPoint.Y);
                 if (NeedReverse (angle))
                     _context.RotateCTM ((nfloat)(Math.PI + angle));
                 else
@@ -225,26 +212,24 @@ namespace Cession.Drawing
 
         public void BuildPolyLinePath(IReadOnlyList<Point> polyline)
         {
-            Point p1 = Transform.Transform (polyline [0]);
+            Point p0 = polyline [0];
             CGContext context = CGContext;
-            context.MoveTo ((nfloat)p1.X, (nfloat)p1.Y);
+            context.MoveTo ((nfloat)p0.X, (nfloat)p0.Y);
             for (int i = 1; i < polyline.Count; i++)
             {
-                Point pi = Transform.Transform(polyline [i]);
+                Point pi = polyline [i];
                 context.AddLineToPoint ((nfloat)pi.X, (nfloat)pi.Y);
             }
         }
 
         public void StrokeCircle(Rect rect)
         {
-            var cr = GetCGRect (rect);
-            CGContext.StrokeEllipseInRect (cr);
+            CGContext.StrokeEllipseInRect (rect.ToCGRect());
         }
 
         public void StrokeRect(Rect rect)
         {
-            var cr = GetCGRect (rect);
-            CGContext.StrokeRect (cr);
+            CGContext.StrokeRect (rect.ToCGRect());
         }
 
         public void BuildClosedShapePath(ClosedShape closedShape)
@@ -267,14 +252,6 @@ namespace Cession.Drawing
         {
             BuildClosedShapePath (closedShape);
             _context.DrawPath (CGPathDrawingMode.Fill);
-        }
-
-        private CGRect GetCGRect(Rect rect)
-        {
-            CGPoint location = Transform.Transform (rect.Location).ToCGPoint ();
-            nfloat width = (nfloat)(Transform.M11 * rect.Width);
-            nfloat height = (nfloat)(Transform.M11 * rect.Height); 
-            return new CGRect (location.X, location.Y, width, height);
         }
 
         public void SaveState()
