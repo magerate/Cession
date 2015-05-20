@@ -28,7 +28,7 @@ namespace Cession.Diagrams
             var rect = Rect.Empty;
             foreach (var shape in shapes) 
             {
-                rect = rect.Union (shape.GetBounds ());
+                rect = rect.Union (shape.Bounds);
             }
             return rect;
         }

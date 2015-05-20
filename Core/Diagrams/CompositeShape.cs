@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 
 using Cession.Geometries;
 
@@ -40,7 +40,7 @@ namespace Cession.Diagrams
         {
             Rect bounds = Rect.Empty;
             foreach (var s in this) {
-                bounds = bounds.Union (s.GetBounds ());
+                bounds = bounds.Union (s.Bounds);
             }
             return bounds;
         }

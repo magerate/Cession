@@ -7,28 +7,17 @@ using Cession.Dimensions;
 
 namespace Cession.Diagrams
 {
-    public class Elevation:Shape
+    public class Elevation:CompositeShape
     {
         public static double DefaultHeight{ get; set; }
 
         private List<WallSurface> _walls;
         private ClosedShape _contour;
         private double _height;
-        private Shape _dockedShape;
-        private ObservableCollection<ClosedShape> _holes;
 
         public string Name{ get; set; }
         public ReadOnlyCollection<WallSurface> Walls{ get; private set; }
-
-        public ObservableCollection<ClosedShape> Holes
-        {
-            get{ return _holes; }
-        }
-
-        public Shape DockedShape
-        { 
-            get{ return _dockedShape; }
-        }
+        public ObservableCollection<Elevation> ChildElevations{ get; private set; }
 
         public ClosedShape Contour
         {
@@ -40,9 +29,16 @@ namespace Cession.Diagrams
             get{ return _height; }
             set
             {
+                if (value < 0)
+                    throw new ArgumentOutOfRangeException ();
+                
                 if (value != _height)
                 {
                     _height = value;
+                    foreach (var wall in _walls)
+                    {
+                        wall.Height = value;
+                    }
                 }
             }
         }
@@ -58,12 +54,26 @@ namespace Cession.Diagrams
                 throw new ArgumentNullException ();
 
             Name = "C";
-            _contour = contour;
             _height = DefaultHeight;
-            _holes = new ObservableCollection<ClosedShape> ();
+
+            _contour = contour;
+            _contour.Ability = _contour.Ability & ~(ShapeAbility.CanSelect | ShapeAbility.CanOffset | ShapeAbility.CanRotate);
+            _contour.Parent = this;
+
             _walls = new List<WallSurface> ();
             Walls = new ReadOnlyCollection<WallSurface> (_walls);
             CreateWalls (contour, DefaultHeight);
+
+            ChildElevations = new ObservableCollection<Elevation> ();
+        }
+
+        public override IEnumerator<Shape> GetEnumerator ()
+        {
+            yield return _contour;
+            foreach (var e in ChildElevations)
+            {
+                yield return e;
+            }
         }
 
         private void CreateWalls(ClosedShape contour,double height)
@@ -85,49 +95,9 @@ namespace Cession.Diagrams
             }
         }
 
-        internal override void DoOffset (double x, double y)
-        {
-            _contour.DoOffset (x, y);
-        }
-
-        internal override void DoRotate (Point point, double radian)
-        {
-            _contour.DoRotate (point, radian);
-        }
-
-        protected override Rect DoGetBounds ()
-        {
-            return _contour.GetBounds ();
-        }
-
         protected override bool DoContains (Point point)
         {
             return _contour.Contains (point);
-        }
-
-        public void Dock(Shape shape)
-        {
-            if(_dockedShape != shape)
-            {
-                Undock ();
-                _dockedShape = shape;
-                if (_dockedShape is Elevation)
-                {
-                    ((Elevation)_dockedShape).Holes.Add (Contour);
-                }
-            }
-        }
-
-        public void Undock()
-        {
-            if (null == _dockedShape)
-                return;
-
-            if(_dockedShape is Elevation)
-            {
-                ((Elevation)_dockedShape).Holes.Remove (Contour);
-            }
-            _dockedShape = null;
         }
     }
 }

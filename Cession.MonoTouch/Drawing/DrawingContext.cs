@@ -104,7 +104,7 @@ namespace Cession.Drawing
 
         public void BuildCirclePath(D.Circle circle)
         {
-            CGRect rect = circle.GetBounds ().ToCGRect();
+            CGRect rect = circle.Bounds.ToCGRect();
             _context.AddEllipseInRect (rect);
         }
 

@@ -28,6 +28,10 @@ namespace Cession.Handles
             {
                 return CreateCircleHandles (shape as D.Circle);
             }
+            else if (shape is Elevation)
+            {
+                return CreateHandles ((shape as Elevation).Contour);
+            }
             return null;
         }
 

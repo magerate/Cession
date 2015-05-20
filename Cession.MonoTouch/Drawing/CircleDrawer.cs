@@ -13,7 +13,7 @@ namespace Cession.Drawing
             if (null == circle)
                 throw new ArgumentException ("shape");
 
-            drawingContext.StrokeCircle (circle.GetBounds ());
+            drawingContext.StrokeCircle (circle.Bounds);
         }
     }
 }
