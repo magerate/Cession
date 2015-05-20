@@ -41,7 +41,7 @@ namespace Cession
             using (CGContext context = UIGraphics.GetCurrentContext ())
             {
                 var dc = new DrawingContext (context);
-                dc.PushTransform (layer.DrawingTransform);
+                dc.PushTransform (layer.Transform);
                 layer.Draw (dc);
                 dc.PopTransform ();
             }

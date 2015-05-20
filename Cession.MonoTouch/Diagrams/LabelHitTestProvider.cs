@@ -22,7 +22,7 @@ namespace Cession.Diagrams
                 var stringAttribute = new UIStringAttributes (){ };
                 var size = nsStr.GetSizeUsingAttributes (stringAttribute);
 
-                var logicalSize = new Size (size.Width * Layer.LogicalUnitPerPixel, size.Height * Layer.LogicalUnitPerPixel);
+                var logicalSize = new Size (size.Width , size.Height);
 
                 return new Rect (label.Location, logicalSize);
             }

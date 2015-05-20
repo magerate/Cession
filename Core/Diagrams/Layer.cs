@@ -19,8 +19,8 @@ namespace Cession.Diagrams
 
     public class Layer:Shape
     {
-        public static readonly double LogicalUnitPerPixel = 25;
-        public static readonly Size DefaultSize = new Size (200000, 200000);
+        //about 200m
+        public static readonly Size DefaultSize = new Size (8000, 8000);
 
         public string Name{ get; set; }
 
@@ -30,15 +30,6 @@ namespace Cession.Diagrams
         private ReadOnlyCollection<Shape> _readOnlySelectedShapes;
 
         public Matrix Transform{ get; set; }
-        public Matrix DrawingTransform
-        {
-            get
-            {
-                Matrix m = Transform;
-                m.ScalePrepend (1 / LogicalUnitPerPixel, 1 / LogicalUnitPerPixel);
-                return m;
-            }
-        }
 
         public double Scale
         {
@@ -135,7 +126,7 @@ namespace Cession.Diagrams
 
         public Point ConvertToLogicalPoint (Point point)
         {
-            var matrix = DrawingTransform;
+            var matrix = Transform;
             matrix.Invert ();
 
             return matrix.Transform (point);
@@ -143,7 +134,7 @@ namespace Cession.Diagrams
 
         public Point ConvertToViewPoint (Point point)
         {
-            return DrawingTransform.Transform (point);
+            return Transform.Transform (point);
         }
 
         public Size ConvertToLogicalSize (Size size)
@@ -158,12 +149,12 @@ namespace Cession.Diagrams
 
         public double ConvertToLogicalLength (double length)
         {
-            return length * LogicalUnitPerPixel / Transform.M11;
+            return length / Transform.M11;
         }
 
         public double ConvertToViewLength (double length)
         {
-            return length / LogicalUnitPerPixel * Transform.M11;
+            return length / Transform.M11;
         }
 
         public Vector ConvertToViewVector(Vector vector)
@@ -175,27 +166,6 @@ namespace Cession.Diagrams
         {
             return new Vector (ConvertToLogicalLength (vector.X), ConvertToLogicalLength (vector.Y));
         }
-
-
-        //        public static Matrix GetDefaultTransform (Size layerSize, int width, int height, int logicalUnitPerDp)
-        //        {
-        //            var matrix = Matrix.Identity;
-        //            matrix.Scale ((double)1 / logicalUnitPerDp, (double)1 / logicalUnitPerDp);
-        //            matrix.Translate ((width - layerSize.Width / logicalUnitPerDp) / 2,
-        //                (height - layerSize.Height / logicalUnitPerDp) / 2);
-        //            return matrix;
-        //        }
-        //
-        //        public static Matrix GetDefaultTransform (int width, int height, int logicalUnitPerDp)
-        //        {
-        //            return GetDefaultTransform (Layer.DefaultSize, width, height, logicalUnitPerDp);
-        //        }
-
-        //        internal override void InternalOffset (int x, int y)
-        //        {
-        //            Transform.Translate ((double)x, (double)y);
-        //        }
-
     }
 }
 

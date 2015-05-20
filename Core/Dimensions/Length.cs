@@ -4,16 +4,17 @@ namespace Cession.Dimensions
 {
     public struct Length:IEquatable<Length>
     {
-        public const double LogicUnitPerMM = 1.0;
-        public const double LogicUnitPerCM = 10 * LogicUnitPerMM;
-        public const double LogicUnitPerDM = 100 * LogicUnitPerMM;
-        public const double LogicUnitPerMeter = 1000 * LogicUnitPerMM;
+        public const double MillimetersPerPixel = 25;
+
+        public const double PixelsPerMillimeter = 1 / MillimetersPerPixel;
+        public const double PixelsPerCentimeter = 10 * PixelsPerMillimeter;
+        public const double PixelsPerDecimeter = 100 * PixelsPerMillimeter;
+        public const double PixelsPerMeter = 1000 * PixelsPerMillimeter;
 
         public const int InchesPerFoot = 12;
-        public const double LogicUnitPerInch = 25.4 * LogicUnitPerMM;
-        public const double LogicUnitPerFoot = InchesPerFoot * LogicUnitPerInch;
-        public const double LogicUnitPerInchDiv4 = LogicUnitPerInch / 4;
-
+        public const double PixelsPerInch = 25.4 * PixelsPerMillimeter;
+        public const  double PixelsPerFoot = InchesPerFoot * PixelsPerInch;
+        public const  double PixelsPerFootDiv4 = PixelsPerFoot / 4;
 
         private double _value;
         private double _precision;
@@ -24,7 +25,7 @@ namespace Cession.Dimensions
 
         static Length ()
         {
-            DefaultPrecision = LogicUnitPerInch;
+            DefaultPrecision = PixelsPerInch;
             DefaultFormatSymbol = "fi";
         }
 
@@ -38,16 +39,18 @@ namespace Cession.Dimensions
             if (precision <= 0)
                 throw new ArgumentOutOfRangeException ("precission");
 
-            this._value = value;
-            this._precision = precision;
+            _value = value;
+            _precision = precision;
         }
 
-        public double Value {
+        public double Value
+        {
             get{ return _value; }
-            set{ this._value = value; }
+            set{ _value = value; }
         }
 
-        public double RoundedValue {
+        public double RoundedValue
+        {
             get{ return Length.Round (_value, _precision); }
         }
 
@@ -67,7 +70,8 @@ namespace Cession.Dimensions
                 format = "fi";
             format = format.Trim ();
 
-            switch (format) {
+            switch (format)
+            {
             case "fi":
                 return ToStringImperial ();
             case "fif":
@@ -177,71 +181,65 @@ namespace Cession.Dimensions
 
         public static Length FromFeetInches (int feet, int inches)
         {
-            return new Length (feet * Length.LogicUnitPerFoot + inches * Length.LogicUnitPerInch,
-                Length.LogicUnitPerInch);
+            return new Length (feet * PixelsPerFoot + inches * Length.PixelsPerInch,Length.PixelsPerInch);
         }
 
-        //		public static Length FromFeetInchesRemainder(int feet,int inches,double remainder)
-        //		{
-        //			return new Length(feet * Length.LogicUnitPerFoot +
-        //								inches * Length.LogicUnitPerInch +
-        //			                  remainder);
-        //		}
 
         public static Length FromFeet (int feet)
         {
-            return new Length (feet * Length.LogicUnitPerFoot, Length.LogicUnitPerInch);
+            return new Length (feet * Length.PixelsPerFoot, Length.PixelsPerInch);
         }
 
         public static Length FromInches (int inches)
         {
-            return new Length (inches * Length.LogicUnitPerInch, Length.LogicUnitPerInch);
+            return new Length (inches * Length.PixelsPerInch, Length.PixelsPerInch);
         }
 
-        public static Length FromMeter (double metres)
+        public static Length FromMeter (double meters)
         {
-            return new Length (metres * Length.LogicUnitPerMeter, Length.LogicUnitPerCM);
+            return new Length (meters * Length.PixelsPerMeter, Length.PixelsPerCentimeter);
         }
 
         public static Length FromCentimeters (double centimeters)
         {
-            return new Length (centimeters * Length.LogicUnitPerCM, Length.LogicUnitPerCM);
+            return new Length (centimeters * Length.PixelsPerCentimeter, Length.PixelsPerCentimeter);
         }
 
-        //		public static Length FromMDmCm(int meters,int decimeters,int centimeters)
-        //		{
-        //			return Length.FromCentimeters(meters * 100 + decimeters * 10 + centimeters);
-        //		}
-
-        public double Feet {
-            get{ return RoundedValue / Length.LogicUnitPerFoot; }
+        public double Feet
+        {
+            get{ return RoundedValue / Length.PixelsPerFoot; }
         }
 
-        public double Inches {
-            get{ return RoundedValue / Length.LogicUnitPerInch; }
+        public double Inches
+        {
+            get{ return RoundedValue / Length.PixelsPerInch; }
         }
 
-        public double Meters {
-            get{ return RoundedValue / Length.LogicUnitPerMeter; }
+        public double Meters
+        {
+            get{ return RoundedValue / Length.PixelsPerMeter; }
         }
 
-        public double Decimeters {
-            get{ return RoundedValue / Length.LogicUnitPerDM; }
+        public double Decimeters
+        {
+            get{ return RoundedValue / Length.PixelsPerDecimeter; }
         }
 
-        public double Centimeters {
-            get{ return RoundedValue / Length.LogicUnitPerCM; }
+        public double Centimeters
+        {
+            get{ return RoundedValue / Length.PixelsPerCentimeter; }
         }
 
-        public double Milimeters {
-            get{ return RoundedValue / Length.LogicUnitPerMM; }
+        public double Milimeters
+        {
+            get{ return RoundedValue / Length.PixelsPerMillimeter; }
         }
 
         private string ToStringImperial ()
         {
             int feet = (int)Feet;
 
-            double n = Math.Ceiling (Math.Log10 (LogicUnitPerInch / _precision));
+            double n = Math.Ceiling (Math.Log10 (PixelsPerInch / _precision));
             string formatSymbol = "F" + n.ToString ();
             double inches = (Inches % InchesPerFoot);
 				
@@ -254,10 +252,11 @@ namespace Cession.Dimensions
         {
             int feet = (int)Feet;
             int inches = (int)(Inches % InchesPerFoot);
-            int denominator = (int)(Length.LogicUnitPerInch / _precision);
+            int denominator = (int)(Length.PixelsPerInch / _precision);
             int remainder = (int)(RoundedValue / _precision) % denominator;
 
-            if (remainder == 0) {
+            if (remainder == 0)
+            {
                 if (feet == 0)
                     return string.Format ("{0}\"", inches.ToString ());
                 return string.Format ("{0}'{1}\"", feet.ToString (), inches.ToString ());

@@ -49,7 +49,7 @@ namespace Cession.Diagrams
 
         static Elevation()
         {
-            DefaultHeight = Length.LogicUnitPerMeter * 3;
+            DefaultHeight = Length.PixelsPerMeter * 3;
         }
 
         public Elevation (ClosedShape contour)

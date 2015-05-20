@@ -128,7 +128,7 @@ namespace Cession
             {
                 var dc = new DrawingContext (context);
                 var layer = ToolManager.Host.Project.SelectedLayer;
-                var matrix = layer.DrawingTransform;
+                var matrix = layer.Transform;
                 dc.PushTransform (matrix);
                 foreach (var shape in layer.SelectedShapes)
                 {

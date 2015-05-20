@@ -32,7 +32,6 @@ namespace Cession.Tools
             double y = CurrentLayer.Size.Height / 2;
 
             Matrix dm = transform;
-            dm.ScalePrepend (1 / Layer.LogicalUnitPerPixel, 1 / Layer.LogicalUnitPerPixel);
 
             double maxTx = x * dm.M11 - dm.OffsetX;
             double minTx = Host.ToolView.Bounds.Right - x * dm.M11 - dm.OffsetX;

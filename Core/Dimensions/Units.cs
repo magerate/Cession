@@ -26,19 +26,19 @@ namespace Cession.Dimensions
 
     public enum Units
     {
-        [Precision (Length.LogicUnitPerFoot),FormatSymbol ("fi")]
+        [Precision (Length.PixelsPerInch),FormatSymbol ("fi")]
         FeetInches = 0,
 
-        [Precision (Length.LogicUnitPerInchDiv4),FormatSymbol ("fif")]
+        [Precision (Length.PixelsPerInch),FormatSymbol ("fif")]
         FeetInchesFraction4,
 
-        [Precision (Length.LogicUnitPerCM),FormatSymbol ("m")]
+        [Precision (Length.PixelsPerCentimeter),FormatSymbol ("m")]
         Meter,
 
-        [Precision (Length.LogicUnitPerCM),FormatSymbol ("cm")]
+        [Precision (Length.PixelsPerCentimeter),FormatSymbol ("cm")]
         Centimeter,
 
-        [Precision (Length.LogicUnitPerMM),FormatSymbol ("mm")]
+        [Precision (Length.PixelsPerCentimeter),FormatSymbol ("mm")]
         Milimeter,
     }
 }
