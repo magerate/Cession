@@ -57,6 +57,41 @@ namespace Cession.Diagrams
             get{ return DoGetBounds (); }
         }
 
+
+        protected Shape () : this (null)
+        {
+        }
+
+        protected Shape (Shape parent)
+        {
+            this.Parent = parent;
+            this.Ability = ShapeAbility.All;
+        }
+
+        public void Offset (double x, double y)
+        {
+            if (!CanOffset)
+                throw new InvalidOperationException ();
+            DoOffset (x, y);
+            RaiseEvent (new OffsetEventArgs (Shape.OffsetEvent, this,x,y));
+        }
+
+        public void Offset(Vector vector)
+        {
+            Offset (vector.X, vector.Y);
+        }
+
+        public void Rotate (Point point, double radian)
+        {
+            if (!CanRotate)
+                throw new InvalidOperationException ();
+            DoRotate (point, radian);
+            RaiseEvent (new RoutedEventArgs (Shape.RotateEvent, this));
+        }
+
+        internal abstract void DoOffset (double x, double y);
+        internal abstract void DoRotate (Point point, double radian);
+
         public bool Contains (Point point)
         {
             return DoContains (point);
@@ -93,7 +128,7 @@ namespace Cession.Diagrams
         {
             if (null == predicate)
                 throw new ArgumentNullException ();
-            
+
             Shape shape = this;
             while (shape != null)
             {
@@ -115,39 +150,6 @@ namespace Cession.Diagrams
             return false;
         }
 
-        protected Shape () : this (null)
-        {
-        }
-
-        protected Shape (Shape parent)
-        {
-            this.Parent = parent;
-            this.Ability = ShapeAbility.All;
-        }
-
-        public void Offset (double x, double y)
-        {
-            if (!CanOffset)
-                throw new InvalidOperationException ();
-            DoOffset (x, y);
-            RaiseEvent (new OffsetEventArgs (Shape.OffsetEvent, this,x,y));
-        }
-
-        public void Offset(Vector vector)
-        {
-            Offset (vector.X, vector.Y);
-        }
-
-        public void Rotate (Point point, double radian)
-        {
-            if (!CanRotate)
-                throw new InvalidOperationException ();
-            DoRotate (point, radian);
-            RaiseEvent (new RoutedEventArgs (Shape.RotateEvent, this));
-        }
-
-        internal abstract void DoOffset (double x, double y);
-        internal abstract void DoRotate (Point point, double radian);
     }
 }
 
