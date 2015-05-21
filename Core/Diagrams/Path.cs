@@ -43,6 +43,15 @@ namespace Cession.Diagrams
                 segment.Parent = this;
                 segment.Ability = ShapeAbility.CanAssign | ShapeAbility.CanHitTest;
                 _segments.Add (segment);
+
+                segment.VertexChanged += delegate
+                {
+                    OnContourChanged();
+                };
+                segment.Moved += delegate
+                {
+                    OnContourChanged();
+                };
             }
         }
 
@@ -85,11 +94,6 @@ namespace Cession.Diagrams
                 return _segments [index].Point1; 
             }
         }
-
-//        public override IEnumerator<Shape> GetEnumerator ()
-//        {
-//            return _segments.GetEnumerator ();
-//        }
 
         public IEnumerator<Point> GetEnumerator ()
         {
@@ -150,6 +154,11 @@ namespace Cession.Diagrams
                 return this;
 
             return null;
+        }
+
+        public override ClosedShape Inflate (double size)
+        {
+            return PolygonHelper.Inflate (this, size);
         }
     }
 }

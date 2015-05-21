@@ -5,6 +5,9 @@ namespace Cession.Diagrams
 {
     public class LineSegment:Segment
     {
+        public event EventHandler<EventArgs> Moved;
+
+        //specifed in radian
         public double Angle
         {
             get{ return (Point2 - Point1).Angle; }
@@ -46,6 +49,23 @@ namespace Cession.Diagrams
                 Range.Contains (Point1.Y, Point2.Y, point.Y, delta))
                 return this;
             return null;
+        }
+
+        public void Move(Tuple<Point,Point> pointPair)
+        {
+            InternalPoint1 = pointPair.Item1;
+            if (Next != null)
+                Next.InternalPoint1 = pointPair.Item2;
+            else
+                ((Polyline)Parent).InternalLast = pointPair.Item2;
+
+            OnMove ();
+            OnLengthChanged ();
+        }
+
+        private void OnMove()
+        {
+            Moved?.Invoke (this, EventArgs.Empty);
         }
     }
 }

@@ -33,6 +33,7 @@ namespace Cession.Diagrams
                 {
                     _radius = value;
                     RadiusChanged?.Invoke (this,EventArgs.Empty);
+                    OnContourChanged ();
                 }
             }
         }
@@ -75,6 +76,10 @@ namespace Cession.Diagrams
             return 2 * Math.PI * _radius;
         }
 
+        public override ClosedShape Inflate (double size)
+        {
+            return new Circle (_center, _radius + size);
+        }
     }
 }
 

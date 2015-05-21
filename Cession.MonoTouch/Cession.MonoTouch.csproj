@@ -137,6 +137,8 @@
     <Compile Include="Tools\AddCircleElevationTool.cs" />
     <Compile Include="Tools\AdjustCircleTool.cs" />
     <Compile Include="Tools\AdjustRectTool.cs" />
+    <Compile Include="Tools\AddCircleRoomTool.cs" />
+    <Compile Include="Tools\AddPolygonRoomTool.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">

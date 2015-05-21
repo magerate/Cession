@@ -52,6 +52,13 @@ namespace Cession.Diagrams
         {
             _transform.RotateAt (radian, point.X, point.Y);
         }
+
+        public override ClosedShape Inflate (double size)
+        {
+            Rect rc = _rect;
+            rc.Inflate (size, size);
+            return new Rectangle (rc);
+        }
     }
 }
 

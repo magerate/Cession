@@ -33,7 +33,7 @@ namespace Cession.Handles
         public override Matrix GetHanldeTransform ()
         {
             var point = Transform.Transform (Location);
-            var angle = GetMiddleTangentAngle ();
+            double angle = GetMiddleTangentAngle () / Math.PI * 180;
 
             Matrix m = Matrix.Identity;
             m.RotateAt (angle, point.X, point.Y);

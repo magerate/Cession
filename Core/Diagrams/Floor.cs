@@ -13,26 +13,41 @@ namespace Cession.Diagrams
         private List<Region> _regions;
         private ReadOnlyCollection<Region> _readonlyRegions;
 
+        public ObservableCollection<Elevation> Elevations{ get; private set; }
+
         public ReadOnlyCollection<Region> Regions
         {
             get{ return _readonlyRegions; }
         }
 
+        public ClosedShape Contour
+        {
+            get{ return _contour; }
+        }
+
         internal Floor (ClosedShape contour)
         {
             _contour = contour;
-            _contour.Ability = _contour.Ability & ~(ShapeAbility.CanSelect | ShapeAbility.CanOffset | ShapeAbility.CanRotate);
+            _contour.Ability = ShapeAbility.CanAssign | ShapeAbility.CanHitTest;
             _contour.Parent = this;
 
             _regions = new List<Region> ();
             _regions.Add (new Region (contour));
 
             _readonlyRegions = new ReadOnlyCollection<Region> (_regions);
+
+            Elevations = new ObservableCollection<Elevation> ();
+
+            Ability = ShapeAbility.CanAssign | ShapeAbility.CanHitTest;
         }
 
         public override IEnumerator<Shape> GetEnumerator ()
         {
             yield return _contour;
+            foreach (var e in Elevations)
+            {
+                yield return e;
+            }
         }
 
         protected override bool DoContains (Point point)

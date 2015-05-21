@@ -25,8 +25,10 @@ namespace Cession.Drawing.Handles
             CGContext context = drawingContext.CGContext;
             context.SaveState ();
             context.ConcatCTM (transform);
+            context.SetLineWidth (2.0f);
             UIColor.Blue.SetFill ();
-            drawingContext.CGContext.FillRect (rect);
+            context.AddRect (rect);
+            context.DrawPath (CGPathDrawingMode.FillStroke);
             context.RestoreState ();
         }
     }

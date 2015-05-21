@@ -18,13 +18,13 @@ namespace Cession.Handles
         public abstract Point Location{ get; }
         public abstract Type ToolType{ get; }
 
-        //handle size is in device coordiante space
+        //handle size is specified in device coordiante space
         public virtual double Size
         {
-            get{ return 24; }
+            get{ return 18; }
         }
 
-        //bounds of handles is in device coordiante space
+        //bounds of handles is specified in device coordiante space
         //then handle won't scale when diagram scaled
         public Rect Bounds
         {

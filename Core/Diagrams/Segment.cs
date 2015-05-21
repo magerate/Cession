@@ -38,7 +38,13 @@ namespace Cession.Diagrams
             remove{ RemoveHandler (LengthChangedEvent, value);}
         }
 
-        public abstract double Length{ get;}
+        public abstract double Length{ get; }
+
+        internal Point InternalPoint1
+        {
+            get{ return _point1; }
+            set{ _point1 = value; }
+        }
 
         public Point Point1 
         {
@@ -54,9 +60,9 @@ namespace Cession.Diagrams
                     var prev = Previous;
                     if(null != prev)
                     {
-                        prev.RaiseEvent (new RoutedEventArgs (LengthChangedEvent, prev));
+                        prev.OnLengthChanged ();
                     }
-                    RaiseEvent (new RoutedEventArgs (LengthChangedEvent, this));
+                    OnLengthChanged ();
                 }
             }
         }
@@ -115,6 +121,11 @@ namespace Cession.Diagrams
         internal override void DoRotate (Point point, double radian)
         {
             _point1.Rotate (point, radian);
+        }
+
+        protected void OnLengthChanged()
+        {
+            RaiseEvent (new RoutedEventArgs (LengthChangedEvent, this));
         }
     }
 }

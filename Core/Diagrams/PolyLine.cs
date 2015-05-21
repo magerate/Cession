@@ -32,6 +32,12 @@ namespace Cession.Diagrams
             }
         }
 
+        internal Point InternalLast
+        {
+            get{ return _lastPoint; }
+            set{_lastPoint = value; }
+        }
+
         public Polyline (IEnumerable<Segment> segments,Point lastPoint)
         {
             if (null == segments)

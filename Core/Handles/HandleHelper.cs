@@ -30,7 +30,11 @@ namespace Cession.Handles
             }
             else if (shape is Elevation)
             {
-                return CreateHandles ((shape as Elevation).Contour);
+                return CreateHandles (((Elevation)shape).Contour);
+            }
+            else if (shape is Room)
+            {
+                return CreateHandles (((Room)shape).Floor.Contour);
             }
             return null;
         }

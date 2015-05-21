@@ -17,7 +17,7 @@ namespace Cession.UIKit
         {
             this.toolSelector = toolSelector;
             Title = "Tools";
-            PreferredContentSize = new CGSize (320, 280);
+            PreferredContentSize = new CGSize (320, 400);
         }
 
         public override void ViewDidLoad ()
@@ -76,6 +76,20 @@ namespace Cession.UIKit
             circleElevationItem.Tag = typeof(AddCircleElevationTool);
             circleElevationItem.Action = toolSelector;
             section.Items.Add (circleElevationItem);
+
+            var circleRoomItem = new DetailMenuItem ();
+            circleRoomItem.Title = "Add Circle Room";
+            circleRoomItem.Image = ImageHelper.GetTemplateImage (ImageFiles.Polygon25);
+            circleRoomItem.Tag = typeof(AddCircleRoomTool);
+            circleRoomItem.Action = toolSelector;
+            section.Items.Add (circleRoomItem);
+
+            var polygonRoom = new DetailMenuItem ();
+            polygonRoom.Title = "Add Polygon Room";
+            polygonRoom.Image = ImageHelper.GetTemplateImage (ImageFiles.Polygon25);
+            polygonRoom.Tag = typeof(AddPolygonRoomTool);
+            polygonRoom.Action = toolSelector;
+            section.Items.Add (polygonRoom);
         }
     }
 }

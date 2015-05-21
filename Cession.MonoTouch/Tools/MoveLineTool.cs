@@ -62,9 +62,8 @@ namespace Cession.Tools
         {
             LineSegment line = _handle.Line;
             var pair = _handle.MoveLine (EndPoint.Value);
-
-            CommandManager.ExecuteSetProperty (line, pair.Item1,"Point1",false);
-            CommandManager.ExecuteSetProperty (line, pair.Item2,"Point2");
+            var oldPair = new Tuple<Point,Point> (line.Point1, line.Point2);
+            CommandManager.Execute (line, pair, oldPair, (l, p) => l.Move (p));
         }
     }
 }

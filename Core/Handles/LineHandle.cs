@@ -35,7 +35,8 @@ namespace Cession.Handles
             var point = Transform.Transform (Location);
             LineSegment line = Shape as LineSegment;
             Matrix m = Matrix.Identity;
-            m.RotateAt (line.Angle, point.X, point.Y);
+            double angle = line.Angle / Math.PI * 180;
+            m.RotateAt (angle, point.X, point.Y);
             return m;
         }
 
