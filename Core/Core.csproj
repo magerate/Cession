@@ -80,7 +80,6 @@
     <Compile Include="Diagrams\RoutedEvents\RoutedEvent.cs" />
     <Compile Include="Diagrams\RoutedEvents\RoutedEventArgs.cs" />
     <Compile Include="Diagrams\Shape+Events.cs" />
-    <Compile Include="Diagrams\Shape+HitTest.cs" />
     <Compile Include="Diagrams\Circle.cs" />
     <Compile Include="Diagrams\Segment.cs" />
     <Compile Include="Diagrams\ShapeAbility.cs" />
