@@ -40,7 +40,7 @@ namespace Cession.Diagrams
 
         public override Rect Bounds
         {
-            get{ return new Rect (Point.Empty,Size); }
+            get{ return new Rect (-Size.Width/2,-Size.Height/2,Size.Width,Size.Height); }
         }
 
         public ReadOnlyCollection<Shape> SelectedShapes
@@ -129,7 +129,6 @@ namespace Cession.Diagrams
             var matrix = Transform;
             matrix.Invert ();
 
-            var pp = matrix.Transform (point);
             return matrix.Transform (point);
         }
 
@@ -155,7 +154,7 @@ namespace Cession.Diagrams
 
         public double ConvertToViewLength (double length)
         {
-            return length / Transform.M11;
+            return length * Transform.M11;
         }
 
         public Vector ConvertToViewVector(Vector vector)

@@ -47,7 +47,7 @@ namespace Cession.Tools
         protected override void DoDrawDragDrop (DrawingContext drawingContext)
         {
             Vector vector = EndPoint.Value - StartPoint.Value;
-            vector = CurrentLayer.ConvertToViewVector (vector);
+//            vector = CurrentLayer.ConvertToViewVector (vector);
 
             CGContext context = drawingContext.CGContext;
             context.SaveState ();

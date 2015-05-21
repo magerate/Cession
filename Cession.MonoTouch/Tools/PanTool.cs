@@ -28,15 +28,12 @@ namespace Cession.Tools
             Matrix transform = _matrix;
             CGPoint offset = gestureRecognizer.TranslationInView (Host.ToolView);
 
-            double x = CurrentLayer.Size.Width / 2;
-            double y = CurrentLayer.Size.Height / 2;
-
-            Matrix dm = transform;
-
-            double maxTx = x * dm.M11 - dm.OffsetX;
-            double minTx = Host.ToolView.Bounds.Right - x * dm.M11 - dm.OffsetX;
-            double maxTy = y * dm.M22 - dm.OffsetY;;
-            double minTy = Host.ToolView.Bounds.Bottom - y * dm.M22 - dm.OffsetY;;
+            Rect rect = CurrentLayer.ConvertToViewRect (CurrentLayer.Bounds);
+           
+            double maxTx = -rect.Left;
+            double minTx = Host.ToolView.Bounds.Right - rect.Right;
+            double maxTy = -rect.Top;
+            double minTy = Host.ToolView.Bounds.Bottom - rect.Bottom;
 
             double ox;
             if (minTx >= maxTx)

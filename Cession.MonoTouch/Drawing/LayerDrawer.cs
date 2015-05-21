@@ -13,12 +13,6 @@ namespace Cession.Drawing
             if (null == layer)
                 throw new ArgumentException ("shape");
 
-            var context = drawingContext.CGContext;
-            context.SaveState ();
-            context.SetLineWidth (10);
-            drawingContext.StrokeRect (layer.Bounds);
-            context.RestoreState ();
-
             foreach (var s in layer.Shapes)
             {
                 s.Draw (drawingContext);

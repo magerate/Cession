@@ -51,19 +51,16 @@ namespace Cession.Projects
         {
             var project = new Project ();
             var layer = new Layer ();
-            layer.Transform = CalcDefaultLayerTransform (size, layer);
+            layer.Transform = CalcDefaultLayerTransform (size);
             project.Layers.Add (layer);
             project.SelectedLayerIndex = 0;
             return project;
         }
 
-        private static Matrix CalcDefaultLayerTransform(Size size,Layer layer)
+        private static Matrix CalcDefaultLayerTransform(Size size)
         {
-            Rect rect = layer.Bounds;
-            double x = (size.Width - rect.Width) / 2;
-            double y = (size.Height - rect.Height) / 2;
             Matrix m = Matrix.Identity;
-            m.Translate (x, y);
+            m.Translate (size.Width/2, size.Height/2);
             return m;
         }
     }

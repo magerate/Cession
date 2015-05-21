@@ -9,8 +9,8 @@ namespace Cession.Tools
 {
     public class ZoomTool:Tool
     {
-        private readonly double MinScale = 0.2;
-        private readonly double MaxScale = 4;
+        private readonly double MinScale = 0.01;
+        private readonly double MaxScale = 8;
 
         private Matrix _matrix;
 
