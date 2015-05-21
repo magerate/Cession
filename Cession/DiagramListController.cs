@@ -67,7 +67,7 @@ namespace Cession
             projectInfo.Name = "Untitled diagram";
             projects.Insert (0, projectInfo);
 
-            var project = Project.Create ();
+            var project = Project.Create (UIScreen.MainScreen.Bounds.Size.ToGeometrySize());
 
             projectDictionary.Add (projectInfo, project);
 

@@ -47,12 +47,36 @@ namespace Cession.Diagrams
             }
         }
 
+        public virtual Point Center
+        {
+            get{ return Bounds.Center; }
+        }
+
+        public virtual Rect Bounds
+        {
+            get
+            {
+                var htp = GetHitTestProvider ();
+                if (null != htp)
+                    return htp.GetBounds (this);
+                return DoGetBounds ();
+            }
+        }
+
         public Shape GetSelectableAncestor()
         {
+            return GetAncestor (s => s.CanSelect);
+        }
+
+        public Shape GetAncestor(Func<Shape,bool> predicate)
+        {
+            if (null == predicate)
+                throw new ArgumentNullException ();
+            
             Shape shape = this;
             while (shape != null)
             {
-                if (shape.CanSelect)
+                if (predicate(shape))
                     return shape;
                 shape = shape.Parent;
             }

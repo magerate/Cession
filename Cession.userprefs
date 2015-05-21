@@ -1,26 +1,22 @@
 ﻿<Properties StartupItem="Cession/Cession.csproj" GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad2.8.3" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Core/Diagrams/ClosedShape.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Core/Diagrams/Shape.cs">
     <Files>
-      <File FileName="Core/Diagrams/ClosedShape.cs" Line="13" Column="10" />
+      <File FileName="Core/Diagrams/LineSegment.cs" Line="14" Column="10" />
+      <File FileName="Cession.MonoTouch/Drawing/Handles/HandleDrawing.cs" Line="23" Column="76" />
+      <File FileName="Core/Handles/Handle.cs" Line="30" Column="10" />
+      <File FileName="Core/Diagrams/Floor.cs" Line="49" Column="32" />
+      <File FileName="Core/Diagrams/Room.cs" Line="17" Column="27" />
+      <File FileName="Core/Diagrams/Shape.cs" Line="69" Column="10" />
+      <File FileName="Core/Diagrams/Shape+HitTest.cs" Line="74" Column="13" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Cession" expanded="True">
-            <Node name="Cession" expanded="True" />
-            <Node name="Cession.MonoTouch" expanded="True">
-              <Node name="Diagrams" expanded="True" />
-              <Node name="Drawing" expanded="True" />
-              <Node name="Tools" expanded="True" />
+            <Node name="Geometries" expanded="True">
+              <Node name="Clipper" expanded="True" />
             </Node>
-            <Node name="Core" expanded="True">
-              <Node name="Diagrams" expanded="True">
-                <Node name="ClosedShape.cs" selected="True" />
-              </Node>
-              <Node name="Handles" expanded="True" />
-            </Node>
-            <Node name="Geometries" expanded="True" />
           </Node>
         </State>
       </Pad>

@@ -47,24 +47,25 @@ namespace Cession.Projects
             Layers = new LayerCollection ();
         }
 
-        public static Project Create ()
+        public static Project Create(Size size)
         {
             var project = new Project ();
-            var layer = new Layer ("Layer");
+            var layer = new Layer ();
+            layer.Transform = CalcDefaultLayerTransform (size, layer);
             project.Layers.Add (layer);
             project.SelectedLayerIndex = 0;
             return project;
         }
 
-//        public static Project Create (string name, Matrix transform)
-//        {
-//            var project = new Project ();
-//            var layer = new Layer (name);
-//            layer.Transform = transform;
-//            project.Layers.Add (layer);
-//            project.Layers.SelectedIndex = 0;
-//            return project;
-//        }
+        private static Matrix CalcDefaultLayerTransform(Size size,Layer layer)
+        {
+            Rect rect = layer.Bounds;
+            double x = (size.Width - rect.Width) / 2;
+            double y = (size.Height - rect.Height) / 2;
+            Matrix m = Matrix.Identity;
+            m.Translate (x, y);
+            return m;
+        }
     }
 }
 

@@ -49,8 +49,6 @@
     <Compile Include="Drawing\AlignmentDrawing.cs" />
     <Compile Include="Drawing\DrawerManager.cs" />
     <Compile Include="Drawing\MatrixExtension.cs" />
-    <Compile Include="Drawing\PointExtension.cs" />
-    <Compile Include="Drawing\RectangleExtension.cs" />
     <Compile Include="Drawing\RoomDrawer.cs" />
     <Compile Include="Drawing\LayerDrawer.cs" />
     <Compile Include="Drawing\DoorDrawer.cs" />
@@ -139,6 +137,7 @@
     <Compile Include="Tools\AdjustRectTool.cs" />
     <Compile Include="Tools\AddCircleRoomTool.cs" />
     <Compile Include="Tools\AddPolygonRoomTool.cs" />
+    <Compile Include="Drawing\CGTypeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">

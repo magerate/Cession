@@ -20,7 +20,8 @@ namespace Cession.Diagrams
     public class Layer:Shape
     {
         public static readonly Size DefaultSize = new Size (200 * Length.PixelsPerMeter, 200 * Length.PixelsPerMeter);
-
+        public static string DefaultName = "Layer";
+            
         public string Name{ get; set; }
 
         public LayerShapeCollection Shapes{ get; private set; }
@@ -37,9 +38,9 @@ namespace Cession.Diagrams
 
         public Size Size{ get; set; }
 
-        public Rect Frame
+        public override Rect Bounds
         {
-            get{ return new Rect (-Size.Width / 2, -Size.Height / 2, Size.Width, Size.Height); }
+            get{ return new Rect (Point.Empty,Size); }
         }
 
         public ReadOnlyCollection<Shape> SelectedShapes
@@ -51,12 +52,12 @@ namespace Cession.Diagrams
         public event EventHandler<EventArgs> SelectionClear;
 
 
-        public Layer (string name)
+        public Layer ()
         {
             //default layer size 200 meter
             Size = DefaultSize;
 
-            Name = name;
+            Name = DefaultName;
             Shapes = new LayerShapeCollection (this);
 
             _readOnlySelectedShapes = new ReadOnlyCollection<Shape> (_selectedShapes);
@@ -128,6 +129,7 @@ namespace Cession.Diagrams
             var matrix = Transform;
             matrix.Invert ();
 
+            var pp = matrix.Transform (point);
             return matrix.Transform (point);
         }
 

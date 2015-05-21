@@ -12,6 +12,7 @@ namespace Cession.Diagrams
 
         private Floor _floor;
         private ClosedShape _outerContour;
+        private Label _label;
 
         public Floor Floor
         {

@@ -11,11 +11,6 @@ namespace Cession.Diagrams
     {
         private static Dictionary<Type,HitTestProvider> s_hitTestors;
 
-        public virtual Point Center
-        {
-            get{ return Bounds.Center; }
-        }
-
         public static void RegisterHitTestProvider (Type type, HitTestProvider hitTestProvider)
         {
             if (null == type)
@@ -76,18 +71,7 @@ namespace Cession.Diagrams
                 return htp.HitTest (this, point);
             return DoHitTest (point);
         }
-
-        public Rect Bounds
-        {
-            get
-            {
-                var htp = GetHitTestProvider ();
-                if (null != htp)
-                    return htp.GetBounds (this);
-                return DoGetBounds ();
-            }
-        }
-
+            
         protected virtual Shape DoHitTest (Point point)
         {
             if (Contains (point))
