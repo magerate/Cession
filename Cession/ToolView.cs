@@ -7,6 +7,7 @@ using CoreGraphics;
 using Cession.Drawing;
 using Cession.Tools;
 using Cession.Drawing.Handles;
+using Cession.Diagrams;
 
 namespace Cession
 {
@@ -140,13 +141,26 @@ namespace Cession
                 var layer = ToolManager.Host.Project.SelectedLayer;
                 var matrix = layer.Transform;
                 dc.PushTransform (matrix);
-                foreach (var shape in layer.SelectedShapes)
-                {
-                    shape.DrawSelected (dc);
-                }
-
+                DrawSelection (dc, layer);
                 ToolManager.CurrentTool.Draw (dc);
                 dc.PopTransform ();
+            }
+        }
+
+        private void DrawSelection(DrawingContext drawingContext,Layer layer)
+        {
+            foreach (var shape in layer.SelectedShapes)
+            {
+                shape.DrawSelected (drawingContext);
+                if (shape is IFoldable)
+                {
+                    var fs = shape as IFoldable;
+                    fs.Layout ();
+                    foreach (var s in fs.GetFoldShapes())
+                    {
+                        s.Draw (drawingContext);
+                    }
+                }
             }
         }
     }

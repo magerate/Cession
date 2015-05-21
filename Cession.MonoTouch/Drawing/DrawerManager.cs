@@ -12,6 +12,7 @@ namespace Cession.Drawing
 
         static DrawerManager ()
         {
+            RegisterDrawer (typeof(WallSurface), new WallSurfaceDrawer ());
             RegisterDrawer (typeof(Room), new RoomDrawer ());
             RegisterDrawer (typeof(Layer), new LayerDrawer ());
             RegisterDrawer (typeof(Label), new LabelDrawer ());

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -60,7 +61,10 @@ namespace Cession.Diagrams
 
         protected override Shape DoHitTest (Point point)
         {
-            return Shapes.HitTest (point);
+            var foldShapes = SelectedShapes.Where (s => s is IFoldable).Cast<IFoldable> ().SelectMany (f => f.GetFoldShapes ());
+            if(foldShapes.Count() <=0)
+                return Shapes.HitTest (point);
+            return foldShapes.Concat (Shapes).HitTest (point);
         }
 
         protected override Rect DoGetBounds ()

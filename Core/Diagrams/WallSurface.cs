@@ -41,9 +41,9 @@ namespace Cession.Diagrams
             get{ return _shape as Circle; }
         }
 
-
         public WallSurface (Shape shape,double height)
         {
+            Ability = ShapeAbility.CanAssign | ShapeAbility.CanHitTest | ShapeAbility.CanSelect;
             _shape = shape;
             _height = height;
 
@@ -71,6 +71,14 @@ namespace Cession.Diagrams
         protected override Rect DoGetBounds ()
         {
             return _bounds;
+        }
+
+        protected override bool DoContains (Point point)
+        {
+            Matrix m = _transform;
+            m.Invert ();
+            point = m.Transform (point);
+            return _bounds.Contains (point);
         }
 
         internal override void DoOffset (double x, double y)

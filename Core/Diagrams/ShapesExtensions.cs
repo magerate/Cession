@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Cession.Geometries;
 
@@ -6,6 +7,11 @@ namespace Cession.Diagrams
 {
     public static class ShapesExtensions
     {
+        public static bool CanOffset(this IEnumerable<Shape> shapes)
+        {
+            return shapes.All (s => s.CanOffset);
+        }
+
         public static Shape HitTest(this IEnumerable<Shape> shapes,Point point)
         {
             if (null == shapes)

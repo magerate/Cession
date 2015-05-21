@@ -114,6 +114,7 @@
     <Compile Include="Diagrams\Room.cs" />
     <Compile Include="Diagrams\PolygonHelper.cs" />
     <Compile Include="Diagrams\CustomShape.cs" />
+    <Compile Include="Diagrams\Foldable.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">

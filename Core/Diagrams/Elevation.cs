@@ -8,7 +8,7 @@ using Cession.Dimensions;
 
 namespace Cession.Diagrams
 {
-    public class Elevation:CompositeShape
+    public class Elevation:CompositeShape,IFoldable
     {
         public static double DefaultHeight{ get; set; }
 
@@ -18,7 +18,9 @@ namespace Cession.Diagrams
         private Region _region;
 
         public string Name{ get; set; }
+
         public ReadOnlyCollection<WallSurface> Walls{ get; private set; }
+
         public ObservableCollection<Elevation> ChildElevations{ get; private set; }
 
         public Region Region
@@ -50,7 +52,7 @@ namespace Cession.Diagrams
             }
         }
 
-        static Elevation()
+        static Elevation ()
         {
             DefaultHeight = Length.PixelsPerMeter * 3;
         }
@@ -84,7 +86,12 @@ namespace Cession.Diagrams
             }
         }
 
-        private void CreateWalls(ClosedShape contour,double height)
+        public IEnumerable<Shape> GetFoldShapes ()
+        {
+            return Walls;
+        }
+
+        private void CreateWalls (ClosedShape contour, double height)
         {
             if (contour is Path)
             {
@@ -111,6 +118,36 @@ namespace Cession.Diagrams
         protected override Rect DoGetBounds ()
         {
             return _contour.Bounds;
+        }
+
+        public void Layout ()
+        {
+            double margin = 32;
+            double maxWidth = 400;
+
+            Rect bounds = Bounds;
+
+            double maxX = bounds.Right + margin + maxWidth;
+
+            double ox = bounds.Right + margin;
+            double oy = bounds.Y - margin;
+
+            double tx = ox;
+            double ty = oy;
+
+            foreach (var w in _walls)
+            {
+                Matrix m = new Matrix ();
+                m.Translate (tx, ty);
+                w.Transform = m;
+
+                tx += w.Bounds.Width + margin;
+                if (tx >= maxX)
+                {
+                    tx = ox;
+                    ty += w.Height + margin;
+                }
+            }
         }
     }
 }

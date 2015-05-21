@@ -138,6 +138,7 @@
     <Compile Include="Tools\AddCircleRoomTool.cs" />
     <Compile Include="Tools\AddPolygonRoomTool.cs" />
     <Compile Include="Drawing\CGTypeExtensions.cs" />
+    <Compile Include="Drawing\WallSurfaceDrawer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">

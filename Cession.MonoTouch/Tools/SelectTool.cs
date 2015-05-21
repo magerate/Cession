@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Cession.UIKit;
 using Cession.Geometries;
@@ -99,7 +100,7 @@ namespace Cession.Tools
         private bool TryMove ()
         {
             HitTest (ConvertToLogicalPoint (_touchPoint));
-            if (CurrentLayer.SelectedShapes.Count > 0)
+            if (CurrentLayer.SelectedShapes.Count > 0 && CurrentLayer.SelectedShapes.CanOffset())
             {
                 ToolManager.PushTool (typeof(MoveTool), CurrentLayer.SelectedShapes);
                 return true;
