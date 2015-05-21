@@ -5,10 +5,19 @@ namespace Cession.Diagrams
 {
     public class WallSurface:Shape
     {
+        private Matrix _transform;
         private double _height;
         private Shape _shape;
-        private Rect _frame;
+        private Rect _bounds;
 
+        public Matrix Transform
+        {
+            get{ return _transform; }
+            internal set
+            {
+                _transform = value;
+            }
+        }
         public double Height
         {
             get{ return _height; }
@@ -17,14 +26,9 @@ namespace Cession.Diagrams
                 if (value != _height)
                 {
                     _height = value; 
-                    _frame.Height = _height;
+                    _bounds.Height = _height;
                 }
             }
-        }
-
-        public Rect Frame
-        {
-            get{ return _frame; }
         }
 
         public Segment Segment
@@ -49,7 +53,7 @@ namespace Cession.Diagrams
             {
                 Segment.LengthChanged += delegate
                 {
-                    _frame.Width = Segment.Length;
+                    _bounds.Width = Segment.Length;
                 };
                 length = Segment.Length;
             }
@@ -58,10 +62,15 @@ namespace Cession.Diagrams
                 length = Circle.GetPerimeter ();
                 Circle.RadiusChanged += delegate
                 {
-                    _frame.Width = Circle.GetPerimeter();
+                    _bounds.Width = Circle.GetPerimeter();
                 };
             }
-            _frame = new Rect (0, 0, length, height);
+            _bounds = new Rect (0, 0, length, height);
+        }
+
+        protected override Rect DoGetBounds ()
+        {
+            return _bounds;
         }
 
         internal override void DoOffset (double x, double y)

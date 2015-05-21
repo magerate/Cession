@@ -52,15 +52,36 @@ namespace Cession.Diagrams
             get{ return Bounds.Center; }
         }
 
-        public virtual Rect Bounds
+        public Rect Bounds
+        { 
+            get{ return DoGetBounds (); }
+        }
+
+        public bool Contains (Point point)
         {
-            get
-            {
-                var htp = GetHitTestProvider ();
-                if (null != htp)
-                    return htp.GetBounds (this);
-                return DoGetBounds ();
-            }
+            return DoContains (point);
+        }
+
+        public Shape HitTest (Point point)
+        {
+            if (!CanHitTest)
+                return null;
+
+            return DoHitTest (point);
+        }
+
+        protected abstract Rect DoGetBounds();
+
+        protected virtual bool DoContains (Point point)
+        {
+            return Bounds.Contains (point);
+        }
+
+        protected virtual Shape DoHitTest (Point point)
+        {
+            if (Contains (point))
+                return this;
+            return null;
         }
 
         public Shape GetSelectableAncestor()
@@ -126,7 +147,6 @@ namespace Cession.Diagrams
         }
 
         internal abstract void DoOffset (double x, double y);
-
         internal abstract void DoRotate (Point point, double radian);
     }
 }

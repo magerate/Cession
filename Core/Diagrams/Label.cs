@@ -3,7 +3,7 @@ using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
-    public class Label:Shape
+    public class Label:CustomShape
     {
         private string _text;
         private Point _location;

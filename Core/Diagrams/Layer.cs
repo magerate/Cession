@@ -38,11 +38,6 @@ namespace Cession.Diagrams
 
         public Size Size{ get; set; }
 
-        public override Rect Bounds
-        {
-            get{ return new Rect (-Size.Width/2,-Size.Height/2,Size.Width,Size.Height); }
-        }
-
         public ReadOnlyCollection<Shape> SelectedShapes
         {
             get{ return _readOnlySelectedShapes; }
@@ -70,7 +65,7 @@ namespace Cession.Diagrams
 
         protected override Rect DoGetBounds ()
         {
-            return Shapes.GetBounds ();
+            return new Rect (-Size.Width/2,-Size.Height/2,Size.Width,Size.Height);
         }
 
         internal override void DoOffset (double x, double y)
