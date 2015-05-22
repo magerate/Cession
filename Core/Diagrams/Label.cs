@@ -26,6 +26,10 @@ namespace Cession.Diagrams
             _location = location;
         }
 
+        public Label(string text):this(text,Point.Empty,null)
+        {
+        }
+
         internal override void DoOffset (double x, double y)
         {
             _location.Offset (x, y);

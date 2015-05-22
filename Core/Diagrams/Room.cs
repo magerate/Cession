@@ -12,7 +12,7 @@ namespace Cession.Diagrams
 
         private Floor _floor;
         private ClosedShape _outerContour;
-//        private Label _label;
+        private Label _label;
 
         public Floor Floor
         {
@@ -24,15 +24,32 @@ namespace Cession.Diagrams
             get{ return _outerContour; }
         }
 
+        public Label Label
+        {
+            get{ return _label; }
+        }
+
         public Room (ClosedShape contour)
         {
             _floor = new Floor (contour);
             _floor.Parent = this;
-            contour.ContourChanged += delegate
+            contour.ContourChanged += (s,e) =>
             {
-                _outerContour = contour.Inflate (DefaultWallThickness);
+                RefreshOuterContour(s as ClosedShape);
             };
 
+            RefreshOuterContour (contour);
+
+            _label = new Label ("Room");
+            Point location = contour.Center;
+            location.X -= _label.Bounds.Width / 2;
+            _label.Location = location;
+            _label.Parent = this;
+            _label.Ability = ShapeAbility.CanHitTest | ShapeAbility.CanOffset;
+        }
+
+        private void RefreshOuterContour(ClosedShape contour)
+        {
             _outerContour = contour.Inflate (DefaultWallThickness);
             _outerContour.Parent = this;
         }
@@ -41,6 +58,7 @@ namespace Cession.Diagrams
         {
             yield return _floor;
             yield return _outerContour;
+            yield return _label;
         }
     }
 }

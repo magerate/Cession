@@ -1,21 +1,20 @@
 ﻿<Properties StartupItem="Cession/Cession.csproj" GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad2.8.3" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Core/Diagrams/Shape.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Core/Diagrams/Foldable.cs">
     <Files>
-      <File FileName="Core/Diagrams/LineSegment.cs" Line="14" Column="10" />
-      <File FileName="Cession.MonoTouch/Drawing/Handles/HandleDrawing.cs" Line="23" Column="76" />
-      <File FileName="Core/Handles/Handle.cs" Line="30" Column="10" />
-      <File FileName="Core/Diagrams/Floor.cs" Line="49" Column="32" />
-      <File FileName="Core/Diagrams/Room.cs" Line="17" Column="27" />
-      <File FileName="Core/Diagrams/Shape.cs" Line="69" Column="10" />
-      <File FileName="Core/Diagrams/Shape+HitTest.cs" Line="74" Column="13" />
+      <File FileName="Cession.MonoTouch/Tools/SelectTool.cs" Line="23" Column="10" />
+      <File FileName="Core/Diagrams/Elevation.cs" Line="35" Column="9" />
+      <File FileName="Core/Diagrams/Floor.cs" Line="1" Column="1" />
+      <File FileName="Core/Diagrams/Foldable.cs" Line="9" Column="23" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Cession" expanded="True">
-            <Node name="Geometries" expanded="True">
-              <Node name="Clipper" expanded="True" />
+            <Node name="Core" expanded="True">
+              <Node name="Diagrams" expanded="True">
+                <Node name="Foldable.cs" selected="True" />
+              </Node>
             </Node>
           </Node>
         </State>
@@ -31,7 +30,9 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/tomato/Gits/Cession/Cession.MonoTouch/Tools/SelectTool.cs" line="123" column="13" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
