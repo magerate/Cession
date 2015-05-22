@@ -125,6 +125,11 @@ namespace Cession.Commands
             CheckChanged (true, redoStack, OnRedoChange);
 
             Commit (command.Undo);
+
+            //undo should not have side effect
+            //if side effect happends just clear to ignore them
+            if (commandQueue.Count > 0)
+                commandQueue.Clear ();
         }
 
         public void Redo ()
@@ -139,6 +144,11 @@ namespace Cession.Commands
             CheckChanged (true, undoStack, OnUndoChange);
 
             Commit (command.Execute);
+
+            //redo should not have side effect
+            //if side effect happends just clear to ignore them
+            if (commandQueue.Count > 0)
+                commandQueue.Clear ();
         }
 
         private void Commit (Action action)

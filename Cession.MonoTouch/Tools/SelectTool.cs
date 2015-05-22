@@ -102,7 +102,7 @@ namespace Cession.Tools
             HitTest (ConvertToLogicalPoint (_touchPoint));
             if (CurrentLayer.SelectedShapes.Count > 0 && CurrentLayer.SelectedShapes.CanOffset())
             {
-                ToolManager.PushTool (typeof(MoveTool), CurrentLayer.SelectedShapes);
+                ToolManager.PushTool (typeof(MoveTool), CurrentLayer.SelectedShapes.ToArray());
                 return true;
             }
             return false;

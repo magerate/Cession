@@ -24,7 +24,7 @@ namespace Cession.Tools
             if (args.Length < 1)
                 throw new ArgumentException ();
 
-            _shapes = args [0] as IEnumerable<Shape>;
+            _shapes = args as IEnumerable<Shape>;
             if (_shapes == null)
                 throw new ArgumentException ();
         }
@@ -38,10 +38,7 @@ namespace Cession.Tools
 
         private void OffsetShapes (IEnumerable<Shape> shapes, Vector offset)
         {
-            foreach (var shape in shapes)
-            {
-                shape.Offset (offset);
-            }
+            shapes.ForEach (s => s.Offset (offset));
         }
 
         protected override void DoDrawDragDrop (DrawingContext drawingContext)
