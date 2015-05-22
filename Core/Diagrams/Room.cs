@@ -36,16 +36,15 @@ namespace Cession.Diagrams
             contour.ContourChanged += (s,e) =>
             {
                 RefreshOuterContour(s as ClosedShape);
+                RefreshLabelLocation(s as ClosedShape,true);
             };
 
             RefreshOuterContour (contour);
 
             _label = new Label ("Room");
-            Point location = contour.Center;
-            location.X -= _label.Bounds.Width / 2;
-            _label.Location = location;
+            RefreshLabelLocation (contour,false);
             _label.Parent = this;
-            _label.Ability = ShapeAbility.CanHitTest | ShapeAbility.CanOffset;
+            _label.Ability = ShapeAbility.CanHitTest | ShapeAbility.CanOffset | ShapeAbility.CanSelect;
         }
 
         private void RefreshOuterContour(ClosedShape contour)
@@ -54,11 +53,23 @@ namespace Cession.Diagrams
             _outerContour.Parent = this;
         }
 
+        private void RefreshLabelLocation(ClosedShape contour,bool isSideEffect)
+        {
+            Point location = contour.Center;
+            location.X -= _label.Bounds.Width / 2;
+            _label.SetLocation (location, isSideEffect);
+        }
+
         public override IEnumerator<Shape> GetEnumerator ()
         {
+            yield return _label;
             yield return _floor;
             yield return _outerContour;
-            yield return _label;
+        }
+
+        protected override Rect DoGetBounds ()
+        {
+            return _outerContour.Bounds.Union (_label.Bounds);
         }
     }
 }

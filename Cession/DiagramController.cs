@@ -8,7 +8,7 @@ using Cession.Diagrams;
 using Cession.Tools;
 using Cession.UIKit;
 using Cession.Commands;
-//using Cession.Mediators;
+using Cession.Mediators;
 using Cession.Projects;
 
 namespace Cession
@@ -21,7 +21,7 @@ namespace Cession
         private Project project;
         private ProjectInfo projectInfo;
         private CommandManager commandManager;
-//        private DiagramCommandMediator diagramCommandMediator;
+        private DiagramCommandMediator diagramCommandMediator;
         private ToolManager toolManager;
 
         public DiagramController ()
@@ -35,11 +35,11 @@ namespace Cession
             if (null == commandManager)
             {
                 commandManager = new CommandManager ();
-//                diagramCommandMediator = new DiagramCommandMediator (commandManager);
+                diagramCommandMediator = new DiagramCommandMediator (commandManager);
             } else
                 commandManager.Clear ();
 
-//            diagramCommandMediator.RegisterProjectEvents (project);
+            diagramCommandMediator.RegisterProjectEvents (project);
 
             commandManager.Committed += CommandCommited;
             commandManager.CanUndoChanged += CanUndoChanged;
@@ -56,9 +56,15 @@ namespace Cession
         {
             if (parent == null)
             {
+                DetachProject (project);
                 var selectTool = toolManager.GetTool (typeof(SelectTool)) as SelectTool;
                 selectTool.DetachProject (project);
             }
+        }
+
+        private void DetachProject(Project project)
+        {
+            diagramCommandMediator.UnregisterProjectEvents (project);
         }
 
         private void CommandCommited (object sender, EventArgs e)

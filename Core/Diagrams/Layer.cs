@@ -18,7 +18,7 @@ namespace Cession.Diagrams
         }
     }
 
-    public class Layer:Shape
+    public partial class Layer:Shape
     {
         public static readonly Size DefaultSize = new Size (200 * Length.PixelsPerMeter, 200 * Length.PixelsPerMeter);
         public static string DefaultName = "Layer";

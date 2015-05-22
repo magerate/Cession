@@ -65,6 +65,12 @@ namespace Cession.Commands
             Push (mc);
         }
 
+        public void ExecutePush(Command command)
+        {
+            command.Execute ();
+            Push (command);
+        }
+
         public void Push (Command command)
         {
             ClearRedoStack ();

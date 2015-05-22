@@ -121,10 +121,10 @@ namespace Cession.Diagrams
 
         public Shape GetSelectableAncestor()
         {
-            return GetAncestor (s => s.CanSelect);
+            return GetAncestor<Shape> (s => s.CanSelect);
         }
 
-        public Shape GetAncestor(Func<Shape,bool> predicate)
+        public Shape GetAncestor<T>(Func<Shape,bool> predicate) where T:Shape
         {
             if (null == predicate)
                 throw new ArgumentNullException ();
@@ -133,7 +133,7 @@ namespace Cession.Diagrams
             while (shape != null)
             {
                 if (predicate(shape))
-                    return shape;
+                    return shape as T;
                 shape = shape.Parent;
             }
             return null;
