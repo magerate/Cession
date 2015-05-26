@@ -1,18 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 using Cession.Geometries;
 using Cession.Dimensions;
 
 namespace Cession.Diagrams
 {
-    public class Room:CompositeShape
+    public class Room:CompositeShape,IFoldable
     {
         public static readonly double DefaultWallThickness = Length.PixelsPerCentimeter * 20;
 
         private Floor _floor;
         private ClosedShape _outerContour;
         private Label _label;
+        private WallSurfaceMediator _wallMediator;
+
+        public ReadOnlyCollection<WallSurface> Walls
+        {
+            get{ return _wallMediator.Walls; }
+        }
 
         public Floor Floor
         {
@@ -45,6 +52,8 @@ namespace Cession.Diagrams
             RefreshLabelLocation (contour,false);
             _label.Parent = this;
             _label.Ability = ShapeAbility.CanOffset | ShapeAbility.CanSelect;
+
+            _wallMediator = new WallSurfaceMediator (this, contour, Length.PixelsPerMeter * 3);
         }
 
         private void RefreshOuterContour(ClosedShape contour)
@@ -71,6 +80,18 @@ namespace Cession.Diagrams
         {
             return _outerContour.Bounds.Union (_label.Bounds);
         }
+
+        #region "IFoldable"
+        public IEnumerable<Shape> GetFoldShapes ()
+        {
+            return Walls;
+        }
+
+        public void Layout ()
+        {
+            _wallMediator.Layout (_outerContour.Bounds);
+        }
+        #endregion
     }
 }
 

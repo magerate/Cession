@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 
 using Cession.Geometries;
 using Cession.Dimensions;
@@ -12,14 +11,16 @@ namespace Cession.Diagrams
     {
         public static double DefaultHeight{ get; set; }
 
-        private List<WallSurface> _walls;
         private ClosedShape _contour;
         private double _height;
         private Region _region;
-
+        private WallSurfaceMediator _wallMediator;
         public string Name{ get; set; }
 
-        public ReadOnlyCollection<WallSurface> Walls{ get; private set; }
+        public ReadOnlyCollection<WallSurface> Walls
+        {
+            get{ return _wallMediator.Walls; }
+        }
 
         public ObservableCollection<Elevation> ChildElevations{ get; private set; }
 
@@ -44,7 +45,7 @@ namespace Cession.Diagrams
                 if (value != _height)
                 {
                     _height = value;
-                    foreach (var wall in _walls)
+                    foreach (var wall in Walls)
                     {
                         wall.Height = value;
                     }
@@ -70,9 +71,8 @@ namespace Cession.Diagrams
             _contour.Parent = this;
             _region = new Region (_contour);
 
-            _walls = new List<WallSurface> ();
-            Walls = new ReadOnlyCollection<WallSurface> (_walls);
-            CreateWalls (contour, DefaultHeight);
+            _wallMediator = new WallSurfaceMediator (this,contour, DefaultHeight);
+
 
             ChildElevations = new ObservableCollection<Elevation> ();
         }
@@ -86,31 +86,7 @@ namespace Cession.Diagrams
             }
         }
 
-        public IEnumerable<Shape> GetFoldShapes ()
-        {
-            return Walls;
-        }
-
-        private void CreateWalls (ClosedShape contour, double height)
-        {
-            if (contour is Path)
-            {
-                var path = contour as Path; 
-                foreach (var segment in path.Segments)
-                {
-                    var wall = new WallSurface (segment, height);
-                    wall.Parent = this;
-                    _walls.Add (wall);
-                }
-            }
-            else if (contour is Circle)
-            {
-                var circle = contour as Circle;
-                var wall = new WallSurface (circle, height);
-                wall.Parent = this;
-                _walls.Add (wall);
-            }
-        }
+       
 
         protected override bool DoContains (Point point)
         {
@@ -122,35 +98,17 @@ namespace Cession.Diagrams
             return _contour.Bounds;
         }
 
+        #region "IFoldable"
+        public IEnumerable<Shape> GetFoldShapes ()
+        {
+            return Walls;
+        }
+
         public void Layout ()
         {
-            double margin = 32;
-            double maxWidth = 400;
-
-            Rect bounds = Bounds;
-
-            double maxX = bounds.Right + margin + maxWidth;
-
-            double ox = bounds.Right + margin;
-            double oy = bounds.Y - margin;
-
-            double tx = ox;
-            double ty = oy;
-
-            foreach (var w in _walls)
-            {
-                Matrix m = new Matrix ();
-                m.Translate (tx, ty);
-                w.Transform = m;
-
-                tx += w.Bounds.Width + margin;
-                if (tx >= maxX)
-                {
-                    tx = ox;
-                    ty += w.Height + margin;
-                }
-            }
+            _wallMediator.Layout (Bounds);
         }
+        #endregion
     }
 }
 
