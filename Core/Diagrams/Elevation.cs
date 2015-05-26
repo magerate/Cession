@@ -99,6 +99,7 @@ namespace Cession.Diagrams
                 foreach (var segment in path.Segments)
                 {
                     var wall = new WallSurface (segment, height);
+                    wall.Parent = this;
                     _walls.Add (wall);
                 }
             }
@@ -106,6 +107,7 @@ namespace Cession.Diagrams
             {
                 var circle = contour as Circle;
                 var wall = new WallSurface (circle, height);
+                wall.Parent = this;
                 _walls.Add (wall);
             }
         }

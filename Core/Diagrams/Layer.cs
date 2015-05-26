@@ -21,7 +21,7 @@ namespace Cession.Diagrams
     public partial class Layer:Shape
     {
         public static readonly Size DefaultSize = new Size (200 * Length.PixelsPerMeter, 200 * Length.PixelsPerMeter);
-        public static string DefaultName = "Layer";
+        public static readonly string DefaultName = "Layer";
             
         public string Name{ get; set; }
 
@@ -52,19 +52,15 @@ namespace Cession.Diagrams
         {
             //default layer size 200 meter
             Size = DefaultSize;
-
             Name = DefaultName;
-            Shapes = new LayerShapeCollection (this);
 
+            Shapes = new LayerShapeCollection (this);
             _readOnlySelectedShapes = new ReadOnlyCollection<Shape> (_selectedShapes);
         }
 
         protected override Shape DoHitTest (Point point,Func<Shape,bool> predicate)
         {
-            var foldShapes = SelectedShapes.Where (s => s is IFoldable).Cast<IFoldable> ().SelectMany (f => f.GetFoldShapes ());
-            if(foldShapes.Count() <=0)
-                return Shapes.HitTestAny (point,predicate);
-            return foldShapes.Concat (Shapes).HitTestAny (point,predicate);
+            return Shapes.HitTestAny (point,predicate);
         }
 
         protected override Rect DoGetBounds ()

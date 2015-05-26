@@ -152,9 +152,9 @@ namespace Cession
             foreach (var shape in layer.SelectedShapes)
             {
                 shape.DrawSelected (drawingContext);
-                if (shape is IFoldable)
+                var fs = shape.GetAncestor<IFoldable> (s => s is IFoldable);
+                if (null != fs)
                 {
-                    var fs = shape as IFoldable;
                     fs.Layout ();
                     foreach (var s in fs.GetFoldShapes())
                     {

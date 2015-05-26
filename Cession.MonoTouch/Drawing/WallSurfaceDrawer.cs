@@ -22,6 +22,19 @@ namespace Cession.Drawing
             drawingContext.StrokeRect (wallSurface.Bounds);
             drawingContext.PopTransform ();
         }
+
+        protected override void DoDrawSelected (DrawingContext drawingContext, Shape shape)
+        {
+            var wallSurface = shape as WallSurface;
+            if (null == wallSurface)
+                throw new ArgumentException ("shape");
+
+            drawingContext.PushTransform (wallSurface.Transform);
+            UIColor.Blue.SetStroke ();
+            drawingContext.CGContext.SetLineWidth (4.0f);
+            drawingContext.StrokeRect (wallSurface.Bounds);
+            drawingContext.PopTransform ();
+        }
     }
 }
 

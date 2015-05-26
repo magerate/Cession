@@ -117,7 +117,8 @@ namespace Cession.Tools
 
         private void HitTest (Point point)
         {
-            var shape = CurrentLayer.HitTest (point,s => !(s is Label));
+            var shapes = GetShapesToHitTest (CurrentLayer);
+            var shape = shapes.HitTestAny (point,s => !(s is Label));
 
             CurrentLayer.ClearSelection ();
             if (null != shape)
@@ -127,6 +128,19 @@ namespace Cession.Tools
                     CurrentLayer.Select (shape);
             }
             RefreshToolView ();
+        }
+
+        private IEnumerable<Shape> GetShapesToHitTest(Layer layer)
+        {
+            var foldShapes = layer.SelectedShapes.
+                Select(s => s.GetAncestor<IFoldable>(ss => ss is IFoldable)).
+                Where(s => s != null).
+                Cast<IFoldable>().
+                SelectMany(f => f.GetFoldShapes ());
+
+            if (foldShapes.Count () <= 0)
+                return layer.Shapes;
+            return layer.Shapes.Concat (foldShapes);
         }
     }
 }

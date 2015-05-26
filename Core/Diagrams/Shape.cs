@@ -125,7 +125,7 @@ namespace Cession.Diagrams
             return GetAncestor<Shape> (s => s.CanSelect);
         }
 
-        public T GetAncestor<T>(Func<Shape,bool> predicate) where T:Shape
+        public T GetAncestor<T>(Func<Shape,bool> predicate) where T : class
         {
             if (null == predicate)
                 throw new ArgumentNullException ();
