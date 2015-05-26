@@ -39,11 +39,7 @@ namespace Cession.Diagrams
 
         protected override Rect DoGetBounds ()
         {
-            Rect bounds = Rect.Empty;
-            foreach (var s in this) {
-                bounds = bounds.Union (s.Bounds);
-            }
-            return bounds;
+            return this.GetBounds ();
         }
 
         protected override Shape DoHitTest (Point point, Func<Shape, bool> predicate)
