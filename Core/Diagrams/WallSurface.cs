@@ -43,7 +43,7 @@ namespace Cession.Diagrams
 
         public WallSurface (Shape shape,double height)
         {
-            Ability = ShapeAbility.CanAssign | ShapeAbility.CanHitTest | ShapeAbility.CanSelect;
+            Ability = ShapeAbility.CanAssign | ShapeAbility.CanSelect;
             _shape = shape;
             _height = height;
 

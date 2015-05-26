@@ -66,7 +66,7 @@ namespace Cession.Diagrams
             _height = DefaultHeight;
 
             _contour = contour;
-            _contour.Ability = ShapeAbility.CanAssign | ShapeAbility.CanHitTest;
+            _contour.Ability = ShapeAbility.CanAssign;
             _contour.Parent = this;
             _region = new Region (_contour);
 

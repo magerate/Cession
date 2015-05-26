@@ -59,12 +59,12 @@ namespace Cession.Diagrams
             _readOnlySelectedShapes = new ReadOnlyCollection<Shape> (_selectedShapes);
         }
 
-        protected override Shape DoHitTest (Point point)
+        protected override Shape DoHitTest (Point point,Func<Shape,bool> predicate)
         {
             var foldShapes = SelectedShapes.Where (s => s is IFoldable).Cast<IFoldable> ().SelectMany (f => f.GetFoldShapes ());
             if(foldShapes.Count() <=0)
-                return Shapes.HitTest (point);
-            return foldShapes.Concat (Shapes).HitTest (point);
+                return Shapes.HitTestAny (point,predicate);
+            return foldShapes.Concat (Shapes).HitTestAny (point,predicate);
         }
 
         protected override Rect DoGetBounds ()

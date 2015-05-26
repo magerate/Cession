@@ -37,18 +37,9 @@ namespace Cession.Diagrams
             return shapes.All (s => s.CanOffset);
         }
 
-        public static Shape HitTest(this IEnumerable<Shape> shapes,Point point)
+        public static Shape HitTestAny(this IEnumerable<Shape> shapes,Point point, Func<Shape,bool> predicate = null)
         {
-            if (null == shapes)
-                throw new ArgumentNullException ();
-
-            foreach (var shape in shapes) 
-            {
-                var hs = shape.HitTest (point);
-                if (null != hs)
-                    return hs;
-            }
-            return null;
+            return shapes.Any<Shape> (s => s.HitTest (point,predicate));
         }
 
         public static Rect GetBounds(this IEnumerable<Shape> shapes)

@@ -28,7 +28,7 @@ namespace Cession.Diagrams
         internal Floor (ClosedShape contour)
         {
             _contour = contour;
-            _contour.Ability = ShapeAbility.CanAssign | ShapeAbility.CanHitTest;
+            _contour.Ability = ShapeAbility.CanAssign;
             _contour.Parent = this;
 
             _regions = new List<Region> ();
@@ -38,7 +38,7 @@ namespace Cession.Diagrams
 
             Elevations = new ObservableCollection<Elevation> ();
 
-            Ability = ShapeAbility.CanAssign | ShapeAbility.CanHitTest;
+            Ability = ShapeAbility.CanAssign;
         }
 
         public override IEnumerator<Shape> GetEnumerator ()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -45,26 +46,9 @@ namespace Cession.Diagrams
             return bounds;
         }
 
-        protected override Shape DoHitTest (Point point)
+        protected override Shape DoHitTest (Point point, Func<Shape, bool> predicate)
         {
-            Shape shape = null;
-            foreach (var s in this) {
-                shape = s.HitTest (point);
-                if (null != shape)
-                    return shape;
-            }
-            return null;
-        }
-
-        protected Shape HitTestAny(Point point)
-        {
-            Shape shape = null;
-            foreach (var s in this) {
-                shape = s.HitTest (point);
-                if (null != shape)
-                    return this;
-            }
-            return null;
+            return this.HitTestAny (point,predicate);
         }
     }
 }

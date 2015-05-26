@@ -14,11 +14,6 @@ namespace Cession.Diagrams
             get{ return (Ability & ShapeAbility.CanSelect) != 0; }
         }
 
-        public bool CanHitTest
-        {
-            get{ return (Ability & ShapeAbility.CanHitTest) != 0; }
-        }
-
         public bool CanOffset
         {
             get{ return (Ability & ShapeAbility.CanOffset) != 0; }
@@ -97,12 +92,9 @@ namespace Cession.Diagrams
             return DoContains (point);
         }
 
-        public Shape HitTest (Point point)
+        public Shape HitTest(Point point , Func<Shape,bool> predicate = null)
         {
-            if (!CanHitTest)
-                return null;
-
-            return DoHitTest (point);
+            return DoHitTest (point, predicate);
         }
 
         protected abstract Rect DoGetBounds();
@@ -110,6 +102,15 @@ namespace Cession.Diagrams
         protected virtual bool DoContains (Point point)
         {
             return Bounds.Contains (point);
+        }
+
+        //override this method if subclass is compsite shape
+        //composite shape should ignore predicate
+        protected virtual Shape DoHitTest (Point point,Func<Shape,bool> predicate)
+        {
+            if (null != predicate && !predicate (this))
+                return null;
+            return DoHitTest (point);
         }
 
         protected virtual Shape DoHitTest (Point point)
@@ -124,7 +125,7 @@ namespace Cession.Diagrams
             return GetAncestor<Shape> (s => s.CanSelect);
         }
 
-        public Shape GetAncestor<T>(Func<Shape,bool> predicate) where T:Shape
+        public T GetAncestor<T>(Func<Shape,bool> predicate) where T:Shape
         {
             if (null == predicate)
                 throw new ArgumentNullException ();

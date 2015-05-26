@@ -89,7 +89,7 @@ namespace Cession.Diagrams
         internal Segment (Point point)
         {
             _point1 = point;
-            Ability = ShapeAbility.CanAssign | ShapeAbility.CanHitTest;
+            Ability = ShapeAbility.CanAssign;
         }
 
         public Segment Next 

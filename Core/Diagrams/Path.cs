@@ -41,7 +41,7 @@ namespace Cession.Diagrams
             {
                 var segment = new LineSegment (points [i]);
                 segment.Parent = this;
-                segment.Ability = ShapeAbility.CanAssign | ShapeAbility.CanHitTest;
+                segment.Ability = ShapeAbility.CanAssign;
                 _segments.Add (segment);
 
                 segment.VertexChanged += delegate
@@ -146,7 +146,7 @@ namespace Cession.Diagrams
 
         protected override Shape DoHitTest (Point point)
         {
-            Shape shape = _segments.HitTest (point);
+            Shape shape = _segments.HitTestAny (point);
             if (null != shape)
                 return shape;
            

@@ -44,7 +44,7 @@ namespace Cession.Diagrams
             _label = new Label ("Room");
             RefreshLabelLocation (contour,false);
             _label.Parent = this;
-            _label.Ability = ShapeAbility.CanHitTest | ShapeAbility.CanOffset | ShapeAbility.CanSelect;
+            _label.Ability = ShapeAbility.CanOffset | ShapeAbility.CanSelect;
         }
 
         private void RefreshOuterContour(ClosedShape contour)

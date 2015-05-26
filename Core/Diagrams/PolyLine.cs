@@ -51,7 +51,7 @@ namespace Cession.Diagrams
             foreach (var s in _segments)
             {
                 s.Parent = this;
-                s.Ability = ShapeAbility.CanHitTest | ShapeAbility.CanAssign;
+                s.Ability = ShapeAbility.CanAssign;
             }
         }
 
@@ -69,7 +69,7 @@ namespace Cession.Diagrams
             {
                 var segment = new LineSegment (points [i]);
                 segment.Parent = this;
-                segment.Ability = ShapeAbility.CanHitTest | ShapeAbility.CanAssign;
+                segment.Ability = ShapeAbility.CanAssign;
                 _segments.Add (segment);
             }
             _lastPoint = points [points.Count - 1];
@@ -117,10 +117,6 @@ namespace Cession.Diagrams
             return null;
         }
 
-        protected override Shape DoHitTest (Point point)
-        {
-            return base.HitTestAny (point);
-        }
 
         protected override bool DoContains (Point point)
         {
