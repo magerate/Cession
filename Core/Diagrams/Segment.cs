@@ -40,31 +40,10 @@ namespace Cession.Diagrams
 
         public abstract double Length{ get; }
 
-        internal Point InternalPoint1
-        {
-            get{ return _point1; }
-            set{ _point1 = value; }
-        }
-
         public Point Point1 
         {
             get{ return _point1; }
-            set 
-            {
-                if (value != _point1) {
-                    _point1 = value;
-                    var rea = new VertexChangedEventArgs (VertexChangeEvent, this,value);
-                    rea.IsFirstVertex = true;
-                    RaiseEvent (rea);
-
-                    var prev = Previous;
-                    if(null != prev)
-                    {
-                        prev.OnLengthChanged ();
-                    }
-                    OnLengthChanged ();
-                }
-            }
+            internal set{ _point1 = value; }
         }
 
         public Point Point2
@@ -75,14 +54,6 @@ namespace Cession.Diagrams
                 if (segment != null)
                     return segment.Point1;
                 return ((Polyline)Parent).LastPoint;
-            }
-            set
-            {
-                var segment = Next;
-                if (segment != null)
-                    segment.Point1 = value;
-                else
-                    ((Polyline)Parent).LastPoint = value;
             }
         }
 
@@ -126,6 +97,23 @@ namespace Cession.Diagrams
         internal void OnLengthChanged()
         {
             RaiseEvent (new RoutedEventArgs (LengthChangedEvent, this));
+        }
+
+        public void MoveVertex(Point point)
+        {
+            if (point != _point1) {
+                _point1 = point;
+                var rea = new VertexChangedEventArgs (VertexChangeEvent, this,point);
+                rea.IsFirstVertex = true;
+                RaiseEvent (rea);
+
+                var prev = Previous;
+                if(null != prev)
+                {
+                    prev.OnLengthChanged ();
+                }
+                OnLengthChanged ();
+            }
         }
     }
 }

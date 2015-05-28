@@ -20,23 +20,21 @@ namespace Cession.Diagrams
         public Point LastPoint
         {
             get{ return _lastPoint; }
-            set
-            { 
-                if (value != _lastPoint)
-                {
-                    _lastPoint = value; 
-                    var ea = new VertexChangedEventArgs (Segment.VertexChangeEvent, _segments.Last(),value);
-                    ea.IsFirstVertex = false;
-                    RaiseEvent (ea);
-                }
+            internal set{ _lastPoint = value; }
+        }
+
+        public void MoveLastPoint(Point point)
+        {
+            if (point != _lastPoint)
+            {
+                _lastPoint = point; 
+                var ea = new VertexChangedEventArgs (Segment.VertexChangeEvent, _segments.Last(),point);
+                ea.IsFirstVertex = false;
+                RaiseEvent (ea);
             }
         }
 
-        internal Point InternalLast
-        {
-            get{ return _lastPoint; }
-            set{_lastPoint = value; }
-        }
+       
 
         public Polyline (IEnumerable<Segment> segments,Point lastPoint)
         {

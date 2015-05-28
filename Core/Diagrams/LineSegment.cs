@@ -53,20 +53,20 @@ namespace Cession.Diagrams
 
         public void Move(Tuple<Point,Point> pointPair)
         {
-            InternalPoint1 = pointPair.Item1;
-            if (Next != null)
-            {
-                Next.InternalPoint1 = pointPair.Item2;
-                Next.OnLengthChanged ();
-            }
-
+            Point1 = pointPair.Item1;
+           
             if (Previous != null)
             {
                 Previous.OnLengthChanged ();
             }
 
+            if (Next != null)
+            {
+                Next.Point1 = pointPair.Item2;
+                Next.OnLengthChanged ();
+            }
             else
-                ((Polyline)Parent).InternalLast = pointPair.Item2;
+                ((Polyline)Parent).LastPoint = pointPair.Item2;
 
             OnMove ();
             OnLengthChanged ();

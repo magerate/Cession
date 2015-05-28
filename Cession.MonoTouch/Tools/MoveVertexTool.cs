@@ -53,10 +53,16 @@ namespace Cession.Tools
         protected override void Commit ()
         {
             D.Segment segment = _handle.Shape as D.Segment;
-            if(_handle.IsFirstVertex)
-                CommandManager.Execute (segment, EndPoint.Value, segment.Point1, (l, p) => l.Point1 = p);
+            if (!_handle.IsFirstVertex)
+                segment = segment.Next;
+
+            if (segment != null)
+                CommandManager.Execute (EndPoint.Value, segment.Point1, segment.MoveVertex);
             else
-                CommandManager.Execute (segment, EndPoint.Value, segment.Point2, (l, p) => l.Point2 = p);
+            {
+                Polyline polyline = _handle.Shape.Parent as Polyline;
+                CommandManager.Execute (EndPoint.Value, polyline.LastPoint, polyline.MoveLastPoint);
+            }
         }
     }
 }
