@@ -55,7 +55,16 @@ namespace Cession.Diagrams
         {
             InternalPoint1 = pointPair.Item1;
             if (Next != null)
+            {
                 Next.InternalPoint1 = pointPair.Item2;
+                Next.OnLengthChanged ();
+            }
+
+            if (Previous != null)
+            {
+                Previous.OnLengthChanged ();
+            }
+
             else
                 ((Polyline)Parent).InternalLast = pointPair.Item2;
 

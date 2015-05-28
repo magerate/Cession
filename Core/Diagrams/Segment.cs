@@ -123,7 +123,7 @@ namespace Cession.Diagrams
             _point1.Rotate (point, radian);
         }
 
-        protected void OnLengthChanged()
+        internal void OnLengthChanged()
         {
             RaiseEvent (new RoutedEventArgs (LengthChangedEvent, this));
         }
