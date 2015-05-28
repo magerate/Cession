@@ -9,8 +9,7 @@ namespace Cession.Diagrams
         CanSelect = 0x1,
         CanOffset = 0x2,
         CanRotate = 0x4,
-        CanAssign = 0x8,
-        All = CanSelect | CanOffset | CanRotate | CanAssign,
+        All = CanSelect | CanOffset | CanRotate,
     }
 }
 

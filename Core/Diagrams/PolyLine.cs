@@ -51,7 +51,7 @@ namespace Cession.Diagrams
             foreach (var s in _segments)
             {
                 s.Parent = this;
-                s.Ability = ShapeAbility.CanAssign;
+                s.Ability = ShapeAbility.None;
             }
         }
 
@@ -69,7 +69,7 @@ namespace Cession.Diagrams
             {
                 var segment = new LineSegment (points [i]);
                 segment.Parent = this;
-                segment.Ability = ShapeAbility.CanAssign;
+                segment.Ability = ShapeAbility.None;
                 _segments.Add (segment);
             }
             _lastPoint = points [points.Count - 1];

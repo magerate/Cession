@@ -41,7 +41,7 @@ namespace Cession.Diagrams
             {
                 var segment = new LineSegment (points [i]);
                 segment.Parent = this;
-                segment.Ability = ShapeAbility.CanAssign;
+                segment.Ability = ShapeAbility.None;
                 _segments.Add (segment);
 
                 segment.VertexChanged += delegate
