@@ -8,16 +8,8 @@ namespace Cession.Diagrams
 {
     internal class WallSurfaceMediator
     {
-        public static LayoutProvider LayoutProvider{ get; set; }
-
         private List<WallSurface> _walls;
         public ReadOnlyCollection<WallSurface> Walls{ get; private set; }
-
-
-        static WallSurfaceMediator()
-        {
-            LayoutProvider = new FanLayoutProvider ();
-        }
 
         public WallSurfaceMediator (Shape owner,ClosedShape contour,double height)
         {
@@ -49,7 +41,7 @@ namespace Cession.Diagrams
 
         public void Layout (ClosedShape contour)
         {
-            WallSurfaceMediator.LayoutProvider.Layout (contour, _walls);
+            LayoutProvider.CurrentProvider.Layout (contour, _walls);
         }
 
     }
