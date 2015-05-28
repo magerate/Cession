@@ -66,7 +66,7 @@ namespace Cession.Diagrams
         public void Offset (double x, double y)
         {
             if (!CanOffset)
-                throw new InvalidOperationException ();
+                throw new InvalidOperationException ($"{this.GetType().Name} can't offset!");
             DoOffset (x, y);
             RaiseEvent (new OffsetEventArgs (Shape.OffsetEvent, this,x,y));
         }

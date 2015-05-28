@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -37,6 +38,24 @@ namespace Cession.Diagrams
                 foreach (var h in _holes) {
                     yield return h;
                 }
+            }
+        }
+
+        internal override void DoOffset (double x, double y)
+        {
+            var shapes = this.Where (s => s.Parent == this);
+            foreach (var s in shapes)
+            {
+                s.DoOffset (x, y);
+            }
+        }
+
+        internal override void DoRotate (Point point, double radian)
+        {
+            var shapes = this.Where (s => s.Parent == this);
+            foreach (var s in shapes)
+            {
+                s.DoRotate (point, radian);
             }
         }
     }

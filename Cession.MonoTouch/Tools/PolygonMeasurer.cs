@@ -61,6 +61,13 @@ namespace Cession.Tools
             return new Polyline (segments,Points.Last());
         }
 
+        public Path ToPath()
+        {
+            if (!Polygon.IsClockwise (_points))
+                _points.Reverse ();
+            return new Path (Points);
+        }
+
         public void AddPoint()
         {
             Points.Add (CurrentPoint.Value);

@@ -32,6 +32,7 @@ namespace Cession.Tools
         protected override void Commit ()
         {
             var vector = EndPoint.Value - StartPoint.Value;
+
             var command = Command.Create (_shapes, vector, -vector, OffsetShapes);
             CommandManager.Execute (command);
         }

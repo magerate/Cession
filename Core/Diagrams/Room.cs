@@ -59,6 +59,7 @@ namespace Cession.Diagrams
         private void RefreshOuterContour(ClosedShape contour)
         {
             _outerContour = contour.Inflate (DefaultWallThickness);
+            _outerContour.Ability = ShapeAbility.None;
             _outerContour.Parent = this;
         }
 
@@ -89,7 +90,7 @@ namespace Cession.Diagrams
 
         public void Layout ()
         {
-            _wallMediator.Layout (_outerContour.Bounds);
+            _wallMediator.Layout (_floor.Contour);
         }
         #endregion
     }

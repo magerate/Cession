@@ -8,8 +8,16 @@ namespace Cession.Diagrams
 {
     internal class WallSurfaceMediator
     {
+        public static LayoutProvider LayoutProvider{ get; set; }
+
         private List<WallSurface> _walls;
         public ReadOnlyCollection<WallSurface> Walls{ get; private set; }
+
+
+        static WallSurfaceMediator()
+        {
+            LayoutProvider = new FanLayoutProvider ();
+        }
 
         public WallSurfaceMediator (Shape owner,ClosedShape contour,double height)
         {
@@ -39,32 +47,9 @@ namespace Cession.Diagrams
             }
         }
 
-        public void Layout (Rect bounds)
+        public void Layout (ClosedShape contour)
         {
-            double margin = 32;
-            double maxWidth = 400;
-
-            double maxX = bounds.Right + margin + maxWidth;
-
-            double ox = bounds.Right + margin;
-            double oy = bounds.Y - margin;
-
-            double tx = ox;
-            double ty = oy;
-
-            foreach (var w in _walls)
-            {
-                Matrix m = new Matrix ();
-                m.Translate (tx, ty);
-                w.Transform = m;
-
-                tx += w.Bounds.Width + margin;
-                if (tx >= maxX)
-                {
-                    tx = ox;
-                    ty += w.Height + margin;
-                }
-            }
+            WallSurfaceMediator.LayoutProvider.Layout (contour, _walls);
         }
 
     }

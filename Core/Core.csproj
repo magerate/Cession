@@ -117,6 +117,9 @@
     <Compile Include="Diagrams\Foldable.cs" />
     <Compile Include="Diagrams\Layer+RoutedEvents.cs" />
     <Compile Include="Diagrams\WallSurfaceMediator.cs" />
+    <Compile Include="Diagrams\LayoutProvider.cs" />
+    <Compile Include="Diagrams\FlowLayoutProvider.cs" />
+    <Compile Include="Diagrams\FanLayoutProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">

@@ -106,7 +106,7 @@ namespace Cession.Diagrams
 
         public void Layout ()
         {
-            _wallMediator.Layout (Bounds);
+            _wallMediator.Layout (_contour);
         }
         #endregion
     }

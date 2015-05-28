@@ -43,11 +43,17 @@ namespace Cession.Diagrams
 
         public override IEnumerator<Shape> GetEnumerator ()
         {
-            yield return _contour;
             foreach (var e in Elevations)
             {
                 yield return e;
             }
+
+            foreach (var region in _regions)
+            {
+                yield return region;
+            }
+
+            yield return _contour;
         }
 
         protected override bool DoContains (Point point)

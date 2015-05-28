@@ -46,7 +46,7 @@ namespace Cession.Tools
         {
             if (Measurer.Points.Count > 2)
             {
-                var path = new Path (Measurer.Points);
+                var path = Measurer.ToPath ();
                 var room = new Room (path);
                 ExecuteAddShape (room);
             }
