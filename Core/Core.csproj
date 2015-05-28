@@ -63,7 +63,6 @@
     <Compile Include="Alignments\AlignAxis.cs" />
     <Compile Include="Alignments\AlignRule.cs" />
     <Compile Include="Alignments\AndRule.cs" />
-    <Compile Include="Alignments\DevicePointToPointRule.cs" />
     <Compile Include="Alignments\OrRule.cs" />
     <Compile Include="Alignments\PointToPointRule.cs" />
     <Compile Include="Products\Product.cs" />
