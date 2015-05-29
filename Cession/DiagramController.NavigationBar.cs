@@ -1,4 +1,7 @@
 using System;
+using System.Linq;
+using System.ComponentModel;
+
 using CoreGraphics;
 
 using UIKit;
@@ -98,7 +101,7 @@ namespace Cession
             settingButton.Image = UIImage.FromBundle (ImageFiles.Gear25);
             settingButton.Clicked += delegate
             {
-//				ShowSetting ();	
+                ShowSetting ();	
             };
 
             undoButton = new UIBarButtonItem ();
@@ -193,6 +196,25 @@ namespace Cession
         {
             var tc = new ToolsController (SelectTool);
             return new UINavigationController (tc);
+        }
+
+        private void ShowSetting()
+        {
+            var controller = new ListController ();
+            controller.DataSource = LayoutProvider.Providers;
+            controller.SelectedValue = LayoutProvider.CurrentProvider;
+            controller.Formatter = (o) =>
+            {
+                var da = Attribute.GetCustomAttribute(o.GetType(),typeof(DescriptionAttribute)) as DescriptionAttribute;
+                return da.Description;
+            };
+
+            controller.SelectedAction = (o) =>
+            {
+                LayoutProvider.CurrentProvider = o as LayoutProvider;
+                toolView.SetNeedsDisplay ();
+            };
+            PopoverControllerManager.ShowFromBarButton (controller, settingButton);
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
-    public class FlowLayoutProvider:LayoutProvider
+    [Description("Flow")]
+    internal class FlowLayoutProvider:LayoutProvider
     {
         public override void Layout (ClosedShape contour, IEnumerable<WallSurface> walls)
         {

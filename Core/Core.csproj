@@ -119,6 +119,7 @@
     <Compile Include="Diagrams\LayoutProvider.cs" />
     <Compile Include="Diagrams\FlowLayoutProvider.cs" />
     <Compile Include="Diagrams\FanLayoutProvider.cs" />
+    <Compile Include="Diagrams\Divider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">

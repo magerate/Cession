@@ -18,6 +18,7 @@ namespace Cession.Diagrams
                 _transform = value;
             }
         }
+
         public double Height
         {
             get{ return _height; }

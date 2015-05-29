@@ -6,10 +6,16 @@ namespace Cession.Diagrams
     public abstract class LayoutProvider
     {
         public static LayoutProvider CurrentProvider{ get; set; }
+        public static readonly LayoutProvider[] Providers;
+      
 
         static LayoutProvider()
         {
-            CurrentProvider = new FanLayoutProvider ();
+            Providers = new LayoutProvider[] {
+                new FlowLayoutProvider(),
+                new FanLayoutProvider(),
+            };
+            CurrentProvider = Providers [0];
         }
 
         public abstract void Layout (ClosedShape contour, IEnumerable<WallSurface> walls);
