@@ -36,6 +36,13 @@ namespace Cession.Diagrams
                 m.Translate (p.X, p.Y);
                 wall.Transform = m;
             }
+            else if (null != wall.Circle)
+            {
+                Matrix m = Matrix.Identity;
+                Rect bounds = wall.Circle.Bounds;
+                m.Translate (bounds.Right + 16, bounds.Center.Y);
+                wall.Transform = m;
+            }
         }
     }
 }
