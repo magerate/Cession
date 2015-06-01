@@ -129,6 +129,13 @@ namespace Cession
             {
                 var dc = new DrawingContext (context);
 
+                var layer = ToolManager.Host.Project.SelectedLayer;
+                var matrix = layer.Transform;
+                dc.PushTransform (matrix);
+                DrawSelection (dc, layer);
+                ToolManager.CurrentTool.Draw (dc);
+                dc.PopTransform ();
+
                 var selectTool = ToolManager.GetTool (typeof(SelectTool)) as SelectTool;
                 if (selectTool.Handles != null)
                 {
@@ -137,13 +144,6 @@ namespace Cession
                         handle.Draw (dc);
                     }
                 }
-
-                var layer = ToolManager.Host.Project.SelectedLayer;
-                var matrix = layer.Transform;
-                dc.PushTransform (matrix);
-                DrawSelection (dc, layer);
-                ToolManager.CurrentTool.Draw (dc);
-                dc.PopTransform ();
             }
         }
 
