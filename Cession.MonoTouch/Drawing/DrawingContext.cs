@@ -111,7 +111,10 @@ namespace Cession.Drawing
         public void BuildRectPath(Rectangle rectangle)
         {
             CGRect rect = rectangle.Rect.ToCGRect();
+            _context.SaveState ();
+            _context.ConcatCTM (rectangle.Transform.ToCGAffineTransform ());
             _context.AddRect (rect);
+            _context.RestoreState ();
         }
 
         public void StrokePolygon (IReadOnlyList<Point> polygon)

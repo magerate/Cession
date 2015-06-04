@@ -18,9 +18,7 @@ namespace Cession.Drawing
             if (null == wallSurface)
                 throw new ArgumentException ("shape");
 
-            drawingContext.PushTransform (wallSurface.Transform);
-            drawingContext.StrokeRect (wallSurface.Bounds);
-            drawingContext.PopTransform ();
+            drawingContext.StrokeCloseShape (wallSurface.Contour);
         }
 
         protected override void DoDrawSelected (DrawingContext drawingContext, Shape shape)
@@ -29,11 +27,11 @@ namespace Cession.Drawing
             if (null == wallSurface)
                 throw new ArgumentException ("shape");
 
-            drawingContext.PushTransform (wallSurface.Transform);
+            drawingContext.SaveState ();
             UIColor.Blue.SetStroke ();
             drawingContext.CGContext.SetLineWidth (4.0f);
-            drawingContext.StrokeRect (wallSurface.Bounds);
-            drawingContext.PopTransform ();
+            drawingContext.StrokeCloseShape (wallSurface.Contour);
+            drawingContext.RestoreState ();
         }
     }
 }

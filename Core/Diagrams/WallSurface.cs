@@ -1,33 +1,40 @@
 ﻿using System;
+using System.Collections.Generic;
+
 using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
-    public class WallSurface:Shape
+    public class WallSurface:CompositeShape
     {
-        private Matrix _transform;
-        private double _height;
         private Shape _shape;
-        private Rect _bounds;
+
+        private Rectangle _contour;
 
         public Matrix Transform
         {
-            get{ return _transform; }
+            get{ return _contour.Transform; }
             internal set
             {
-                _transform = value;
+                _contour.Transform = value;
             }
+        }
+
+        public Rectangle Contour
+        {
+            get{ return _contour; }
         }
 
         public double Height
         {
-            get{ return _height; }
+            get{ return _contour.Rect.Height; }
             set
             { 
-                if (value != _height)
+                if (value != Height)
                 {
-                    _height = value; 
-                    _bounds.Height = _height;
+                    var rect = _contour.Rect;
+                    rect.Height = value;
+                    _contour.Rect = rect;
                 }
             }
         }
@@ -46,7 +53,6 @@ namespace Cession.Diagrams
         {
             Ability = ShapeAbility.CanSelect;
             _shape = shape;
-            _height = height;
 
             double length = 0;
 
@@ -54,7 +60,9 @@ namespace Cession.Diagrams
             {
                 Segment.LengthChanged += delegate
                 {
-                    _bounds.Width = Segment.Length;
+                    var rect = _contour.Rect;
+                    rect.Width = Segment.Length;
+                    _contour.Rect = rect;
                 };
                 length = Segment.Length;
             }
@@ -63,23 +71,31 @@ namespace Cession.Diagrams
                 length = Circle.GetPerimeter ();
                 Circle.RadiusChanged += delegate
                 {
-                    _bounds.Width = Circle.GetPerimeter();
+                    var rect = _contour.Rect;
+                    rect.Width = Circle.GetPerimeter();
+                    _contour.Rect = rect;
                 };
             }
-            _bounds = new Rect (0, 0, length, height);
+
+            Rect r = new Rect (0, 0, length, height);
+            _contour = new Rectangle (r);
+            _contour.Ability = ShapeAbility.None;
+            _contour.Parent = this;
+        }
+
+        public override IEnumerator<Shape> GetEnumerator ()
+        {
+            yield return _contour;
         }
 
         protected override Rect DoGetBounds ()
         {
-            return _bounds;
+            return _contour.Bounds;
         }
 
         protected override bool DoContains (Point point)
         {
-            Matrix m = _transform;
-            m.Invert ();
-            point = m.Transform (point);
-            return _bounds.Contains (point);
+            return _contour.Contains (point);
         }
 
         internal override void DoOffset (double x, double y)

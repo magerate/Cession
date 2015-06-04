@@ -8,6 +8,12 @@ namespace Cession.Diagrams
         private Rect _rect;
         private Matrix _transform;
 
+        public Matrix Transform
+        {
+            get{ return _transform; }
+            set{ _transform = value; }
+        }
+
         public Rect Rect
         {
             get{ return _rect; }
