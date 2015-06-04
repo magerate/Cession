@@ -23,7 +23,6 @@ namespace Cession.Tools
         HandleManager HandleManager{ get; }
     }
 
-
     public class ToolManager
     {
         public IToolHost Host{ get; set; }
