@@ -2,14 +2,18 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad2.8.3" />
   <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="Core/Diagrams/WallSurfaceMediator.cs" Line="16" Column="10" />
-      <File FileName="Core/Diagrams/LayoutProvider.cs" Line="20" Column="48" />
+      <File FileName="Cession/DiagramController.cs" Line="106" Column="1" />
+      <File FileName="Cession.MonoTouch/Tools/ToolManager.cs" Line="29" Column="9" />
+      <File FileName="Cession/DiagramController.NavigationBar.cs" Line="18" Column="43" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Cession" expanded="True">
-            <Node name="GeometryTest" selected="True" />
+          <Node name="Cession" expanded="True" selected="True">
+            <Node name="Core" expanded="True">
+              <Node name="Handles" expanded="True" />
+              <Node name="Mediators" expanded="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
