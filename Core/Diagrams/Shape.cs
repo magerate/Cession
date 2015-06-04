@@ -87,6 +87,16 @@ namespace Cession.Diagrams
             return DoContains (point);
         }
 
+        /// <summary>
+        /// Hits test shape with specified point. 
+        /// </summary>
+        /// <returns>The hit test result.</returns>
+        /// <param name="point">point to hit test</param>
+        /// <param name="predicate">predicate to filter shapes which can hit test </param>
+        /// <remarks>
+        /// Hit test result is primitive shape type which is Circle, Rectangle, Segment or Path.
+        /// If you want more specified shape such as room, you can use GetAncestor method of shape. 
+        /// </remarks>
         public Shape HitTest(Point point , Func<Shape,bool> predicate = null)
         {
             return DoHitTest (point, predicate);
@@ -120,7 +130,18 @@ namespace Cession.Diagrams
             return GetAncestor<Shape> (s => s.CanSelect);
         }
 
-        public T GetAncestor<T>(Func<Shape,bool> predicate) where T : class
+        public T GetAncestor<T>(Func<Shape,bool> predicate = null) where T : class
+        {
+            Func<Shape,bool> p = s =>
+            {
+                if(predicate == null)
+                    return s is T;
+                return (s is T) && predicate(s);
+            };
+            return DoGetAncestor<T> (p);
+        }
+
+        private T DoGetAncestor<T>(Func<Shape,bool> predicate) where T : class
         {
             if (null == predicate)
                 throw new ArgumentNullException ();
@@ -134,6 +155,8 @@ namespace Cession.Diagrams
             }
             return null;
         }
+
+
 
         public bool IsAncestor(Shape shape)
         {
