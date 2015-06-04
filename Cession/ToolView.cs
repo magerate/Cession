@@ -8,12 +8,14 @@ using Cession.Drawing;
 using Cession.Tools;
 using Cession.Drawing.Handles;
 using Cession.Diagrams;
+using Cession.Handles;
 
 namespace Cession
 {
     public class ToolView:UIView
     {
         public ToolManager ToolManager{ get; set; }
+        public HandleManager HandleManager{ get; set;}
 
         private UITapGestureRecognizer tapRecognizer;
         private UITapGestureRecognizer doubleTapRecognizer;
@@ -136,10 +138,9 @@ namespace Cession
                 ToolManager.CurrentTool.Draw (dc);
                 dc.PopTransform ();
 
-                var selectTool = ToolManager.GetTool (typeof(SelectTool)) as SelectTool;
-                if (selectTool.Handles != null)
+                if (HandleManager.Handles != null)
                 {
-                    foreach (var handle in selectTool.Handles)
+                    foreach (var handle in HandleManager.Handles)
                     {
                         handle.Draw (dc);
                     }

@@ -10,6 +10,7 @@ using Cession.Utilities;
 using Cession.Diagrams;
 using Cession.Commands;
 using Cession.Projects;
+using Cession.Handles;
 
 namespace Cession.Tools
 {
@@ -19,6 +20,7 @@ namespace Cession.Tools
         UIView ToolView{ get; }
         Project Project{ get; }
         CommandManager CommandManager{ get; }
+        HandleManager HandleManager{ get; }
     }
 
 

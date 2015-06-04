@@ -10,6 +10,7 @@ using Cession.UIKit;
 using Cession.Commands;
 using Cession.Mediators;
 using Cession.Projects;
+using Cession.Handles;
 
 namespace Cession
 {
@@ -22,30 +23,32 @@ namespace Cession
         private ProjectInfo projectInfo;
         private DiagramCommandMediator commandMediator;
         private ToolManager toolManager;
+        private HandleManager handleManager;
 
         public DiagramController ()
         {
+            handleManager = new HandleManager ();
+
+            commandMediator = new DiagramCommandMediator ();
+            commandMediator.CommandManager.Committed += CommandCommited;
+            commandMediator.CommandManager.CanUndoChanged += CanUndoChanged;
+            commandMediator.CommandManager.CanRedoChanged += CanRedoChanged;
+
+            toolManager = new ToolManager ();
+            toolManager.Host = this;
+            toolManager.CurrentToolTypeChanged += delegate
+            {
+                ToolTypeChanged();
+            };
         }
 
         public void SetProject (Project project, ProjectInfo projectInfo)
         {
             this.project = project;
             this.projectInfo = projectInfo;
-            if (null == commandMediator)
-            {
-                commandMediator = new DiagramCommandMediator ();
-                commandMediator.CommandManager.Committed += CommandCommited;
-                commandMediator.CommandManager.CanUndoChanged += CanUndoChanged;
-                commandMediator.CommandManager.CanRedoChanged += CanRedoChanged;
-            } 
 
-            commandMediator.RegisterProjectEvents (project);
-
-            if (null != toolManager)
-            {
-                var selectTool = toolManager.GetTool (typeof(SelectTool)) as SelectTool;
-                selectTool.AttachProject (project);
-            }
+            commandMediator.AttachProject (project);
+            handleManager.AttachProject (project);
         }
 
         public override void DidMoveToParentViewController (UIViewController parent)
@@ -53,15 +56,13 @@ namespace Cession
             if (parent == null)
             {
                 DetachProject (project);
-                var selectTool = toolManager.GetTool (typeof(SelectTool)) as SelectTool;
-                selectTool.DetachProject (project);
             }
         }
 
         private void DetachProject(Project project)
         {
-            commandMediator.UnregisterProjectEvents (project);
-            commandMediator.CommandManager.Clear ();
+            commandMediator.DetachProject (project);
+            handleManager.DetachProject (project);
         }
 
         private void CommandCommited (object sender, EventArgs e)
@@ -102,21 +103,8 @@ namespace Cession
             InitializeNavigationItems ();
             diagramView.Project = project;
 
-            toolManager = new ToolManager ();
-            toolManager.Host = this;
-
-            toolManager.CurrentToolTypeChanged += delegate
-            {
-                ToolTypeChanged();
-            };
-
             toolView.ToolManager = toolManager;
-
-            if (null != project)
-            {
-                var selectTool = toolManager.GetTool (typeof(SelectTool)) as SelectTool;
-                selectTool.AttachProject (project);
-            }
+            toolView.HandleManager = handleManager;
         }
 
         private void ToolTypeChanged()
@@ -136,6 +124,7 @@ namespace Cession
                 toolSegment.SelectedSegment = 1;
         }
 
+        #region "Tool host"
         public UIView DiagramView
         {
             get{ return diagramView; }
@@ -155,6 +144,12 @@ namespace Cession
         {
             get{return commandMediator.CommandManager;}
         }
+
+        public HandleManager HandleManager
+        {
+            get{ return handleManager; }
+        }
+        #endregion
 
         public override void DidRotate (UIInterfaceOrientation fromInterfaceOrientation)
         {

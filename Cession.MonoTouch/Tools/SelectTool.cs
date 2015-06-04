@@ -17,16 +17,10 @@ namespace Cession.Tools
     public class SelectTool:Tool
     {
         private CGPoint _touchPoint;
-        private HandleManager _handlerManager;
 
-        public IEnumerable<Handle> Handles
+        protected IReadOnlyList<Handle> Handles
         {
-            get
-            { 
-                if (null == _handlerManager)
-                    return null;
-                return _handlerManager.Handles;
-            }
+            get{ return Host.HandleManager.Handles; }
         }
 
         public SelectTool (ToolManager toolManager) : base (toolManager)
@@ -36,19 +30,6 @@ namespace Cession.Tools
             ArcHandle.TargetToolType = typeof(MoveArcTool);
             CircleHandle.TargetToolType = typeof(AdjustCircleTool);
             RectangleHandle.TargetToolType = typeof(AdjustRectTool);
-        }
-
-        public void AttachProject(Project project)
-        {
-            if (null == _handlerManager)
-                _handlerManager = new HandleManager ();
-            _handlerManager.AttachProject (project);
-        }
-
-        public void DetachProject(Project project)
-        {
-            if (null != _handlerManager)
-                _handlerManager.DetachProject (project);
         }
 
         public override void Pan (UIPanGestureRecognizer gestureRecognizer)

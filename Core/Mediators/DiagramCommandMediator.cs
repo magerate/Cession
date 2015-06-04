@@ -27,7 +27,7 @@ namespace Cession.Mediators
             _commandManager = new CommandManager ();
         }
 
-        public void RegisterProjectEvents (Project project)
+        public void AttachProject (Project project)
         {
             foreach (var layer in project.Layers)
             {
@@ -35,12 +35,13 @@ namespace Cession.Mediators
             }
         }
 
-        public void UnregisterProjectEvents (Project project)
+        public void DetachProject (Project project)
         {
             foreach (var layer in project.Layers)
             {
                 UnregisterLayerEvents (layer);
             }
+            _commandManager.Clear ();
         }
 
         public void RegisterLayerEvents (Layer layer)
