@@ -10,11 +10,21 @@ namespace Cession.Mediators
     {
         private CommandManager _commandManager;
 
+        public CommandManager CommandManager
+        {
+            get{ return _commandManager; }
+        }
+
         public DiagramCommandMediator (CommandManager commandManager)
         {
             if (null == commandManager)
                 throw new ArgumentNullException ();
             _commandManager = commandManager;
+        }
+
+        public DiagramCommandMediator()
+        {
+            _commandManager = new CommandManager ();
         }
 
         public void RegisterProjectEvents (Project project)

@@ -20,8 +20,7 @@ namespace Cession
 
         private Project project;
         private ProjectInfo projectInfo;
-        private CommandManager commandManager;
-        private DiagramCommandMediator diagramCommandMediator;
+        private DiagramCommandMediator commandMediator;
         private ToolManager toolManager;
 
         public DiagramController ()
@@ -32,18 +31,15 @@ namespace Cession
         {
             this.project = project;
             this.projectInfo = projectInfo;
-            if (null == commandManager)
+            if (null == commandMediator)
             {
-                commandManager = new CommandManager ();
-                diagramCommandMediator = new DiagramCommandMediator (commandManager);
-            } else
-                commandManager.Clear ();
+                commandMediator = new DiagramCommandMediator ();
+                commandMediator.CommandManager.Committed += CommandCommited;
+                commandMediator.CommandManager.CanUndoChanged += CanUndoChanged;
+                commandMediator.CommandManager.CanRedoChanged += CanRedoChanged;
+            } 
 
-            diagramCommandMediator.RegisterProjectEvents (project);
-
-            commandManager.Committed += CommandCommited;
-            commandManager.CanUndoChanged += CanUndoChanged;
-            commandManager.CanRedoChanged += CanRedoChanged;
+            commandMediator.RegisterProjectEvents (project);
 
             if (null != toolManager)
             {
@@ -64,7 +60,8 @@ namespace Cession
 
         private void DetachProject(Project project)
         {
-            diagramCommandMediator.UnregisterProjectEvents (project);
+            commandMediator.UnregisterProjectEvents (project);
+            commandMediator.CommandManager.Clear ();
         }
 
         private void CommandCommited (object sender, EventArgs e)
@@ -156,7 +153,7 @@ namespace Cession
 
         public CommandManager CommandManager
         {
-            get{return commandManager;}
+            get{return commandMediator.CommandManager;}
         }
 
         public override void DidRotate (UIInterfaceOrientation fromInterfaceOrientation)
