@@ -133,10 +133,10 @@ namespace Cession.Tools
         private IEnumerable<Shape> GetShapesToHitTest(Layer layer)
         {
             var foldShapes = layer.SelectedShapes.
-                Select(s => s.GetAncestor<IFoldable>()).
+                Select(s => s.GetAncestor<IFoldableHost>()).
                 Where(s => s != null).
-                Cast<IFoldable>().
-                SelectMany(f => f.GetFoldShapes ());
+                Cast<IFoldableHost>().
+                SelectMany(f => f.GetFoldableShapes ());
 
             if (foldShapes.Count () <= 0)
                 return layer.Shapes;

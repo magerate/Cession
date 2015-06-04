@@ -7,7 +7,7 @@ using Cession.Dimensions;
 
 namespace Cession.Diagrams
 {
-    public class Room:CompositeShape,IFoldable
+    public class Room:CompositeShape,IFoldableHost
     {
         public static readonly double DefaultWallThickness = Length.PixelsPerCentimeter * 20;
 
@@ -83,7 +83,7 @@ namespace Cession.Diagrams
         }
 
         #region "IFoldable"
-        public IEnumerable<Shape> GetFoldShapes ()
+        public IEnumerable<Shape> GetFoldableShapes ()
         {
             return Walls;
         }

@@ -7,7 +7,7 @@ using Cession.Dimensions;
 
 namespace Cession.Diagrams
 {
-    public class Elevation:CompositeShape,IFoldable
+    public class Elevation:CompositeShape,IFoldableHost
     {
         public static double DefaultHeight{ get; set; }
 
@@ -99,7 +99,7 @@ namespace Cession.Diagrams
         }
 
         #region "IFoldable"
-        public IEnumerable<Shape> GetFoldShapes ()
+        public IEnumerable<Shape> GetFoldableShapes ()
         {
             return Walls;
         }

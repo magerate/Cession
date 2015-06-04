@@ -5,7 +5,26 @@ namespace Cession.Diagrams
 {
     public abstract class LayoutProvider
     {
-        public static LayoutProvider CurrentProvider{ get; set; }
+        private static LayoutProvider s_currentProvider;
+
+        public static event EventHandler<EventArgs> CurrentProviderChanged;
+
+        public static LayoutProvider CurrentProvider
+        { 
+            get{ return s_currentProvider; }
+            set
+            {
+                if (null == value)
+                    throw new ArgumentNullException ();
+
+                if (value != s_currentProvider)
+                {
+                    s_currentProvider = value;
+                    CurrentProviderChanged?.Invoke (null, EventArgs.Empty);
+                }
+            }
+        }
+
         public static readonly LayoutProvider[] Providers;
       
 
@@ -15,7 +34,7 @@ namespace Cession.Diagrams
                 new FlowLayoutProvider(),
                 new FanLayoutProvider(),
             };
-            CurrentProvider = Providers [0];
+            s_currentProvider = Providers [0];
         }
 
         public abstract void Layout (ClosedShape contour, IEnumerable<WallSurface> walls);

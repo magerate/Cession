@@ -3,10 +3,9 @@ using System.Collections.Generic;
 
 namespace Cession.Diagrams
 {
-    public interface IFoldable
+    public interface IFoldableHost
     {
-        IEnumerable<Shape> GetFoldShapes();
-        void Layout();
+        IEnumerable<Shape> GetFoldableShapes();
     }
 }
 

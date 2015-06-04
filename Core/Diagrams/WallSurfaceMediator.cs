@@ -9,13 +9,38 @@ namespace Cession.Diagrams
     internal class WallSurfaceMediator
     {
         private List<WallSurface> _walls;
+        private ClosedShape _contour;
         public ReadOnlyCollection<WallSurface> Walls{ get; private set; }
 
         public WallSurfaceMediator (Shape owner,ClosedShape contour,double height)
         {
+            _contour = contour;
             _walls = new List<WallSurface> ();
             Walls = new ReadOnlyCollection<WallSurface> (_walls);
             CreateWalls (owner,contour, height);
+            Layout (contour);
+
+            contour.ContourChanged += delegate
+            {
+                Layout(contour);
+            };
+
+            owner.Offseted += (object sender, OffsetEventArgs e) => {
+                foreach (var w in _walls) {
+                    var m = w.Transform;
+                    m.Translate(e.OffsetX,e.OffsetY);
+                    w.Transform = m;
+                }
+            };
+
+            contour.Rotated += (object sender, RoutedEventArgs e) => {
+                Layout(contour);
+            };
+
+            LayoutProvider.CurrentProviderChanged += delegate
+            {
+                Layout(_contour);
+            };
         }
 
         private void CreateWalls (Shape owner,ClosedShape contour, double height)
