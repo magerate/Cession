@@ -5,7 +5,7 @@ using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
-    public class WallSurface:CompositeShape
+    public class WallSurface:CompositeShape,IFoldable
     {
         private Shape _shape;
 
@@ -20,23 +20,15 @@ namespace Cession.Diagrams
             }
         }
 
+        public double Height
+        {
+            get{ return _contour.Height; }
+            set{ _contour.Height = value; }
+        }
+
         public Rectangle Contour
         {
             get{ return _contour; }
-        }
-
-        public double Height
-        {
-            get{ return _contour.Rect.Height; }
-            set
-            { 
-                if (value != Height)
-                {
-                    var rect = _contour.Rect;
-                    rect.Height = value;
-                    _contour.Rect = rect;
-                }
-            }
         }
 
         public Segment Segment
@@ -47,6 +39,11 @@ namespace Cession.Diagrams
         public Circle Circle
         {
             get{ return _shape as Circle; }
+        }
+
+        public IFoldableHost Host
+        {
+            get{ return Parent as IFoldableHost; }
         }
 
         public WallSurface (Shape shape,double height)
@@ -60,9 +57,7 @@ namespace Cession.Diagrams
             {
                 Segment.LengthChanged += delegate
                 {
-                    var rect = _contour.Rect;
-                    rect.Width = Segment.Length;
-                    _contour.Rect = rect;
+                    _contour.Width = Segment.Length;
                 };
                 length = Segment.Length;
             }
@@ -71,9 +66,7 @@ namespace Cession.Diagrams
                 length = Circle.GetPerimeter ();
                 Circle.RadiusChanged += delegate
                 {
-                    var rect = _contour.Rect;
-                    rect.Width = Circle.GetPerimeter();
-                    _contour.Rect = rect;
+                    _contour.Width = Circle.GetPerimeter();
                 };
             }
 

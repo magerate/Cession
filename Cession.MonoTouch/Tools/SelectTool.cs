@@ -99,6 +99,7 @@ namespace Cession.Tools
         private void HitTest (Point point)
         {
             var shapes = GetShapesToHitTest (CurrentLayer);
+           
             var shape = shapes.HitTestAny (point,s => !(s is Label));
 
             CurrentLayer.ClearSelection ();

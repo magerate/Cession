@@ -33,7 +33,7 @@ namespace Cession.Diagrams
                 }
             };
 
-            contour.Rotated += (object sender, RoutedEventArgs e) => {
+            owner.Rotated += (object sender, RoutedEventArgs e) => {
                 Layout(contour);
             };
 

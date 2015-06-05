@@ -87,11 +87,6 @@ namespace Cession.Diagrams
         {
             return Walls;
         }
-
-        public void Layout ()
-        {
-            _wallMediator.Layout (_floor.Contour);
-        }
         #endregion
     }
 }

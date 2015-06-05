@@ -56,6 +56,13 @@ namespace Cession.Diagrams
 
             Shapes = new LayerShapeCollection (this);
             _readOnlySelectedShapes = new ReadOnlyCollection<Shape> (_selectedShapes);
+
+            Shapes.CollectionChanged += (sender, e) => {
+                if(e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+                {
+                    _selectedShapes.RemoveAll(s => e.OldItems.Contains(s));
+                }
+            };
         }
 
         protected override Shape DoHitTest (Point point,Func<Shape,bool> predicate)

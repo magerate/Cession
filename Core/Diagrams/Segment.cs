@@ -102,17 +102,17 @@ namespace Cession.Diagrams
         public void MoveVertex(Point point)
         {
             if (point != _point1) {
-                _point1 = point;
-                var rea = new VertexChangedEventArgs (VertexChangeEvent, this,point);
-                rea.IsFirstVertex = true;
-                RaiseEvent (rea);
-
                 var prev = Previous;
                 if(null != prev)
                 {
                     prev.OnLengthChanged ();
                 }
                 OnLengthChanged ();
+
+                _point1 = point;
+                var rea = new VertexChangedEventArgs (VertexChangeEvent, this,point);
+                rea.IsFirstVertex = true;
+                RaiseEvent (rea);
             }
         }
     }

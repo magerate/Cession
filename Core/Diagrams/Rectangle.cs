@@ -26,6 +26,26 @@ namespace Cession.Diagrams
             _transform = Matrix.Identity;
         }
 
+        public double Width
+        {
+            get{ return _rect.Width; }
+            set
+            { 
+                if(value != _rect.Width)
+                    _rect.Width = value; 
+            }
+        }
+
+        public double Height
+        {
+            get{ return _rect.Height; }
+            set
+            { 
+                if(value != _rect.Height)
+                    _rect.Height = value; 
+            }
+        }
+
         protected override Rect DoGetBounds ()
         {
             return _rect;
@@ -51,7 +71,7 @@ namespace Cession.Diagrams
 
         internal override void DoOffset (double x, double y)
         {
-            _rect.Offset (x, y);
+            _transform.Translate (x, y);
         }
 
         internal override void DoRotate (Point point, double radian)

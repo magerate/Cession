@@ -86,8 +86,6 @@ namespace Cession.Diagrams
             }
         }
 
-       
-
         protected override bool DoContains (Point point)
         {
             return _contour.Contains (point);
@@ -102,11 +100,6 @@ namespace Cession.Diagrams
         public IEnumerable<Shape> GetFoldableShapes ()
         {
             return Walls;
-        }
-
-        public void Layout ()
-        {
-            _wallMediator.Layout (_contour);
         }
         #endregion
     }
