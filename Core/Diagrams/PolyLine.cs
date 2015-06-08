@@ -34,8 +34,6 @@ namespace Cession.Diagrams
             }
         }
 
-       
-
         public Polyline (IEnumerable<Segment> segments,Point lastPoint)
         {
             if (null == segments)

@@ -85,6 +85,11 @@ namespace Cession.Diagrams
             rc.Inflate (size, size);
             return new Rectangle (rc);
         }
+
+        public override Tuple<ClosedShape, ClosedShape> Split (Polyline polyline)
+        {
+            return null;
+        }
     }
 }
 

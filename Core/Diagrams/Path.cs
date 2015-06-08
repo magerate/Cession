@@ -160,6 +160,11 @@ namespace Cession.Diagrams
         {
             return PolygonHelper.Inflate (this, size);
         }
+
+        public override Tuple<ClosedShape, ClosedShape> Split (Polyline polyline)
+        {
+            return null;
+        }
     }
 }
 

@@ -44,6 +44,14 @@ namespace Cession.Diagrams
             Ability = ShapeAbility.None;
         }
 
+        public void AddDivider(ClosedShape contour,Polyline polyline)
+        {
+        }
+
+        public void RemoveDivider(Polyline polyline)
+        {
+        }
+
         public override IEnumerator<Shape> GetEnumerator ()
         {
             foreach (var e in Elevations)

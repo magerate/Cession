@@ -17,6 +17,8 @@ namespace Cession.Diagrams
 
         public abstract ClosedShape Inflate(double size);
 
+        public abstract Tuple<ClosedShape,ClosedShape> Split(Polyline polyline);
+
         protected void OnContourChanged()
         {
             ContourChanged?.Invoke (this, EventArgs.Empty);

@@ -80,6 +80,27 @@ namespace Cession.Diagrams
         {
             return new Circle (_center, _radius + size);
         }
+
+        public override Tuple<ClosedShape, ClosedShape> Split (Polyline polyline)
+        {
+            Point point1 = polyline.Segments [0].Point1;
+            Point point2 = polyline.LastPoint;
+
+            Vector v = point2 - point1;
+            Vector v1 = v;
+            v1.Normalize ();
+            v1.Rotate (Math.PI / 2);
+            v1 *= _radius;
+
+            Vector v2 = v;
+            v2.Normalize ();
+            v2.Rotate (-Math.PI / 2);
+            v2 *= _radius;
+
+            Point p4 = _center + v2;
+
+            return null;
+        }
     }
 }
 

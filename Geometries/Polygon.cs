@@ -30,9 +30,14 @@ namespace Cession.Geometries
 
         public static bool IsClockwise (IReadOnlyList<Point> polygon)
         {
-            var v1 = polygon [1] - polygon [0];
-            var v2 = polygon [2] - polygon [1];
-            return v1.CrossProduct (v2) > 0;
+            double signedArea = 0;
+            for (int i = 0; i < polygon.Count; i++)
+            {
+                Point p1 = polygon [i];
+                Point p2 = polygon [(i + 1) % polygon.Count];
+                signedArea += (p1.X * p2.Y - p2.X * p1.Y);
+            }
+            return signedArea > 0;
         }
 
         public static bool Contains (Point point, IReadOnlyList<Point> polygon)
