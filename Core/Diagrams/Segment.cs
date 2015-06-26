@@ -99,6 +99,8 @@ namespace Cession.Diagrams
             RaiseEvent (new RoutedEventArgs (LengthChangedEvent, this));
         }
 
+        public abstract Segment Reverse();
+
         public void MoveVertex(Point point)
         {
             if (point != _point1) {

@@ -59,7 +59,6 @@
     <Compile Include="Commands\ThreeArgumentCommand.cs" />
     <Compile Include="Commands\TwoArgumentCommand.cs" />
     <Compile Include="Commands\ZeroArgumentCommand.cs" />
-    <Compile Include="Alignments\AlignAxis.cs" />
     <Compile Include="Alignments\AlignRule.cs" />
     <Compile Include="Alignments\AndRule.cs" />
     <Compile Include="Alignments\OrRule.cs" />
@@ -119,6 +118,9 @@
     <Compile Include="Diagrams\FlowLayoutProvider.cs" />
     <Compile Include="Diagrams\FanLayoutProvider.cs" />
     <Compile Include="Diagrams\Divider.cs" />
+    <Compile Include="Alignments\AlignConstraint.cs" />
+    <Compile Include="Alignments\LineConstraint.cs" />
+    <Compile Include="Alignments\ArcConstraint.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">

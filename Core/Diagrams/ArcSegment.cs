@@ -86,6 +86,11 @@ namespace Cession.Diagrams
         {
             return Triangle.IsClamp (center, Point1, Point2, point);
         }
+
+        public override Segment Reverse ()
+        {
+            return new ArcSegment (Point2, _pointOnArc);
+        }
     }
 }
 

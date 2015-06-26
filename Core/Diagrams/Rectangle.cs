@@ -71,12 +71,13 @@ namespace Cession.Diagrams
 
         internal override void DoOffset (double x, double y)
         {
-            _transform.Translate (x, y);
+            _rect.Offset (x, y);
         }
 
         internal override void DoRotate (Point point, double radian)
         {
-            _transform.RotateAt (radian, point.X, point.Y);
+            throw new NotSupportedException ();
+//            _transform.RotateAt (radian, point.X, point.Y);
         }
 
         public override ClosedShape Inflate (double size)

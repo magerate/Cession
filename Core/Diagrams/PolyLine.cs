@@ -23,6 +23,11 @@ namespace Cession.Diagrams
             internal set{ _lastPoint = value; }
         }
 
+        public Point FirstPoint
+        {
+            get{ return _segments [0].Point1; }
+        }
+
         public void MoveLastPoint(Point point)
         {
             if (point != _lastPoint)
@@ -113,6 +118,15 @@ namespace Cession.Diagrams
             return null;
         }
 
+        public Polyline Reverse()
+        {
+            Segment[] segments = new Segment[_segments.Count];
+            for (int i = 0; i < _segments.Count; i++)
+            {
+                segments [i] = _segments [_segments.Count - i - 1].Reverse ();
+            }
+            return new Polyline (segments, _segments[0].Point1);
+        }
 
         protected override bool DoContains (Point point)
         {

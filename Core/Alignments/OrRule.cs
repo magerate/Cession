@@ -1,7 +1,7 @@
 using System;
 using Cession.Geometries;
 
-namespace Cession.Alignments
+namespace Cession.Aligning
 {
     public class OrRule:AlignRule
     {
@@ -41,12 +41,12 @@ namespace Cession.Alignments
             return rule2.Align (point);
         }
 
-        public override AlignAxis? GetAlignAxis (Point point)
+        public override AlignConstraint GetConstraint (Point point)
         {
-            var axis = rule1.GetAlignAxis (point);
-            if (axis.HasValue)
-                return axis;
-            return rule2.GetAlignAxis (point);
+            var constraint = rule1.GetConstraint (point);
+            if (null != constraint)
+                return constraint;
+            return rule2.GetConstraint (point);
         }
     }
 }

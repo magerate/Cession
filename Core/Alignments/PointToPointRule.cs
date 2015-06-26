@@ -1,7 +1,7 @@
 using System;
 using Cession.Geometries;
 
-namespace Cession.Alignments
+namespace Cession.Aligning
 {
     public class PointToPointRule:AlignRule
     {

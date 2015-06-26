@@ -1,7 +1,7 @@
 using System;
 using Cession.Geometries;
 
-namespace Cession.Alignments
+namespace Cession.Aligning
 {
     public abstract class AlignRule
     {
@@ -19,13 +19,13 @@ namespace Cession.Alignments
             IsAligned = false;
         }
 
-        public virtual AlignAxis? GetAlignAxis (Point point)
+        public virtual AlignConstraint GetConstraint(Point point)
         {
             var ap = Align (point);
             if (!IsAligned)
                 return null;
 
-            return DoGetAlignAxis (ap);
+            return DoGetConstraint(ap);
         }
 
         public Point Align (Point point)
@@ -39,7 +39,7 @@ namespace Cession.Alignments
 
         protected abstract Point DoAlign (Point point);
 
-        protected virtual AlignAxis? DoGetAlignAxis (Point point)
+        protected virtual AlignConstraint DoGetConstraint(Point point)
         {
             return null;
         }

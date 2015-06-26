@@ -76,6 +76,11 @@ namespace Cession.Diagrams
         {
             Moved?.Invoke (this, EventArgs.Empty);
         }
+
+        public override Segment Reverse ()
+        {
+            return new LineSegment (Point2);
+        }
     }
 }
 

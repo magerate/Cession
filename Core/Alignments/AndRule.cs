@@ -1,7 +1,7 @@
 using System;
 using Cession.Geometries;
 
-namespace Cession.Alignments
+namespace Cession.Aligning
 {
     public class AndRule:AlignRule
     {
@@ -33,25 +33,24 @@ namespace Cession.Alignments
 
         protected override Point DoAlign (Point point)
         {
-            var axis1 = rule1.GetAlignAxis (point);
+            var constraint1 = rule1.GetConstraint(point);
 
-            if (!AlignAxis.IsValid (axis1))
-                return rule2.Align (point);
+            if(null == constraint1)
+                return rule2.Align(point);
 
-            var axis2 = rule2.GetAlignAxis (point);
+            var constraint2 = rule2.GetConstraint(point);
 
-            if (!AlignAxis.IsValid (axis2))
-                return rule1.Align (point);
+            if (null == constraint2)
+                return constraint1.AlignedPoint;
 
-            var cross = Line.Intersect (axis1.Value.P1, 
-                   axis1.Value.P2, 
-                   axis2.Value.P1, 
-                   axis2.Value.P2);
-            if (cross.HasValue)
-                return new Point ((int)cross.Value.X, (int)cross.Value.Y);
-
-            rule2.Reset ();
-            return axis1.Value.P2;
+            var cross = constraint1.IntersectWith (constraint2);
+            if (cross != null)
+                return cross.Value;
+            else
+            {
+                rule2.Reset ();
+                return constraint1.AlignedPoint;
+            }
         }
 
     }

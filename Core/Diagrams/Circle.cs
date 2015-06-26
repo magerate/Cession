@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+
 using Cession.Geometries;
 
 namespace Cession.Diagrams
@@ -92,6 +94,8 @@ namespace Cession.Diagrams
             v1.Rotate (Math.PI / 2);
             v1 *= _radius;
 
+            Point p3 = _center + v1;
+
             Vector v2 = v;
             v2.Normalize ();
             v2.Rotate (-Math.PI / 2);
@@ -99,7 +103,18 @@ namespace Cession.Diagrams
 
             Point p4 = _center + v2;
 
-            return null;
+            List<Segment> sls1 = new List<Segment> ();
+            sls1.AddRange (polyline.Segments);
+            sls1.Add (new ArcSegment (polyline.LastPoint, p3));
+            var path1 = new Path (sls1);
+
+            var pl = polyline.Reverse ();
+            List<Segment> sls2 = new List<Segment> ();
+            sls2.AddRange (pl.Segments);
+            sls2.Add (new ArcSegment (pl.LastPoint, p4));
+            var path2 = new Path (sls2);
+
+            return new Tuple<ClosedShape, ClosedShape>(path1,path2);
         }
     }
 }
