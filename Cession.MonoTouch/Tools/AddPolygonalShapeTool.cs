@@ -23,13 +23,7 @@ namespace Cession.Tools
         protected AddPolygonalShapeTool (ToolManager toolManager) : base (toolManager)
         {
             _measurer = new PolygonMeasurer ();
-        }
 
-        public override void TouchBegin (CGPoint point)
-        {
-            base.TouchBegin (point);
-            if (_measurer.Points.Count == 0)
-                _measurer.Points.Add (ConvertToLogicalPoint (point));
         }
 
         protected override void DoDraw (DrawingContext drawingContext)
@@ -45,11 +39,19 @@ namespace Cession.Tools
             }
             else
             {
-                CGPoint dp = gestureRecognizer.LocationInView (Host.ToolView);
-                _measurer.CurrentPoint = ConvertToLogicalPoint (dp);
+                Point lp = GetOffsetedPoint (gestureRecognizer);
+                lp = Align (lp);
+                _measurer.CurrentPoint = lp;
             }
             RefreshToolView ();
         }
+
+
+        protected virtual Point Align(Point point)
+        {
+            return point;
+        }
+
 
         protected abstract void Commit();
 
@@ -66,7 +68,7 @@ namespace Cession.Tools
             RefreshDiagramView ();
         }
 
-        protected void Exit ()
+        protected override void Exit ()
         {
             Complete ();
             ToolManager.SelectTool (typeof(SelectTool));

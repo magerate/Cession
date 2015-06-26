@@ -42,6 +42,18 @@ namespace Cession.Drawing
             _context = context;
         }
 
+        public double ConvertToDeviceSize(double size)
+        {
+            var t = CGContext.GetCTM ();
+            return size * t.xx;
+        }
+
+        public double ConvertToLogicalSize(double size)
+        {
+            var t = CGContext.GetCTM ();
+            return size / t.xx;
+        }
+
         public void AddLine(Point point1, Point point2)
         {
             _context.MoveTo ((nfloat)point1.X, (nfloat)point1.Y);
@@ -228,6 +240,22 @@ namespace Cession.Drawing
         public void StrokeCircle(Rect rect)
         {
             CGContext.StrokeEllipseInRect (rect.ToCGRect());
+        }
+
+        public void FillCircle(Rect rect)
+        {
+            CGContext.FillEllipseInRect (rect.ToCGRect());
+        }
+
+        public void AddCircle(Rect rect)
+        {
+            CGContext.AddEllipseInRect(rect.ToCGRect());
+        }
+
+        public void AddCircle(Point point,double radius)
+        {
+            var rect = new Rect (point.X - radius, point.Y - radius, 2 * radius, 2 * radius);
+            AddCircle (rect);
         }
 
         public void StrokeRect(Rect rect)

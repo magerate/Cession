@@ -150,7 +150,15 @@ namespace Cession.Tools
 
         protected Point GetLogicPoint (UIGestureRecognizer gestureRecognizer)
         {
-            var point = gestureRecognizer.LocationInView (DiagramView);
+            var point = gestureRecognizer.LocationInView (Host.ToolView);
+            return ConvertToLogicalPoint (point);
+        }
+
+        protected Point GetOffsetedPoint(UIGestureRecognizer gestureRecognizer)
+        {
+            var point = gestureRecognizer.LocationInView (Host.ToolView);
+            point.X -= 48;
+            point.Y -= 48;
             return ConvertToLogicalPoint (point);
         }
 

@@ -15,31 +15,6 @@ namespace Cession.Tools
     {
         public AddElevationTool (ToolManager toolManager) : base (toolManager)
         {
-            InitializeNavigationItem ();
-        }
-
-        private void InitializeNavigationItem()
-        {
-            NavigationItem = new UINavigationItem ();
-
-            var exitButton = new UIBarButtonItem ();
-            exitButton.Title = "Exit";
-            exitButton.Clicked += delegate
-            {
-                Exit();
-            };
-
-            NavigationItem.LeftBarButtonItem = exitButton;
-
-            var doneButton = new UIBarButtonItem (UIBarButtonSystemItem.Done);
-            doneButton.Clicked += delegate
-            {
-                Complete();
-            };
-
-            NavigationItem.RightBarButtonItems = new UIBarButtonItem[]{
-                doneButton,
-            };
         }
 
         protected override void Commit ()

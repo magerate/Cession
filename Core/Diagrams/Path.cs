@@ -21,7 +21,7 @@ namespace Cession.Diagrams
             if (null == segments)
                 throw new ArgumentNullException ();
 
-            if (segments.Count () < 3)
+            if (segments.Count () < 2)
                 throw new ArgumentException ("segments");
 
             _segments = segments.ToList ();

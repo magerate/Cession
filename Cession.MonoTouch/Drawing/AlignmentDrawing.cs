@@ -4,7 +4,7 @@ using CoreGraphics;
 using UIKit;
 
 using Cession.Geometries;
-using Cession.Alignments;
+using Cession.Aligning;
 
 namespace Cession.Drawing
 {

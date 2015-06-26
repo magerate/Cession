@@ -96,6 +96,15 @@ namespace Cession.Tools
             RefreshToolView ();
         }
 
+        public override void LongPress (UILongPressGestureRecognizer gestureRecognizer)
+        {
+            if (CurrentLayer.SelectedShapes.Count == 1 && 
+                CurrentLayer.SelectedShapes [0] is Cession.Diagrams.Circle)
+            {
+                ToolManager.PushTool (typeof(DivideCircleTool),CurrentLayer.SelectedShapes [0]);
+            }
+        }
+
         private void HitTest (Point point)
         {
             var shapes = GetShapesToHitTest (CurrentLayer);
