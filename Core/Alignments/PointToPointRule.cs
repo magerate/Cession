@@ -7,14 +7,14 @@ namespace Cession.Aligning
     {
         public Point? ReferencePoint{ get; set; }
 
-        public double Length{ get; set; }
+        public double NearLength{ get; set; }
 
         protected override Point DoAlign (Point point)
         {
             if (ReferencePoint == null)
                 return point;
 
-            if (point.DistanceBetween (ReferencePoint.Value) <= Length)
+            if (point.DistanceBetween (ReferencePoint.Value) <= NearLength)
             {
                 IsAligned = true;
                 return ReferencePoint.Value;

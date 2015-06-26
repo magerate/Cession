@@ -121,6 +121,7 @@
     <Compile Include="Alignments\AlignConstraint.cs" />
     <Compile Include="Alignments\LineConstraint.cs" />
     <Compile Include="Alignments\ArcConstraint.cs" />
+    <Compile Include="Alignments\CircleRule.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">
