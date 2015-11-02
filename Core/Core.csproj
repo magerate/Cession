@@ -111,6 +111,11 @@
     <Compile Include="Alignments\LineConstraint.cs" />
     <Compile Include="Alignments\ArcConstraint.cs" />
     <Compile Include="Alignments\CircleRule.cs" />
+    <Compile Include="Common\BinaryTree.cs" />
+    <Compile Include="Common\ITree.cs" />
+    <Compile Include="Common\IVisitor.cs" />
+    <Compile Include="Common\Guard.cs" />
+    <Compile Include="Common\OrderedVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">
