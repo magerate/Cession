@@ -12,7 +12,6 @@ namespace Cession.Diagrams
 
         private List<Region> _regions;
         private ReadOnlyCollection<Region> _readonlyRegions;
-        private List<Polyline> _dividers;
 
         public ObservableCollection<Elevation> Elevations{ get; private set; }
 
@@ -38,8 +37,6 @@ namespace Cession.Diagrams
             _readonlyRegions = new ReadOnlyCollection<Region> (_regions);
 
             Elevations = new ObservableCollection<Elevation> ();
-
-            _dividers = new List<Polyline> ();
 
             Ability = ShapeAbility.None;
         }

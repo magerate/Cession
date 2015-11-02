@@ -79,9 +79,6 @@
     <Compile Include="Diagrams\Label.cs" />
     <Compile Include="Diagrams\Region.cs" />
     <Compile Include="Diagrams\PolyLine.cs" />
-    <Compile Include="Diagrams\DividableShape.cs" />
-    <Compile Include="Common\BinaryTreeNode.cs" />
-    <Compile Include="Common\BinaryTree.cs" />
     <Compile Include="Diagrams\Layer.cs" />
     <Compile Include="Projects\Project.cs" />
     <Compile Include="Projects\LayerCollection.cs" />
@@ -110,7 +107,6 @@
     <Compile Include="Diagrams\LayoutProvider.cs" />
     <Compile Include="Diagrams\FlowLayoutProvider.cs" />
     <Compile Include="Diagrams\FanLayoutProvider.cs" />
-    <Compile Include="Diagrams\Divider.cs" />
     <Compile Include="Alignments\AlignConstraint.cs" />
     <Compile Include="Alignments\LineConstraint.cs" />
     <Compile Include="Alignments\ArcConstraint.cs" />

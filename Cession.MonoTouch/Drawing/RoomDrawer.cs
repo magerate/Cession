@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 
-using CoreGraphics;
 using UIKit;
+using CoreGraphics;
 
 using Cession.Diagrams;
 using Cession.Geometries;

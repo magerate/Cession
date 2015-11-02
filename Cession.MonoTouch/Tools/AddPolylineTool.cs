@@ -18,10 +18,9 @@ namespace Cession.Tools
 
         public AddPolylineTool (ToolManager toolManager) : base (toolManager)
         {
-            InitializeNavigationItem ();
         }
 
-        private void InitializeNavigationItem()
+        protected override void InitializeNavigationItem()
         {
             NavigationItem = new UINavigationItem ();
 

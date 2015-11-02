@@ -15,10 +15,9 @@ namespace Cession.Tools
     {
         public AddPathTool (ToolManager toolManager) : base (toolManager)
         {
-            InitializeNavigationItem ();
         }
 
-        private void InitializeNavigationItem()
+        protected override void InitializeNavigationItem()
         {
             NavigationItem = new UINavigationItem ();
 
