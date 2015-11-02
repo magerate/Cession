@@ -34,11 +34,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="Cession.Commands">
+      <HintPath>..\bin\Cession.Commands.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assignments\" />
     <Folder Include="Utilities\" />
-    <Folder Include="Commands\" />
     <Folder Include="Alignments\" />
     <Folder Include="Products\" />
     <Folder Include="Diagrams\" />
@@ -50,15 +52,6 @@
   <ItemGroup>
     <Compile Include="Assignments\Assignment.cs" />
     <Compile Include="Utilities\EnumExtension.cs" />
-    <Compile Include="Commands\Command.cs" />
-    <Compile Include="Commands\CommandManager.cs" />
-    <Compile Include="Commands\CommandManagerExtension.cs" />
-    <Compile Include="Commands\FourArgumentCommand.cs" />
-    <Compile Include="Commands\MacroCommand.cs" />
-    <Compile Include="Commands\OneArgumentCommand.cs" />
-    <Compile Include="Commands\ThreeArgumentCommand.cs" />
-    <Compile Include="Commands\TwoArgumentCommand.cs" />
-    <Compile Include="Commands\ZeroArgumentCommand.cs" />
     <Compile Include="Alignments\AlignRule.cs" />
     <Compile Include="Alignments\AndRule.cs" />
     <Compile Include="Alignments\OrRule.cs" />

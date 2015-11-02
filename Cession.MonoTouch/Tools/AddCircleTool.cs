@@ -4,6 +4,7 @@ using Cession.Diagrams;
 
 using G = Cession.Geometries;
 using D = Cession.Diagrams;
+using Cession.Commands;
 
 namespace Cession.Tools
 {
@@ -18,7 +19,8 @@ namespace Cession.Tools
             Point center = G.Segment.GetCenter (StartPoint.Value, EndPoint.Value);
             double radius = Point.DistanceBetween (StartPoint.Value, EndPoint.Value) / 2;
             var circle = new D.Circle (center, radius);
-            CommandManager.ExecuteListAdd (CurrentLayer.Shapes, circle);
+            var command = Command.CreateListAdd(CurrentLayer.Shapes, circle);
+            CommandManager.Execute (command);
         }
 
         protected override void DoDrawDragDrop (DrawingContext drawingContext)

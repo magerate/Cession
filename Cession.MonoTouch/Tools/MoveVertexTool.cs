@@ -5,6 +5,7 @@ using Cession.Handles;
 using Cession.Drawing;
 using Cession.Diagrams;
 using Cession.Geometries;
+using Cession.Commands;
 using D = Cession.Diagrams;
 using UIKit;
 
@@ -57,11 +58,15 @@ namespace Cession.Tools
                 segment = segment.Next;
 
             if (segment != null)
-                CommandManager.Execute (EndPoint.Value, segment.Point1, segment.MoveVertex);
+            {
+                var command = Command.Create (EndPoint.Value, segment.Point1, segment.MoveVertex);
+                CommandManager.Execute (command);
+            }
             else
             {
                 Polyline polyline = _handle.Shape.Parent as Polyline;
-                CommandManager.Execute (EndPoint.Value, polyline.LastPoint, polyline.MoveLastPoint);
+                var command = Command.Create (EndPoint.Value, polyline.LastPoint, polyline.MoveLastPoint);
+                CommandManager.Execute (command);
             }
         }
     }

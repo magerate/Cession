@@ -5,6 +5,7 @@ using CoreGraphics;
 using Cession.Diagrams;
 using Cession.Drawing;
 using Cession.Geometries;
+using Cession.Commands;
 
 namespace Cession.Tools
 {
@@ -26,7 +27,8 @@ namespace Cession.Tools
         {
             var rect = Rect.FromPoints (StartPoint.Value, EndPoint.Value);
             Rectangle rs = new Rectangle (rect);
-            CommandManager.ExecuteListAdd (CurrentLayer.Shapes, rs);
+            var command = Command.CreateListAdd(CurrentLayer.Shapes, rs);
+            CommandManager.Execute (command);
         }
     }
 }

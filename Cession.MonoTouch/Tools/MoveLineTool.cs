@@ -63,7 +63,8 @@ namespace Cession.Tools
             LineSegment line = _handle.Line;
             var pair = _handle.MoveLine (EndPoint.Value);
             var oldPair = new Tuple<Point,Point> (line.Point1, line.Point2);
-            CommandManager.Execute (line, pair, oldPair, (l, p) => l.Move (p));
+            var command = Command.Create (line, pair, oldPair, (l, p) => l.Move (p));
+            CommandManager.Execute (command);
         }
     }
 }

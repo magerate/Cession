@@ -174,7 +174,8 @@ namespace Cession.Tools
 
         protected void ExecuteAddShape(Shape shape)
         {
-            CommandManager.ExecuteListAdd (CurrentLayer.Shapes, shape);
+            var command = Command.CreateListAdd (CurrentLayer.Shapes, shape);
+            CommandManager.Execute (command);
         }
 
     }

@@ -7,6 +7,7 @@ using Cession.Diagrams;
 using Cession.Geometries;
 using D = Cession.Diagrams;
 using UIKit;
+using Cession.Commands;
 
 namespace Cession.Tools
 {
@@ -44,7 +45,8 @@ namespace Cession.Tools
         {
             Point center = _handle.Circle.Center;
             double radius = center.DistanceBetween (EndPoint.Value);
-            CommandManager.Execute(_handle.Circle,radius,_handle.Circle.Radius,(c,r) => c.Radius = r);
+            var command = Command.Create(_handle.Circle,radius,_handle.Circle.Radius,(c,r) => c.Radius = r);
+            CommandManager.Execute (command);
         }
     }
 }

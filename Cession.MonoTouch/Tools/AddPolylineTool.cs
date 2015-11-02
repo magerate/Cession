@@ -8,6 +8,7 @@ using Cession.Geometries;
 using Cession.Drawing;
 using Cession.Diagrams;
 using Cession.UIKit;
+using Cession.Commands;
 
 namespace Cession.Tools
 {
@@ -95,7 +96,8 @@ namespace Cession.Tools
             if (Measurer.Points.Count > 1)
             {
                 var polyline = Measurer.ToPolyline ();
-                CommandManager.ExecuteListAdd (CurrentLayer.Shapes, polyline);
+                var command = Command.CreateListAdd(CurrentLayer.Shapes, polyline);
+                CommandManager.Execute (command);
             }
         }
     }

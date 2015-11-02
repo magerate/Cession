@@ -8,6 +8,7 @@ using Cession.Geometries;
 using Cession.Drawing;
 using Cession.Diagrams;
 using Cession.UIKit;
+using Cession.Commands;
 using G = Cession.Geometries;
 using D = Cession.Diagrams;
 
@@ -25,7 +26,8 @@ namespace Cession.Tools
             double radius = Point.DistanceBetween (StartPoint.Value, EndPoint.Value) / 2;
             var circle = new D.Circle (center, radius);
             var room = new Room (circle);
-            CommandManager.ExecuteListAdd (CurrentLayer.Shapes, room);
+            var command = Command.CreateListAdd (CurrentLayer.Shapes, room);
+            CommandManager.Execute (command);
         }
     }
 }

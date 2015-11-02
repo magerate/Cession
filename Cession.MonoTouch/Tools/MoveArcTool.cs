@@ -45,7 +45,8 @@ namespace Cession.Tools
         protected override void Commit ()
         {
             ArcSegment segment = _handle.ArcSegment;
-            CommandManager.ExecuteSetProperty (segment, EndPoint.Value, "PointOnArc");
+            var command = Command.CreateSetProperty(segment, EndPoint.Value, "PointOnArc");
+            CommandManager.Execute (command);
         }
     }
 }

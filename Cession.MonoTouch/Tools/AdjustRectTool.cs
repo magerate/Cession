@@ -5,6 +5,7 @@ using Cession.Handles;
 using Cession.Drawing;
 using Cession.Diagrams;
 using Cession.Geometries;
+using Cession.Commands;
 using D = Cession.Diagrams;
 using UIKit;
 
@@ -40,7 +41,8 @@ namespace Cession.Tools
         protected override void Commit ()
         {
             Rect rect = GetTargetRect ();
-            CommandManager.Execute (_handle.Rectangle, rect, _handle.Rectangle.Rect, (r, rc) => r.Rect = rc);
+            var command = Command.Create (_handle.Rectangle, rect, _handle.Rectangle.Rect, (r, rc) => r.Rect = rc);
+            CommandManager.Execute (command);
         }
 
         private Rect GetTargetRect()
