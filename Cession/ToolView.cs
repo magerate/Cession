@@ -155,7 +155,7 @@ namespace Cession
                 shape.DrawSelected (drawingContext);
 
                 //draw foldable shapes
-                var fs = shape.GetAncestor<IFoldableHost> ();
+                var fs = shape.GetAncestor<IFloatableHost> ();
                 if (null != fs)
                 {
                     foreach (var s in fs.GetFoldableShapes())

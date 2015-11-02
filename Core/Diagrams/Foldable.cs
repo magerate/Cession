@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace Cession.Diagrams
 {
-    public interface IFoldable
+    public interface IFloatable
     {
-        IFoldableHost Host{ get; }
+        IFloatableHost Host{ get; }
     }
 
-    public interface IFoldableHost
+    public interface IFloatableHost
     {
         IEnumerable<Shape> GetFoldableShapes();
     }

@@ -7,7 +7,7 @@ using Cession.Dimensions;
 
 namespace Cession.Diagrams
 {
-    public class Room:CompositeShape,IFoldableHost
+    public class Room:CompositeShape,IFloatableHost
     {
         public static readonly double DefaultWallThickness = Length.PixelsPerCentimeter * 20;
 
@@ -40,30 +40,30 @@ namespace Cession.Diagrams
         {
             _floor = new Floor (contour);
             _floor.Parent = this;
-            contour.ContourChanged += (s,e) =>
+            contour.ContourChanged += (s, e) =>
             {
-                RefreshOuterContour(s as ClosedShape);
-                RefreshLabelLocation(s as ClosedShape,true);
+                RefreshOuterContour (s as ClosedShape);
+                RefreshLabelLocation (s as ClosedShape, true);
             };
 
             RefreshOuterContour (contour);
 
             _label = new Label ("Room");
-            RefreshLabelLocation (contour,false);
+            RefreshLabelLocation (contour, false);
             _label.Parent = this;
             _label.Ability = ShapeAbility.CanOffset | ShapeAbility.CanSelect;
 
             _wallMediator = new WallSurfaceMediator (this, contour, Length.PixelsPerMeter * 3);
         }
 
-        private void RefreshOuterContour(ClosedShape contour)
+        private void RefreshOuterContour (ClosedShape contour)
         {
             _outerContour = contour.Inflate (DefaultWallThickness);
             _outerContour.Ability = ShapeAbility.None;
             _outerContour.Parent = this;
         }
 
-        private void RefreshLabelLocation(ClosedShape contour,bool isSideEffect)
+        private void RefreshLabelLocation (ClosedShape contour, bool isSideEffect)
         {
             Point location = contour.Center;
             location.X -= _label.Bounds.Width / 2;
@@ -83,10 +83,12 @@ namespace Cession.Diagrams
         }
 
         #region "IFoldable"
+
         public IEnumerable<Shape> GetFoldableShapes ()
         {
             return Walls;
         }
+
         #endregion
     }
 }

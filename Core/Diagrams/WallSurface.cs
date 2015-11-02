@@ -5,7 +5,7 @@ using Cession.Geometries;
 
 namespace Cession.Diagrams
 {
-    public class WallSurface:CompositeShape,IFoldable
+    public class WallSurface:CompositeShape,IFloatable
     {
         private Shape _shape;
 
@@ -41,9 +41,9 @@ namespace Cession.Diagrams
             get{ return _shape as Circle; }
         }
 
-        public IFoldableHost Host
+        public IFloatableHost Host
         {
-            get{ return Parent as IFoldableHost; }
+            get{ return Parent as IFloatableHost; }
         }
 
         public WallSurface (Shape shape,double height)
