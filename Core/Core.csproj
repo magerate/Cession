@@ -41,21 +41,17 @@
   <ItemGroup>
     <Folder Include="Assignments\" />
     <Folder Include="Utilities\" />
-    <Folder Include="Alignments\" />
     <Folder Include="Products\" />
     <Folder Include="Diagrams\" />
     <Folder Include="Mediators\" />
     <Folder Include="Dimensions\" />
     <Folder Include="Projects\" />
     <Folder Include="DataStructure\" />
+    <Folder Include="Aligning\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assignments\Assignment.cs" />
     <Compile Include="Utilities\EnumExtension.cs" />
-    <Compile Include="Alignments\AlignRule.cs" />
-    <Compile Include="Alignments\AndRule.cs" />
-    <Compile Include="Alignments\OrRule.cs" />
-    <Compile Include="Alignments\PointToPointRule.cs" />
     <Compile Include="Products\Product.cs" />
     <Compile Include="Products\ProductCategory.cs" />
     <Compile Include="Products\Enums.cs" />
@@ -107,15 +103,19 @@
     <Compile Include="Diagrams\LayoutProvider.cs" />
     <Compile Include="Diagrams\FlowLayoutProvider.cs" />
     <Compile Include="Diagrams\FanLayoutProvider.cs" />
-    <Compile Include="Alignments\AlignConstraint.cs" />
-    <Compile Include="Alignments\LineConstraint.cs" />
-    <Compile Include="Alignments\ArcConstraint.cs" />
-    <Compile Include="Alignments\CircleRule.cs" />
     <Compile Include="DataStructure\BinaryTree.cs" />
     <Compile Include="DataStructure\ITree.cs" />
     <Compile Include="DataStructure\IVisitor.cs" />
     <Compile Include="DataStructure\Guard.cs" />
     <Compile Include="DataStructure\OrderedVisitor.cs" />
+    <Compile Include="Aligning\AlignRule.cs" />
+    <Compile Include="Aligning\AndRule.cs" />
+    <Compile Include="Aligning\OrRule.cs" />
+    <Compile Include="Aligning\PointToPointRule.cs" />
+    <Compile Include="Aligning\AlignConstraint.cs" />
+    <Compile Include="Aligning\LineConstraint.cs" />
+    <Compile Include="Aligning\ArcConstraint.cs" />
+    <Compile Include="Aligning\CircleRule.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometries\Geometries.csproj">

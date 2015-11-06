@@ -49,6 +49,7 @@
     <Compile Include="Arc.cs" />
     <Compile Include="Clipper\clipper.cs" />
     <Compile Include="Size.cs" />
+    <Compile Include="PolygonAlgorithm.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
