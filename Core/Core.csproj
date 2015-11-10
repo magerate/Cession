@@ -117,11 +117,11 @@
     <Compile Include="Aligning\ArcConstraint.cs" />
     <Compile Include="Aligning\CircleRule.cs" />
   </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\Geometries\Geometries.csproj">
-      <Project>{5815701A-38EF-415C-9783-D78594144A82}</Project>
-      <Name>Geometries</Name>
+    <ProjectReference Include="..\..\Geometries\src\Cession.Geometries\Cession.Geometries.csproj">
+      <Project>{0B25DDCE-3544-4F46-B6E5-88A605A28615}</Project>
+      <Name>Cession.Geometries</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

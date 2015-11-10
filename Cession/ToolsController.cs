@@ -59,7 +59,7 @@ namespace Cession.UIKit
             var polygonItem = new DetailMenuItem ();
             polygonItem.Title = "Add Polygon";
             polygonItem.Image = ImageHelper.GetTemplateImage (ImageFiles.Polygon25);
-            polygonItem.Tag = typeof(AddPathTool);
+            polygonItem.Tag = typeof(ClipTestTool);
             polygonItem.Action = toolSelector;
             section.Items.Add (polygonItem);
 

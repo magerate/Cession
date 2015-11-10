@@ -143,15 +143,16 @@
     <Compile Include="Drawing\CGTypeExtensions.cs" />
     <Compile Include="Drawing\WallSurfaceDrawer.cs" />
     <Compile Include="Tools\DivideCircleTool.cs" />
+    <Compile Include="Tools\ClipTestTool.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Geometries\Geometries.csproj">
-      <Project>{5815701A-38EF-415C-9783-D78594144A82}</Project>
-      <Name>Geometries</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{F25F6954-2A81-4E4F-A2C0-EDF47B0A3F52}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Geometries\src\Cession.Geometries\Cession.Geometries.csproj">
+      <Project>{0B25DDCE-3544-4F46-B6E5-88A605A28615}</Project>
+      <Name>Cession.Geometries</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

@@ -114,6 +114,18 @@ namespace Cession.Drawing
             }
         }
 
+        public void BuildPath(IList<Point> polygon)
+        {
+            for (int i = 0; i < polygon.Count; i++)
+            {
+                if (i == 0)
+                    MoveToPoint (polygon [i]);
+                else
+                    AddLineToPoint (polygon [i]);
+            }
+            _context.ClosePath ();
+        }
+
         public void BuildCirclePath(D.Circle circle)
         {
             CGRect rect = circle.Bounds.ToCGRect();
@@ -282,6 +294,12 @@ namespace Cession.Drawing
         public void FillCloseShape(ClosedShape closedShape)
         {
             BuildClosedShapePath (closedShape);
+            _context.DrawPath (CGPathDrawingMode.Fill);
+        }
+
+        public void FillPolygon(IList<Point> polygon)
+        {
+            BuildPath (polygon);
             _context.DrawPath (CGPathDrawingMode.Fill);
         }
 
