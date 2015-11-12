@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 
 using CoreGraphics;
 using Foundation;
@@ -300,7 +300,7 @@ namespace Cession.Drawing
         public void FillPolygon(IList<Point> polygon)
         {
             BuildPath (polygon);
-            _context.DrawPath (CGPathDrawingMode.Fill);
+            _context.DrawPath (CGPathDrawingMode.EOFill);
         }
 
         public void SaveState()
