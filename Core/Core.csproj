@@ -116,6 +116,7 @@
     <Compile Include="Aligning\LineConstraint.cs" />
     <Compile Include="Aligning\ArcConstraint.cs" />
     <Compile Include="Aligning\CircleRule.cs" />
+    <Compile Include="clipper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
