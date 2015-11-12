@@ -15,10 +15,14 @@ namespace Cession.Tools
 {
     public static class ClipH
     {
-        public static List<List<Point>> Clip(Point[] subject, Point[] clip)
+        public static Point[][] Clip(Point[] subject, Point[] clip)
         {
-            var result = Clipper.Clip (subject.ToLinkList (), clip.ToLinkList ());
-            return result.Select (l => l.Select (v => v.ToPoint ()).ToList ()).ToList ();
+            var v1 = subject.ToLinkList ();
+            var v2 = clip.ToLinkList ();
+            var result = Clipper.Intersect (v1, v2);
+            var pa = result.Select (l => l.Select (v => v.ToPoint()).ToArray ()).ToArray ();
+
+            return pa;
         }
     }
 
@@ -26,7 +30,7 @@ namespace Cession.Tools
     {
         private Point[] polygon1;
         private Point[] polygon2;
-        private List<List<Point>> result;
+        private Point[][] result;
 
         public ClipTestTool (ToolManager toolManager) : base (toolManager)
         {
@@ -82,6 +86,7 @@ namespace Cession.Tools
                 foreach (var p in result)
                 {
                     drawingContext.SaveState ();
+                    drawingContext.CGContext.SetAlpha (.5f);
                     UIColor.Red.SetFill ();
                     drawingContext.FillPolygon (p);
                     drawingContext.RestoreState ();
