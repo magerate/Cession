@@ -84,7 +84,7 @@ namespace Cession.Tools
                     drawingContext.SaveState ();
                     var color = GetRandomColor ();
                     color.SetFill ();
-                    drawingContext.FillPolygon (result[i]);
+                    drawingContext.DrawPolygon (result[i]);
                     drawingContext.RestoreState ();
                 }
             }

@@ -303,6 +303,12 @@ namespace Cession.Drawing
             _context.DrawPath (CGPathDrawingMode.EOFill);
         }
 
+        public void DrawPolygon(IList<Point> polygon)
+        {
+            BuildPath (polygon);
+            _context.DrawPath (CGPathDrawingMode.EOFillStroke);
+        }
+
         public void SaveState()
         {
             _context.SaveState ();
